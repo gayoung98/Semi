@@ -29,17 +29,16 @@
 	float: left;
 	position: fixed;
 	top: 0;
-	width: 20%;
+	width: 15%;
 	text-align: center;
 	position: fixed;
 }
-
-.writebox{
+.writebox {
 	float: left;
 	position: fixed;
 	top: 0;
-	left :35%;
-	width: 50%;
+	left: 15%;
+	width: 100%;
 	text-align: center;
 	position: fixed;
 }
@@ -90,7 +89,7 @@
 .input-div {
 	position: fixed;
 	top: 0;
-	width: 50%;
+	width: 70%;
 	float: right;
 	background-color: #FFF;
 	text-align: center;
@@ -110,6 +109,17 @@
 
 .format {
 	display: none;
+}
+
+#inquire {
+	position: fixed;
+	bottom: 10%;
+	right: 10%;
+	width: 50px;
+}
+
+img {
+	width: 100%;
 }
 </style>
 <script>
@@ -150,30 +160,35 @@
 	})();
 
 	$(function() {
-		$.ajax({
-			url : "${pageContext.request.contextPath}/listchat.main",
-			type : "get",
-			dataType : "json"
-		}).done(function(resp) {
-			for (var i = 0; i < resp.length; i++) {
-				if (resp[i].writer == "blue") {
-					let msgBox = $("<div class=\"msgBox\">");
-					let msg = $("<div class=\"msg1\">");
-					msgBox.attr("style", "text-align:right");
-					msg.text(resp[i].chat);
-					$(msgBox).append(msg);
-
-					$("#message").prepend(msgBox);
-				} else {
-					let msgBox = $("<div class=\"msgBox\">");
-					let msg = $("<div class=\"msg2\">");
-					msg.text(resp[i].chat);
-					$(msgBox).append(msg);
-
-					$("#message").prepend(msgBox);
-
-				}
-			}
+		$(window).scroll(function(){
+	     if(window.innerHeight+ window.scrollY>= document.body.offsetHeight){
+				let count =2;
+				$.ajax({
+					url : "${pageContext.request.contextPath}/listchat.main",
+					type : "get",
+					data : {"count":count++},
+					dataType : "json"
+				}).done(function(resp) {
+					for (var i = 0; i < resp.length; i++) {
+						if (resp[i].writer === "blue") {
+							let msgBox = $("<div class=\"msgBox\">");
+							let msg = $("<div class=\"msg1\">");
+							msgBox.attr("style", "text-align:right");
+							msg.text(resp[i].chat);
+							$(msgBox).append(msg);
+							$("#message").prepend(msgBox);
+						} else {
+							let msgBox = $("<div class=\"msgBox\">");
+							let msg = $("<div class=\"msg2\">");
+							msg.text(resp[i].chat);
+							$(msgBox).append(msg);
+		
+							$("#message").prepend(msgBox);
+		
+						}
+					}
+				})
+	          }
 		})
 		Chat.init();
 
@@ -184,17 +199,15 @@
 
 <body>
 
-	<div class="chat_wrap">
-		<div class="card" style="width: 20%;">
-			<img src="profile.png" class="card-img-top" alt="...">
-			<p class="card-text">닉네임 님</p>
-			<p class="card-text">종로 지점</p>
-			<p class="card-text">E class</p>
-			<div class="card-body">
-				<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
-					id="logout" class="card-link">로그아웃</a>
-			</div>
+	<div class="card" style="width: 15%;">
+		<img src="profile.png" class="card-img-top" alt="...">
+		<p class="card-text">닉네임 님</p>
+		<div class="card-body">
+			<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
+				id="logout" class="card-link">로그아웃</a>
 		</div>
+	</div>
+	<div class="chat_wrap">
 		<div class="writebox">
 			<form action="${pageContext.request.contextPath}/writechat.main"
 				method="post" id="submit">
@@ -209,13 +222,29 @@
 				<div class="chat">
 					<ul id="message">
 						<!-- 동적 생성 -->
+						<c:forEach var="item" items="${firstlist }">
+							<c:if test="${item.writer == blue}">
+								<div class = "msgBox" style ="text-align:right">
+								<div class = "msg1">
+										${item.chat}
+								</div>
+							</div>
+							</c:if>
+							<div class = "msgBox">
+								<div class = "msg2">
+										${item.chat}
+								</div>
+							</div>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
 		</div>
 
 	</div>
-	<div id="inquire"></div>
+	<div id="inquire">
+		<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
+	</div>
 
 </body>
 

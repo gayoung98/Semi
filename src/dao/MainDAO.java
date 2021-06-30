@@ -33,7 +33,7 @@ public class MainDAO {
 	}
 
 	public int writechat(String chat)throws Exception{
-		String sql = "insert into chatboard2 values('blue',?)";
+		String sql = "insert into chatboard3 values(chatBoard_SEQ.nextval, 'blue',?)";
 		try(Connection con =  this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, chat);
@@ -43,18 +43,34 @@ public class MainDAO {
 
 	}
 	public List<MainDTO> getAllList() throws Exception{
-		String sql = "select * from chatboard2";
+		String sql = "select * from chatboard3";
 		List<MainDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery();
 				){
 			while(rs.next()) {
-				list.add(new MainDTO(rs.getString(1), rs.getString(2)));
+				list.add(new MainDTO(rs.getInt(1),rs.getString(2),rs.getString(3)));
 			}
 			return list;
 		}
 	}
+	public List<MainDTO> likeFacebook(int viewcount,int index) throws Exception{
+	      String sql = "select * from(select row_number() over(order by seq desc) rnum, seq, writer, chat from chatboard3) where rnum between ? and ?";
+	      List<MainDTO> li = new ArrayList();
+	      try(Connection conn = this.getConnection();
+	         PreparedStatement psmt = conn.prepareStatement(sql)){
+	         psmt.setInt(1, 1+viewcount*(index-1));
+	         psmt.setInt(2, viewcount*index);
+	         try(ResultSet rs = psmt.executeQuery()){
+	            while(rs.next()) {
+	               li.add(new MainDTO(rs.getInt(2),rs.getString(3),rs.getString(4)));
+	            }
+	         }
+	         return li;
+	      }
+	   }
+
 }
 
 
