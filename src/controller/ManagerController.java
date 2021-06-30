@@ -47,9 +47,12 @@ public class ManagerController extends HttpServlet {
 				}else {
 					response.sendRedirect("manager/login.jsp");
 				}
-			}else if(url.contentEquals("/logout.manager")) {
+			}else if(url.contentEquals("/logout.manager")) {   // 로그아웃 
 				request.getSession().invalidate();
 				response.sendRedirect("manager/login.jsp");
+			}else if (url.contentEquals("/teacher.manager")) {
+				String branch = request.getParameter("branch");
+				System.out.println(branch);
 			}
 			
 	}catch(Exception e) {

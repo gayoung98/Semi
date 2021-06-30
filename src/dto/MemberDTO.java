@@ -14,7 +14,7 @@ public class MemberDTO {
    private String position;
    private Date signUpDate;
    
-   public MemberDTO(int seq, String email, String pw, String name, String phone, String id, String khClass, String branch, String position, Date singUpDate) {
+   public MemberDTO(int seq, String email, String pw, String name, String phone, String id, String khClass, String branch, String position, Date signUpDate) {
       this.seq = seq;
       this.email = email;
       this.pw = pw;
@@ -27,7 +27,7 @@ public class MemberDTO {
       this.signUpDate = signUpDate;
    }
    
-   public MemberDTO(String email, String pw, String name, String phone, String id, String khClass, String branch, String position, Date singUpDate) {
+   public MemberDTO(String email, String pw, String name, String phone, String id, String khClass, String branch, String position, Date signUpDate) {
       this.email = email;
       this.pw = pw;
       this.name = name;

@@ -14,7 +14,7 @@
 			<li><a href="#">회원 관리 <i class="fas fa-caret-down"></i></a>
 				<ul class="submenu">
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.member/teacher.jsp">강사
+						href="${pageContext.request.contextPath}/teacher.manager?branch=all&currentPage=1">강사
 							정보</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/manager/manager.member/student.jsp">학생
