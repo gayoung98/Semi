@@ -34,6 +34,16 @@
 	position: fixed;
 }
 
+.writebox{
+	float: left;
+	position: fixed;
+	top: 0;
+	left :35%;
+	width: 50%;
+	text-align: center;
+	position: fixed;
+}
+
 /* sns */
 .chat_wrap .chat ul {
 	list-style: none;
