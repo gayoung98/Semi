@@ -25,7 +25,7 @@
 			<div class="container">
 				<header>
 					<div>
-						<h1>학생 정보</h1>
+						<h1>게시판 관리</h1>
 					</div>
 					<a href="">전체</a><a href="">종로</a> <a href="">당산</a> <a href="">강남</a>
 				</header>
@@ -36,4 +36,4 @@
 		</div>
 	</div>
 </body>
-</html>
+</html>>
