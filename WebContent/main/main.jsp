@@ -19,36 +19,50 @@
 	padding: 0;
 }
 
-
-/* sns */
 .chat_wrap {
 	width: 70%;
 	position: absolute;
 	left: 15%;
 }
 
+.card {
+	float: left; position : fixed;
+	top: 0;
+	width: 20%;
+	text-align: center;
+	position: fixed;
+}
+
+/* sns */
 .chat_wrap .chat ul {
 	list-style: none;
 }
 
-.chat_wrap .chat ul li.left {
-	text-align: left;
-}
-
-.chat_wrap .chat ul li.right {
-	text-align: right;
-}
-
-.chat_wrap .chat ul li>div {
+#message>div {
+	display: block;
+	word-break: break-all;
+	margin: 5px 20px;
+	padding: 10px;
+	border-radius: 5px;
 	font-size: 18px;
 }
 
-.chat_wrap .chat ul li>div.sender {
-	margin: 10px 20px 0 20px;
-	font-weight: bold;
+#message>div>.msg1 {
+	display: inline-block;
+	word-break: break-all;
+	margin: 5px 20px;
+	max-width: 75%;
+	border: 1px solid #888;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #FFE194;
+	color: #555;
+	text-align: right;
+	font-size: 18px;
+	word-break: break-all;
 }
 
-.chat_wrap .chat ul li>div.message {
+#message>div>.msg2 {
 	display: inline-block;
 	word-break: break-all;
 	margin: 5px 20px;
@@ -59,12 +73,14 @@
 	background-color: #FCFCFC;
 	color: #555;
 	text-align: left;
+	font-size: 18px;
 }
 
 .input-div {
 	position: fixed;
 	top: 0;
-	width: 70%;
+	width: 50%;
+	float: right;
 	background-color: #FFF;
 	text-align: center;
 	border-bottom: 1px solid #F18C7E;
@@ -86,109 +102,101 @@
 }
 </style>
 <script>
-        /* sns */
-        const Chat = (function () {
-            const myName = "blue";
+	/* sns */
+	let writechat = document.getElementById("wirtechat");
 
-            // init 함수
-            function init() {
-                // enter 키 이벤트
-                $(document).on('keydown', 'div.input-div input', function (e) {
-                    if (e.keyCode == 13 && !e.shiftKey) {
-                        e.preventDefault();
-                        const message = $(this).val();
+	const Chat = (function() {
+		const myName = "blue";
 
-                        // 메시지 전송
-                        sendMessage(message);
-                        // 입력창 clear
-                        clearInput();
-                    }
-                });
-            }
+		// init 함수
+		function init() {
+			// enter 키 이벤트
+			$(document).on('keydown', 'div.input-div input', function(e) {
 
-            // 메세지 태그 생성
-            function createMessageTag(LR_className, senderName, message) {
-                // 형식 가져오기
-                let chatLi = $('div.chat.format ul li').clone();
+				if (e.keyCode == 13 && !e.shiftKey) {
+					document.getElementById("submit").submit();
+					e.preventDefault();
+					const message = $(this).val();
 
-                // 값 채우기
-                chatLi.addClass(LR_className);
-                chatLi.find('.sender span').text(senderName);
-                chatLi.find('.message span').text(message);
+					// 메시지 전송
 
-                return chatLi;
-            }
+					// 입력창 clear
+					clearInput();
 
-            // 메세지 태그 append
-            function appendMessageTag(LR_className, senderName, message) {
-                const chatLi = createMessageTag(LR_className, senderName, message);
+				}
 
-                $('div.chat:not(.format) ul').prepend(chatLi);
+			});
+		}
 
-                // 스크롤바 아래 고정
-                $('div.chat').scrollTop($('div.chat').prop('scrollHeight'));
-            }
+		// 메세지 입력박스 내용 지우기
+		function clearInput() {
+			$('div.input-div input').val('');
+		}
 
-            // 메세지 전송
-            function sendMessage(message) {
-                // 서버에 전송하는 코드로 후에 대체
-                const data = {
-                    "senderName": "blue",
-                    "message": message
-                };
+		return {
+			'init' : init
+		};
+	})();
 
-                // 통신하는 기능이 없으므로 여기서 receive
-                resive(data);
-            }
+	$(function() {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/listchat.main",
+			type : "get",
+			dataType : "json"
+		}).done(function(resp) {
+			for (var i = 0; i < resp.length; i++) {
+				if (resp[i].writer == "blue") {
+					let msgBox = $("<div class=\"msgBox\">");
+					let msg = $("<div class=\"msg1\">");
+					msgBox.attr("style", "text-align:right");
+					msg.text(resp[i].chat);
+					$(msgBox).append(msg);
 
-            // 메세지 입력박스 내용 지우기
-            function clearInput() {
-                $('div.input-div input').val('');
-            }
+					$("#message").prepend(msgBox);
+				} else {
+					let msgBox = $("<div class=\"msgBox\">");
+					let msg = $("<div class=\"msg2\">");
+					msg.text(resp[i].chat);
+					$(msgBox).append(msg);
 
-            // 메세지 수신
-            function resive(data) {
-                const LR = (data.senderName != myName) ? "left" : "right";
-                appendMessageTag("right", data.senderName, data.message);
-            }
+					$("#message").prepend(msgBox);
 
-            return {
-                'init': init
-            };
-        })();
+				}
+			}
+		})
+		Chat.init();
 
-        $(function () {
-            Chat.init();
-        });
-
-
-    </script>
+	});
+</script>
 
 </head>
 
 <body>
 
 	<div class="chat_wrap">
-		<div class="input-div">
-			<input type=text placeholder="Press Enter for send message.">
-		</div>
-
-		<div class="chat format">
-			<ul>
-				<li>
-					<div class="sender">
-						<span></span>
-					</div>
-					<div class="message">
-						<span></span>
-					</div>
-				</li>
-			</ul>
+		<div class="container">
+			<div class="card" style="width: 20%;">
+				<img src="profile.png" class="card-img-top" alt="...">
+				<p class="card-text">닉네임 님</p>
+				<p class="card-text">종로 지점</p>
+				<p class="card-text">E class</p>
+				<div class="card-body">
+					<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
+						id="logout" class="card-link">로그아웃</a>
+				</div>
+			</div>
+			<form action="${pageContext.request.contextPath}/writechat.main"
+				method="post" id="submit">
+				<div class="input-div">
+					<input type=text id="writechat" name="writechat"
+						placeholder="Press Enter for send message.">
+				</div>
+			</form>
 		</div>
 		<div class="wrapper">
 			<div class="big-box">
 				<div class="chat">
-					<ul>
+					<ul id="message">
 						<!-- 동적 생성 -->
 					</ul>
 				</div>
@@ -196,6 +204,7 @@
 		</div>
 
 	</div>
+	<div id="inquire"></div>
 
 </body>
 
