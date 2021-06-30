@@ -26,7 +26,8 @@
 }
 
 .card {
-	float: left; position : fixed;
+	float: left;
+	position: fixed;
 	top: 0;
 	width: 20%;
 	text-align: center;
@@ -174,17 +175,17 @@
 <body>
 
 	<div class="chat_wrap">
-		<div class="container">
-			<div class="card" style="width: 20%;">
-				<img src="profile.png" class="card-img-top" alt="...">
-				<p class="card-text">닉네임 님</p>
-				<p class="card-text">종로 지점</p>
-				<p class="card-text">E class</p>
-				<div class="card-body">
-					<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
-						id="logout" class="card-link">로그아웃</a>
-				</div>
+		<div class="card" style="width: 20%;">
+			<img src="profile.png" class="card-img-top" alt="...">
+			<p class="card-text">닉네임 님</p>
+			<p class="card-text">종로 지점</p>
+			<p class="card-text">E class</p>
+			<div class="card-body">
+				<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
+					id="logout" class="card-link">로그아웃</a>
 			</div>
+		</div>
+		<div class="writebox">
 			<form action="${pageContext.request.contextPath}/writechat.main"
 				method="post" id="submit">
 				<div class="input-div">
