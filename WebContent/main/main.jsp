@@ -33,6 +33,7 @@
 	text-align: center;
 	position: fixed;
 }
+
 .writebox {
 	float: left;
 	position: fixed;
@@ -170,7 +171,7 @@ img {
 					dataType : "json"
 				}).done(function(resp) {
 					for (var i = 0; i < resp.length; i++) {
-						if (resp[i].writer === "blue") {
+						if (resp[i].writer == "blue") {
 							let msgBox = $("<div class=\"msgBox\">");
 							let msg = $("<div class=\"msg1\">");
 							msgBox.attr("style", "text-align:right");
@@ -224,17 +225,15 @@ img {
 						<!-- 동적 생성 -->
 						<c:forEach var="item" items="${firstlist }">
 							<c:if test="${item.writer == blue}">
-								<div class = "msgBox" style ="text-align:right">
-								<div class = "msg1">
-										${item.chat}
+								<div class="msgBox" style="text-align: right">
+									<div class="msg1">${item.chat}</div>
 								</div>
-							</div>
 							</c:if>
-							<div class = "msgBox">
-								<div class = "msg2">
-										${item.chat}
+							<c:if test="${item.writer != blue}">
+								<div class="msgBox" >
+									<div class="msg2">${item.chat}</div>
 								</div>
-							</div>
+							</c:if>
 						</c:forEach>
 					</ul>
 				</div>
