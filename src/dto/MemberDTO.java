@@ -39,7 +39,21 @@ public class MemberDTO {
       this.signUpDate = signUpDate;
    }
    
-   public MemberDTO(String id, String khClass, String branch) {
+   public MemberDTO(String email, String name, String phone, String id, String khClass, String branch,
+		String position, Date signUpDate) {
+	
+	
+	this.email = email;
+	this.name = name;
+	this.phone = phone;
+	this.id = id;
+	this.khClass = khClass;
+	this.branch = branch;
+	this.position = position;
+	this.signUpDate = signUpDate;
+}
+
+public MemberDTO(String id, String khClass, String branch) {
       this.id = id;
       this.khClass = khClass;
       this.branch = branch;
