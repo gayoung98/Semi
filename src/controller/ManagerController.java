@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import config.ManagerConfig;
 import dao.ManagerDAO;
+import dto.FreeBoardDTO;
 import dto.MemberDTO;
 
 
@@ -66,8 +67,8 @@ public class ManagerController extends HttpServlet {
 				String position =ManagerConfig.teacher;
 		
 				
-				List<MemberDTO> teacherList=managerDao.getPageList(position,startNum, endNum,branch,category,search);
-				List<String> pageNavi = managerDao.getPageNavi(currentPage,category,search,position,branch);
+				List<MemberDTO> teacherList=managerDao.getMemberPageList(position,startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getMemberPageNavi(currentPage,category,search,position,branch);
 				request.setAttribute("list", teacherList);
 				request.setAttribute("navi", pageNavi);
 				request.setAttribute("page", currentPage);
@@ -86,8 +87,8 @@ public class ManagerController extends HttpServlet {
 				String position =ManagerConfig.student;
 		
 				
-				List<MemberDTO> teacherList=managerDao.getPageList(position,startNum, endNum,branch,category,search);
-				List<String> pageNavi = managerDao.getPageNavi(currentPage,category,search,position,branch);
+				List<MemberDTO> teacherList=managerDao.getMemberPageList(position,startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getMemberPageNavi(currentPage,category,search,position,branch);
 				request.setAttribute("list", teacherList);
 				request.setAttribute("navi", pageNavi);
 				request.setAttribute("page", currentPage);
@@ -95,6 +96,26 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("category", category);
 				request.setAttribute("search", search);
 				request.getRequestDispatcher("manager/manager.member/student.jsp").forward(request,response);
+				
+			}else if(url.contentEquals("/boardList.manager")) {
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
+				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
+			
+		
+				
+				List<FreeBoardDTO> boardList=managerDao.getBoardPageList(startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getBoardPageNavi(currentPage,category,search,branch);
+				request.setAttribute("list", boardList);
+				request.setAttribute("navi", pageNavi);
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/boardList.jsp").forward(request,response);
 				
 			}
 			

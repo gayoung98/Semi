@@ -44,12 +44,12 @@
 						<table class="table">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">seq</th>
-									<th scope="col">branch</th>
-									<th scope="col">khclass</th>
-									<th scope="col">id</th>
-									<th scope="col">name</th>
-									<th scope="col">email</th>
+									<th scope="col">번호</th>
+									<th scope="col">지점</th>
+									<th scope="col">반</th>
+									<th scope="col">학번</th>
+									<th scope="col">이름</th>
+									<th scope="col">가입일</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -60,7 +60,7 @@
 									<td>${i.khClass}</td>
 									<td>${i.id }</td>
 									<td>${i.name }</td>
-									<td>${i.email}</td>
+									<td>${i.signUpDate}</td>
 								</tr>
 									</c:forEach>
 							</tbody>

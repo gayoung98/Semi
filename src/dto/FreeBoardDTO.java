@@ -17,16 +17,16 @@ public class FreeBoardDTO {
 
 	    private String id;
 
-	    private Date write_date;
+	    private Date writeDate;
 
 	    private int viewCount;
 
 	    private int policeCount;
 	    
-	    public FreeBoardDTO() {};
-	    
-	    public FreeBoardDTO(int seq, String branch, String writer, String title, String contents, String id,
-				Date write_date, int viewCount, int policeCount) {
+	    public FreeBoardDTO() {}
+
+		public FreeBoardDTO(int seq, String branch, String writer, String title, String contents, String id,
+				Date writeDate, int viewCount, int policeCount) {
 			super();
 			this.seq = seq;
 			this.branch = branch;
@@ -34,84 +34,83 @@ public class FreeBoardDTO {
 			this.title = title;
 			this.contents = contents;
 			this.id = id;
-			this.write_date = write_date;
+			this.writeDate = writeDate;
 			this.viewCount = viewCount;
 			this.policeCount = policeCount;
 		}
 
+		public int getSeq() {
+			return seq;
+		}
 
-	    public int getSeq() {
-	        return seq;
-	    }
+		public void setSeq(int seq) {
+			this.seq = seq;
+		}
 
-	    public void setSeq(int seq) {
-	        this.seq = seq;
-	    }
+		public String getBranch() {
+			return branch;
+		}
 
-	    public String getBranch() {
-	        return branch;
-	    }
+		public void setBranch(String branch) {
+			this.branch = branch;
+		}
 
-	    public void setBranch(String branch) {
-	        this.branch = branch;
-	    }
+		public String getWriter() {
+			return writer;
+		}
 
-	    public String getWriter() {
-	        return writer;
-	    }
+		public void setWriter(String writer) {
+			this.writer = writer;
+		}
 
-	    public void setWriter(String writer) {
-	        this.writer = writer;
-	    }
+		public String getTitle() {
+			return title;
+		}
 
-	    public String getTitle() {
-	        return title;
-	    }
+		public void setTitle(String title) {
+			this.title = title;
+		}
 
-	    public void setTitle(String title) {
-	        this.title = title;
-	    }
+		public String getContents() {
+			return contents;
+		}
 
-	    public String getContents() {
-	        return contents;
-	    }
+		public void setContents(String contents) {
+			this.contents = contents;
+		}
 
-	    public void setContents(String contents) {
-	        this.contents = contents;
-	    }
+		public String getId() {
+			return id;
+		}
 
-	    public String getId() {
-	        return id;
-	    }
+		public void setId(String id) {
+			this.id = id;
+		}
 
-	    public void setId(String id) {
-	        this.id = id;
-	    }
+		public Date getWriteDate() {
+			return writeDate;
+		}
 
-	    public Date getWriteDate() {
-	        return write_date;
-	    }
+		public void setWriteDate(Date writeDate) {
+			this.writeDate = writeDate;
+		}
 
-	    public void setWriteDate(Date write_date) {
-	        this.write_date = write_date;
-	    }
+		public int getViewCount() {
+			return viewCount;
+		}
 
-	    public int getViewcount() {
-	        return viewCount;
-	    }
+		public void setViewCount(int viewCount) {
+			this.viewCount = viewCount;
+		}
 
-	    public void setViewcount(int viewCount) {
-	        this.viewCount = viewCount;
-	    }
+		public int getPoliceCount() {
+			return policeCount;
+		}
 
-	    public int getPolicecount() {
-	        return policeCount;
-	    }
-
-	    public void setPolicecount(int policeCount) {
-	        this.policeCount = policeCount;
-	    }
-
-	
+		public void setPoliceCount(int policeCount) {
+			this.policeCount = policeCount;
+		}
+	    
+	   
 	
 }
