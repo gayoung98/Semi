@@ -31,7 +31,7 @@
 				 <jsp:include page="../menu.jsp"></jsp:include>
 				<div>
 					<div class="container">
-					<h1>게시물 신고 관리</h1>
+					<h1>SNS 신고 관리</h1>
 						<div class="content">
 							<div class="col">dasd</div>
 
