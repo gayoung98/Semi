@@ -17,7 +17,7 @@
 						href="${pageContext.request.contextPath}/teacher.manager?branch=all&currentPage=1&category=&search=">강사
 							정보</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.member/student.jsp">학생
+						href="${pageContext.request.contextPath}/student.manager?branch=all&currentPage=1&category=&search=">학생
 							정보</a></li>
 					<li><a href="#">로그 기록</a></li>
 				</ul></li>

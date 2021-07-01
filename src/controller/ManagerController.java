@@ -76,6 +76,26 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("search", search);
 				request.getRequestDispatcher("manager/manager.member/teacher.jsp").forward(request,response);
 				
+			}else if (url.contentEquals("/student.manager")) {      // 강사 목록
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
+				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
+				String position =ManagerConfig.student;
+		
+				
+				List<MemberDTO> teacherList=managerDao.getPageList(position,startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getPageNavi(currentPage,category,search,position,branch);
+				request.setAttribute("list", teacherList);
+				request.setAttribute("navi", pageNavi);
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.member/student.jsp").forward(request,response);
+				
 			}
 			
 		
