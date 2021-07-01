@@ -56,7 +56,7 @@ public class MainDAO {
 		}
 	}
 	public List<MainDTO> likeFacebook(int viewcount,int index) throws Exception{
-	      String sql = "select * from(select row_number() over(order by seq desc) rnum, seq, writer, chat from chatboard3) where rnum between ? and ?";
+	      String sql = "select * from(select row_number() over(order by seq desc) rnum, seq, writer, chat from chatboard3 where chat is not null) where rnum between ? and ?";
 	      List<MainDTO> li = new ArrayList();
 	      try(Connection conn = this.getConnection();
 	         PreparedStatement psmt = conn.prepareStatement(sql)){
@@ -64,7 +64,7 @@ public class MainDAO {
 	         psmt.setInt(2, viewcount*index);
 	         try(ResultSet rs = psmt.executeQuery()){
 	            while(rs.next()) {
-	               li.add(new MainDTO(rs.getInt(2),rs.getString(3),rs.getString(4)));
+	            	li.add(new MainDTO(rs.getInt(2),rs.getString(3),rs.getString(4)));
 	            }
 	         }
 	         return li;

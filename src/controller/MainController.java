@@ -33,13 +33,14 @@ public class MainController extends HttpServlet {
 				String chat = request.getParameter("writechat");
 				int result = dao.writechat(chat);
 				response.sendRedirect(ctxPath+"/main.main");
-			}else if(url.contentEquals("/main.main")) {
-				request.getSession().setAttribute("blue",(String)"blue");
-				request.setAttribute("firstlist", dao.likeFacebook(8, 1));
-				request.getRequestDispatcher("main/main.jsp").forward(request, response);
+			} else if(url.contentEquals("/main.main")) {
+	            request.getSession().setAttribute("blue",(String)"blue");
+	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
+	            request.setAttribute("list", dao.getAllList().size());
+	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
 				Gson g = new Gson();
-				List<MainDTO> list = dao.likeFacebook(8, Integer.parseInt(request.getParameter("count")));
+				List<MainDTO> list = dao.likeFacebook(10, Integer.parseInt(request.getParameter("count")));
 				String result = g.toJson(list);
 				response.getWriter().append(result);
 			}
