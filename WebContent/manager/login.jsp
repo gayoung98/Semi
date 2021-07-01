@@ -33,97 +33,7 @@
     
 </head>
 <body>
-<c:choose>
-<c:when test="${login != null }">
-<div class="wrap">
-    <div class="navi">
-      <div class="navbar-content scroll-div">
-        <div class="logo"></div>
-        <ul class="menu">
-          <li>
-            <a href="#">회원 관리 <i class="fas fa-caret-down"></i></a>
-            <ul class="submenu">
-              <li>
-                <a href="#">강사 관리</a>
-              </li>
-              <li>
-                <a href="#">학생 관리</a>
-              </li>
-              <li>
-                <a href="#">로그 기록</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">게시물 관리<i class="fas fa-caret-down"></i></a>
-            <ul class="submenu">
-               <li>
-                <a href="#">공지사항 관리</a>
-              </li>
-              <li>
-                <a href="#">자유게시판 관리</a>
-              </li>
-              <li>
-                <a href="#">과제게시판 관리</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">신고 관리<i class="fas fa-caret-down"></i></a>
-            <ul class="submenu">
-              <li>
-                <a href="#">게시글 신고</a>
-              </li>
-              <li>
-                <a href="#">SNS 신고</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#" ">문의 관리<i class=" fas fa-caret-down"></i></a>
-            <ul class="submenu">
-              <li>
-                <a href="#">문의 내용 관리</a>
-              </li>
 
-            </ul>
-          <li>
-            <a href="#">자리 신청 관리<i class="fas fa-caret-down"></i></a>
-            <ul class="submenu">
-              <li>
-                <a href="#">종로</a>
-              </li>
-              <li>
-                <a href="#">당산</a>
-              </li>
-              <li>
-                <a href="#">강남</a>
-              </li>
-          </li>
-
-        </ul>
-        </li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <div class="container">
-        <div class="content">
-          <div class="col">dasd</div>
-         
-        </div>
-
-        <div class="content">
-          <div class="col">dasd</div>
-          <div class="col">asdasd</div>
-        </div>
-
-
-      </div>
-    </div>
-  </div>
-</c:when>
-<c:otherwise>
 <div class="containers">
 <div class="col-12 mb-5" id="title"><h2>관리자 페이지</h2></div>
     <form action="${pageContext.request.contextPath}/login.manager" method="post">
@@ -144,7 +54,6 @@
       </div>
     </form>
   </div>
-  </c:otherwise>
-  </c:choose>
+ 
 </body>
 </html>

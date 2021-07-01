@@ -27,7 +27,7 @@
 						href="${pageContext.request.contextPath}/manager/manager.board/noticeWrite.jsp">공지사항
 							작성</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.board/boardList.jsp">게시판
+						href="${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">게시판
 							관리</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/manager/manager.board/asBoardList.jsp">과제게시판
