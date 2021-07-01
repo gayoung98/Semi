@@ -107,9 +107,19 @@ public class ManagerDAO {
 				String id = rs.getString("id");
 				String khClass = rs.getString("khclass");
 				String branch = rs.getString("branch");
+				String kBranch="";
+				if(branch.contentEquals("J")) {
+					kBranch+="종로";
+				}else if(branch.contentEquals("D")) {
+					kBranch+="당산";
+				}else if(branch.contentEquals("K")) {
+					kBranch+="강남";
+				}else{
+					kBranch+="미정";
+				}
 				//position 값은 파라미터에
 				Date signUpDate = rs.getDate("sign_Up_Date");
-				  list.add(new MemberDTO(email,name,phone,id,khClass,branch,position,signUpDate));
+				  list.add(new MemberDTO(email,name,phone,id,khClass,kBranch,position,signUpDate));
 			}
 			return list;
 		}
