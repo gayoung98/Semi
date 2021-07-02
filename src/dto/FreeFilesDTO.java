@@ -6,9 +6,9 @@ public class FreeFilesDTO {
 	
 
 	private int seq;
-	private String oriname;
+	private String oriName;
 
-	    private String sysname;
+	    private String sysName;
 
 	    private Date reg_date;
 
@@ -16,11 +16,11 @@ public class FreeFilesDTO {
 	
 	    
 	    public FreeFilesDTO() {};
-	    public FreeFilesDTO(int seq, String oriname, String sysname, Date reg_date, int parent) {
+	    public FreeFilesDTO(int seq, String oriName, String sysName, Date reg_date, int parent) {
 		
 			this.seq = seq;
-			this.oriname = oriname;
-			this.sysname = sysname;
+			this.oriName = oriName;
+			this.sysName = sysName;
 			this.reg_date = reg_date;
 			this.parent = parent;
 		}
@@ -33,20 +33,20 @@ public class FreeFilesDTO {
 		this.seq = seq;
 	}
 
-	public String getOriname() {
-		return oriname;
+	public String getOriName() {
+		return oriName;
 	}
 
-	public void setOriname(String oriname) {
-		this.oriname = oriname;
+	public void setOriName(String oriName) {
+		this.oriName = oriName;
 	}
 
-	public String getSysname() {
-		return sysname;
+	public String getSysName() {
+		return sysName;
 	}
 
-	public void setSysname(String sysname) {
-		this.sysname = sysname;
+	public void setSysname(String sysName) {
+		this.sysName = sysName;
 	}
 
 	public Date getReg_date() {
