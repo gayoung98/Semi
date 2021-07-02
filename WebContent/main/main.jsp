@@ -138,6 +138,7 @@ display:block;
             width: 40px;
             height: 40px;
             position: relative;
+            bottom:0px;
         }
 
         .sk-circle .sk-child {
@@ -352,8 +353,24 @@ display:block;
          'init' : init
       };
    })();
-
-   
+/*
+   loadBeforeSend: function(){
+	   var divLoading = document.all.hiddenDivLoading;
+	   divLoading.style.visibility = "visible";
+	   $("#hiddenDivLoading").show.css({
+		   top:$(document).scrollTop()+($(window).height())/2.6 + 'px',
+		   left:($(window).width())/2.6 + 'px'
+	   });
+   },
+   loadComplete : function(data){
+	   $("#hiddenDivLoading").hide();
+   }
+   $(Window).scroll(function(){
+	   top:$(document).scrollTop()+($(window).height())/2.6 + 'px',
+	   left:($(window).width())/2.6 + 'px'
+	   });
+   });
+   */
    $(function() {
       var count =2;
       var isScroll = true; 
@@ -378,9 +395,8 @@ display:block;
                      $("#message").append(msgBox);
                   } else {
                 	  let msgBox = $("<div class=\"msgBox\">");
-                     let msg = $("<div class=\"msg2\">");
+                     let msg = $("<div class=\"msg2\">" + "<i class=\"fas fa-exclamation\">");
                      msg.text(resp[i].chat);
-                     msg.append("<i class=\"fas fa-exclamation\">");
                      $(msgBox).append(msg);
                      $("#message").append(msgBox);
                   }
@@ -392,13 +408,7 @@ display:block;
       })
     
 )
-$(document).scroll(function () {
-          if ($(document).scrollTop() < 60 && !isLoading) {
-              isLoading = true;
-              setTimeout(loadNewPage, 1200);
-          }
 
-      });
 Chat.init();
    });
 </script>
@@ -451,7 +461,7 @@ Chat.init();
    <div id="inquire">
       <img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
    </div>
-<div class="sk-circle">
+<div class="sk-circle" id="hiddenDivLoading" style="visibility:hidden">
         <div class="sk-circle1 sk-child"></div>
         <div class="sk-circle2 sk-child"></div>
         <div class="sk-circle3 sk-child"></div>
