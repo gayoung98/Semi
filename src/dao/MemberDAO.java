@@ -148,4 +148,16 @@ public class MemberDAO {
 				}
 			}
 		}
+		
+		public boolean checkId(String id) throws Exception{
+			String sql = "select * from kh_member where id = ? ";
+			try(Connection connection = this.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+				preparedStatement.setString(1, id);
+				try(ResultSet rs = preparedStatement.executeQuery();){
+					boolean result = rs.next();
+					return result;
+				}
+			}
+		}
 }

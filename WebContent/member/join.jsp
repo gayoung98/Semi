@@ -100,7 +100,7 @@
 				$("#email").attr("readonly","true");
 			}else{
 				alert("인증번호를 다시 확인해주세요")
-				$("#check").val(" ");
+				$("#check").val("");
 			}
 			}
 		})

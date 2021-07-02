@@ -40,9 +40,6 @@ public class LoginController extends HttpServlet {
 					if(snsresult != null || request.getSession().isNew()) {
 						request.getSession().setAttribute("login",snsresult);
 						response.sendRedirect("main.main");
-					}else {
-						request.setAttribute("email", email);
-						response.sendRedirect("join.jsp");
 					}
 				}else {
 					request.setAttribute("email", email);
@@ -61,9 +58,21 @@ public class LoginController extends HttpServlet {
 				String khClass = dto.getKhClass();
 				String branch = dto.getBranch();
 				
-				int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
-				request.setAttribute("result", result);
-				request.getRequestDispatcher("/view/joinView.jsp").forward(request, response);
+				System.out.println(id);
+				System.out.println(khClass);
+				System.out.println(branch);
+				
+				boolean resultId = dao.checkId(id);
+				
+				System.out.println(resultId);
+				if(resultId == true) {
+					System.out.println("아이디가 중복 체크됨");
+					response.sendRedirect(ctxPath+"/view/checkId.jsp");
+				}else {
+					int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
+					request.setAttribute("result", result);
+					request.getRequestDispatcher("/view/joinView.jsp").forward(request, response);
+				}
 				
 			}else if(url.contentEquals("/login.member")) {
 				String email = request.getParameter("id");

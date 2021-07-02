@@ -59,6 +59,7 @@ $(function(){
 			location.href="updatePw.member?email="+$("#email").val();
 		}else{
 			alert("인증번호를 다시 확인해주세요")
+			$("#check").val("");
 		}
 	})
 })
