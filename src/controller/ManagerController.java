@@ -16,6 +16,7 @@ import config.ManagerConfig;
 import dao.ManagerDAO;
 import dto.FreeBoardDTO;
 import dto.MemberDTO;
+import dto.NoticeBoardDTO;
 
 
 
@@ -127,8 +128,8 @@ public class ManagerController extends HttpServlet {
 			
 		
 				
-				List<FreeBoardDTO> boardList=managerDao.getBoardPageList(startNum, endNum,branch,category,search);
-				List<String> pageNavi = managerDao.getBoardPageNavi(currentPage,category,search,branch);
+				List<NoticeBoardDTO> boardList=managerDao.getNoticePageList(startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getNoticeBoardPageNavi(currentPage,category,search,branch);
 				request.setAttribute("list", boardList);
 				request.setAttribute("navi", pageNavi);
 				request.setAttribute("page", currentPage);

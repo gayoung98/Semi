@@ -282,9 +282,9 @@ public class ManagerDAO {
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,branch,writer,title,contents,write_date,viewCount,policecount from noticeboard where "+isBranch+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,writer,title,contents,write_date,khClass,branch,viewCount from noticeboard where "+isBranch+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
-		List<FreeBoardDTO> list = new ArrayList<>();
+		List<NoticeBoardDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
@@ -295,6 +295,11 @@ public class ManagerDAO {
 				while(rs.next()) {
 
 					int seq = rs.getInt("seq");
+					String writer=rs.getString("writer");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					Date write_date = rs.getDate("write_date");
+					String khClass =rs.getString("khClass");
 					String branch = rs.getString("branch");
 					String kBranch="";
 					if(branch.contentEquals("J")) {
@@ -306,22 +311,17 @@ public class ManagerDAO {
 					}else{
 						kBranch+="미정";
 					}
-					String writer=rs.getString("writer");
-					String title = rs.getString("title");
-					String contents = rs.getString("contents");
-					String id= rs.getString("id");
-					Date write_date = rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
-					int policeCount = rs.getInt("policecount");
-					list.add(new FreeBoardDTO(seq,kBranch,writer,title,contents,id,write_date,viewCount,policeCount));
+					
+					list.add(new NoticeBoardDTO(seq,writer,title,contents,write_date,khClass,kBranch,viewCount));
 				}
 				return list;
 			}
 		}
 	}
-	public int getBoardRecordCount(String category,String search ,String branch) throws Exception{
+	public int getNoticeBoardRecordCount(String category,String search ,String branch) throws Exception{
 
-		String sql="select count(*) from freeboard where ";
+		String sql="select count(*) from noticeboard where ";
 		if(!branch.contentEquals("all")) {
 			sql+=" branch = "+"'"+branch+"' and ";
 		}
@@ -340,8 +340,8 @@ public class ManagerDAO {
 
 		}
 	}
-	public List<String> getBoardPageNavi(int currentPage,String category, String search,String branch) throws Exception {
-		int recordTotalCount = this.getBoardRecordCount(category,search,branch);
+	public List<String> getNoticeBoardPageNavi(int currentPage,String category, String search,String branch) throws Exception {
+		int recordTotalCount = this.getNoticeBoardRecordCount(category,search,branch);
 		int recordCountPerPage = ManagerConfig.Record_count_Per_Page;	
 		int naviCountPerPage = ManagerConfig.Navi_Count_Per_Page;
 		int pageTotalCount = 0;

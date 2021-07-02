@@ -21,6 +21,8 @@
 .select {
 	width: 10%;
 }
+.write{text-align:right; margin-top : 30px;}
+
 </style>
 </head>
 <body>
@@ -30,7 +32,7 @@
 			<div class="container">
 				<header>
 					<div>
-						<h1>게시판 관리</h1>
+						<h1>공지사항</h1>
 					</div>
 					<a
 						href="${pageContext.request.contextPath}/noticeList.manager?branch=all&currentPage=1&category=&search=">전체</a>
@@ -46,8 +48,8 @@
 								<tr>
 									<th scope="col">번호</th>
 									<th scope="col">지점</th>
+									<th scope="col">반</th>
 									<th scope="col">제목</th>
-									<th scope="col">작성자</th>
 									<th scope="col">조회수</th>
 									<th scope="col">등록일</th>
 								</tr>
@@ -57,8 +59,8 @@
 								<tr>
 									<th scope="row">${i.seq}</th>
 									<td>${i.branch}</td>
+									<td>${i.khClass}</td>
 									<td>${i.title}</td>
-									<td>${i.writer}</td>
 									<td>${i.viewCount}</td>
 									<td>${i.writeDate}</td>
 								</tr>
@@ -96,7 +98,6 @@
 											<option selected value="">전체</option>
 											<option value="title">제목</option>
 											<option value="contents">내용</option>
-											<option value="writer">작성자</option>
 										</select>
 									</div>
 									<input type="hidden" name = "currentPage" value="1">
@@ -109,11 +110,22 @@
 									</div>
 								</div>
 							</form>
+							<div class="write">
+				<button type="button" class="btn btn-success" class="writebtn" id="writebtn">글쓰기</button>
+				</div>											
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+	$(function(){
+		$("#writebtn").on("click",function(){
+			location
+		})
+	})
+	</script>
 </body>
 </html>
