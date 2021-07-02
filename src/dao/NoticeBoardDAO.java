@@ -184,7 +184,7 @@ public class NoticeBoardDAO {
 			}
 		}
 	}
-	public FreeBoardDTO boardView(int boardseq) throws Exception{ //게시글 조회수 출력
+	public NoticeBoardDTO boardView(int boardseq) throws Exception{ //게시글 조회수 출력
 		String sql = "select viewCount from noticeBoard where seq = ?";
 		try(
 				Connection con = this.getConnection();
@@ -195,7 +195,7 @@ public class NoticeBoardDAO {
 					ResultSet rs = pstat.executeQuery();
 					){
 				if(rs.next()) {
-					return new FreeBoardDTO(boardseq, rs.getInt("viewCount"));
+					return new NoticeBoardDTO(boardseq, rs.getInt("viewCount"));
 				}
 				return null;
 			}

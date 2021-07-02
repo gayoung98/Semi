@@ -48,6 +48,11 @@ public class FreeBoardDTO {
 			this.write_date = write_date;
 		}
 
+		 public FreeBoardDTO(int seq, int viewCount) {
+	    	  this.seq = seq;
+	    	  this.viewCount = viewCount;
+		}
+
 		public int getSeq() {
 			return seq;
 		}
