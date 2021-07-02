@@ -40,8 +40,12 @@
 						</div>
 
 						<div class="content">
-							<div class="col">dasd</div>
-							<div class="col">asdasd</div>
+							<div class="col">
+							<h4>게시판</h4>
+							</div>
+							<div class="col">
+							<h4>신고 목록</h4>
+							</div>
 						</div>
 
 

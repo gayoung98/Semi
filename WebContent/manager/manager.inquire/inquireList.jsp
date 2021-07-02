@@ -21,8 +21,6 @@
 .select {
 	width: 10%;
 }
-.write{text-align:right; margin-top : 30px;}
-
 </style>
 </head>
 <body>
@@ -32,14 +30,9 @@
 			<div class="container">
 				<header>
 					<div>
-						<h1>공지사항</h1>
+						<h1>문의하기</h1>
 					</div>
-					<a
-						href="${pageContext.request.contextPath}/noticeList.manager?branch=all&currentPage=1&category=&search=">전체</a>
-						<a
-						href="${pageContext.request.contextPath}/noticeList.manager?branch=J&currentPage=1&category=&search=">종로</a> 
-						<a href="${pageContext.request.contextPath}/noticeList.manager?branch=D&currentPage=1&category=&search=">당산</a> 
-						<a href="${pageContext.request.contextPath}/noticeList.manager?branch=K&currentPage=1&category=&search=">강남</a>
+					
 				</header>
 				<div class="content">
 					<div class="col">
@@ -47,22 +40,24 @@
 							<thead class="thead-dark">
 								<tr>
 									<th scope="col">번호</th>
-									<th scope="col">지점</th>
-									<th scope="col">반</th>
-									<th scope="col">제목</th>
-									<th scope="col">조회수</th>
-									<th scope="col">등록일</th>
+									<th scope="col">작성자</th>
+									<th scope="col">대분류</th>
+									<th scope="col">소분류</th>
+									<th scope="col">신고일</th>
+									<th scope="col">답변완료</th>
+								
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="i" items="${list}" varStatus="s">
 								<tr>
 									<th scope="row">${i.seq}</th>
-									<td>${i.branch}</td>
-									<td>${i.khClass}</td>
-									<td>${i.title}</td>
-									<td>${i.viewCount}</td>
-									<td>${i.write_date}</td>
+									<td>${i.id}</td>
+									<td>${i.major_category}</td>
+									<td>${i.sub_category}</td>
+									<td>${i.reg_date}</td>
+									<td id="isAnswer"></td>
+									
 								</tr>
 									</c:forEach>
 							</tbody>
@@ -73,15 +68,15 @@
 					<c:choose>
 						<c:when test="${i=='>'}">
 							<a
-								href="${pageContext.request.contextPath}/noticeList.manager?currentPage=${navi[s.index-1]+1}&category=${category}&search=${search}&branch=${branch}">${i}</a>
+								href="${pageContext.request.contextPath}/inquireList.manager?currentPage=${navi[s.index-1]+1}&category=${category}&search=${search}">${i}</a>
 						</c:when>
 						<c:when test="${i=='<'}">
 							<a
-								href="${pageContext.request.contextPath}/noticeList.manager?currentPage=${navi[s.index+1]-1}&category=${category}&search=${search}&branch=${branch}">${i}</a>
+								href="${pageContext.request.contextPath}/inquireList.manager?currentPage=${navi[s.index+1]-1}&category=${category}&search=${search}">${i}</a>
 						</c:when>
 						<c:otherwise>
 							<a
-								href="${pageContext.request.contextPath}/noticeList.manager?currentPage=${i}&category=${category}&search=${search}&branch=${branch}">${i}</a>
+								href="${pageContext.request.contextPath}/inquireList.manager?currentPage=${i}&category=${category}&search=${search}">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -90,18 +85,21 @@
 							</tfoot>
 						</table>
 						<div class="search">
-							<form action="${pageContext.request.contextPath}/noticeList.manager" method="get" >
+							<form action="${pageContext.request.contextPath}/inquireList.manager" method="get" >
 								<div class="input-group">
 									<div class="select">
 										<select class="custom-select" id="inputGroupSelect04" name="category"
 											aria-label="Example select with button addon">
 											<option selected value="">전체</option>
-											<option value="title">제목</option>
-											<option value="contents">내용</option>
+											
+											<option value="id">id</option>
+											<option value="major_category">대분류</option>
+											<option value="sub_category">소분류</option>
+												<option value="contents">내용</option>
 										</select>
 									</div>
 									<input type="hidden" name = "currentPage" value="1">
-									<input type="hidden" name ="branch" value="${branch}">
+									
 									<input type="text" class="form-control" name="search" 
 										aria-label="Text input with segmented dropdown button" value="${search}">
 									<div class="input-group-append">
@@ -110,22 +108,11 @@
 									</div>
 								</div>
 							</form>
-							<div class="write">
-				<button type="button" class="btn btn-success" class="writebtn" id="writebtn">글쓰기</button>
-				</div>											
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-	$(function(){
-		$("#writebtn").on("click",function(){
-			 location.href="";
-		})
-	})
-	</script>
 </body>
 </html>

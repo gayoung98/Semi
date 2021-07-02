@@ -21,8 +21,6 @@
 .select {
 	width: 10%;
 }
-.write{text-align:right; margin-top : 30px;}
-
 </style>
 </head>
 <body>
@@ -32,14 +30,14 @@
 			<div class="container">
 				<header>
 					<div>
-						<h1>공지사항</h1>
+						<h1>과제게시판 관리</h1>
 					</div>
 					<a
-						href="${pageContext.request.contextPath}/noticeList.manager?branch=all&currentPage=1&category=&search=">전체</a>
+						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">전체</a>
 						<a
-						href="${pageContext.request.contextPath}/noticeList.manager?branch=J&currentPage=1&category=&search=">종로</a> 
-						<a href="${pageContext.request.contextPath}/noticeList.manager?branch=D&currentPage=1&category=&search=">당산</a> 
-						<a href="${pageContext.request.contextPath}/noticeList.manager?branch=K&currentPage=1&category=&search=">강남</a>
+						href="${pageContext.request.contextPath}/assList.manager?branch=J&currentPage=1&category=&search=">종로</a> 
+						<a href="${pageContext.request.contextPath}/assList.manager?branch=D&currentPage=1&category=&search=">당산</a> 
+						<a href="${pageContext.request.contextPath}/assList.manager?branch=K&currentPage=1&category=&search=">강남</a>
 				</header>
 				<div class="content">
 					<div class="col">
@@ -50,6 +48,7 @@
 									<th scope="col">지점</th>
 									<th scope="col">반</th>
 									<th scope="col">제목</th>
+									<th scope="col">작성자</th>
 									<th scope="col">조회수</th>
 									<th scope="col">등록일</th>
 								</tr>
@@ -61,27 +60,28 @@
 									<td>${i.branch}</td>
 									<td>${i.khClass}</td>
 									<td>${i.title}</td>
+									<td>${i.writer}</td>
 									<td>${i.viewCount}</td>
-									<td>${i.write_date}</td>
+									<td>${i.writeDate}</td>
 								</tr>
 									</c:forEach>
 							</tbody>
 							<tfoot>
 							<tr>
-							<td colspan ="6">
+							<td colspan ="7">
 							<c:forEach var="i" items="${navi}" varStatus="s">
 					<c:choose>
 						<c:when test="${i=='>'}">
 							<a
-								href="${pageContext.request.contextPath}/noticeList.manager?currentPage=${navi[s.index-1]+1}&category=${category}&search=${search}&branch=${branch}">${i}</a>
+								href="${pageContext.request.contextPath}/assList.manager?currentPage=${navi[s.index-1]+1}&category=${category}&search=${search}&branch=${branch}">${i}</a>
 						</c:when>
 						<c:when test="${i=='<'}">
 							<a
-								href="${pageContext.request.contextPath}/noticeList.manager?currentPage=${navi[s.index+1]-1}&category=${category}&search=${search}&branch=${branch}">${i}</a>
+								href="${pageContext.request.contextPath}/assList.manager?currentPage=${navi[s.index+1]-1}&category=${category}&search=${search}&branch=${branch}">${i}</a>
 						</c:when>
 						<c:otherwise>
 							<a
-								href="${pageContext.request.contextPath}/noticeList.manager?currentPage=${i}&category=${category}&search=${search}&branch=${branch}">${i}</a>
+								href="${pageContext.request.contextPath}/assList.manager?currentPage=${i}&category=${category}&search=${search}&branch=${branch}">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -90,7 +90,7 @@
 							</tfoot>
 						</table>
 						<div class="search">
-							<form action="${pageContext.request.contextPath}/noticeList.manager" method="get" >
+							<form action="${pageContext.request.contextPath}/assList.manager" method="get" >
 								<div class="input-group">
 									<div class="select">
 										<select class="custom-select" id="inputGroupSelect04" name="category"
@@ -98,6 +98,7 @@
 											<option selected value="">전체</option>
 											<option value="title">제목</option>
 											<option value="contents">내용</option>
+											<option value="writer">작성자</option>
 										</select>
 									</div>
 									<input type="hidden" name = "currentPage" value="1">
@@ -110,22 +111,11 @@
 									</div>
 								</div>
 							</form>
-							<div class="write">
-				<button type="button" class="btn btn-success" class="writebtn" id="writebtn">글쓰기</button>
-				</div>											
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-	$(function(){
-		$("#writebtn").on("click",function(){
-			 location.href="";
-		})
-	})
-	</script>
 </body>
 </html>
