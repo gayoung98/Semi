@@ -14,7 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import config.ManagerConfig;
 import dao.ManagerDAO;
+import dto.AssDTO;
 import dto.FreeBoardDTO;
+import dto.FreePoliceDTO;
+import dto.InquireDTO;
 import dto.MemberDTO;
 import dto.NoticeBoardDTO;
 
@@ -138,21 +141,82 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("search", search);
 				request.getRequestDispatcher("manager/manager.board/noticeList.jsp").forward(request,response);
 				
+			}else if(url.contentEquals("/assList.manager")) {
+			
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
+				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
+			
+				
+				List<AssDTO> boardList=managerDao.getAssPageList(startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getAssPageNavi(currentPage,category,search,branch);
+				request.setAttribute("list", boardList);
+				request.setAttribute("navi", pageNavi);
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/assList.jsp").forward(request,response);
+				
+			}else if(url.contentEquals("/boardPolice.manager")) {
+			
+				
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
+				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
+			
+				
+				List<FreePoliceDTO> boardList=managerDao.getFreePolicePageList(startNum, endNum,category,search);
+				List<String> pageNavi = managerDao.getFreePolicePageNavi(currentPage,category,search);
+				request.setAttribute("list", boardList);
+				request.setAttribute("navi", pageNavi);
+				request.setAttribute("page", currentPage);
+				
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.police/boardPolice.jsp").forward(request,response);
+				
+			}else if(url.contentEquals("/inquireList.manager")) {
+			
+				
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
+				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
+			
+				
+				List<InquireDTO> boardList=managerDao.getInquirePageList(startNum, endNum,category,search);
+				List<String> pageNavi = managerDao.getInquirePageNavi(currentPage,category,search);
+				request.setAttribute("list", boardList);
+				request.setAttribute("navi", pageNavi);
+				request.setAttribute("page", currentPage);
+				
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.inquire/inquireList.jsp").forward(request,response);
+				
 			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
+	
+}
+			
 			
 		
 	
-	}catch(Exception e) {
-		e.printStackTrace();
-	}
-}
-
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	doGet(request, response);
-}
-
-
-}
 
 
 

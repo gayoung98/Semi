@@ -30,21 +30,22 @@
 						href="${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">게시판
 							관리</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.board/asBoardList.jsp">과제게시판
+						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">과제게시판
+							관리</a></li>
+							<li><a
+						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">SNS
 							관리</a></li>
 				</ul></li>
 			<li><a href="#">신고 관리<i class="fas fa-caret-down"></i></a>
 				<ul class="submenu">
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.police/boardPolice.jsp">게시글
+						href="${pageContext.request.contextPath}/boardPolice.manager?currentPage=1&category=&search=">게시글
 							신고</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.police/snsPolice.jsp">SNS
-							신고</a></li>
+					
 				</ul></li>
 			<li><a href="#">문의 관리<i class=" fas fa-caret-down"></i></a>
 				<ul class="submenu">
-					<li><a href="#">문의 내용 관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/inquireList.manager?currentPage=1&category=&search=">문의 내용 관리</a></li>
 
 				</ul>
 			<li><a href="#">자리 신청 관리<i class="fas fa-caret-down"></i></a>

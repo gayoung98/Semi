@@ -9,7 +9,7 @@ body{background-color:#f4f7fa;}
   height: 100vh;
   background-color: #1D265A;
 }
-.write{text-align:right;}
+
 h1,h2{text-align: center;margin-bottom: 50px;}
 .admin{width: 100%;margin-top:12px;margin-bottom: 12px;}
 .menu{list-style: none;

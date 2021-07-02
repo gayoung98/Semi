@@ -2,12 +2,10 @@ package dto;
 
 import java.sql.Date;
 
-public class FreepoliceDTO {
+public class FreePoliceDTO {
 	
 	private int seq;
 	private String id;
-
-    private String writer;
 
     private String contents;
 
@@ -15,23 +13,17 @@ public class FreepoliceDTO {
     
     private Date reg_date;
     
-    public FreepoliceDTO() {};
-    
-	public FreepoliceDTO(int seq, String id, String writer, String contents, int parent, Date reg_date) {
+    public FreePoliceDTO() {}
+
+	public FreePoliceDTO(int seq, String id, String contents, int parent, Date reg_date) {
 		super();
 		this.seq = seq;
 		this.id = id;
-		this.writer = writer;
 		this.contents = contents;
 		this.parent = parent;
 		this.reg_date = reg_date;
 	}
 
-
-	
-	
-	
-	
 	public int getSeq() {
 		return seq;
 	}
@@ -46,14 +38,6 @@ public class FreepoliceDTO {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public String getContents() {
@@ -79,6 +63,5 @@ public class FreepoliceDTO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-
-	
+    
 }

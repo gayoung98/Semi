@@ -15,7 +15,10 @@ import org.apache.commons.lang3.StringUtils;
 
 
 import config.ManagerConfig;
+import dto.AssDTO;
 import dto.FreeBoardDTO;
+import dto.FreePoliceDTO;
+import dto.InquireDTO;
 import dto.ManagerDTO;
 import dto.MemberDTO;
 import dto.NoticeBoardDTO;
@@ -278,7 +281,7 @@ public class ManagerDAO {
 			isBranch+=" branch = "+"'"+searchBranch+"' and";
 		}
 		if(StringUtils.isBlank(category)) {
-			isSearch +=" (writer like '%"+search+"%' or title like '%"+search+"%' or contents like '%"+search+"%')";
+			isSearch +=" (title like '%"+search+"%' or contents like '%"+search+"%')";
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
@@ -329,7 +332,7 @@ public class ManagerDAO {
 		if(!StringUtils.isBlank(category)) {
 			sql+=category+" like '%"+search+"%'";
 		}else {
-			sql+="(writer like '%"+search+"%' or title like '%"+search+"%' or contents like '%"+search+"%')";
+			sql+="(title like '%"+search+"%' or contents like '%"+search+"%')";
 		}
 
 		try(Connection con = this.getConnection(); 
@@ -377,5 +380,299 @@ public class ManagerDAO {
 		if(needNext) {pageNavi.add(">");}
 		return pageNavi;
 	}
+	//////////////////////////////////////////////////////////////////////////////과제게시판
+	public List<AssDTO> getAssPageList( int startNum, int endNum ,String searchBranch,String category,String search) throws Exception{
+		String isBranch="";
+		String isSearch="";
+		if(!searchBranch.contentEquals("all")) {
+			isBranch+=" branch = "+"'"+searchBranch+"' and";
+		}
+		if(StringUtils.isBlank(category)) {
+			isSearch +=" (writer like '%"+search+"%' or title like '%"+search+"%' or contents like '%"+search+"%')";
+		}else {
+			isSearch += " "+ category+" like '%"+search+"%'";
+		}
+		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,writer,id,title,contents,khClass,branch,write_date,viewCount from Ass where "+isBranch+isSearch+") where rnum between ? and ?";
+		System.out.println(sql);
+		List<AssDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, startNum);
+			pstat.setInt(2, endNum);
+			try(
+					ResultSet rs= pstat.executeQuery();){
+				while(rs.next()) {
+
+					int seq = rs.getInt("seq");
+					String writer=rs.getString("writer");
+					String id= rs.getString("id");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					String khClass = rs.getString("khClass");
+					String branch = rs.getString("branch");
+					String kBranch="";
+					if(branch.contentEquals("J")) {
+						kBranch+="종로";
+					}else if(branch.contentEquals("D")) {
+						kBranch+="당산";
+					}else if(branch.contentEquals("K")) {
+						kBranch+="강남";
+					}else{
+						kBranch+="미정";
+					}
+					Date write_date = rs.getDate("write_date");
+					int viewCount = rs.getInt("viewCount");
+					
+					list.add(new AssDTO(seq,writer,title,contents,id,khClass,kBranch,write_date,viewCount));
+				}
+				return list;
+			}
+		}
+	}
+	public int getAssRecordCount(String category,String search ,String branch) throws Exception{
+
+		String sql="select count(*) from Ass where ";
+		if(!branch.contentEquals("all")) {
+			sql+=" branch = "+"'"+branch+"' and ";
+		}
+
+		if(!StringUtils.isBlank(category)) {
+			sql+=category+" like '%"+search+"%'";
+		}else {
+			sql+="(writer like '%"+search+"%' or title like '%"+search+"%' or contents like '%"+search+"%')";
+		}
+
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs= pstat.executeQuery();){
+			rs.next();
+			return rs.getInt(1);
+
+		}
+	}
+	public List<String> getAssPageNavi(int currentPage,String category, String search,String branch) throws Exception {
+		int recordTotalCount = this.getAssRecordCount(category,search,branch);
+		int recordCountPerPage = ManagerConfig.Record_count_Per_Page;	
+		int naviCountPerPage = ManagerConfig.Navi_Count_Per_Page;
+		int pageTotalCount = 0;
+		if((recordTotalCount%recordCountPerPage)==0) {
+			pageTotalCount = recordTotalCount/recordCountPerPage;
+		}else {
+			pageTotalCount = (recordTotalCount/recordCountPerPage) +1;
+		}
+
+		if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}else if(currentPage < 1) {
+			currentPage = 1;
+		}
+		int startNavi =  (currentPage-1) / naviCountPerPage * naviCountPerPage +1;
+		int endNavi = startNavi + (naviCountPerPage-1);
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(startNavi ==1 ) {
+			needPrev = false;
+		}else if(	endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		List<String> pageNavi = new ArrayList<>();
+		if(needPrev) {pageNavi.add("<");}
+		for (int i = startNavi; i <= endNavi; i++) {
+			pageNavi.add(String.valueOf(i));
+		}
+		if(needNext) {pageNavi.add(">");}
+		return pageNavi;
+	}
+///////////////////////////////////////////////////////////////////////게시물 신고
 	
+	public List<FreePoliceDTO> getFreePolicePageList( int startNum, int endNum ,String category,String search) throws Exception{
+		
+		String isSearch="";
+		
+		if(StringUtils.isBlank(category)) {
+			isSearch +=" ID like '%"+search+"%' or CONTENTS like '%"+search+"%'";
+		}else {
+			isSearch += " "+ category+" like '%"+search+"%'";
+		}
+		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,id,contents,parent,reg_date from freepolice where "+isSearch+") where rnum between ? and ?";
+		System.out.println(sql);
+		List<FreePoliceDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, startNum);
+			pstat.setInt(2, endNum);
+			try(
+					ResultSet rs= pstat.executeQuery();){
+				while(rs.next()) {
+
+					int seq = rs.getInt("seq");
+				
+					String id= rs.getString("id");
+					
+					String contents = rs.getString("contents");
+					int parent =rs.getInt("parent");
+					Date reg_date = rs.getDate("reg_date");
+					
+					
+					list.add(new FreePoliceDTO(seq,id,contents,parent,reg_date));
+				}
+				return list;
+			}
+		}
+	}
+	public int getFreePoliceRecordCount(String category,String search ) throws Exception{
+
+		String sql="select count(*) from FreePolice where ";
+		
+
+		if(!StringUtils.isBlank(category)) {
+			sql+=category+" like '%"+search+"%'";
+		}else {
+			sql+="ID like '%"+search+"%' or contents like '%"+search+"%'";
+		}
+
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs= pstat.executeQuery();){
+			rs.next();
+			return rs.getInt(1);
+
+		}
+	}
+	public List<String> getFreePolicePageNavi(int currentPage,String category, String search) throws Exception {
+		int recordTotalCount = this.getFreePoliceRecordCount(category,search);
+		int recordCountPerPage = ManagerConfig.Record_count_Per_Page;	
+		int naviCountPerPage = ManagerConfig.Navi_Count_Per_Page;
+		int pageTotalCount = 0;
+		if((recordTotalCount%recordCountPerPage)==0) {
+			pageTotalCount = recordTotalCount/recordCountPerPage;
+		}else {
+			pageTotalCount = (recordTotalCount/recordCountPerPage) +1;
+		}
+
+		if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}else if(currentPage < 1) {
+			currentPage = 1;
+		}
+		int startNavi =  (currentPage-1) / naviCountPerPage * naviCountPerPage +1;
+		int endNavi = startNavi + (naviCountPerPage-1);
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(startNavi ==1 ) {
+			needPrev = false;
+		}else if(	endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		List<String> pageNavi = new ArrayList<>();
+		if(needPrev) {pageNavi.add("<");}
+		for (int i = startNavi; i <= endNavi; i++) {
+			pageNavi.add(String.valueOf(i));
+		}
+		if(needNext) {pageNavi.add(">");}
+		return pageNavi;
+	}
+	//////////////////////////////////////////////////////문의하기 목록
+public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String category,String search) throws Exception{
+		
+		String isSearch="";
+		
+		if(StringUtils.isBlank(category)) {
+			isSearch +=" ID like '%"+search+"%' or CONTENTS like '%"+search+"%' or major_category like '%"+search+"%' or sub_category like '%"+search+"%'";
+		}else {
+			isSearch += " "+ category+" like '%"+search+"%'";
+		}
+		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,id,major_category,sub_category,contents,recomment,reg_date from inquire where "+isSearch+") where rnum between ? and ?";
+		System.out.println(sql);
+		List<InquireDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, startNum);
+			pstat.setInt(2, endNum);
+			try(
+					ResultSet rs= pstat.executeQuery();){
+				while(rs.next()) {
+
+					int seq = rs.getInt("seq");
+					String id= rs.getString("id");
+					String major_category = rs.getString("major_category");
+					String sub_category = rs.getString("sub_category");
+					String contents = rs.getString("contents");
+					String recomment = rs.getString("recomment");
+					Date reg_date = rs.getDate("reg_date");
+					
+					
+					list.add(new InquireDTO(seq,id,major_category,sub_category,contents,recomment,reg_date));
+				}
+				return list;
+			}
+		}
+	}
+	public int getInquireRecordCount(String category,String search ) throws Exception{
+
+		String sql="select count(*) from inquire where ";
+		
+
+		if(!StringUtils.isBlank(category)) {
+			sql+=category+" like '%"+search+"%'";
+		}else {
+			sql+="ID like '%"+search+"%' or CONTENTS like '%"+search+"%' or major_category like '%"+search+"%' or sub_category like '%"+search+"%'";
+		}
+
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs= pstat.executeQuery();){
+			rs.next();
+			return rs.getInt(1);
+
+		}
+	}
+	public List<String> getInquirePageNavi(int currentPage,String category, String search) throws Exception {
+		int recordTotalCount = this.getInquireRecordCount(category,search);
+		int recordCountPerPage = ManagerConfig.Record_count_Per_Page;	
+		int naviCountPerPage = ManagerConfig.Navi_Count_Per_Page;
+		int pageTotalCount = 0;
+		if((recordTotalCount%recordCountPerPage)==0) {
+			pageTotalCount = recordTotalCount/recordCountPerPage;
+		}else {
+			pageTotalCount = (recordTotalCount/recordCountPerPage) +1;
+		}
+
+		if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}else if(currentPage < 1) {
+			currentPage = 1;
+		}
+		int startNavi =  (currentPage-1) / naviCountPerPage * naviCountPerPage +1;
+		int endNavi = startNavi + (naviCountPerPage-1);
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(startNavi ==1 ) {
+			needPrev = false;
+		}else if(	endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		List<String> pageNavi = new ArrayList<>();
+		if(needPrev) {pageNavi.add("<");}
+		for (int i = startNavi; i <= endNavi; i++) {
+			pageNavi.add(String.valueOf(i));
+		}
+		if(needNext) {pageNavi.add(">");}
+		return pageNavi;
+	}
 }
