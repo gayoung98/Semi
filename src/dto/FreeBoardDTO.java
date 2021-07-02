@@ -38,7 +38,10 @@ public class FreeBoardDTO {
 			this.viewCount = viewCount;
 			this.policeCount = policeCount;
 		}
-
+		 public FreeBoardDTO(int seq, int viewCount) {
+	    	  this.seq = seq;
+	    	  this.viewCount = viewCount;
+		}
 		public int getSeq() {
 			return seq;
 		}
