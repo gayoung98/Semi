@@ -27,3 +27,4 @@ header>a+a{margin-left: 50px;}
 .submenu{display: none; list-style: none;}
 .menu>li:hover .submenu{display:block};
 .submenu a{color:#DEDEDE;}
+td>a{text-align: center;}

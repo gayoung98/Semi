@@ -28,16 +28,19 @@ public class MainController extends HttpServlet {
 			String url = requestURI.substring(ctxPath.length());
 			MainDAO dao = MainDAO.getInstance();
 		
-			
+			System.out.println(url);
 			if(url.contentEquals("/writechat.main")) {
 				String chat = request.getParameter("writechat");
 				int result = dao.writechat(chat);
-				
-				response.sendRedirect("main/main.jsp");
-				
+				response.sendRedirect(ctxPath+"/main.main");
+			} else if(url.contentEquals("/main.main")) {
+	            request.getSession().setAttribute("blue",(String)"blue");
+	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
+	            request.setAttribute("list", dao.getAllList().size());
+	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
 				Gson g = new Gson();
-				List<MainDTO> list = dao.getAllList();
+				List<MainDTO> list = dao.likeFacebook(10, Integer.parseInt(request.getParameter("count")));
 				String result = g.toJson(list);
 				response.getWriter().append(result);
 			}

@@ -1,13 +1,21 @@
 package dto;
 
 public class MainDTO {
+	private int seq;
 	private String writer;
 	private String chat;
 
 	public MainDTO() {}
-	public MainDTO(String writer, String chat) {
+	public MainDTO(int seq, String writer, String chat) {
+		this.seq = seq;
 		this.writer = writer;
 		this.chat = chat;
+	}
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public String getWriter() {
 		return writer;

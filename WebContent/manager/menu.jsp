@@ -8,16 +8,16 @@
 		<div class="logo">
 			<a
 				href="${pageContext.request.contextPath}/manager/manager.member/index.jsp"><img
-				src="../css/kh2.jpg" alt=""></a>
+				src="${pageContext.request.contextPath}/manager/css/kh2.jpg" alt=""></a>
 		</div>
 		<ul class="menu">
 			<li><a href="#">회원 관리 <i class="fas fa-caret-down"></i></a>
 				<ul class="submenu">
 					<li><a
-						href="${pageContext.request.contextPath}/teacher.manager?branch=all&currentPage=1">강사
+						href="${pageContext.request.contextPath}/teacher.manager?branch=all&currentPage=1&category=&search=">강사
 							정보</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.member/student.jsp">학생
+						href="${pageContext.request.contextPath}/student.manager?branch=all&currentPage=1&category=&search=">학생
 							정보</a></li>
 					<li><a href="#">로그 기록</a></li>
 				</ul></li>
@@ -27,7 +27,7 @@
 						href="${pageContext.request.contextPath}/manager/manager.board/noticeWrite.jsp">공지사항
 							작성</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.board/boardList.jsp">게시판
+						href="${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">게시판
 							관리</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/manager/manager.board/asBoardList.jsp">과제게시판
