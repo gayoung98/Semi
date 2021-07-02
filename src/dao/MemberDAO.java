@@ -68,7 +68,7 @@ public class MemberDAO {
 	}
 
 	public MemberDTO getInfo(String email) throws Exception{
-		String sql = "select * from kh_premember where email = ?";
+		String sql = "select * from kh_member where email = ?";
 		MemberDTO dto = null;
 		try(
 				Connection connection = this.getConnection();
