@@ -117,6 +117,26 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("search", search);
 				request.getRequestDispatcher("manager/manager.board/boardList.jsp").forward(request,response);
 				
+			}else if(url.contentEquals("/noticeList.manager")) {
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
+				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
+			
+		
+				
+				List<FreeBoardDTO> boardList=managerDao.getBoardPageList(startNum, endNum,branch,category,search);
+				List<String> pageNavi = managerDao.getBoardPageNavi(currentPage,category,search,branch);
+				request.setAttribute("list", boardList);
+				request.setAttribute("navi", pageNavi);
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/noticeList.jsp").forward(request,response);
+				
 			}
 			
 		

@@ -5,8 +5,8 @@ import java.sql.Date;
 public class NoticeBoardDTO {
 	
 
-	private int seq;
-	 private String writer;
+		private int seq;
+	 	private String writer;
 
 	    private String title;
 
@@ -17,13 +17,13 @@ public class NoticeBoardDTO {
 	    private String khClass;
 
 	    private String branch;
-	    
+	    private int viewCount;
 	    
 	    public NoticeBoardDTO() {};
 
 	  	    public NoticeBoardDTO(int seq, String writer, String title, String contents, Date write_date, String khClass,
-				String branch) {
-			super();
+				String branch,int viewCount) {
+			
 			this.seq = seq;
 			this.writer = writer;
 			this.title = title;
@@ -31,6 +31,7 @@ public class NoticeBoardDTO {
 			this.write_date = write_date;
 			this.khClass = khClass;
 			this.branch = branch;
+			this.viewCount=viewCount;
 		}
 
 	    public int getSeq() {
@@ -65,19 +66,25 @@ public class NoticeBoardDTO {
 	        this.contents = contents;
 	    }
 
-	    public Date getWriteDate() {
-	        return write_date;
-	    }
+	
 
-	    public void setWriteDate(Date write_date) {
-	        this.write_date = write_date;
-	    }
+	    public Date getWrite_date() {
+			return write_date;
+		}
 
-	    public String getkhClass() {
-	        return khClass;
-	    }
+		public void setWrite_date(Date write_date) {
+			this.write_date = write_date;
+		}
 
-	    public void setClass(String khClass) {
+		public String getKhClass() {
+			return khClass;
+		}
+
+		public void setKhClass(String khClass) {
+			this.khClass = khClass;
+		}
+
+		public void setClass(String khClass) {
 	        this.khClass = khClass;
 	    }
 
@@ -88,4 +95,13 @@ public class NoticeBoardDTO {
 	    public void setBranch(String branch) {
 	        this.branch = branch;
 	    }
+
+		public int getViewCount() {
+			return viewCount;
+		}
+
+		public void setViewCount(int viewCount) {
+			this.viewCount = viewCount;
+		}
+	    
 }

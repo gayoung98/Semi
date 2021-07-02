@@ -24,7 +24,7 @@
 			<li><a href="#">게시물 관리<i class="fas fa-caret-down"></i></a>
 				<ul class="submenu">
 					<li><a
-						href="${pageContext.request.contextPath}/manager/manager.board/noticeWrite.jsp">공지사항
+						href="${pageContext.request.contextPath}/noticeList.manager?branch=all&currentPage=1&category=&search=">공지사항
 							작성</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">게시판
