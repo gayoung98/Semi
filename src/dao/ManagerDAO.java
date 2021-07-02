@@ -675,4 +675,34 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 		if(needNext) {pageNavi.add(">");}
 		return pageNavi;
 	}
+	///////////////////////////////////////////////////////////////인덱스 게시판
+	public List<FreeBoardDTO> indexBoard() throws Exception {
+		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,branch,mkhClass,title,name from freeboard) where rnum between ? and ?";
+		List<FreeBoardDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs= pstat.executeQuery();){
+			while(rs.next()) {
+				int seq = rs.getInt("seq");
+				String branch = rs.getString("branch");
+				String kBranch="";
+				if(branch.contentEquals("J")) {
+					kBranch+="종로";
+				}else if(branch.contentEquals("D")) {
+					kBranch+="당산";
+				}else if(branch.contentEquals("K")) {
+					kBranch+="강남";
+				}else{
+					kBranch+="미정";
+				}
+				
+				String writer = rs.getString("name");
+				String title = rs.getString("title");
+				Date write_date = rs.getDate("write_date");
+				list.add(new FreeBoardDTO(seq, kBranch,writer,title,write_date));
+			}
+			return list;
+		}
+	}
+	
 }
