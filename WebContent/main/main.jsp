@@ -395,7 +395,7 @@ display:block;
                      $("#message").append(msgBox);
                   } else {
                 	  let msgBox = $("<div class=\"msgBox\">");
-                     let msg = $("<div class=\"msg2\">" + "<i class=\"fas fa-exclamation\">");
+                     let msg = $("<div class=\"msg2\">");
                      msg.text(resp[i].chat);
                      $(msgBox).append(msg);
                      $("#message").append(msgBox);
