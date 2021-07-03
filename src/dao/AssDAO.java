@@ -130,8 +130,11 @@ public class AssDAO {
 				String id =rs.getString("id");
 				String title = rs.getString("title");
 				String contents= rs.getString("contents");
+				String khclass = rs.getNString("khclass");
+				String branch = rs.getNString("branch");
 				Date write_date = rs.getDate("write_date");
-				dto =new AssDTO(seq, writer, id, title, contents, write_date);
+				int viewCount = rs.getInt("viewCount");
+				dto = new AssDTO(seq, writer, id, title, contents, khclass, branch, write_date, viewCount);
 			}
 			return dto;
 		}
@@ -148,7 +151,7 @@ public class AssDAO {
 	public List<AssDTO> getPageList(int startNum, int endNum) throws Exception{
 
 
-		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, write_date from ass) where rnum between ? and ?";
+		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khclass, branch, write_date, viewCount from ass) where rnum between ? and ?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -167,8 +170,11 @@ public class AssDAO {
 				String id = rs.getString("id");
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");
+				String khclass = rs.getNString("khclass");
+				String branch = rs.getNString("branch");
 				Date write_date = rs.getDate("write_date");
-				AssDTO dto =new AssDTO(seq, writer, id, title, contents, write_date);
+				int viewCount = rs.getInt("viewCount");
+				AssDTO dto =new AssDTO(seq, writer, id, title, contents, khclass, branch, write_date, viewCount);
 				list.add(dto);
 			}
 			return list;
@@ -198,9 +204,12 @@ public class AssDAO {
 				String id = rs.getString("id");
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");
+				String khclass = rs.getNString("khclass");
+				String branch = rs.getNString("branch");
 				Date write_date = rs.getDate("write_date");
+				int viewCount = rs.getInt("viewCount");
 
-				AssDTO dto =new AssDTO(seq, writer, id, title, contents, write_date);
+				AssDTO dto =new AssDTO(seq, writer, id, title, contents, khclass, branch, write_date, viewCount);
 				list.add(dto);
 			}
 			return list;
@@ -208,7 +217,7 @@ public class AssDAO {
 	}
 
 	private int getRecordCount(String category, String keyword) throws Exception {
-		String sql = "select count(*) from board";
+		String sql = "select count(*) from ass";
 		if(category !=null & keyword!=null) {
 			sql+=" where "+category+" like '%"+keyword+"%'";
 		}

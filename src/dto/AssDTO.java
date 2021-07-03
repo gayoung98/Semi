@@ -3,35 +3,44 @@ package dto;
 import java.sql.Date;
 
 public class AssDTO {
-//	create table ASS(
-//		    seq number primary key,
-//		    writer varchar2(15) not null,
-//		    id varchar2(20) not null,
-//		    title varchar2(50) not null,
-//		    contents varchar2(4000) not null,
-//		    write_date date default sysdate not null,
-//		    viewCount number default 0 not null
-//		);
-	
+	//	create table ASS(
+	//		    seq number primary key,
+	//		    writer varchar2(15) not null,
+	//		    id varchar2(20) not null,
+	//		    title varchar2(50) not null,
+	//		    contents varchar2(4000) not null,
+	//			khClass varchar2(10) not null,
+	//			branch varchar2(10) not null,
+	//		    write_date date default sysdate not null,
+	//		    viewCount number default 0 not null
+	//		);
+
 	private int seq;
 	private String writer;
 	private String id;
 	private String title;
 	private String contents;
+	private String khClass;
+	private String branch;
 	private Date write_date;
 	private int viewCount;
-	
+
 	public AssDTO() {}
-	public AssDTO(int seq, String writer, String id, String title, String contents, Date write_date, int viewCount) {
-		super();
+
+	public AssDTO(int seq, String writer, String id, String title, String contents, String khClass, String branch,
+			Date write_date, int viewCount) {
+		
 		this.seq = seq;
 		this.writer = writer;
 		this.id = id;
 		this.title = title;
 		this.contents = contents;
+		this.khClass = khClass;
+		this.branch = branch;
 		this.write_date = write_date;
 		this.viewCount = viewCount;
 	}
+
 	public int getSeq() {
 		return seq;
 	}
@@ -74,6 +83,22 @@ public class AssDTO {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	
-	
+
+	public String getKhClass() {
+		return khClass;
+	}
+
+	public void setKhClass(String khClass) {
+		this.khClass = khClass;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+
 }
