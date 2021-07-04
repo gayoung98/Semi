@@ -408,6 +408,9 @@ display:block;
       })
     
 )
+	$("#inquire").on("click",function(){
+		 let popup = window.open('${pageContext.request.contextPath}/inquired/popup.jsp', 'inquire', 'width=550px,height=600px,scrollbars=no,resizable=no');
+	})
 
 Chat.init();
    });
@@ -441,12 +444,12 @@ Chat.init();
                <ul id="message">
                   <!-- 동적 생성 -->
                   <c:forEach var="item" items="${firstlist }">
-                     <c:if test="${item.writer == blue}">
+                     <c:if test="${item.writer == id}">
                         <div class="msgBox" style="text-align: right">
                            <div class="msg1">${item.chat}</div>
                         </div>
                      </c:if>
-                     <c:if test="${item.writer != blue}">
+                     <c:if test="${item.writer != id}">
                         <div class="msgBox" >
                            <div class="msg2">${item.chat}</div>
                         </div>
