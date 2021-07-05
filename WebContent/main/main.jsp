@@ -532,6 +532,14 @@ scale
 
 		Chat.init();
 		setTimeout(loadNewPage, 1200);
+		
+		
+		  $(function(){
+	            $("#inquire").on("click", function(){
+	                let popup = window.open('${pageContext.request.contextPath}/inquired/popup.jsp', 'inquire', 'width=550px,height=600px,scrollbars=no,resizable=no');
+	            })
+	        })
+		
 	});
 </script>
 
