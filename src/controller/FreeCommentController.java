@@ -63,39 +63,18 @@ public class FreeCommentController extends HttpServlet {
 					System.out.println("/detailView.fboard?seq="+parent);
 				}		
 					
-
-			}else if(url.contentEquals("/modify.freecom")) { //댓글 수정하기
-				int comment_seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println(comment_seq);
-				request.setAttribute("seq", comment_seq);
-
-				String comments = request.getParameter("comments");
-				request.setAttribute("comments", comments);
-				System.out.println("댓글 내용 " +comments);
-
-				int parent = Integer.parseInt(request.getParameter("parent"));
-				System.out.println(parent);
-				request.setAttribute("parent", parent);
-				
-				fbdao.boardView(parent);
-				
-				FreeBoardDTO fbdto = fbdao.detailView(parent);
-
-				request.setAttribute("view", fbdto);							
-				request.getRequestDispatcher("free/modifyComments.jsp").forward(request, response); //댓글 수정할 페이지로 이동
-
-			}else if(url.contentEquals("/modifyedit.freecom")) { //수정할 댓글 작성하기
+			}else if(url.contentEquals("/modify.freecom")) { //수정할 댓글 작성하기
 
 				int comment_seq = Integer.parseInt(request.getParameter("seq"));
 				int parent = Integer.parseInt(request.getParameter("parent"));
 
-				System.out.println(comment_seq);
-				String comments = request.getParameter("comments");
-				System.out.println(comments);
+				System.out.println("댓글 번호: "+comment_seq);
+				String comments = request.getParameter("reply");
+				System.out.println("수정된 댓글 내용 :" +comments);
 				int result = fcdao.modifyReply(comment_seq, comments); //댓글 수정 dao
-				System.out.println(result);
+				System.out.println("댓글 수정 여부: " + result);
 				
-				response.sendRedirect("/detailView.fboard?seq="+parent);
+				request.getRequestDispatcher("/detailView.fboard?seq="+parent).forward(request, response);;
 				System.out.println("/detailView.fboard?seq="+parent);
 				
 			}
