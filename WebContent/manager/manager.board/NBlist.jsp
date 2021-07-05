@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FreeBoard List</title>
+<title>noticeBoard List</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -20,12 +20,11 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.192);
     
 }
-body{padding-top:30px;}
 
+body{padding-top:30px;}
 h2{margin-left: 20px;
 font-weight: bold;
-padding-bottom:10px;
-}
+padding-bottom:10px;}
 
 ul{padding-top:10px;
 padding-bottom:10px;
@@ -54,12 +53,9 @@ float: right;
 
 <script>
 $(function(){
-$(".writeBtn").on("click",function(){
-location.href="${pageContext.request.contextPath}/towrite.fboard"
-});
 
 $("#back").on("click",function(){
-	location.href="${pageContext.request.contextPath}/index.jsp"
+	location.href="${pageContext.request.contextPath}/admin.jsp"
 	});
 
 
@@ -67,7 +63,7 @@ $("#back").on("click",function(){
 </script>
 </head>
 <body>
-<h2 class ="text-center">자유게시판</h2>
+<h2 class ="text-center">공지 게시판</h2>
     <ul class="nav justify-content-center">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">전체</a>
@@ -98,7 +94,7 @@ $("#back").on("click",function(){
             
                 <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
                 <div class="col-12 col-md-2">${i.branch}</div>
-                <div class="col-12 col-md-4 title" ><a href="detailView.fboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
+                <div class="col-12 col-md-4 title" ><a href="detailView.manager?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
                 <div class="col-2 col-md-2  d-md-block">${i.writeDate}</div>
                 <div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
@@ -111,25 +107,24 @@ $("#back").on("click",function(){
 				<c:forEach var="i" items="${navi}" varStatus="s">
 					<c:choose>
 						<c:when test="${i=='>'}">
-							<a href="/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
-							<!--s.index 10번인테 -1한 (배열 9번)요소: index 10+1=11번째!(배열로 10번요소) -->
+							<a href="/list.manager?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
+					
 						</c:when>
 						<c:when test="${i=='<'}">
-							<a href="/list.fboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
-							<!--s.index 10번인테 +1한 (배열 10번)요소;index 11-1= 10번째(배열의 9번요소)! -->
+							<a href="/list.manager?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
+					
 						</c:when>
 						<c:otherwise>
-							<a href="/list.fboard?cpage=${i}&category=${category}&keyword=${keyword}">${i}</a>
+							<a href="/list.manager?cpage=${i}&category=${category}&keyword=${keyword}">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 			</div>	
         <div class="footer">
-         <button type="button" name="write" class="btn btn-dark writeBtn">글쓰기</button> 
          <input type=button class="btn btn-dark" value="메인으로" id="back">
         </div>
  	<div class="search">
- 		<form action="/list.fboard" method="get">
+ 		<form action="/list.manager" method="get">
 		<input type="hidden" name="cpage" value="1">
 		<select name="category"> 
 		<option value="title">제목</option>
