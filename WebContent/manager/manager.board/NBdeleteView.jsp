@@ -5,10 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Delete Result</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-
+<script>
+	<c:choose>
+	<c:when test="${view==null}">
+		alert("게시글 삭제되었습니다.");
+		</c:when>
+		<c:otherwise>
+		alert("다시 확인해주세요.");
+		</c:otherwise>
+		</c:choose>
+	location.href = "/list.manager?cpage=1";
+	</script>
 </body>
 </html>

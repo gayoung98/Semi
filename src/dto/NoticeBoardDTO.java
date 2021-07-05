@@ -34,7 +34,13 @@ public class NoticeBoardDTO {
 			this.viewCount=viewCount;
 		}
 
-	    public int getSeq() {
+	  	  public NoticeBoardDTO(int seq, int viewCount) {
+	    	  this.seq = seq;
+	    	  this.viewCount = viewCount;
+		}
+
+
+		public int getSeq() {
 	        return seq;
 	    }
 

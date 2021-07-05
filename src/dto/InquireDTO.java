@@ -2,7 +2,7 @@ package dto;
 
 import java.sql.Date;
 
-public class inquiredDTO {
+public class InquireDTO {
    
    private int seq; 
    private String id;
@@ -11,7 +11,7 @@ public class inquiredDTO {
    private String contents;
    private String recomment;
    private Date reg_date;
-   public inquiredDTO(int seq, String id, String major_category, String sub_category, String contents,String recomment,
+   public InquireDTO(int seq, String id, String major_category, String sub_category, String contents,String recomment,
          Date reg_date) {
       super();
       this.seq = seq;
@@ -22,7 +22,7 @@ public class inquiredDTO {
       this.recomment=recomment;
       this.reg_date = reg_date;
    }
-   public inquiredDTO(String id, String major_category, String sub_category, String contents) {
+   public InquireDTO(String id, String major_category, String sub_category, String contents) {
       super();
       this.id = id;
       this.major_category = major_category;

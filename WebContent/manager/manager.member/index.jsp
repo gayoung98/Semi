@@ -15,7 +15,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
-
+ <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
@@ -25,6 +26,9 @@
 .containers {
 	text-align: center;
 }
+
+.mini>a{float:right;padding-bottom : 20px;}
+.click2edit{margin-top : 30px;margin-bottom:30px;}
 </style>
 </head>
 <body>
@@ -35,19 +39,85 @@
 				<div>
 					<div class="container">
 						<div class="content">
-							<div class="col">dasd</div>
-
+							<div class="col">
+							<h3>오늘 할 일</h3>
+							<div>
+							 <div class="click2edit">메모!</div>
+							 <button id="edit" class="btn btn-primary" onclick="edit()" type="button">Edit 1</button>
+    <button id="save" class="btn btn-primary" onclick="save()" type="button">Save 2</button>
+    
+   
+							</div>
+							</div>
+							
+						
 						</div>
 
 						<div class="content">
-							<div class="col">dasd</div>
-							<div class="col">asdasd</div>
+							<div class="col">
+							<div class="mini"><h4>게시판</h4>
+							<a href= "${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">더 보기</a>
+							
+							<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									
+									<th scope="col">지점</th>
+									<th scope="col">반</th>
+									<th scope="col">제목</th>
+									<th scope="col">작성자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="i" items="${list}" varStatus="s">
+								<tr>
+								
+									<td>${i.branch }</td>
+									<td>${i.khClass}</td>
+									<td>${i.title }</td>
+									<td>${i.id }</td>
+								</tr>
+									</c:forEach>
+							</tbody>
+							</table>
+							</div>
+							</div>
+							<div class="col">
+							<div class="mini"><h4>신고 목록</h4>
+							<a href="${pageContext.request.contextPath}/boardPolice.manager?currentPage=1&category=&search=">더 보기</a>
+								<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									
+									<th scope="col">신고자</th>
+									<th scope="col">신고 내용</th>
+									<th scope="col">본 글</th>
+									<th scope="col">신고일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="i" items="${list}" varStatus="s">
+								<tr>
+								
+									<td>${i.id}</td>
+									<td>${i.contents}</td>
+									<td>${i.parent}</td>
+									<td>${i.reg_date}</td>
+								</tr>
+									</c:forEach>
+							</tbody>
+							</table>
+							
+							</div>
+							</div>
+							</div>
 						</div>
 
 
 					</div>
 				</div>
-			</div>
+			
+			
 		</c:when>
 		<c:otherwise>
 			<div class="containers">
@@ -62,6 +132,14 @@
 		  location.href = "../login.jsp";
 	  })
   })
+  var edit = function() {
+  $('.click2edit').summernote({focus: true});
+};
+
+var save = function() {
+  var markup = $('.click2edit').summernote('code');
+  $('.click2edit').summernote('destroy');
+};
   </script>
 </body>
 </html>
