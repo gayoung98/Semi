@@ -29,7 +29,7 @@ public class SeatDAO {
 		return ds.getConnection();
 	}
 	public int insert(SeatDTO dto) throws Exception{
-		String sql = "insert into seat values(seat_SEQ.nextval, '월','member_number','blue',?,sysdate)";
+		String sql = "insert into seat values(seat_SEQ.nextval, '월','mn','blue',?,sysdate)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getSeat_number());

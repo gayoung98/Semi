@@ -45,7 +45,7 @@
         }
 		
 		.day{
-			margin-top : 8%;
+			margin-top : 5%;
 			margin-bottom : 3%;
 		}
         .day>div{
@@ -80,49 +80,36 @@
         	let id = "blue";
             let sub = 0;
             let before_seat = null;
-            for (let index = 1; index <= 36; index += 6) {
+            for (let index = 1; index <= 18; index += 3) {
                 let tr = $("<tr>");
-                for (let index2 = index; index2 < index + 6; index2++) {
+                for (let index2 = index; index2 < index + 3; index2++) {
                     let number = index2 - sub;
-                    let td = $("<td class=seat data-seat=" + number + " data-Ischoose= false id=seat"+number+" align=center>")
-                    //let a = $("<a href=/"post.board?dto_seq=${dto.seq}/"">
-                    if ((index2 + 2) % 6 != 0) td.append("<i class=\"fas fa-desktop\">" + "<br>" + number + "번 좌석")
-                    else {
+                    let td = $("<td class=seat data-seat=A" + number + " data-Ischoose= false id=A"+number+" align=center>")
+                    td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
                         td.css("width", "100");
-                        td.attr("data-seat", "empty")
-                        sub++;
-                    }
+                    
                     tr.append(td);
                 }
-                $("#table2").append(tr);
+                $(".left").append(tr);
+            }
+            let sub2 = 0;
+            for (let index3 = 1; index3 <= 12; index3 += 2) {
+                let tr = $("<tr>");
+                for (let index4 = index3; index4 < index3 + 2; index4++) {
+                    let number = index4 - sub;
+                    let td = $("<td class=seat data-seat=B" + number + " data-Ischoose= false id=B"+number+" align=center>")
+                    td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
+                        td.css("width", "100");
+                    
+                    tr.append(td);
+                }
+                $(".right").append(tr);
             }
 			
             $(document).on("click", ".seat", function () {
-                if ($(this).attr("data-seat") !== "empty" && $(this).attr("data-Ischoose") !== "true") {
-                	
-                    if (before_seat == null) {
-                        before_seat = $(this);
-                        $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
-                        $("#choose_seat").css("font-size", "40px")
-                        confirm("예약하시겠습니까?");
-                        $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +"예약좌석");
-                        //$(this).val() = "blue"
-                        $(this).css("background-color", "rgb(252, 255, 53)");
-                    } else {
-                        
-                        before_seat = $(this);
-                        $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
-                        $("#choose_seat").css("font-size", "40px")
-                        confirm("예약 취소하시겠습니까?");
-                        $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +$(this).attr("data-seat") + "번 좌석");
-                        $(this).css("background-color", "white");
-                        before_seat = null;
-                    }
-                    
-                    
-                }
-               
+                location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "111";
             })
+            
         })
 
     </script>
@@ -149,6 +136,13 @@
                 <td></td>
                 <td colspan="2" align="">
                     <i class="fas fa-chalkboard-teacher">강사님 자리</i>
+                </td>
+            </tr>
+            <tr class="tbcenter">
+                <td colspan="3" align="center" class="left">
+                </td>
+                <td></td>
+                <td colspan="2" align="center" class="right">
                 </td>
             </tr>
         </table>
