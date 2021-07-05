@@ -76,7 +76,7 @@ public class MainController extends HttpServlet {
 				}
 				request.setAttribute("month",(cal.get(caltoGre.MONTH)+1));
 				try {
-					request.setAttribute("list", cd.getSchedual("E","J",cal.get(caltoGre.MONTH)+1));
+					request.setAttribute("list", cd.getSchedual("C","J",cal.get(caltoGre.MONTH)+1));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
