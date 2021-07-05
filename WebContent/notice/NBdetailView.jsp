@@ -8,8 +8,6 @@
 			<title>${view.title}</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-			    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-			
 			<style>
 				.container {
 					margin-top: 10px;
@@ -33,14 +31,16 @@
 					border-bottom: 1px solid #ddd;
 				}
 
+				a {
+					text-decoration: none;
+					cursor: pointer;
+				}
 
 				li a:hover {
 					color: cadetblue;
 				}
 
 				a {
-					text-decoration: none;
-					cursor: pointer;
 					color: black;
 					font-weight: bold;
 				}
@@ -57,6 +57,10 @@
 				}
 
 				/* 작성자 정보 */
+				.writer{padding-left: 10px;
+				padding-top:10px;
+				padding-bottom:10px;
+				}
 				.WriterInfo .profile_info .name_box .name {
 					margin-right: 6px;
 					font-size: 13px;
@@ -66,9 +70,8 @@
 				.WriterInfo .article_info {
 					font-size: 12px;
 					line-height: 13px;
-					
 				}
-				.writerInfo{margin-bottom:20px;}
+
 				/* 댓글 */
 				.com {
 					float: right;
@@ -86,9 +89,9 @@
 					width: 100%;
 					min-height: 17px;
 					padding-right: 1px;
-					padding-bottom: 10px;
+					padding-bottem: 10px;
 					border: 1px solid #ddd;
-					font-size: 15px;
+					font-size: 13px;
 					resize: none;
 					box-sizing: border-box;
 					background: transparent;
@@ -116,7 +119,6 @@
 
 				li {
 					display: list-item;
-				
 				}
 
 				ul {
@@ -126,7 +128,6 @@
 					list-style-type: none;
 					margin-top: 40px;
 					margin-bottom: 40px;
-					border:none;
 				}
 
 				.CommentBox .comment_list .CommentItem {
@@ -145,8 +146,8 @@
 				}
 
 				.articleInfo {
-					margin-top: 5px;
-					margin-bottom: 5px;
+					margin-top: 10px;
+					margin-bottom: 10px;
 				}
 
 				.deleteReply {
@@ -163,13 +164,12 @@
 				.complete {
 					margin-left: 5px;
 				}
-				
-				#report{font-size:12px;}
 			</style>
 			<script>
 				$(function () {
-				
-					$("#deleteBtn").on("click",function () { //게시글 삭제
+					
+					$("#deleteBtn").on("click",
+							function () { //게시글 삭제
 								let check = confirm("정말 게시글을 삭제하겠습니까?");
 								if (check) {
 									location.href = "${pageContext.request.contextPath}/delete.fboard?seq="
@@ -182,7 +182,7 @@
 					$("#modifyBtn").on("click",function () { //게시글 수정
 								let check = confirm("정말 게시글을 수정하겠습니까?");
 								if (check) {
-									location.href = "${pageContext.request.contextPath}/modify.fboard?seq="
+									location.href = "${pageContext.request.contextPath}/modify.nboard?seq="
 										+ $("#modifyBtn").val(); //게시글 수정 확인 팝업
 								} else {
 									return;
@@ -226,7 +226,7 @@
 					$(".deleteReply").on("click", function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
 						if (check) {
-							$("#replyForm").attr("action", "delete.freecom");
+							$("#replyForm").attr("action", "delete.noticom");
 							$(this).next().attr("name", "seq");
 							$(this).next().next().attr("name", "parent");
 							$("#replyForm").submit();
@@ -234,13 +234,6 @@
 							return;
 						}
 					});
-					
-				  //게시글 신고
-					   $("#report").on("click",function() {
-						  window.open("${pageContext.request.contextPath}/free/policePop.jsp","게시글 신고","width=400,height=300");           
-					    });  
-					 
-					
 				});
 			</script>
 		</head>
@@ -256,25 +249,19 @@
 				<!-- 작성자 정보 -->
 				<div class="writerInfo">
 					<div class="profile_info">
-						<a href=""> <img src="title.jpg" alt="프로필 사진" width="30" height="30">
-						</a>
-						<div class="name_box">
-							<a href="#" role="button" class="target"> ${view.writer} </a> <em
-								class="position">${view.branch}지점 ${login.khClass}반
-								${login.position} </em>
-						</div>
+						
+							<h2 class="writer">${view.writer}</h2>
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
 						<span class="date">${view.writeDate}</span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
-						<!-- 댓글 수 및 신고버튼-->
+						<!-- 댓글 수 -->
 						<div class="com">
 							<a href="#" role="button" class="button_comment"> <strong class="num"> 댓글
 									${count.replyCount(view.seq)}</strong>
 							</a>
-							<button type="button" class="btn btn-danger" id="report"><i class="fas fa-exclamation-triangle"></i>신고</button>
 						</div>
 					</div>
 
@@ -305,7 +292,6 @@
 					<c:forEach items="${reply}" var="i">
 						<ul class="comment_list">
 							<li class="commentItem">
-							
 								<!-- 댓글 출력 -->
 								<div class="col-12 d-md-block comment_box">
 
@@ -315,7 +301,7 @@
 										</a>
 									</div>
 									<!--댓글 수정-->
-									<form action="/modify.freecom" method="post" id="modifyForm">
+									<form action="/modify.noticom" method="post" id="modifyForm">
 										<div class="comment_text">
 											<p class="text_view">
 												<span class="modify_option" id="com">${i.comments}</span>
@@ -323,7 +309,7 @@
 										</div>
 
 										<div class="commentInfo">
-											<span>${i.writeDate}</span>
+											<span>${i.write_date}</span>
 										</div>
 
 										<!-- 댓글 수정 controller -->
@@ -354,7 +340,7 @@
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="/write.freecom" method="post">
+						<form action="/write.noticom" method="post">
 							<strong>${login.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
@@ -374,8 +360,10 @@
 								class="btn btn-dark">삭제</button>
 						</c:when>
 					</c:choose>
-					<a href="${pageContext.request.contextPath}/list.fboard?cpage=1" class="btn btn-secondary">목록으로</a>
+					<a href="${pageContext.request.contextPath}/list.nboard?cpage=1" class="btn btn-secondary">목록으로</a>
 
 				</div>
 			</div>
 		</body>
+
+		</html>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NoticeBoard Write</title>
+  <title>NoticeBoard</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -68,8 +68,8 @@
    <script>
     $(function() {
     	
-    	$("#listBtn").on("click",function(){
-    		location.href = '/list.nboard?cpage=1';
+    	$("#main").on("click",function(){
+    		location.href ='/admin.jsp';
     	});
     	
         $("#summernote").summernote({     
@@ -92,10 +92,7 @@
 				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
         });
-        
-        
-        
-        
+
     });
   </script>
 </head>
@@ -103,20 +100,20 @@
 <body>
 <div class="container">
 		<h2 class="text-center mb-3">공지게시판 글쓰기</h2>
-	<form action="/write.nboard" method="post" enctype="multipart/form-data" >
+	<form action="/write.manager" method="post" enctype="multipart/form-data" >
 			<div class="contents_box">	
 					<div class="title">	
 					<select name="branch"> 
-					<option value="title">전체</option>
-					<option value="writer">종로</option>
-					<option value="contents">강남</option>
-					<option value="contents">당산</option>
+					<option value="전체">전체</option>
+					<option value="종로">종로</option>
+					<option value="강남">강남</option>
+					<option value="당산">당산</option>
 					</select>
-					<select name="KHClass">
-					<option value="title">전체</option> 
-					<option value="title">A</option>
-					<option value="writer">B</option>
-					<option value="contents">C</option>
+					<select name="KhClass">
+					<option value="전체">전체</option> 
+					<option value="A">A</option>
+					<option value="B">B</option>
+					<option value="C">C</option>
 					</select>			
 					<h3>
 						<input type="text" name="title" id="" placeholder="제목을 입력하세요">
@@ -136,14 +133,10 @@
 					</fieldset>
 					
 					<div class="btn_wrap text-right">
-					<!--관리자로 로그인할 때에 등록버튼 활성화  -->
-				<c:choose>
-			<c:when test="${admin}">	
-				
+
 					<input type="submit" class="btn btn-primary" value="등록하기">
-			</c:when>
-		</c:choose>
-					<input type=button class="btn btn-dark" value="목록으로" id="listBtn">
+		
+					<input type=button class="btn btn-dark" value="메인" id="main">
 				</div>
 			</div>
 		</form>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>write View</title>
+<title>View</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 </head>
@@ -19,7 +19,7 @@
 		alert("다시 입력해주세요.");
 		</c:otherwise>
 		</c:choose>
-	location.href = "/list.fboard?cpage=1";
+	location.href = "/list.manager?cpage=1";
 	</script>
 </body>
 </html>
