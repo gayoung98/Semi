@@ -15,17 +15,17 @@
         body{
         	text-align:center;
         }
-		.container{
-            position: fixed;
-            width: 70%;
-            text-align: center;
-            top: 10%;
-            left:20%
-        }
-      
+		
+		.day{
+			margin-top : 8%;
+			margin-bottom : 3%;
+		}
         .day>div{
             display: inline-block;
-            width: 8%;
+            width: 10%;
+            font-size : 35px;
+            margin-left : 2%;
+            margin-right : 2%;
         }
         .fas {
             font-size: 150%;
@@ -38,9 +38,14 @@
 
         div {
             width: 700px;
-            border: 1px solid black;
             font-size: 50px bold;
         }
+        table{
+        	margin-top : 2%;
+        }
+        
+        
+        
     </style>
     <script>
         $(function () {
@@ -50,7 +55,7 @@
                 let tr = $("<tr>");
                 for (let index2 = index; index2 < index + 6; index2++) {
                     let number = index2 - sub;
-                    let td = $("<td class=seat data-seat=" + number + " data-Ischoose= false align=center>")
+                    let td = $("<td class=seat data-seat=" + number + " data-Ischoose= false id=seat"+number+" align=center>")
                     if ((index2 + 2) % 6 != 0) td.append("<i class=\"fas fa-desktop\">" + "<br>" + number + "번 좌석")
                     else {
                         td.css("width", "100");
@@ -61,37 +66,48 @@
                 }
                 $("#table2").append(tr);
             }
-
+			
             $(document).on("click", ".seat", function () {
                 if ($(this).attr("data-seat") !== "empty" && $(this).attr("data-Ischoose") !== "true") {
+                	
                     if (before_seat == null) {
                         before_seat = $(this);
+                        $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
+                        $("#choose_seat").css("font-size", "40px")
+                        alert("예약 완료");
+                        $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +"예약좌석");
+                        $(this).css("background-color", "rgb(252, 255, 53)");
                     } else {
-                        $(before_seat).css("background-color", "white");
+                        //$(before_seat).css("background-color", "white");
                         before_seat = $(this);
+                        $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
+                        $("#choose_seat").css("font-size", "40px")
+                        alert("예약 취소");
+                        $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +$(this).attr("data-seat") + "번 좌석");
+                        $(this).css("background-color", "white");
+                        before_seat = null;
                     }
-                    $(this).css("background-color", "gray");
-                    $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
-                    $("#choose_seat").css("font-size", "40px")
+                    
+                    
                 }
+               
             })
         })
 
     </script>
 </head>
 <body>
-	<div class="container">
+    <center>
         <div class="day">
             <div class="mon">월</div>
             <div class="tue">화</div>
             <div class="wed">수</div>
             <div class="thu">목</div>
             <div class="fri">금</div>
-            <div class="sat">토</div>
-            <div class="sun">일</div>
         </div>
-    <center>
+        <div>
         [KH 종로반 E 클래스 교실 구조]
+        </div>
         <table border="1" width=700 id=table2>
             <tr>
                 <td colspan="3" align="left">
@@ -106,5 +122,6 @@
         <div id=choose_seat>
         </div>
     </center>
+    
 </body>
 </html>
