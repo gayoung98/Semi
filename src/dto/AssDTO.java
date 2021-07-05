@@ -7,13 +7,13 @@ public class AssDTO {
 	//		    seq number primary key,
 	//		    writer varchar2(15) not null,
 	//		    id varchar2(20) not null,
-	//		    title varchar2(50) not null,
+	//		    title varchar2(150) not null,
 	//		    contents varchar2(4000) not null,
 	//			khClass varchar2(10) not null,
 	//			branch varchar2(10) not null,
 	//		    write_date date default sysdate not null,
 	//		    viewCount number default 0 not null
-	//		);
+	//		); 이거 누가 써줬어? 천사야...
 
 	private int seq;
 	private String writer;
