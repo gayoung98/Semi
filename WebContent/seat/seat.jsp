@@ -49,6 +49,7 @@
     </style>
     <script>
         $(function () {
+        	let id = "blue";
             let sub = 0;
             let before_seat = null;
             for (let index = 1; index <= 36; index += 6) {
@@ -74,15 +75,16 @@
                         before_seat = $(this);
                         $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
                         $("#choose_seat").css("font-size", "40px")
-                        alert("예약 완료");
+                        confirm("예약하시겠습니까?");
                         $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +"예약좌석");
+                        $(this).val() = "blue"
                         $(this).css("background-color", "rgb(252, 255, 53)");
                     } else {
-                        //$(before_seat).css("background-color", "white");
+                        
                         before_seat = $(this);
                         $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
                         $("#choose_seat").css("font-size", "40px")
-                        alert("예약 취소");
+                        confirm("예약 취소하시겠습니까?");
                         $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +$(this).attr("data-seat") + "번 좌석");
                         $(this).css("background-color", "white");
                         before_seat = null;
@@ -97,6 +99,7 @@
     </script>
 </head>
 <body>
+<input type=hidden id=length value="${list}">
     <center>
         <div class="day">
             <div class="mon">월</div>

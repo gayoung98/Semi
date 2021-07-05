@@ -32,7 +32,7 @@
 .card {
 	float: left;
 	position: fixed;
-	top: 0;
+	top: 55px;
 	left: 8%;
 	width: 10%;
 	text-align: center;
@@ -94,7 +94,7 @@
 
 .input-div {
 	position: fixed;
-	top: 0;
+	top: 55px;
 	width: 60%;
 	float: right;
 	background-color: #FFF;
@@ -141,39 +141,37 @@ body {
 }
 /* 로딩바 */
 .footer {
-					display: block;
-					width: 100%;
-					position: fixed;
-					text-align: center;
-					bottom: 0px;
-				}
+	display: block;
+	width: 100%;
+	position: fixed;
+	text-align: center;
+	bottom: 0px;
+}
 
-				.sk-circle {
-					display:inline-block;
-					margin: auto;
-					width: 40px;
-					height: 40px;
+.sk-circle {
+	display: inline-block;
+	margin: auto;
+	width: 40px;
+	height: 40px;
+}
 
-				}
+.sk-circle .sk-child {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+}
 
-				.sk-circle .sk-child {
-					width: 40px;
-					height: 40px;
-					position: absolute;
-
-				}
-
-				.sk-circle .sk-child:before {
-					content: '';
-					display: block;
-					margin: 0 auto;
-					width: 6px;
-					height: 6px;
-					background-color: rgb(179, 179, 179);
-					border-radius: 100%;
-					-webkit-animation: sk-circleBounceDelay 0.5s infinite ease-in-out both;
-					animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
-				}
+.sk-circle .sk-child:before {
+	content: '';
+	display: block;
+	margin: 0 auto;
+	width: 6px;
+	height: 6px;
+	background-color: rgb(179, 179, 179);
+	border-radius: 100%;
+	-webkit-animation: sk-circleBounceDelay 0.5s infinite ease-in-out both;
+	animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+}
 
 .sk-circle .sk-circle2 {
 	-webkit-transform: rotate(30deg);
@@ -303,18 +301,44 @@ body {
 }
 
 40
+
+
 %
 {
 -webkit-transform
+
+
 :
-scale(
+
+
+scale
+(
+
+
 1
-);
+
+
+)
+;
+
+
 transform
+
+
 :
-scale(
+
+
+scale
+(
+
+
 1
-);
+
+
+)
+;
+
+
 }
 }
 @
@@ -323,190 +347,245 @@ keyframes sk-circleBounceDelay { 0%, 80%, 100% {
 	transform: scale(0);
 }
 40
+
+
 %
 {
 -webkit-transform
+
+
 :
-scale(
+
+
+scale
+(
+
+
 1
-);
+
+
+)
+;
+
+
 transform
+
+
 :
-scale(
+
+
+scale
+(
+
+
 1
-);
+
+
+)
+;
+
+
 }
 }
 </style>
 <script>
-   /* sns */
-   let writechat = document.getElementById("wirtechat");
+	/* sns */
+	let writechat = document.getElementById("wirtechat");
 
-   const Chat = (function() {
-      const myName = "blue";
+	const Chat = (function() {
+		const myName = "blue";
 
-      // init 함수
-      function init() {
-         // enter 키 이벤트
-         $(document).on('keydown', 'div.input-div input', function(e) {
-			
-            if (e.keyCode == 13 && !e.shiftKey) {
-            	if($("#writechat").val() != null){
-               document.getElementById("submit").submit();
-               e.preventDefault();
-               const message = $(this).val();
+		// init 함수
+		function init() {
+			// enter 키 이벤트
+			$(document).on('keydown', 'div.input-div input', function(e) {
 
-               // 메시지 전송
+				if (e.keyCode == 13 && !e.shiftKey) {
+					if ($("#writechat").val() != null) {
+						document.getElementById("submit").submit();
+						e.preventDefault();
+						const message = $(this).val();
 
-               // 입력창 clear
-               clearInput();
-            	}else{
-            		alert("넣어주세요")
-            	}
-            	
-            }
+						// 메시지 전송
 
-         });
-      }
+						// 입력창 clear
+						clearInput();
+					} else {
+						alert("넣어주세요")
+					}
 
-      // 메세지 입력박스 내용 지우기
-      function clearInput() {
-         $('div.input-div input').val('');
-      }
+				}
 
-      return {
-         'init' : init
-      };
-   })();
-/*
-   loadBeforeSend: function(){
-	   var divLoading = document.all.hiddenDivLoading;
-	   divLoading.style.visibility = "visible";
-	   $("#hiddenDivLoading").show.css({
-		   top:$(document).scrollTop()+($(window).height())/2.6 + 'px',
-		   left:($(window).width())/2.6 + 'px'
-	   });
-   },
-   loadComplete : function(data){
-	   $("#hiddenDivLoading").hide();
-   }
-   $(Window).scroll(function(){
-	   top:$(document).scrollTop()+($(window).height())/2.6 + 'px',
-	   left:($(window).width())/2.6 + 'px'
-	   });
-   });
-   */
-   $(function() {
-	   	   
-      var count =2;
-      var isScroll = true; 
-     
-      let loadNewPage =$(window).on("scroll",(function(){
-        if(((window.innerHeight + window.scrollY) >= $("#wrapper").height()) && isScroll){
-            $.ajax({
-               url : "${pageContext.request.contextPath}/listchat.main",
-               type : "get",
-               data : {"count":count},
-               dataType : "json"
-            }).done(function(resp) {
-               if(count>Number($("#length").val())/8) isScroll =false; 
-               console.log("count= "+count)
-               for (var i = 0; i < resp.length; i++) {
-                  
-                  if (resp[i].writer == "blue") {
-                	  let msgBox = $("<div class=\"msgBox\">");
-                     let msg = $("<div class=\"msg1\">");
-                     msgBox.attr("style", "text-align:right");
-                     msg.text(resp[i].chat);
-                     $(msgBox).append(msg);
-                     $("#message").append(msgBox);
-                  } else {
-                	  let msgBox = $("<div class=\"msgBox\">");
-                     let msg = $("<div class=\"msg2\">");
-                     msg.text(resp[i].chat);
-                     $(msgBox).append(msg);
-                     $("#message").append(msgBox);
-                  }
-                  
-               }
-               count++;
-               
-            })
-           
-             }
-      })
-    
-)
+			});
+		}
 
-Chat.init();
-setTimeout(loadNewPage, 1200);
-   });
+		// 메세지 입력박스 내용 지우기
+		function clearInput() {
+			$('div.input-div input').val('');
+		}
+
+		return {
+			'init' : init
+		};
+	})();
+	/*
+	 loadBeforeSend: function(){
+	 var divLoading = document.all.hiddenDivLoading;
+	 divLoading.style.visibility = "visible";
+	 $("#hiddenDivLoading").show.css({
+	 top:$(document).scrollTop()+($(window).height())/2.6 + 'px',
+	 left:($(window).width())/2.6 + 'px'
+	 });
+	 },
+	 loadComplete : function(data){
+	 $("#hiddenDivLoading").hide();
+	 }
+	 $(Window).scroll(function(){
+	 top:$(document).scrollTop()+($(window).height())/2.6 + 'px',
+	 left:($(window).width())/2.6 + 'px'
+	 });
+	 });
+	 */
+	$(function() {
+
+		var count = 2;
+		var isScroll = true;
+
+		let loadNewPage = $(window)
+				.on(
+						"scroll",
+						(function() {
+							if (((window.innerHeight + window.scrollY) >= $(
+									"#wrapper").height())
+									&& isScroll) {
+								$
+										.ajax(
+												{
+													url : "${pageContext.request.contextPath}/listchat.main",
+													type : "get",
+													data : {
+														"count" : count
+													},
+													dataType : "json"
+												})
+										.done(
+												function(resp) {
+													if (count > Number($(
+															"#length").val()) / 8)
+														isScroll = false;
+													console.log("count= "
+															+ count)
+													for (var i = 0; i < resp.length; i++) {
+
+														if (resp[i].writer == "blue") {
+															let msgBox = $("<div class=\"msgBox\">");
+															let msg = $("<div class=\"msg1\">");
+															msgBox
+																	.attr(
+																			"style",
+																			"text-align:right");
+															msg
+																	.text(resp[i].chat);
+															$(msgBox).append(
+																	msg);
+															$("#message")
+																	.append(
+																			msgBox);
+														} else {
+															let msgBox = $("<div class=\"msgBox\">");
+															let msg = $("<div class=\"msg2\">");
+															msg
+																	.text(resp[i].chat);
+															$(msgBox).append(
+																	msg);
+															$("#message")
+																	.append(
+																			msgBox);
+														}
+
+													}
+													count++;
+
+												})
+
+							}
+						})
+
+				)
+
+		Chat.init();
+		setTimeout(loadNewPage, 1200);
+	});
 </script>
 
 </head>
 
 <body>
-	<input type=hidden id=length value="${list}">
-	<div class="card" style="width: 12%;">
-		<img src="profile.png" class="card-img-top" alt="...">
-		<p class="card-text">닉네임 님</p>
-		<div class="card-body">
-			<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
-				id="logout" class="card-link">로그아웃</a>
-		</div>
-	</div>
-	<div class="chat_wrap">
-		<div class="writebox">
-			<form action="${pageContext.request.contextPath}/writechat.main"
-				method="post" id="submit">
-				<div class="input-div">
-					<input type=text id="writechat" name="writechat"
-						placeholder="Press Enter for send message.">
-				</div>
-			</form>
-		</div>
-		<div class="wrapper" id="wrapper">
-			<div class="big-box">
-				<div class="chat">
-					<ul id="message">
-						<!-- 동적 생성 -->
-						<c:forEach var="item" items="${firstlist }">
-							<c:if test="${item.writer == blue}">
-								<div class="msgBox" style="text-align: right">
-									<div class="msg1">${item.chat}</div>
-								</div>
-							</c:if>
-							<c:if test="${item.writer != blue}">
-								<div class="msgBox">
-									<div class="msg2">${item.chat}</div>
-								</div>
-							</c:if>
-						</c:forEach>
-					</ul>
-				</div>
+	
+	<div>
+		<input type=hidden id=length value="${list}">
+		<div class="card" style="width: 12%; position: fixed;">
+			<img src="profile.png" class="card-img-top" alt="...">
+			<p class="card-text">닉네임 님</p>
+			<div class="card-body">
+				<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
+					id="logout" class="card-link">로그아웃</a>
 			</div>
 		</div>
+		<div class="chat_wrap">
+			<div class="writebox">
+				<form action="${pageContext.request.contextPath}/writechat.main"
+					method="post" id="submit">
+					<div class="input-div">
+						<input type=text id="writechat" name="writechat"
+							placeholder="Press Enter for send message.">
+					</div>
+				</form>
+			</div>
+			<div class="wrapper" id="wrapper">
+				<div class="big-box">
+					<div class="chat">
+						<ul id="message">
+							<!-- 동적 생성 -->
+							<c:forEach var="item" items="${firstlist }">
+								<c:if test="${item.writer == blue}">
+									<div class="msgBox" style="text-align: right">
+										<div class="msg1">${item.chat}</div>
+									</div>
+								</c:if>
+								<c:if test="${item.writer != blue}">
+									<div class="msgBox">
+										<div class="msg2">${item.chat}</div>
+									</div>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
 
+		</div>
+		<div id="inquire">
+			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
+		</div>
+		<div class="footer">
+			<div class="sk-circle" id="hiddenDivLoading">
+				<div class="sk-circle1 sk-child"></div>
+				<div class="sk-circle2 sk-child"></div>
+				<div class="sk-circle3 sk-child"></div>
+				<div class="sk-circle4 sk-child"></div>
+				<div class="sk-circle5 sk-child"></div>
+				<div class="sk-circle6 sk-child"></div>
+				<div class="sk-circle7 sk-child"></div>
+				<div class="sk-circle8 sk-child"></div>
+				<div class="sk-circle9 sk-child"></div>
+				<div class="sk-circle10 sk-child"></div>
+				<div class="sk-circle11 sk-child"></div>
+				<div class="sk-circle12 sk-child"></div>
+			</div>
+		</div>
 	</div>
-	<div id="inquire">
-		<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
-	</div>
-	<div class="footer">
-	<div class="sk-circle" id="hiddenDivLoading">
-		<div class="sk-circle1 sk-child"></div>
-		<div class="sk-circle2 sk-child"></div> 
-		<div class="sk-circle3 sk-child"></div>
-		<div class="sk-circle4 sk-child"></div>
-		<div class="sk-circle5 sk-child"></div>
-		<div class="sk-circle6 sk-child"></div>
-		<div class="sk-circle7 sk-child"></div>
-		<div class="sk-circle8 sk-child"></div>
-		<div class="sk-circle9 sk-child"></div>
-		<div class="sk-circle10 sk-child"></div>
-		<div class="sk-circle11 sk-child"></div>
-		<div class="sk-circle12 sk-child"></div>
-	</div>
-	</div>
+	<jsp:include page="navibar.jsp" />
 </body>
 
 </html>
