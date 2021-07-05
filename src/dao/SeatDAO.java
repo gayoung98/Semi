@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -29,7 +30,7 @@ public class SeatDAO {
 		return ds.getConnection();
 	}
 	public int insert(SeatDTO dto) throws Exception{
-		String sql = "insert into seat values(seat_SEQ.nextval, '월','mn','blue',?,sysdate)";
+		String sql = "insert into seat values(seat_SEQ.nextval, 'm','mn','blue',?,sysdate)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getSeat_number());
@@ -44,6 +45,20 @@ public class SeatDAO {
 			pstat.setString(1, dto.getSeat_number());
 			int result = pstat.executeUpdate();
 			return result;
+		}
+	}
+	public boolean isReserved(String seat_number) throws Exception{
+		String sql = "select * from seat where seat_number = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, seat_number);
+			try(ResultSet rs = pstat.executeQuery()){
+				if(rs.next()) {
+					return true;
+				}else {
+					return false;
+				}
+			}
 		}
 	}
 }

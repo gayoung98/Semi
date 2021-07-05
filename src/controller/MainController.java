@@ -37,8 +37,8 @@ public class MainController extends HttpServlet {
 		
 			System.out.println(url);
 			if(url.contentEquals("/writechat.main")) {
-				String chat = request.getParameter("writechat");
-				int result = dao.writechat(chat);
+				String contents = request.getParameter("writechat");
+				int result = dao.writechat(contents);
 				response.sendRedirect(ctxPath+"/main.main");
 			} else if(url.contentEquals("/main.main")) {
 	            request.getSession().setAttribute("blue",(String)"blue");

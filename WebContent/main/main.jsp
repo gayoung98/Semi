@@ -468,56 +468,35 @@ scale
 		var count = 2;
 		var isScroll = true;
 
-		let loadNewPage = $(window)
-				.on(
-						"scroll",
-						(function() {
-							if (((window.innerHeight + window.scrollY) >= $(
-									"#wrapper").height())
-									&& isScroll) {
-								$
-										.ajax(
-												{
+		let loadNewPage = $(window).on("scroll",(function() {
+							if (((window.innerHeight + window.scrollY) >= $("#wrapper").height())&& isScroll) {
+								$.ajax({
 													url : "${pageContext.request.contextPath}/listchat.main",
 													type : "get",
-													data : {
-														"count" : count
-													},
+													data : {"count" : count},
 													dataType : "json"
-												})
-										.done(
+												}).done(
 												function(resp) {
-													if (count > Number($(
-															"#length").val()) / 8)
+													if (count > Number($("#length").val()) / 8)
 														isScroll = false;
-													console.log("count= "
-															+ count)
+													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {
 
 														if (resp[i].writer == "blue") {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg1\">");
-															msgBox
-																	.attr(
+															msgBox.attr(
 																			"style",
 																			"text-align:right");
-															msg
-																	.text(resp[i].chat);
-															$(msgBox).append(
-																	msg);
-															$("#message")
-																	.append(
-																			msgBox);
+															msg.text(resp[i].chat);
+															$(msgBox).append(msg);
+															$("#message").append(msgBox);
 														} else {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg2\">");
-															msg
-																	.text(resp[i].chat);
-															$(msgBox).append(
-																	msg);
-															$("#message")
-																	.append(
-																			msgBox);
+															msg.text(resp[i].chat);
+															$(msgBox).append(msg);
+															$("#message").append(msgBox);
 														}
 
 													}

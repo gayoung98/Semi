@@ -77,6 +77,7 @@
     </style>
     <script>
         $(function () {
+        	
         	let id = "blue";
             let sub = 0;
             let before_seat = null;
@@ -107,7 +108,8 @@
             }
 			
             $(document).on("click", ".seat", function () {
-                location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "111";
+            	//confirm("해당 좌석을 예약하시겠습니까?")
+                location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "11";
             })
             
         })
