@@ -22,7 +22,7 @@ public class LoginController extends HttpServlet {
 		String requestURI = request.getRequestURI();
 		String ctxPath = request.getContextPath();
 		String url = requestURI.substring(ctxPath.length());
-		System.out.println("요청URL : " + url);
+		System.out.println("�슂泥쵻RL : " + url);
 		
 		try {
 			MemberDAO dao = MemberDAO.getInstance();
@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
 				
 				System.out.println(resultId);
 				if(resultId == true) {
-					System.out.println("아이디가 중복 체크됨");
+					System.out.println("�븘�씠�뵒媛� 以묐났 泥댄겕�맖");
 					response.sendRedirect(ctxPath+"/view/checkId.jsp");
 				}else {
 					int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
