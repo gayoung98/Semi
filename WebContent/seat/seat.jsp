@@ -7,11 +7,39 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+
+
 <style>
-		*{
-            box-sizing: border-box;
+* {
+	margin: 0;
+	padding: 0;
+}
+.navbar>.container-fluid {
+            padding: 0px;
         }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #55555550;
+        }
+
+        
         body{
         	text-align:center;
         }
@@ -57,6 +85,7 @@
                 for (let index2 = index; index2 < index + 6; index2++) {
                     let number = index2 - sub;
                     let td = $("<td class=seat data-seat=" + number + " data-Ischoose= false id=seat"+number+" align=center>")
+                    //let a = $("<a href=/"post.board?dto_seq=${dto.seq}/"">
                     if ((index2 + 2) % 6 != 0) td.append("<i class=\"fas fa-desktop\">" + "<br>" + number + "번 좌석")
                     else {
                         td.css("width", "100");
@@ -77,7 +106,7 @@
                         $("#choose_seat").css("font-size", "40px")
                         confirm("예약하시겠습니까?");
                         $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +"예약좌석");
-                        $(this).val() = "blue"
+                        //$(this).val() = "blue"
                         $(this).css("background-color", "rgb(252, 255, 53)");
                     } else {
                         
@@ -99,6 +128,7 @@
     </script>
 </head>
 <body>
+<jsp:include page= "/navibar.jsp" />
 <input type=hidden id=length value="${list}">
     <center>
         <div class="day">

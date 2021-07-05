@@ -17,36 +17,52 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
 
+
 <style>
 * {
 	margin: 0;
 	padding: 0;
 }
+div[class*=col]{
+padding: 0px;
+margin:0px;
+}
+.navbar>.container-fluid {
+            padding: 0px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+
+        .slide {
+        	z-index:1;
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #55555550;
+        }
+
 
 .chat_wrap {
-	width: 60%;
-	position: absolute;
+	width: 100%;
 	left: 20%;
 }
 
 .card {
 	float: left;
-	position: fixed;
 	top: 55px;
 	left: 8%;
-	width: 10%;
+	width: 70%;
 	text-align: center;
-	position: fixed;
 }
 
 .writebox {
 	float: left;
-	position: fixed;
-	top: 0;
-	left: 20%;
 	width: 100%;
 	text-align: center;
-	position: fixed;
 }
 
 /* sns */
@@ -93,14 +109,15 @@
 }
 
 .input-div {
-	position: fixed;
 	top: 55px;
 	width: 60%;
-	float: right;
+	margin:auto;
 	background-color: #FFF;
 	text-align: center;
 	border-bottom: 1px solid #F18C7E;
 }
+
+
 
 .input-div>input {
 	width: 100%;
@@ -521,17 +538,21 @@ scale
 </head>
 
 <body>
-	
-	<div>
+<jsp:include page= "/navibar.jsp" />
+	<div class = container>
 		<input type=hidden id=length value="${list}">
-		<div class="card" style="width: 12%; position: fixed;">
+		<div class =row>
+		<div class="col-3"> 
+		<div class="card">
 			<img src="profile.png" class="card-img-top" alt="...">
 			<p class="card-text">닉네임 님</p>
 			<div class="card-body">
-				<a href="#" id="mypage" class="card-link">마이페이지</a> <a href="#"
+				<a href="${pageContext.request.contextPath}/Mypage.mp" id="mypage" class="card-link">마이페이지</a> <a href="#"
 					id="logout" class="card-link">로그아웃</a>
 			</div>
 		</div>
+		</div>
+		<div class = "col-9">
 		<div class="chat_wrap">
 			<div class="writebox">
 				<form action="${pageContext.request.contextPath}/writechat.main"
@@ -563,7 +584,9 @@ scale
 					</div>
 				</div>
 			</div>
-
+</div>
+		</div>
+		</div>
 		</div>
 		<div id="inquire">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
@@ -584,8 +607,6 @@ scale
 				<div class="sk-circle12 sk-child"></div>
 			</div>
 		</div>
-	</div>
-	<jsp:include page="navibar.jsp" />
 </body>
 
 </html>
