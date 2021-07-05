@@ -488,13 +488,13 @@ scale
 															msgBox.attr(
 																			"style",
 																			"text-align:right");
-															msg.text(resp[i].chat);
+															msg.text(resp[i].contents);
 															$(msgBox).append(msg);
 															$("#message").append(msgBox);
 														} else {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg2\">");
-															msg.text(resp[i].chat);
+															msg.text(resp[i].contents);
 															$(msgBox).append(msg);
 															$("#message").append(msgBox);
 														}
@@ -558,12 +558,12 @@ scale
 							<c:forEach var="item" items="${firstlist }">
 								<c:if test="${item.writer == blue}">
 									<div class="msgBox" style="text-align: right">
-										<div class="msg1">${item.chat}</div>
+										<div class="msg1">${item.contents}</div>
 									</div>
 								</c:if>
 								<c:if test="${item.writer != blue}">
 									<div class="msgBox">
-										<div class="msg2">${item.chat}</div>
+										<div class="msg2">${item.contents}</div>
 									</div>
 								</c:if>
 							</c:forEach>

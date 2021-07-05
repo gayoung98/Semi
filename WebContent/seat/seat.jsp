@@ -75,9 +75,9 @@
         
         
     </style>
-    <script>
+    
+		<script>
         $(function () {
-        	
         	let id = "blue";
             let sub = 0;
             let before_seat = null;
@@ -107,13 +107,42 @@
                 $(".right").append(tr);
             }
 			
-            $(document).on("click", ".seat", function () {
+            /* $(document).on("click", ".seat", function () {
             	//confirm("해당 좌석을 예약하시겠습니까?")
                 location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "11";
+            }) */
+            
+       
+            $(document).on("click",".seat",function(){
+            	console.log($(this).attr("id"));
+            	console.log($(this).attr("data-Ischoose"));
+            	if($(this).attr("data-Ischoose")==="false"){
+	                $.ajax({
+	                	url: "${pageContext.request.contextPath}/reserve2.seat",
+	                	data: {"seatNumber":$(this).attr("id")}
+	                }).done(function(result){
+	                	console.log("예약되었습니다.");
+	                	console.log(result);
+	                	$("#"+result).css("background-color","black");
+	                	$("#"+result).attr("data-Ischoose","true");
+	                })	
+                }else{
+                	$.ajax({
+	                	url: "${pageContext.request.contextPath}/reserve2.seat",
+	                	data: {"cancelSeat":$(this).attr("id")}
+	                }).done(function(result){
+	                	console.log("예약이 취소되었습니다.");
+	                	$("#"+result).css("background-color","white");
+	                	$("#"+result).attr("data-Ischoose","false");
+	                })	
+                }
             })
             
-        })
-
+        
+            	
+            })
+            
+        
     </script>
 </head>
 <body>

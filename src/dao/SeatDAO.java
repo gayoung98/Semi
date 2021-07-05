@@ -3,7 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.util.*; 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -61,5 +61,18 @@ public class SeatDAO {
 			}
 		}
 	}
+	public List<Integer> reservedList() throws Exception{
+		List <Integer> li = new ArrayList<Integer>();
+		String sql = "select seat_number from seat";
+		try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery();){
+				while(rs.next()) {
+					li.add(rs.getInt(1));
+				}
+				return li;
+			}
+		}
 }
+
 
