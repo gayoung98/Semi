@@ -51,7 +51,7 @@
 width:100px;
 height:50px;}
   .container{
-  	margin-top:30px;
+  	margin-top:4%;
   }
   .card-body{
         height: 50px;
@@ -68,10 +68,28 @@ height:50px;}
     text-align:center;
     line-height: 50px;
     }
+     .navbar>.container-fluid {
+            padding: 0px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #55555550;
+        }
+        body {background-color: #D8E3E7;}
 </style>
 </head>
 <body>
-  <div class="container table-responsive">
+<jsp:include page="/navibar.jsp"></jsp:include>
+  <div class="container table-responsive shadow bg-white rounded">
   		<div class =row>
 	  		<div class = col-3><a href= "${pageContext.request.contextPath}/calander.main?change_month=${month-2}"><i class="fas fa-chevron-left"></i></a></div>
 	  		<div class = col-6><h1 id = "month" value = ${month }>${month }월</h1></center></div>

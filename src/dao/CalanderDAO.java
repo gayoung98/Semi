@@ -9,6 +9,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import dto.CalanderDTO;
+
 import java.util.*;
 
 public class CalanderDAO {
@@ -46,6 +49,40 @@ public class CalanderDAO {
 			 return li;
 		}
 	
+	}
+	
+	public List getMonth(int month,String branch, String khclass) throws Exception{
+		String sql = "select contents, Day_type ,event_date from Academic_Calendar where extract(MONTH from event_date)=? and branch =? and khclass=?";
+		List<CalanderDTO> li  = new ArrayList();
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql)){
+			psmt.setInt(1, month);
+			psmt.setString(2, branch);
+			psmt.setString(3, khclass);
+			try(ResultSet rs = psmt.executeQuery();){
+				while(rs.next()) {
+					li.add(new CalanderDTO(rs.getString(1),rs.getString(2),rs.getDate(3)));
+				}
+				
+				return li;
+			}
+		}
+	}
+	
+	public List rest_getMonth(String branch, String khclass) throws Exception{
+		String sql = "select contents,event_date from Academic_Calendar where branch =? and khclass=? and day_type='rest'";
+		List<CalanderDTO> li  = new ArrayList();
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql)){
+			psmt.setString(1, branch);
+			psmt.setString(2, khclass);
+			try(ResultSet rs = psmt.executeQuery();){
+				while(rs.next()) {
+					li.add(new CalanderDTO(rs.getString(1),rs.getDate(2)));
+				}
+				return li;
+			}
+		}
 	}
 	
 }

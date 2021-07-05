@@ -534,7 +534,7 @@ scale
 			<img src="profile.png" class="card-img-top" alt="...">
 			<p class="card-text">닉네임 님</p>
 			<div class="card-body">
-				<a href="${pageContext.request.contextPath}/Mypage.mp" id="mypage" class="card-link">마이페이지</a> <a href="#"
+				<a href="${pageContext.request.contextPath}/mypage.mp" id="mypage" class="card-link">마이페이지</a> <a href="#"
 					id="logout" class="card-link">로그아웃</a>
 			</div>
 		</div>
