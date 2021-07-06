@@ -38,6 +38,23 @@
 	height: 100%;
 }
 
+.navbar>.container-fluid {
+	padding: 0px;
+}
+
+.navbar-nav {
+	flex-grow: 1;
+	justify-content: space-around;
+}
+
+.slide {
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	top: 100%;
+	background-color: #55555550;
+}
+
 .ql-editor {
 	min-height: 40vh;
 	min-width: 100%;
@@ -47,6 +64,7 @@
 
 </head>
 <body>
+	<jsp:include page="/navibar.jsp" />
 	<form action="${pageContext.request.contextPath}/write.ass"
 		method="post" enctype="multipart/form-data">
 		<div class="container">
