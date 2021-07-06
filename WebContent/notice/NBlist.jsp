@@ -118,9 +118,9 @@ $("#back").on("click",function(){
                 <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
                 <div class="col-12 col-md-2"style="text-align: center;">${i.branch}</div>
                 <div class="col-12 col-md-1"style="text-align: center;">${i.khClass}</div>
-                <div class="col-12 col-md-3 title" ><a href="detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
+                <div class="col-12 col-md-3 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
-                <div class="col-2 col-md-2  d-md-block">${i.writeDate}</div>
+                <div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
                 <div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
             </div>
         </c:forEach>
@@ -152,7 +152,7 @@ $("#back").on("click",function(){
 								</c:choose>
 						</c:when>
 						<c:otherwise>
-							<a href="/list.nboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+							<a href="${pageContext.request.contextPath}/list.nboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -161,7 +161,7 @@ $("#back").on("click",function(){
          <input type=button class="btn btn-dark" value="메인으로" id="back">
         </div>
  	<div class="search">
- 		<form action="/list.nboard" method="get">
+ 		<form action="${pageContext.request.contextPath}/list.nboard" method="get">
 	<c:choose>
 					
 					<c:when test="${not empty branch}">

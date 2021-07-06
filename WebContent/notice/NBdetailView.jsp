@@ -321,7 +321,7 @@
 										</a>
 									</div>
 									<!--댓글 수정-->
-									<form action="/modify.noticom" method="post" id="modifyForm">
+									<form action="${pageContext.request.contextPath}/modify.noticom" method="post" id="modifyForm">
 										<div class="comment_text">
 											<p class="text_view">
 												<span class="modify_option" id="com">${i.comments}</span>
@@ -360,7 +360,7 @@
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="/write.noticom" method="post">
+						<form action="${pageContext.request.contextPath}/write.noticom" method="post">
 							<strong>${login.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 

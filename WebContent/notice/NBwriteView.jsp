@@ -19,7 +19,7 @@
 		alert("다시 입력해주세요.");
 		</c:otherwise>
 		</c:choose>
-	location.href = "/list.nboard?cpage=1";
+	location.href = "${pageContext.request.contextPath}/list.nboard?cpage=1";
 	</script>
 </body>
 </html>

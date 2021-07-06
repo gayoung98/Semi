@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.FreeBoardDAO;
 import dao.FreeCommentDAO;
+import dao.MemberDAO;
 import dto.FreeBoardDTO;
 import dto.FreeCommentDTO;
 import dto.MemberDTO;
@@ -32,13 +33,17 @@ public class FreeCommentController extends HttpServlet {
 		try {
 			FreeCommentDAO fcdao = FreeCommentDAO.getInstance();	
 			FreeBoardDAO fbdao = FreeBoardDAO.getInstance();
+			MemberDAO mdao = MemberDAO.getInstance();
+
 
 			if(url.contentEquals("/write.freecom")) { //댓글 작성하기
 				System.out.println("댓글 작성중");
-				MemberDTO sessionDTO = (MemberDTO)request.getSession().getAttribute("login");
-				String id = sessionDTO.getId();
+				String email = (String) request.getSession().getAttribute("login");
+				MemberDTO dto = mdao.getMainInfo(email);
+				
+				String id = dto.getId();
 				System.out.println("학번" + id);
-				String writer = sessionDTO.getName();
+				String writer = dto.getName();
 				System.out.println(writer);
 				String comments = request.getParameter("comments");
 				System.out.println(comments);
@@ -46,7 +51,7 @@ public class FreeCommentController extends HttpServlet {
 				System.out.println(parent +" 번 글의 댓글 작성 " +comments);
 
 				int result = fcdao.writeReply(new FreeCommentDTO(0,id,writer,comments,null,parent));				
-				response.sendRedirect("/detailView.fboard?seq="+parent);
+				response.sendRedirect(ctxPath+"/detailView.fboard?seq="+parent);
 
 			}else if(url.contentEquals("/delete.freecom")) {	//댓글 삭제하기
 
@@ -59,7 +64,7 @@ public class FreeCommentController extends HttpServlet {
 				System.out.println("게시글번호: " + parent);
 				
 				if(result>0) {
-					response.sendRedirect("/detailView.fboard?seq="+parent);
+					response.sendRedirect(ctxPath+"/detailView.fboard?seq="+parent);
 					System.out.println("/detailView.fboard?seq="+parent);
 				}		
 					
@@ -74,8 +79,8 @@ public class FreeCommentController extends HttpServlet {
 				int result = fcdao.modifyReply(comment_seq, comments); //댓글 수정 dao
 				System.out.println("댓글 수정 여부: " + result);
 				
-				request.getRequestDispatcher("/detailView.fboard?seq="+parent).forward(request, response);;
-				System.out.println("/detailView.fboard?seq="+parent);
+				request.getRequestDispatcher(ctxPath+"/detailView.fboard?seq="+parent).forward(request, response);;
+				System.out.println(ctxPath+"/detailView.fboard?seq="+parent);
 				
 			}
 			}catch(Exception e) {
