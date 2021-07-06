@@ -112,6 +112,7 @@
 		} else{
 			$("#hidden_form").css("display","none");
 		}
+		 
 	})
 </script>
 <style>
@@ -173,7 +174,7 @@
     	</div>
     	<div>
         	<i class="fas fa-mobile-alt"></i>
-        	<input type=text name="phone" id="phone" placeholder="핸드폰 ex)01011111111" required>
+        	<input type=text name="phone" id="phone" placeholder="핸드폰 ex)01011112222" required>
     	</div>
     	<center><div>
     	</div>

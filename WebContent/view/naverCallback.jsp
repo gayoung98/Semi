@@ -19,7 +19,7 @@
 		var naverLogin = new naver.LoginWithNaverId(
 			{
 				clientId: "kOdPDaEhTlerLjUpxZcV",
-			    callbackUrl: "http://localhost:8887/Semi/view/naverCallback.jsp",
+			    callbackUrl: "http://localhost:8887/Semi2/view/naverCallback.jsp",
 				isPopup: false,
 				callbackHandle: true
 				/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
@@ -45,7 +45,7 @@
 					}                   
 
 					window.location.replace("http://" + window.location.hostname + 
-                            ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Semi/sns.member?email="+email);
+                            ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Semi2/sns.member?email="+email);
 				                                                    /* 인증이 완료된후 /sample/main.html 페이지로 이동하라는것이다. 본인 페이로 수정해야한다. */
                  } else {
 					console.log("callback 처리에 실패하였습니다.");

@@ -10,6 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<meta name ="google-signin-client_id" content="152546032065-rg9hn5rgjfrc629nfqka6hnej7vt4dcp.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <style>
@@ -70,12 +72,12 @@
             </div>
 			<div class="form-row align-items-center mt-4">
 				<div class="col-12 align-items-center">
-					<div id="naverIdLogin"></div>	
+					<div id="naverIdLogin"></div>	 
 					<script type="text/javascript">
 						var naverLogin = new naver.LoginWithNaverId(
 							{
 								clientId: "kOdPDaEhTlerLjUpxZcV",
-								callbackUrl: "http://localhost:8887/Semi/view/naverCallback.jsp",
+								callbackUrl: "http://localhost:8887/Semi2/view/naverCallback.jsp",
 								isPopup: false, /* 팝업을 통한 연동처리 여부 */
 								loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
 							}
@@ -86,7 +88,8 @@
 	
 					</script>				
 				</div>
-            </div>            
+            </div>   
+                     
 			<div class="form-row align-items-center mt-4">
 				<div class="col-12">
 					<center><a href="joinForm.member">회원가입</a></center>

@@ -48,7 +48,7 @@ public class MemberDAO {
 		}
 		
 		public MemberDTO getInfo(String name, String phone) throws Exception{
-			String sql = "select id,class,branch from kh_premember where name=? and phone=?";
+			String sql = "select id,khclass,branch from kh_premember where name=? and phone=?";
 			MemberDTO dto = null;
 			try(Connection connection = this.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);){
@@ -57,7 +57,7 @@ public class MemberDAO {
 				try(ResultSet rs = preparedStatement.executeQuery();){
 					if(rs.next()) {
 						String id = rs.getString("id");
-						String khClass = rs.getString("class");
+						String khClass = rs.getString("khclass");
 						String branch = rs.getString("branch");
 						dto = new MemberDTO(id,khClass,branch);
 					}
