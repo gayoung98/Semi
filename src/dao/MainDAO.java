@@ -33,7 +33,7 @@ public class MainDAO {
 	}
 
 	public int writechat(MainDTO dto)throws Exception{
-		String sql = "insert into chatBoard values(chatBoard_SEQ.nextval, ?, 'member_number', ?, 'kh_class', sysdate)";
+		String sql = "insert into chatBoard values(chatBoard_SEQ.nextval, ?, 'id', ?, 'kh_class', sysdate)";
 		try(Connection con =  this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getWriter());
@@ -57,7 +57,7 @@ public class MainDAO {
 		}
 	}
 	public List<MainDTO> likeFacebook(int viewcount,int index) throws Exception{
-	      String sql = "select * from(select row_number() over(order by seq desc) rnum, seq, writer, member_number, contents, class, write_date from chatBoard where contents is not null) where rnum between ? and ?";
+	      String sql = "select * from(select row_number() over(order by seq desc) rnum, seq, writer, id, contents, class, write_date from chatBoard where contents is not null) where rnum between ? and ?";
 	      List<MainDTO> li = new ArrayList();
 	      try(Connection conn = this.getConnection();
 	         PreparedStatement psmt = conn.prepareStatement(sql)){

@@ -46,9 +46,9 @@ public class SeatController extends HttpServlet {
 			}else if(url.contentEquals("/reserve2.seat")){
 				System.out.println((String)request.getParameter("seatNumber"));
 				System.out.println((String)request.getParameter("cancelSeat"));
-				String member_number = "mn";
+				String email = request.getParameter("email");
 				int count = dao.rownum();
-				boolean already = dao.isReserved(member_number);
+				boolean already = dao.isReserved(email);
 				if(request.getParameter("seatNumber")!=null) {
 					if(count < 14) {
 					if(already == false) {

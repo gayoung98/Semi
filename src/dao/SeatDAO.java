@@ -30,7 +30,7 @@ public class SeatDAO {
 		return ds.getConnection();
 	}
 	public int insert(SeatDTO dto) throws Exception{
-		String sql = "insert into seat values(seat_SEQ.nextval, 'm','mn','blue',?,sysdate)";
+		String sql = "insert into seat values(seat_SEQ.nextval, 'm','email','name',?,sysdate)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getSeat_number());
@@ -47,11 +47,11 @@ public class SeatDAO {
 			return result;
 		}
 	}
-	public boolean isReserved(String member_number) throws Exception{
-		String sql = "select * from seat where member_number = ?";
+	public boolean isReserved(String email) throws Exception{
+		String sql = "select * from seat where email = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, member_number);
+			pstat.setString(1, email);
 			try(ResultSet rs = pstat.executeQuery()){
 				if(rs.next()) {
 					return true;
