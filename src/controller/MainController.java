@@ -41,6 +41,8 @@ public class MainController extends HttpServlet {
 				String writer = request.getParameter("writer");
 				System.out.println(writer);
 				
+				//MemberDTO dto = 
+				
 				int result = dao.writechat(new MainDTO(writer, contents));
 				response.sendRedirect(ctxPath+"/main.main");
 			} else if(url.contentEquals("/main.main")) {
