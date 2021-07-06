@@ -37,22 +37,25 @@ public class PoliceController extends HttpServlet {
 		try {
 			FreePoliceDAO fpdao = FreePoliceDAO.getInstance();
 			FreeBoardDAO fbdao = FreeBoardDAO.getInstance();
+			MemberDAO mdao = MemberDAO.getInstance();
 
 
 
 			if(url.contentEquals("/report.police")) { //게시글 신고
-				MemberDTO sessionDTO = (MemberDTO)request.getSession().getAttribute("login");
+				String email = (String) request.getSession().getAttribute("login");
+				MemberDTO dto = mdao.getMainInfo(email);
+				
 				
 //				List<FreeBoardDTO> boardlist =fbdao.boardList();// 목록 받아오기
 
-				String id = sessionDTO.getId();
+				String id = dto.getId();
 				String parent = request.getParameter("fboard_seq");
 				String reason = request.getParameter("contents");
 				int result = fpdao.report(id,parent, reason);
 				System.out.println("신고글 등록 여부 : "+ result);
 				
 				
-				request.setAttribute("name", sessionDTO.getName());
+				request.setAttribute("name", dto.getName());
 
 
 				RequestDispatcher rd = request.getRequestDispatcher("free/reportResult.jsp"); //게시물 등록 성공 화면

@@ -311,7 +311,7 @@
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
 							<a
-								href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}">${file.oriName}</a>
+								href="${pageContext.request.contextPath}/download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}">${file.oriName}</a>
 							<br>
 						</c:forEach>
 					</fieldset>
@@ -374,7 +374,7 @@
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="/write.freecom" method="post">
+						<form action="${pageContext.request.contextPath}/write.freecom" method="post">
 							<strong>${login.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
