@@ -10,15 +10,8 @@
 </head>
 <body>
 	<script>
-	<c:choose>
-		<c:when test="${result > 0}">
-			alert("가입완료");
-			location.href="${pageContext.request.contextPath}/index.jsp"; 
-		</c:when>
-		<c:otherwise>
-			return;
-		</c:otherwise>
-	</c:choose>
+		alert("등록된 회원정보가 없습니다. 학원에 문의해주세요.")
+		location.href="${pageContext.request.contextPath}/index.jsp";
 	</script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,7 @@ public class LoginController extends HttpServlet {
 		String requestURI = request.getRequestURI();
 		String ctxPath = request.getContextPath();
 		String url = requestURI.substring(ctxPath.length());
-		System.out.println("�슂泥쵻RL : " + url);
+		System.out.println("요청URL : " + url);
 		
 		try {
 			MemberDAO dao = MemberDAO.getInstance();
@@ -48,32 +50,42 @@ public class LoginController extends HttpServlet {
 				
 			}else if(url.contentEquals("/join.member")) {
 				String email = request.getParameter("email");
+				boolean emailregex = Pattern.matches("\\S+@\\w+\\.\\w+(\\.\\w+)?", email);
+	            System.out.println("이메일 : " +emailregex);
+				
 				String pw = request.getParameter("pw");
+				boolean pwregex = Pattern.matches("^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$", pw);
+	            System.out.println("비밀번호 : "+ pwregex);
+	            if(pwregex == false) {
+	            	response.getWriter().append(pw);
+	            }	
+				
 				String name = request.getParameter("name");
-				String phone = request.getParameter("phone");
+				
+				String phone = request.getParameter("phone").trim();
+				boolean regex = Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", phone);
+	            System.out.println("핸드폰 : " + regex);
+	            
 				String position = request.getParameter("position");
 				
 				MemberDTO dto = dao.getInfo(name, phone);
-				String id = dto.getId();
-				String khClass = dto.getKhClass();
-				String branch = dto.getBranch();
-				
-				System.out.println(id);
-				System.out.println(khClass);
-				System.out.println(branch);
-				
-				boolean resultId = dao.checkId(id);
-				
-				System.out.println(resultId);
-				if(resultId == true) {
-					System.out.println("�븘�씠�뵒媛� 以묐났 泥댄겕�맖");
-					response.sendRedirect(ctxPath+"/view/checkId.jsp");
+				if(dto == null) {
+					response.sendRedirect(ctxPath+"/view/checkMember.jsp");
 				}else {
-					int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
-					request.setAttribute("result", result);
-					request.getRequestDispatcher("/view/joinView.jsp").forward(request, response);
+					String id = dto.getId();
+					String khClass = dto.getKhClass();
+					String branch = dto.getBranch();
+					boolean resultId = dao.checkId(id);
+					if(resultId == true) {
+						response.sendRedirect(ctxPath+"/view/checkId.jsp");
+					}else {
+						int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
+						
+						request.setAttribute("result", result);
+						request.getRequestDispatcher("/view/joinView.jsp").forward(request, response);
+					}
 				}
-				
+								
 			}else if(url.contentEquals("/login.member")) {
 				String email = request.getParameter("id");
 				String pw = request.getParameter("pw");
