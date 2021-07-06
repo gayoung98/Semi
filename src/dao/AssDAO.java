@@ -268,7 +268,7 @@ public class AssDAO {
 	}
 
 	private int getRecordCount(String category, String keyword) throws Exception {
-		String sql = "select count(*) from board";
+		String sql = "select count(*) from ass";
 		if(!StringUtils.isBlank(category) && !StringUtils.isBlank(keyword)) {
 			sql+=" where "+category+" like '%"+keyword+"%'";
 		}
