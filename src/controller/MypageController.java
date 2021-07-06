@@ -31,7 +31,7 @@ public class MypageController extends HttpServlet{
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("html/text; charset=utf-8");
 		
-		String session = "laksjd0606@daum.net";
+		String session = (String) request.getSession().getAttribute("login");
 		int maxSize = 1024*1024*5; //�룯占� 占쎈씜嚥≪뮆諭� 占쎈솁占쎌뵬 占쎄쾿疫뀐옙 5mb
  		String uri = request.getRequestURI();
 		String ctxPath = request.getContextPath();

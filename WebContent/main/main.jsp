@@ -532,7 +532,14 @@ scale
 		<div class =row>
 		<div class="col-3"> 
 		<div class="card">
-			<img src="profile.png" class="card-img-top" alt="...">
+			<c:choose>
+				<c:when test="${profile_img != null }">
+					<img src="${pageContext.request.contextPath}/profile/${login }/${profile_img.sysName}" class="card-img-top" alt="...">
+				</c:when>
+				<c:otherwise>
+					<img src="${defalut_profile_img }" class="card-img-top" alt="...">
+				</c:otherwise>
+			</c:choose>
 			<p class="card-text">닉네임 님</p>
 			<div class="card-body">
 				<a href="${pageContext.request.contextPath}/mypage.mp" id="mypage" class="card-link">마이페이지</a> <a href="#"
