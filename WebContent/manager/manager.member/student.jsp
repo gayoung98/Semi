@@ -49,7 +49,10 @@
 									<th scope="col">반</th>
 									<th scope="col">학번</th>
 									<th scope="col">이름</th>
+									<th scope="col">전화번호</th>
+									<th scope="col">email</th>
 									<th scope="col">가입일</th>
+									<th scope="col">비고</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -58,9 +61,12 @@
 									<th scope="row">${s.count }</th>
 									<td>${i.branch }</td>
 									<td>${i.khClass}</td>
-									<td>${i.id }</td>
+									<td class="deleteid">${i.id }</td>
 									<td>${i.name }</td>
+									<td>${i.phone}</td>
+									<td>${i.email}</td>
 									<td>${i.signUpDate}</td>
+									<td><button id="delete" type="button" class="btn btn_delete btn-danger">정보삭제</button></td>
 								</tr>
 									</c:forEach>
 							</tbody>
@@ -115,5 +121,24 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$(function(){
+		$(".btn_delete").on("click",function(){
+			let check=confirm("강사의 모든 정보가 삭제됩니다. 강사 정보를 삭제하시겠습니까?");
+			if(check){
+			let doubleCheck=confirm("정말로 강사 정보를 삭제하시겠습니까?");
+			
+			if(doubleCheck){
+				let delId=$(this).parent().siblings(".deleteid").text();
+				
+				let delIdLink="${pageContext.request.contextPath}/studentDelete.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&delId="+delId;
+				location.href=delIdLink;
+	
+			}
+			}
+		})
+	})
+
+	</script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 		</div>
 		<div class="logo">
 			<a
-				href="${pageContext.request.contextPath}/manager/manager.member/index.jsp"><img
+				href="${pageContext.request.contextPath}/index.manager"><img
 				src="${pageContext.request.contextPath}/manager/css/kh2.jpg" alt=""></a>
 		</div>
 		<ul class="menu">
@@ -25,13 +25,13 @@
 				<ul class="submenu">
 					<li><a
 						href="${pageContext.request.contextPath}/noticeList.manager?branch=all&currentPage=1&category=&search=">공지사항
-							작성</a></li>
+							</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">게시판
-							관리</a></li>
+						href="${pageContext.request.contextPath}/boardList.manager?branch=all&currentPage=1&category=&search=">자유게시판
+							</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">과제게시판
-							관리</a></li>
+							</a></li>
 							<li><a
 						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">SNS
 							관리</a></li>

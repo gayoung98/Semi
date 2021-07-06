@@ -43,27 +43,25 @@
 									<th scope="col">작성자</th>
 									<th scope="col">대분류</th>
 									<th scope="col">소분류</th>
-									<th scope="col">신고일</th>
-									<th scope="col">답변완료</th>
-								
+									<th scope="col">등록일</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="i" items="${list}" varStatus="s">
 								<tr>
-									<th scope="row">${i.seq}</th>
+									<th scope="row">${s.count}</th>
 									<td>${i.id}</td>
-									<td>${i.major_category}</td>
+									<td><a href="${pageContext.request.contextPath}/inquireDetail.manager?seq=${i.seq}&currentPage=${page}&category=${category}&search=${search}">${i.major_category}</a></td>
 									<td>${i.sub_category}</td>
 									<td>${i.reg_date}</td>
-									<td id="isAnswer"></td>
 									
 								</tr>
 									</c:forEach>
 							</tbody>
 							<tfoot>
 							<tr>
-							<td colspan ="6">
+							<td colspan ="5">
 							<c:forEach var="i" items="${navi}" varStatus="s">
 					<c:choose>
 						<c:when test="${i=='>'}">

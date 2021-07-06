@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
+import java.util.*; 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -28,11 +29,13 @@ public class SeatDAO {
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	public int insert(SeatDTO dto) throws Exception{
-		String sql = "insert into seat values(seat_SEQ.nextval, '월','member_number','blue',?,sysdate)";
+	public int insert(String email, String name, String seat_number) throws Exception{
+		String sql = "insert into seat values(seat_SEQ.nextval, 'm',?,?,?,sysdate)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, dto.getSeat_number());
+			pstat.setString(1, email);
+			pstat.setString(2, name);
+			pstat.setString(3, seat_number);
 			int result = pstat.executeUpdate();
 			return result;
 		}
@@ -46,5 +49,46 @@ public class SeatDAO {
 			return result;
 		}
 	}
+	public boolean isReserved(String email) throws Exception{
+		String sql = "select * from seat where email = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, email);
+			try(ResultSet rs = pstat.executeQuery()){
+				if(rs.next()) {
+					return true;
+				}else {
+					return false;
+				}
+			}
+		}
+	}
+	public List<String> reservedList() throws Exception{
+		List <String> li = new ArrayList<String>();
+		String sql = "select seat_number from seat";
+		try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery();){
+				while(rs.next()) {
+					li.add(rs.getString(1));
+				}
+				return li;
+			}
+		}
+	
+	public int rownum() throws Exception{
+		String sql = "select * from seat";
+		int count = 0;
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			while(rs.next()) {
+				count++;
+			}
+			return count;
+		}
+	}
 }
+
 

@@ -45,7 +45,7 @@
         }
 		
 		.day{
-			margin-top : 8%;
+			margin-top : 5%;
 			margin-bottom : 3%;
 		}
         .day>div{
@@ -59,7 +59,6 @@
             font-size: 150%;
             text-align: center;
         }
-
         .seat {
             background-color: white
         }
@@ -71,60 +70,116 @@
         table{
         	margin-top : 2%;
         }
+        .noselect{
+        	background-color:rgb(99, 99, 99);
+        }
         
         
         
     </style>
-    <script>
+    
+
+		<script>
         $(function () {
+        	
+        	$.ajax({
+        		url: "${pageContext.request.contextPath}/complete.seat",
+        		dataType: "JSON"
+        	}).done(function(result){
+        		for(var i=0; i<result.length; i++){
+        			$("#"+result[i]).css("background-color","rgb(252, 255, 53)")
+        			$("#"+result[i]).attr("data-Ischoose","true")
+        		
+        	}
+        	})
+        	
+        	
         	let id = "blue";
             let sub = 0;
             let before_seat = null;
-            for (let index = 1; index <= 36; index += 6) {
+            for (let index = 1; index <= 18; index += 3) {
                 let tr = $("<tr>");
-                for (let index2 = index; index2 < index + 6; index2++) {
+                for (let index2 = index; index2 < index + 3; index2++) {
                     let number = index2 - sub;
-                    let td = $("<td class=seat data-seat=" + number + " data-Ischoose= false id=seat"+number+" align=center>")
-                    //let a = $("<a href=/"post.board?dto_seq=${dto.seq}/"">
-                    if ((index2 + 2) % 6 != 0) td.append("<i class=\"fas fa-desktop\">" + "<br>" + number + "번 좌석")
-                    else {
+                    if(number % 2 == 1){
+                    let td = $("<td class=seat data-seat=A" + number + " data-Ischoose= false id=A"+number+" align=center>")
+                    td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
                         td.css("width", "100");
-                        td.attr("data-seat", "empty")
-                        sub++;
-                    }
+                    
                     tr.append(td);
+                    }else {
+                    	let td = $("<td class=noselect data-seat=A" + number + " data-Ischoose= false align=center>")
+                        td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
+                            td.css("width", "100");
+                        
+                        tr.append(td);
+                    }
                 }
-                $("#table2").append(tr);
+                $(".left").append(tr);
+            }
+            let sub2 = 0;
+            for (let index3 = 1; index3 <= 12; index3 += 2) {
+                let tr = $("<tr>");
+                for (let index4 = index3; index4 < index3 + 2; index4++) {
+                    let number = index4 - sub;
+                    if(number % 4 == 0 || number % 4 == 1){
+                    	 let td = $("<td class=seat data-seat=B" + number + " data-Ischoose= false id=B"+number+" align=center>")
+                         td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
+                             td.css("width", "100");
+                         
+                         tr.append(td);
+                    }else{
+                    	 let td = $("<td class=noselect data-seat=B" + number + " data-Ischoose= false align=center>")
+                         td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
+                             td.css("width", "100");
+                         
+                         tr.append(td);
+                    }
+                    
+                }
+                $(".right").append(tr);
             }
 			
-            $(document).on("click", ".seat", function () {
-                if ($(this).attr("data-seat") !== "empty" && $(this).attr("data-Ischoose") !== "true") {
-                	
-                    if (before_seat == null) {
-                        before_seat = $(this);
-                        $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
-                        $("#choose_seat").css("font-size", "40px")
-                        confirm("예약하시겠습니까?");
-                        $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +"예약좌석");
-                        //$(this).val() = "blue"
-                        $(this).css("background-color", "rgb(252, 255, 53)");
-                    } else {
-                        
-                        before_seat = $(this);
-                        $("#choose_seat").text("선택하신 좌석은 " + $(this).attr("data-seat") + "번 입니다")
-                        $("#choose_seat").css("font-size", "40px")
-                        confirm("예약 취소하시겠습니까?");
-                        $(this).html("<i class=\"fas fa-desktop\">" + "<br>" +$(this).attr("data-seat") + "번 좌석");
-                        $(this).css("background-color", "white");
-                        before_seat = null;
-                    }
-                    
-                    
-                }
-               
+            /* $(document).on("click", ".seat", function () {
+            	//confirm("해당 좌석을 예약하시겠습니까?")
+                location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "11";
+            }) */
+            $(".noselect").on("click",function(){
+            	alert("선택할 수 없는 좌석입니다.")
             })
-        })
-
+       
+            $(document).on("click",".seat",function(){
+    //        	console.log($(this).attr("id"));
+      //      	console.log($(this).attr("data-Ischoose"));
+            	if($(this).attr("data-Ischoose")==="false"){
+	                $.ajax({
+	                	url: "${pageContext.request.contextPath}/reserve2.seat",
+	                	data: {"seatNumber":$(this).attr("id")}
+	                }).done(function(result){
+	                	alert("예약되었습니다.");
+	                	console.log(result);
+	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
+	                	$("#"+result).attr("data-Ischoose","true");
+	                })	
+                }else{
+                	$.ajax({
+	                	url: "${pageContext.request.contextPath}/reserve2.seat",
+	                	data: {"cancelSeat":$(this).attr("id")}
+	                }).done(function(result){
+	                	alert("예약이 취소되었습니다.");
+	                	$("#"+result).css("background-color","white");
+	                	$("#"+result).attr("data-Ischoose","false");
+	                })
+                }
+            	
+            	
+            })
+            
+        
+            	
+            })
+            
+        
     </script>
 </head>
 <body>
@@ -141,6 +196,7 @@
         <div>
         [KH 종로반 E 클래스 교실 구조]
         </div>
+        <input type = hidden id =temp>
         <table border="1" width=700 id=table2>
             <tr>
                 <td colspan="3" align="left">
@@ -149,6 +205,13 @@
                 <td></td>
                 <td colspan="2" align="">
                     <i class="fas fa-chalkboard-teacher">강사님 자리</i>
+                </td>
+            </tr>
+            <tr class="tbcenter">
+                <td colspan="3" align="center" class="left">
+                </td>
+                <td></td>
+                <td colspan="2" align="center" class="right">
                 </td>
             </tr>
         </table>

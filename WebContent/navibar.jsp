@@ -16,7 +16,7 @@
                     <a class="nav-link" href="#">타자</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">자리 신청</a>
+                    <a class="nav-link" href="seat/seat.jsp">자리 신청</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="calander.main">스케줄</a>

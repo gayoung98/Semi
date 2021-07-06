@@ -5,17 +5,17 @@ import java.sql.Date;
 public class SeatDTO {
 	private int seq;
 	private String seat_day;
-	private String member_number;
-	private String member_seat;
+	private String email;
+	private String name;
 	private String seat_number;
 	private Date apply_date;
 	
 	public SeatDTO() {}
-	public SeatDTO(int seq, String seat_day, String member_number, String member_seat, String seat_number, Date apply_date) {
+	public SeatDTO(int seq, String seat_day, String email, String name, String member_seat, String seat_number, Date apply_date) {
 		this.seq = seq;
 		this.seat_day = seat_day;
-		this.member_number = member_number;
-		this.member_seat = member_seat;
+		this.email = email;
+		this.name = name;
 		this.seat_number = seat_number;
 		this.apply_date = apply_date;
 	}
@@ -38,17 +38,17 @@ public class SeatDTO {
 	public void setSeat_day(String seat_day) {
 		this.seat_day = seat_day;
 	}
-	public String getMember_number() {
-		return member_number;
+	public String getEmail() {
+		return email;
 	}
-	public void setMember_number(String member_number) {
-		this.member_number = member_number;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getMember_seat() {
-		return member_seat;
+	public String getName() {
+		return name;
 	}
-	public void setMember_seat(String member_seat) {
-		this.member_seat = member_seat;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getSeat_number() {
 		return seat_number;
@@ -62,5 +62,6 @@ public class SeatDTO {
 	public void setApply_date(Date apply_date) {
 		this.apply_date = apply_date;
 	}
+	
 	
 }
