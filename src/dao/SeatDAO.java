@@ -63,14 +63,14 @@ public class SeatDAO {
 			}
 		}
 	}
-	public List<String> reservedList() throws Exception{
-		List <String> li = new ArrayList<String>();
-		String sql = "select seat_number from seat";
+	public List<SeatDTO> reservedList() throws Exception{
+		List <SeatDTO> li = new ArrayList<SeatDTO>();
+		String sql = "select * from seat";
 		try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery();){
 				while(rs.next()) {
-					li.add(rs.getString(1));
+					li.add(new SeatDTO(rs.getInt(1), rs.getString(2),  rs.getString(3),  rs.getString(4),  rs.getString(5),  rs.getString(6), rs.getDate(7)));
 				}
 				return li;
 			}

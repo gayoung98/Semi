@@ -87,9 +87,9 @@
         		dataType: "JSON"
         	}).done(function(result){
         		for(var i=0; i<result.length; i++){
-        			$("#"+result[i]).css("background-color","rgb(252, 255, 53)")
-        			$("#"+result[i]).attr("data-Ischoose","true")
-        			$("#"+result[i]).html($("#writer").val())
+        			$("#"+result[i].seat_number).css("background-color","rgb(252, 255, 53)")
+        			$("#"+result[i].seat_number).attr("data-Ischoose","true")
+        			$("#"+result[i].seat_number).html(result[i].name)
         	}
         	})
         	
