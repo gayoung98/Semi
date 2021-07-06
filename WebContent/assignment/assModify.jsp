@@ -13,13 +13,19 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <style>
 * {
 	box-sizing: border-box;
@@ -42,9 +48,26 @@
 .buttons {
 	padding-bottom: 15px;
 }
+
+.navbar>.container-fluid {
+	padding: 0px;
+}
+
+.navbar-nav {
+	flex-grow: 1;
+	justify-content: space-around;
+}
+
+.slide {
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	top: 100%;
+	background-color: #55555550;
+}
 </style>
 
-    <script>
+<script>
         $(document).ready(function () {
             $('#summernote').summernote({
                 height: 300,                 // set editor height
@@ -81,10 +104,12 @@
         })
         
 	</script>
-    
+
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/modiProc.ass?ass_seq=${assView.seq}"
+	<jsp:include page="/navibar.jsp" />
+	<form
+		action="${pageContext.request.contextPath}/modiProc.ass?ass_seq=${assView.seq}"
 		method="post" enctype="multipart/form-data">
 		<div class="container">
 			<div class="row header">
@@ -102,7 +127,7 @@
 			<div class="row files">
 				<div class="col-12" style="margin-top: 3%;">
 					${assFiles.oriName}
-				
+
 					<button type="button" id="fileDel" seq="${assFiles.seq}">삭제</button>
 				</div>
 			</div>
@@ -111,10 +136,11 @@
 			<div class="row content" style="padding: 0px;">
 				<div class="col-12">
 					<!-- <textarea name="contents" id="summernote"></textarea>  -->
-					<textarea rows=10 cols=20 id="contents" name="contents" value="${assView.contents}"></textarea>
+					<textarea rows=10 cols=20 id="contents" name="contents"
+						value="${assView.contents}"></textarea>
 				</div>
 			</div>
-			
+
 			<div class="row buttons">
 				<div class="col-6" style="text-align: left;">
 					<button type="button">이전</button>
@@ -125,6 +151,6 @@
 			</div>
 		</div>
 	</form>
-	
+
 </body>
 </html>
