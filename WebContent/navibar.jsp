@@ -7,7 +7,7 @@
                     <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/main.main">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">게시판</a>
+                    <a class="nav-link">게시판</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">과제</a>
@@ -27,7 +27,7 @@
                 <div class="col-2 sub">
                 </div>
                 <div class="col-2 sub" style="text-align: center;">
-                    공지<br>자유
+                     <a href="${pageContext.request.contextPath}/list.fboard?cpage=1">공지</a><br> <a href="${pageContext.request.contextPath}/list.nboard?cpage=1">자유</a>
                 </div>
                 <div class="col-2 sub">
                 </div>
