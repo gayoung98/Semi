@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 
 import dao.CalanderDAO;
 import dao.MainDAO;
+import dao.MyPageDAO;
+import dao.ProfileFileDAO;
 import dao.inquiredDAO;
 import dto.InquireDTO;
 import dto.MainDTO;
@@ -45,6 +47,14 @@ public class MainController extends HttpServlet {
 				response.sendRedirect(ctxPath+"/main.main");
 			} else if(url.contentEquals("/main.main")) {
 				
+				ProfileFileDAO pfd = ProfileFileDAO.getInstance();
+				MyPageDAO mpd = MyPageDAO.getInstance();
+				
+				if(pfd.getFile(mpd.getID((String)request.getSession().getAttribute("login"))).getSysName()!=null) {
+					request.setAttribute("profile_img",pfd.getFile(mpd.getID((String)request.getSession().getAttribute("login"))));
+				} else {
+					request.setAttribute("defalut_profile_img","profile.png");
+				}
 	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
 	            request.setAttribute("list", dao.getAllList().size());
 	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
