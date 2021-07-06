@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,17 +60,17 @@ public class AssSubmitDAO {
 		}
 	}
 
-	public int delete(int parent) throws Exception{
+	public int delete(int seq) throws Exception{
 
-		String sql = "delete from assSubmit where parent=?";
+		String sql = "delete from assSubmit where seq=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 
-			pstat.setInt(1, parent);
-			int result = pstat.executeUpdate(sql);
-			con.commit();
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			
 			return result;
 
 		}
@@ -78,7 +78,7 @@ public class AssSubmitDAO {
 
 	public List<AssSubmitDTO> selectAll(int parent) throws Exception {
 
-		String sql = "select * from assSubmit where parent=?";
+		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, oriName, sysName, reg_date from assSubmit where parent = ?)";
 		try(
 				Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);

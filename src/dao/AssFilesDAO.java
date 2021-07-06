@@ -55,8 +55,21 @@ public class AssFilesDAO {
 		}
 	}
 	
-	public int delete(int parent) throws Exception{
+	public int delete(int seq) throws Exception{
 
+		String sql = "delete from assFiles where seq=?";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			return result;
+
+		}
+	}
+	public int deleteAll(int parent) throws Exception{
 		String sql = "delete from assFiles where parent=?";
 		try(
 				Connection con = this.getConnection();
@@ -64,8 +77,7 @@ public class AssFilesDAO {
 				){
 			
 			pstat.setInt(1, parent);
-			int result = pstat.executeUpdate(sql);
-			con.commit();
+			int result = pstat.executeUpdate();
 			return result;
 
 		}
@@ -103,6 +115,18 @@ public class AssFilesDAO {
 
 		}
 		
+	}
+	
+	public String getSysName(int seq) throws Exception {
+		String sql="select sysName from assFiles where seq=?";
+		try(Connection con =this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				return rs.getNString("sysName");
+			}
+		}
 	}
 
 	public AssFilesDTO select(int parent) throws Exception {
