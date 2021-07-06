@@ -19,104 +19,60 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/manager/css/manager.css">
 <style>
-.container {
-	max-width: 900px;
-	margin-left: 10px;
-	margin: 30px auto;
-}
+  h2{padding-right:170px;}
+  
+  
+		.title {
+			overflow: hidden;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #ddd;
+		}
 
-div {
-	display: block;
-}
+		.title .seq {
+			
+			display: block;
+			padding: 8px 10px;
+			font-size: 15px;
+		}
 
-h2 {
-	margin-left: 20px;
-	margin-bottom: 0px;
-	display: block;
-	margin-inline-end: 0px;
-}
+		
 
-.title_area {
-	border-bottom: 1px solid #ddd;
-}
+		.title h3 input {
+			border: none;
+			
+		}
 
-a {
-	text-decoration: none;
-	cursor: pointer;
-}
+		.title h3 input:focus {
+			outline: none;
+			
+		}
 
-li a:hover {
-	color: cadetblue;
-}
 
-a {
-	color: black;
-	font-weight: bold;
-}
+		.contents {
+			padding: 20px;
+			min-height: 300px;
+		}
 
-.title_are {
-	margin-top: 10px;
-}
-
-.title_area h2 input {
-	border: none;
-}
-
-.title_area h2 input:focus {
-	outline: none;
-}
-
-/* 내용 */
-.contents {
-	padding: 10px;
-	min-height: 350px;
-}
-
-.contents textarea {
-	width: 100%;
-	height: 90%;
-}
-/* 작성자 정보 */
-	.writer{padding-left: 10px;
-				padding-top:10px;
-				padding-bottom:10px;
-				}
-.WriterInfo {
-	margin-top: 10px;
-}
-
-.articleInfo {
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.WriterInfo .profile_info .name_box .name {
-	padding: 10px;
-	margin-right: 6px;
-	font-size: 13px;
-	font-weight: 700;
-}
-
-.profile_info img {
-	margin-top: 10px;
-}
-
-.WriterInfo .article_info {
-	font-size: 12px;
-	line-height: 13px;
-}
-
-legend {
-	border: 0;
-}
-</style>
+		.contents textarea {
+			padding: 5px;
+			width: 100%;
+			height: 90%;
+			border-color: #fff;
+		
+		}
+		.btn_wrap {
+			padding-top: 10px;
+		}
+	</style>
 
 <script>
 	$(function() {
 
 		$("#listBtn").on("click", function() {
-			location.href = '/list.fboard?cpage=1';
+			location.href = "${pageContext.request.contextPath}/detailView.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq=${view.seq}";
 		});
 
 		$("#summernote").summernote(
@@ -161,11 +117,24 @@ legend {
 </script>
 </head>
 <body>
+<div class="wrap">
+				<jsp:include page="../menu.jsp"></jsp:include>
+				<div>
+					<header>
+					<div>
+						<h1>수정하기</h1>
+					</div>
+					</header>
 	<div class="container">
 		<!-- 게시물 제목 -->
-		<form action="/modifyedit.manager" method="post"
+		<div class="content">
+					<div class="col">
+		<form action="${pageContext.request.contextPath}/noticeModifyView.manager" method="post"
 			enctype="multipart/form-data">
-
+		<input type="hidden"  name="currentPage" value="${page }">
+		<input type="hidden"  name="branch" value="${branch}">
+		<input type="hidden"  name="search" value="${search}">
+		<input type="hidden"  name="category" value="${category}">
 			<div class="contents_box">
 				<div class="col-12 title_area">
 
@@ -184,7 +153,7 @@ legend {
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date">${view.writeDate}</span> <span class="count">조회
+						<span class="date">${view.write_date}</span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq"
 							value="${view.seq}">
 
@@ -194,7 +163,7 @@ legend {
 				<!-- 게시글  내용 -->
 				<div class="col-12 md-5 contents">
 					<div class="contents">
-						<textarea id="summernote" value="${view.contents}" name="contents"></textarea>
+						<textarea id="summernote"  name="contents">${view.contents}</textarea>
 					</div>
 				</div>
 				<hr>
@@ -220,12 +189,15 @@ legend {
 				</fieldset>
 				<div class="btn_wrap text-right">
 					<input type="submit" class="btn btn-primary" value="수정 완료">
-					<input type=button class="btn btn-dark" value="목록으로" id="listBtn">
+					<input type=button class="btn btn-dark" value="취소" id="listBtn">
 
 				</div>
 			</div>
 		</form>
 	</div>
-
+	</div>
+	</div>
+</div>
+</div>
 </body>
 </html>

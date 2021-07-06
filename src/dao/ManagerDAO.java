@@ -809,6 +809,15 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 			return result;
 		}
 	}
+	public int deleteFreeBoard (int seq)throws Exception{
+		String sql="delete from freeboard where seq =?";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 }
 					
 					

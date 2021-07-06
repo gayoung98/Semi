@@ -34,16 +34,16 @@ public class NoticeBoardDAO {
 		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	public int write(int seq,String writer,String title,String contents, String khClass, String branch) throws Exception{ //게시글 작성하기
-		String sql="insert into noticeBoard values(?,?,?,?,sysdate,?,?,0)";
+	public int write(int seq,String title,String contents, String khClass, String branch) throws Exception{ //게시글 작성하기
+		String sql="insert into noticeBoard values(?,'관리자',?,?,sysdate,?,?,0)";
 		try(Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
-			pstat.setNString(2, writer);
-			pstat.setNString(3, title);
-			pstat.setNString(4, contents);
-			pstat.setNString(5, khClass);
-			pstat.setNString(6, branch);
+		
+			pstat.setNString(2, title);
+			pstat.setNString(3, contents);
+			pstat.setNString(4, khClass);
+			pstat.setNString(5, branch);
 			int result = pstat.executeUpdate();
 
 			return result;
