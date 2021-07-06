@@ -19,6 +19,10 @@ public class MainDTO {
 		this.kh_class = kh_class;
 		this.write_date = write_date;
 	}
+	public MainDTO(String writer, String contents) {
+		this.writer = writer;
+		this.contents = contents;
+	}
 	public int getSeq() {
 		return seq;
 	}

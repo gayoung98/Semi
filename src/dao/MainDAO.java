@@ -32,11 +32,12 @@ public class MainDAO {
 		return ds.getConnection();
 	}
 
-	public int writechat(String contents)throws Exception{
-		String sql = "insert into chatBoard values(chatBoard_SEQ.nextval, 'blue', 'member_number', ?, 'kh_class', sysdate)";
+	public int writechat(MainDTO dto)throws Exception{
+		String sql = "insert into chatBoard values(chatBoard_SEQ.nextval, ?, 'member_number', ?, 'kh_class', sysdate)";
 		try(Connection con =  this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, contents);
+			pstat.setString(1, dto.getWriter());
+			pstat.setString(2, dto.getContents());
 			int result = pstat.executeUpdate();
 			return result;
 		}

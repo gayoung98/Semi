@@ -47,13 +47,15 @@ public class SeatController extends HttpServlet {
 				System.out.println((String)request.getParameter("seatNumber"));
 				System.out.println((String)request.getParameter("cancelSeat"));
 				String member_number = "mn";
+				int count = dao.rownum();
 				boolean already = dao.isReserved(member_number);
 				if(request.getParameter("seatNumber")!=null) {
+					if(count < 14) {
 					if(already == false) {
 					dao.insert(new SeatDTO(request.getParameter("seatNumber")));
 					response.getWriter().append(request.getParameter("seatNumber"));
 					}
-					
+					}
 				}
 				if(request.getParameter("cancelSeat")!=null) {
 					dao.delete(new SeatDTO(request.getParameter("cancelSeat")));

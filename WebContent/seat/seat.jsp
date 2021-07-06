@@ -72,7 +72,7 @@
         	margin-top : 2%;
         }
         .noselect{
-        	background-color:rgb(131, 131, 131);
+        	background-color:rgb(99, 99, 99);
         }
         
         
@@ -109,11 +109,20 @@
                 let tr = $("<tr>");
                 for (let index4 = index3; index4 < index3 + 2; index4++) {
                     let number = index4 - sub;
-                    let td = $("<td class=seat data-seat=B" + number + " data-Ischoose= false id=B"+number+" align=center>")
-                    td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
-                        td.css("width", "100");
+                    if(number % 4 == 0 || number % 4 == 1){
+                    	 let td = $("<td class=seat data-seat=B" + number + " data-Ischoose= false id=B"+number+" align=center>")
+                         td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
+                             td.css("width", "100");
+                         
+                         tr.append(td);
+                    }else{
+                    	 let td = $("<td class=noselect data-seat=B" + number + " data-Ischoose= false align=center>")
+                         td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
+                             td.css("width", "100");
+                         
+                         tr.append(td);
+                    }
                     
-                    tr.append(td);
                 }
                 $(".right").append(tr);
             }
@@ -122,7 +131,9 @@
             	//confirm("해당 좌석을 예약하시겠습니까?")
                 location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "11";
             }) */
-            
+            $(".noselect").on("click",function(){
+            	alert("선택할 수 없는 좌석입니다.")
+            })
        
             $(document).on("click",".seat",function(){
             	console.log($(this).attr("id"));

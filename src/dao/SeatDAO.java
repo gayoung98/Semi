@@ -73,6 +73,20 @@ public class SeatDAO {
 				return li;
 			}
 		}
+	
+	public int rownum() throws Exception{
+		String sql = "select * from seat";
+		int count = 0;
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			while(rs.next()) {
+				count++;
+			}
+			return count;
+		}
+	}
 }
 
 

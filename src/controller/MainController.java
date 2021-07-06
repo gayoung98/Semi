@@ -38,10 +38,11 @@ public class MainController extends HttpServlet {
 			System.out.println(url);
 			if(url.contentEquals("/writechat.main")) {
 				String contents = request.getParameter("writechat");
-				int result = dao.writechat(contents);
+				String writer = request.getParameter("writer");
+				
+				int result = dao.writechat(new MainDTO(writer, contents));
 				response.sendRedirect(ctxPath+"/main.main");
 			} else if(url.contentEquals("/main.main")) {
-	            request.getSession().setAttribute("blue",(String)"blue");
 	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
 	            request.setAttribute("list", dao.getAllList().size());
 	            request.getRequestDispatcher("main/main.jsp").forward(request, response);

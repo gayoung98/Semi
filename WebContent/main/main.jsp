@@ -410,7 +410,7 @@ scale
 	let writechat = document.getElementById("wirtechat");
 
 	const Chat = (function() {
-		const myName = "blue";
+		const myName = {login};
 
 		// init 함수
 		function init() {
@@ -482,7 +482,7 @@ scale
 													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {
 
-														if (resp[i].writer == "blue") {
+														if (resp[i].writer == {login}) {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg1\">");
 															msgBox.attr(
@@ -528,6 +528,7 @@ scale
 <jsp:include page= "/navibar.jsp" />
 	<div class = container>
 		<input type=hidden id=length value="${list}">
+		<input type = "hidden" id="writer" name = "${login }" value = "${login }">
 		<div class =row>
 		<div class="col-3"> 
 		<div class="card">
@@ -556,12 +557,12 @@ scale
 						<ul id="message">
 							<!-- 동적 생성 -->
 							<c:forEach var="item" items="${firstlist }">
-								<c:if test="${item.writer == blue}">
+								<c:if test="${item.writer == login}">
 									<div class="msgBox" style="text-align: right">
 										<div class="msg1">${item.contents}</div>
 									</div>
 								</c:if>
-								<c:if test="${item.writer != blue}">
+								<c:if test="${item.writer != login}">
 									<div class="msgBox">
 										<div class="msg2">${item.contents}</div>
 									</div>
