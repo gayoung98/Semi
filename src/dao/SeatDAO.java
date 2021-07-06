@@ -47,11 +47,11 @@ public class SeatDAO {
 			return result;
 		}
 	}
-	public boolean isReserved(String seat_number) throws Exception{
-		String sql = "select * from seat where seat_number = ?";
+	public boolean isReserved(String member_number) throws Exception{
+		String sql = "select * from seat where member_number = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, seat_number);
+			pstat.setString(1, member_number);
 			try(ResultSet rs = pstat.executeQuery()){
 				if(rs.next()) {
 					return true;

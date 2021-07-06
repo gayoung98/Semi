@@ -38,15 +38,22 @@ public class SeatController extends HttpServlet {
 				}
 				request.getRequestDispatcher("seat/seat.jsp").forward(request, response);
 				//response.sendRedirect("seat/seat.seat");
+				
 			}else if(url.contentEquals("/seat.seat")) {
 				//String seat_day = request.getParameter("seat_day");
 				request.getRequestDispatcher("seat/seat.jsp").forward(request, response);
+				
 			}else if(url.contentEquals("/reserve2.seat")){
 				System.out.println((String)request.getParameter("seatNumber"));
 				System.out.println((String)request.getParameter("cancelSeat"));
+				String member_number = "mn";
+				boolean already = dao.isReserved(member_number);
 				if(request.getParameter("seatNumber")!=null) {
+					if(already == false) {
 					dao.insert(new SeatDTO(request.getParameter("seatNumber")));
 					response.getWriter().append(request.getParameter("seatNumber"));
+					}
+					
 				}
 				if(request.getParameter("cancelSeat")!=null) {
 					dao.delete(new SeatDTO(request.getParameter("cancelSeat")));

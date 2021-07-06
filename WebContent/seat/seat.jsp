@@ -71,6 +71,9 @@
         table{
         	margin-top : 2%;
         }
+        .noselect{
+        	background-color:rgb(131, 131, 131);
+        }
         
         
         
@@ -85,11 +88,19 @@
                 let tr = $("<tr>");
                 for (let index2 = index; index2 < index + 3; index2++) {
                     let number = index2 - sub;
+                    if(number % 2 == 1){
                     let td = $("<td class=seat data-seat=A" + number + " data-Ischoose= false id=A"+number+" align=center>")
                     td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
                         td.css("width", "100");
                     
                     tr.append(td);
+                    }else {
+                    	let td = $("<td class=noselect data-seat=A" + number + " data-Ischoose= false align=center>")
+                        td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
+                            td.css("width", "100");
+                        
+                        tr.append(td);
+                    }
                 }
                 $(".left").append(tr);
             }
@@ -123,7 +134,7 @@
 	                }).done(function(result){
 	                	console.log("예약되었습니다.");
 	                	console.log(result);
-	                	$("#"+result).css("background-color","black");
+	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
 	                	$("#"+result).attr("data-Ischoose","true");
 	                })	
                 }else{
@@ -136,6 +147,8 @@
 	                	$("#"+result).attr("data-Ischoose","false");
 	                })	
                 }
+            	
+            	
             })
             
         

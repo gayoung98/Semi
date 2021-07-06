@@ -6,7 +6,7 @@ public class SeatDTO {
 	private int seq;
 	private String seat_day;
 	private String member_number;
-	private String member_seat;
+	private String member_name;
 	private String seat_number;
 	private Date apply_date;
 	
@@ -15,7 +15,7 @@ public class SeatDTO {
 		this.seq = seq;
 		this.seat_day = seat_day;
 		this.member_number = member_number;
-		this.member_seat = member_seat;
+		this.member_name = member_name;
 		this.seat_number = seat_number;
 		this.apply_date = apply_date;
 	}
@@ -44,11 +44,11 @@ public class SeatDTO {
 	public void setMember_number(String member_number) {
 		this.member_number = member_number;
 	}
-	public String getMember_seat() {
-		return member_seat;
+	public String getMember_name() {
+		return member_name;
 	}
-	public void setMember_seat(String member_seat) {
-		this.member_seat = member_seat;
+	public void setMember_seat(String member_name) {
+		this.member_name = member_name;
 	}
 	public String getSeat_number() {
 		return seat_number;
