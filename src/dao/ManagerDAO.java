@@ -592,7 +592,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,id,major_category,sub_category,contents,recomment,reg_date from inquire where "+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by 2 desc) rnum ,seq,id,major_category,sub_category,contents,recomment,reg_date from inquire where "+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<InquireDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -677,7 +677,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 	}
 	///////////////////////////////////////////////////////////////인덱스 게시판
 	public List<FreeBoardDTO> indexBoard() throws Exception {
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,branch,mkhClass,title,name from freeboard) where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,branch,title,writer,write_date from freeboard) where rnum between 1 and 5";
 		List<FreeBoardDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -696,7 +696,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 					kBranch+="미정";
 				}
 				
-				String writer = rs.getString("name");
+				String writer = rs.getString("writer");
 				String title = rs.getString("title");
 				Date write_date = rs.getDate("write_date");
 				list.add(new FreeBoardDTO(seq, kBranch,writer,title,write_date));
@@ -704,5 +704,111 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 			return list;
 		}
 	}
-	
+	///////////////////////////////////////////////인데스 신고
+	public List<FreePoliceDTO> indexPolice() throws Exception {
+		String sql ="select * from (select row_number() over(order by 1) rnum ,seq,id,contents,parent,reg_date from freepolice) where rnum between 1 and 5";
+		List<FreePoliceDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs= pstat.executeQuery();){
+			while(rs.next()) {
+				int seq = rs.getInt("seq");
+				
+				String id = rs.getString("id");
+				String contents = rs.getString("contents");
+				int parent = rs.getInt("parent");
+				Date reg_date = rs.getDate("reg_date");
+				list.add(new FreePoliceDTO(seq,id,contents,parent,reg_date));
+			}
+			return list;
+		}
+	}
+	public List<InquireDTO> getInquire(int seq) throws Exception {
+		String sql ="select * from inquire where seq=?";
+		List<InquireDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			try(ResultSet rs= pstat.executeQuery();){
+				while(rs.next()) {
+					String id= rs.getString("id");
+					String major_category = rs.getString("major_category");
+					String sub_category = rs.getString("sub_category");
+					String contents = rs.getString("contents");
+					String recomment = rs.getString("recomment");
+					Date reg_date = rs.getDate("reg_date");
+					list.add(new InquireDTO(seq,id,major_category,sub_category,contents,recomment,reg_date));
+				}
+				return list;
+			}
+		}
+	}
+	public boolean hasNotRecomment(int seq) throws Exception{
+		List<InquireDTO> list=this.getInquire(seq);
+		boolean result= StringUtils.isBlank(list.get(0).getRecomment());
+		return result;
+	}	
+	public int insertRecomment(int seq, String recomment)throws Exception{
+		String sql= "update inquire set recomment =? where seq=?";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, recomment);
+			pstat.setInt(2, seq);
+			int result = pstat.executeUpdate();
+			
+			return result;
+		}
+		
+	}
+	public int memberDelete(String delId) throws Exception{
+		String sql= "delete from kh_member where id=?";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, delId);
+		
+			int result = pstat.executeUpdate();
+			
+			return result;
+		}
+	}
+	public int inquireDelete(int delSeq)throws Exception {
+		String sql= "update inquire set recomment =? where seq=?";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "");
+			pstat.setInt(2, delSeq);
+			int result = pstat.executeUpdate();
+			
+			return result;
+		}
+	}
+	public int inquireModify(int delSeq, String recomment)throws Exception {
+		String sql= "update inquire set recomment =? where seq=?";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, recomment);
+			pstat.setInt(2, delSeq);
+			int result = pstat.executeUpdate();
+			
+			return result;
+		}
+	}
+	public int deleteChat () throws Exception {
+		String sql="delete from chatboard";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	public int deleteSeat () throws Exception {
+		String sql="delete from seat";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 }
+					
+					
