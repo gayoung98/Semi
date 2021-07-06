@@ -57,7 +57,7 @@
 								<tr>
 									<th scope="row">${i.seq}</th>
 									<td>${i.branch}</td>
-									<td>${i.title}</td>
+									<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=${branch }&currentPage=${page }&category=${category }&search=${search}&seq=${i.seq}" >${i.title}</a></td>
 									<td>${i.writer}</td>
 									<td>${i.viewCount}</td>
 									<td>${i.write_date}</td>

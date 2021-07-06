@@ -87,9 +87,9 @@
         		dataType: "JSON"
         	}).done(function(result){
         		for(var i=0; i<result.length; i++){
-        			$("#"+result[i]).css("background-color","rgb(252, 255, 53)")
-        			$("#"+result[i]).attr("data-Ischoose","true")
-        		
+        			$("#"+result[i].seat_number).css("background-color","rgb(252, 255, 53)")
+        			$("#"+result[i].seat_number).attr("data-Ischoose","true")
+        			$("#"+result[i].seat_number).html(result[i].name)
         	}
         	})
         	
@@ -160,6 +160,8 @@
 	                	console.log(result);
 	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
 	                	$("#"+result).attr("data-Ischoose","true");
+	                	$("#"+result.seat_number).html(result.name)
+	                	
 	                })	
                 }else{
                 	$.ajax({
@@ -169,6 +171,7 @@
 	                	alert("예약이 취소되었습니다.");
 	                	$("#"+result).css("background-color","white");
 	                	$("#"+result).attr("data-Ischoose","false");
+	                	$("#"+result.seat_number).html("<i class=\"fas fa-desktop\">" + "<br>" + $(this).attr("id"))
 	                })
                 }
             	
@@ -185,6 +188,7 @@
 <body>
 <jsp:include page= "/navibar.jsp" />
 <input type=hidden id=length value="${list}">
+<input type = "hidden" id="writer" value = "${login }">
     <center>
         <div class="day">
             <div class="mon">월</div>

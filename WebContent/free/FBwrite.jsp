@@ -69,7 +69,7 @@
     $(function() {
     	
     	$("#listBtn").on("click",function(){
-    		location.href = '/list.fboard?cpage=1';
+    		location.href = "${pageContext.request.contextPath}/list.fboard?cpage=1";
     	});
     	
         $("#summernote").summernote({     
@@ -103,7 +103,7 @@
 <body>
 <div class="container">
 		<h2 class="text-center mb-3">자유게시판 글쓰기</h2>
-	<form action="/write.fboard" method="post" enctype="multipart/form-data" >
+	<form action="${pageContext.request.contextPath}/write.fboard" method="post" enctype="multipart/form-data" >
 			<div class="contents_box">	
 					<div class="title">		
 					<h3>

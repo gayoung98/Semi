@@ -10,15 +10,12 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/manager/css/manager.css">
   <style>
+  h2{padding-right:170px;}
   
   
-  	.container {
-			max-width: 900px;
-			margin: 50px auto;
-
-		}
-
 		.title {
 			overflow: hidden;
 			padding-bottom: 10px;
@@ -26,16 +23,13 @@
 		}
 
 		.title .seq {
-			float: left;
+			
 			display: block;
 			padding: 8px 10px;
 			font-size: 15px;
 		}
 
-		 .titel h3 {
-			float: left;
-			font-size: 2rem;
-		}
+		
 
 		.title h3 input {
 			border: none;
@@ -69,7 +63,7 @@
     $(function() {
     	
     	$("#main").on("click",function(){
-    		location.href ='/admin.jsp';
+    		location.href ="${pageContext.request.contextPath}/noticeList.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}";
     	});
     	
         $("#summernote").summernote({     
@@ -98,16 +92,22 @@
 </head>
 
 <body>
+<div class="wrap">
+				<jsp:include page="../menu.jsp"></jsp:include>
+				<div>
 <div class="container">
-		<h2 class="text-center mb-3">공지게시판 글쓰기</h2>
-	<form action="/write.manager" method="post" enctype="multipart/form-data" >
+		<h2>공지게시판 글쓰기</h2>
+	
+	<div class="content">
+							<div class="col">
 			<div class="contents_box">	
+	<form action="${pageContext.request.contextPath}/writeView.manager" method="post" enctype="multipart/form-data" >
 					<div class="title">	
 					<select name="branch"> 
-					<option value="전체">전체</option>
-					<option value="종로">종로</option>
-					<option value="강남">강남</option>
-					<option value="당산">당산</option>
+					<option value="all">전체</option>
+					<option value="J">종로</option>
+					<option value="K">강남</option>
+					<option value="D">당산</option>
 					</select>
 					<select name="KhClass">
 					<option value="전체">전체</option> 
@@ -136,12 +136,14 @@
 
 					<input type="submit" class="btn btn-primary" value="등록하기">
 		
-					<input type=button class="btn btn-dark" value="메인" id="main">
+					<input type=button class="btn btn-dark" value="목록으로" id="main">
 				</div>
-			</div>
 		</form>
-
+			</div>
+		</div>
+		</div>
+</div>
 	</div>
- 
+ </div>
 </body>
 </html>
