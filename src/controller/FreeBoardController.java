@@ -131,16 +131,17 @@ public class FreeBoardController extends HttpServlet {
 				System.out.println("제목 :" + title);
 				System.out.println("내용 :" + contents);
 
-				MemberDTO sessionDTO = (MemberDTO)request.getSession().getAttribute("login");
-
+				String email = (String) request.getSession().getAttribute("login");
+				MemberDTO dto = mdao.getMainInfo(email);				
+				
 				//파일 업로드 작업
 				int seq = fbdao.getSeq();				
-				String branch =sessionDTO.getBranch();
+				String branch =dto.getBranch();
 				System.out.println("지점: "+ branch);
-				String writer =sessionDTO.getName();
+				String writer =dto.getName();
 				System.out.println("작성자: "+ writer);
 
-				String id = sessionDTO.getId();
+				String id = dto.getId();
 				System.out.println("학번: "+ id);
 
 
