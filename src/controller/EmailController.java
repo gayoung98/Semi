@@ -67,7 +67,7 @@ public class EmailController extends HttpServlet {
 			         message.setSubject(sub);
 
 			         //내용
-			         int msg2 = (int)(Math.random()*100000)+1;
+			         int msg2 = (int)(Math.random()*(1000000-100000))+100000;
 			         String msg = String.valueOf(msg2);
 			         message.setText(msg);
 
