@@ -95,7 +95,7 @@ public class LoginController extends HttpServlet {
 					request.getSession().setAttribute("login",result);
 					response.sendRedirect("main.main");
 				}else {
-					response.sendRedirect("index.jsp");
+					response.sendRedirect(ctxPath+"/view/loginView.jsp");
 				}	
 								
 			}else if(url.contentEquals("/signout.member")) {
