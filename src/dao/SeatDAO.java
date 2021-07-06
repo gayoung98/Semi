@@ -70,7 +70,7 @@ public class SeatDAO {
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery();){
 				while(rs.next()) {
-					li.add(new SeatDTO(rs.getInt(1), rs.getString(2),  rs.getString(3),  rs.getString(4),  rs.getString(5),  rs.getString(6), rs.getDate(7)));
+					li.add(new SeatDTO(rs.getInt(1), rs.getString(2),  rs.getString(3),  rs.getString(4),  rs.getString(5),  rs.getDate(6)));
 				}
 				return li;
 			}

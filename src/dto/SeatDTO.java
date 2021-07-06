@@ -11,7 +11,7 @@ public class SeatDTO {
 	private Date apply_date;
 	
 	public SeatDTO() {}
-	public SeatDTO(int seq, String seat_day, String email, String name, String member_seat, String seat_number, Date apply_date) {
+	public SeatDTO(int seq, String seat_day, String email, String name, String seat_number, Date apply_date) {
 		this.seq = seq;
 		this.seat_day = seat_day;
 		this.email = email;
