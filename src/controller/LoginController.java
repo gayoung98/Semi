@@ -55,10 +55,7 @@ public class LoginController extends HttpServlet {
 				
 				String pw = request.getParameter("pw");
 				boolean pwregex = Pattern.matches("^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$", pw);
-	            System.out.println("비밀번호 : "+ pwregex);
-	            if(pwregex == false) {
-	            	response.getWriter().append(pw);
-	            }	
+	            System.out.println("비밀번호 : "+ pwregex);	
 				
 				String name = request.getParameter("name");
 				
@@ -71,12 +68,14 @@ public class LoginController extends HttpServlet {
 				MemberDTO dto = dao.getInfo(name, phone);
 				if(dto == null) {
 					response.sendRedirect(ctxPath+"/view/checkMember.jsp");
+					
 				}else {
 					String id = dto.getId();
 					String khClass = dto.getKhClass();
 					String branch = dto.getBranch();
 					boolean resultId = dao.checkId(id);
 					if(resultId == true) {
+						System.out.println(resultId);
 						response.sendRedirect(ctxPath+"/view/checkId.jsp");
 					}else {
 						int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
