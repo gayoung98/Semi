@@ -160,6 +160,7 @@
 	                	console.log(result);
 	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
 	                	$("#"+result).attr("data-Ischoose","true");
+	                	$("#"+result.seat_number).html(result.name)
 	                	
 	                })	
                 }else{
@@ -170,6 +171,7 @@
 	                	alert("예약이 취소되었습니다.");
 	                	$("#"+result).css("background-color","white");
 	                	$("#"+result).attr("data-Ischoose","false");
+	                	$("#"+result.seat_number).html("<i class=\"fas fa-desktop\">" + "<br>" + $(this).attr("id"))
 	                })
                 }
             	
