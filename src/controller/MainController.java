@@ -39,10 +39,12 @@ public class MainController extends HttpServlet {
 			if(url.contentEquals("/writechat.main")) {
 				String contents = request.getParameter("writechat");
 				String writer = request.getParameter("writer");
+				System.out.println(writer);
 				
 				int result = dao.writechat(new MainDTO(writer, contents));
 				response.sendRedirect(ctxPath+"/main.main");
 			} else if(url.contentEquals("/main.main")) {
+				
 	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
 	            request.setAttribute("list", dao.getAllList().size());
 	            request.getRequestDispatcher("main/main.jsp").forward(request, response);

@@ -528,7 +528,7 @@ scale
 <jsp:include page= "/navibar.jsp" />
 	<div class = container>
 		<input type=hidden id=length value="${list}">
-		<input type = "hidden" id="writer" name = "${login }" value = "${login }">
+		
 		<div class =row>
 		<div class="col-3"> 
 		<div class="card">
