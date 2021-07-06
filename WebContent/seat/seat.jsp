@@ -89,7 +89,7 @@
         		for(var i=0; i<result.length; i++){
         			$("#"+result[i]).css("background-color","rgb(252, 255, 53)")
         			$("#"+result[i]).attr("data-Ischoose","true")
-        		
+        			$("#"+result[i]).html($("#writer").val())
         	}
         	})
         	
@@ -160,6 +160,7 @@
 	                	console.log(result);
 	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
 	                	$("#"+result).attr("data-Ischoose","true");
+	                	
 	                })	
                 }else{
                 	$.ajax({
@@ -185,6 +186,7 @@
 <body>
 <jsp:include page= "/navibar.jsp" />
 <input type=hidden id=length value="${list}">
+<input type = "hidden" id="writer" value = "${login }">
     <center>
         <div class="day">
             <div class="mon">월</div>
