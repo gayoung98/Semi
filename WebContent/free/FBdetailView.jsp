@@ -343,7 +343,7 @@
 										</div>
 
 										<div class="commentInfo">
-											<span>${i.writeDate}</span>
+											<span>${i.write_date}</span>
 										</div>
 
 										<!-- 댓글 수정 controller -->

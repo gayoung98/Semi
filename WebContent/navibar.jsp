@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand navbar-light bg-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="main.main">Home</a>
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/main.main">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">게시판</a>
