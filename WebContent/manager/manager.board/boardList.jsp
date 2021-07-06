@@ -60,7 +60,7 @@
 									<td>${i.title}</td>
 									<td>${i.writer}</td>
 									<td>${i.viewCount}</td>
-									<td>${i.writeDate}</td>
+									<td>${i.write_date}</td>
 								</tr>
 									</c:forEach>
 							</tbody>
