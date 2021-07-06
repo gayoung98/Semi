@@ -89,23 +89,24 @@ $("#back").on("click",function(){
 <h2 class ="text-center">공지 게시판</h2>
     <ul class="nav justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">전체</a>
+          <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/list.nboard?cpage=1">전체</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">종로</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/list.nboard?branch=종로&cpage=1&category=&keyword=">종로</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">강남</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/list.nboard?branch=강남&cpage=1&category=&keyword=">강남</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="#">당산</a>
+          <a class="nav-link " href="${pageContext.request.contextPath}/list.nboard?branch=당산&cpage=1&category=&keyword=">당산</a>
         </li>
       </ul>
 
         <div class="row first">
             <div class="col-12 col-md-1 d-none d-md-block">No</div>
             <div class="col-12 col-md-2" style="text-align: center;">지점명</div>
-            <div class="col-12 col-md-4 title" >제목</div>
+            <div class="col-12 col-md-1" style="text-align: center;">반</div>
+            <div class="col-12 col-md-3 title" >제목</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성자</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
             <div class="col-12 col-md-1 d-none d-md-block">조회수</div>
@@ -115,8 +116,9 @@ $("#back").on("click",function(){
             <div class="row second">
             
                 <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
-                <div class="col-12 col-md-2">${i.branch}</div>
-                <div class="col-12 col-md-4 title" ><a href="detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
+                <div class="col-12 col-md-2"style="text-align: center;">${i.branch}</div>
+                <div class="col-12 col-md-1"style="text-align: center;">${i.khClass}</div>
+                <div class="col-12 col-md-3 title" ><a href="detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
                 <div class="col-2 col-md-2  d-md-block">${i.writeDate}</div>
                 <div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
@@ -129,15 +131,28 @@ $("#back").on("click",function(){
 				<c:forEach var="i" items="${navi}" varStatus="s">
 					<c:choose>
 						<c:when test="${i=='>'}">
-							<a href="/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
-					
+							<c:choose>
+								<c:when test="${not empty branch}">
+																
+							<a href="/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+								</c:when>
+								<c:otherwise>
+								<a href="/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
+								</c:otherwise>
+								</c:choose>
 						</c:when>
 						<c:when test="${i=='<'}">
-							<a href="/list.nboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
-					
+								<c:choose>
+								<c:when test="${not empty branch}">
+							<a href="/list.nboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+								</c:when>
+								<c:otherwise>
+								<a href="/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
+								</c:otherwise>
+								</c:choose>
 						</c:when>
 						<c:otherwise>
-							<a href="/list.nboard?cpage=${i}&category=${category}&keyword=${keyword}">${i}</a>
+							<a href="/list.nboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -147,14 +162,36 @@ $("#back").on("click",function(){
         </div>
  	<div class="search">
  		<form action="/list.nboard" method="get">
-		<input type="hidden" name="cpage" value="1">
-		<select name="category"> 
-		<option value="title">제목</option>
-		<option value="writer">작성자</option>
-		<option value="contents">내용</option>
-		</select>
-		<input type="text" placeholder="검색어를 입력하세요" name="keyword" required value="${keyword}">
-		<input type= "submit" value="찾기" class="btn btn-dark" name="search" id="searchBtn">
+	<c:choose>
+					
+					<c:when test="${not empty branch}">
+						<select name="category">
+							<option value="title">제목</option>
+							<option value="writer">작성자</option>
+							<option value="contents">내용</option>
+						</select>
+						<input type="hidden" name="cpage" value="1">
+						<input type="hidden" name="branch" value="${branch}">
+						<input type="text" placeholder="검색어를 입력하세요" name="keyword"
+							required value="${keyword}">
+						<input type="submit" value="찾기" class="btn btn-dark"
+							id="searchBtn">
+							
+					</c:when>
+					<c:otherwise>
+						<select name="category">
+							<option value="title">제목</option>
+							<option value="writer">작성자</option>
+							<option value="contents">내용</option>
+						</select>
+						<input type="hidden" name="cpage" value="1">
+						<input type="text" placeholder="검색어를 입력하세요" name="keyword"
+							required value="${keyword}">
+						<input type="submit" value="찾기" class="btn btn-dark"
+							id="searchBtn">
+							
+					</c:otherwise>
+				</c:choose>
 	 </form>		  
  </div>	
     </div>

@@ -8,6 +8,8 @@
 			<title>${view.title}</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		
 			
 			<style>
 			/*navibar*/
@@ -253,7 +255,8 @@
 					
 				  //게시글 신고
 					   $("#report").on("click",function() {
-						  window.open("${pageContext.request.contextPath}/free/policePop.jsp","게시글 신고","width=400,height=300");           
+						   
+						  window.open("${pageContext.request.contextPath}/free/reportPop.jsp","게시글 신고","width=300,height=400");           
 					    });  
 					 
 					
@@ -278,8 +281,7 @@
 						</a>
 						<div class="name_box">
 							<a href="#" role="button" class="target"> ${view.writer} </a> <em
-								class="position">${view.branch}지점 ${login.khClass}반
-								${login.position} </em>
+								class="position">${view.branch}지점  </em>
 						</div>
 					</div>
 					<!-- 작성일자,조회수 -->
@@ -292,7 +294,7 @@
 							<a href="#" role="button" class="button_comment"> <strong class="num"> 댓글
 									${count.replyCount(view.seq)}</strong>
 							</a>
-							<button type="button" class="btn btn-danger" id="report"><i class="fas fa-exclamation-triangle"></i>신고</button>
+							<button type="button" class="btn btn-danger" id="report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
 						</div>
 					</div>
 
