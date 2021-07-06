@@ -7,12 +7,28 @@
 			<meta charset="UTF-8">
 			<title>${view.title}</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-			    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 			
 			<style>
+			/*navibar*/
+			
+  .navbar>.container-fluid {
+            padding: 0px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            top: 100%;
+            background-color: #55555550;
+        }
 				.container {
-					margin-top: 10px;
+					margin-top: 40px;
 					width: 100%;
 				}
 
@@ -246,6 +262,8 @@
 		</head>
 
 		<body>
+		<jsp:include page="/navibar.jsp"></jsp:include>
+		
 			<div class="container">
 				<!-- 게시물 제목 -->
 				<div class="col-12 title_area">
@@ -363,7 +381,7 @@
 						</form>
 					</div>
 				</div>
-
+				<hr>
 				<!-- 로그인 유저와 글쓴이가 같다면? 수정/삭제 -->
 				<div class="btn_wrap text-right">
 					<c:choose>

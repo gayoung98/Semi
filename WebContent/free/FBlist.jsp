@@ -10,17 +10,35 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
+/*navibar*/
+  .navbar>.container-fluid {
+            padding: 0px;
+        }
 
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #55555550;
+        }
 .container {
-    border-top:3px solid black;
     margin-top: 10px;
     width: 100%;
 }
-.row{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.192);
-    
+.first{
+	border-bottom: 3px solid black;
 }
-body{padding-top:30px;}
+
+.second{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+}
+
 
 h2{margin-left: 20px;
 font-weight: bold;
@@ -67,6 +85,9 @@ $("#back").on("click",function(){
 </script>
 </head>
 <body>
+<jsp:include page="/navibar.jsp"></jsp:include>
+
+    <div class="container">        
 <h2 class ="text-center">자유게시판</h2>
     <ul class="nav justify-content-center">
         <li class="nav-item">
@@ -83,18 +104,18 @@ $("#back").on("click",function(){
         </li>
       </ul>
 
-    <div class="container">        
-        <div class="row">
+
+        <div class="row first">
             <div class="col-12 col-md-1 d-none d-md-block">No</div>
             <div class="col-12 col-md-2" style="text-align: center;">지점명</div>
-            <div class="col-12 col-md-4 title" >제목</div>
+            <div class="col-12 col-md-4 title">제목</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성자</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
             <div class="col-12 col-md-1 d-none d-md-block">조회수</div>
         </div>
 
    <c:forEach var="i" items="${boardlist}">
-            <div class="row">
+            <div class="row second">
             
                 <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
                 <div class="col-12 col-md-2">${i.branch}</div>
