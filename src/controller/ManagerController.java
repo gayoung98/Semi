@@ -1,8 +1,11 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +16,28 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.Manager;
 import org.apache.commons.lang3.StringUtils;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import config.FileConfig;
 import config.ManagerConfig;
+import dao.FreeBoardDAO;
+import dao.FreeCommentDAO;
+import dao.FreeFilesDAO;
 import dao.ManagerDAO;
+import dao.NoticeBoardDAO;
+import dao.NoticeCommentDAO;
+import dao.NoticeFileDAO;
 import dto.AssDTO;
 import dto.FreeBoardDTO;
+import dto.FreeCommentDTO;
+import dto.FreeFilesDTO;
 import dto.FreePoliceDTO;
 import dto.InquireDTO;
 import dto.MemberDTO;
 import dto.NoticeBoardDTO;
+import dto.NoticeCommentsDTO;
+import dto.NoticeFilesDTO;
 
 
 
@@ -45,7 +62,12 @@ public class ManagerController extends HttpServlet {
 			String ctxPath = request.getContextPath();
 			String url = requestURI.substring(ctxPath.length());
 			ManagerDAO managerDao = ManagerDAO.getInstance();    
-			
+			NoticeBoardDAO nbdao = NoticeBoardDAO.getInstance();
+			NoticeCommentDAO ncdao = NoticeCommentDAO.getInstance();
+			NoticeFileDAO nfdao=NoticeFileDAO.getInstance();
+			FreeFilesDAO ffdao=FreeFilesDAO.getInstance();
+			FreeBoardDAO fbdao=FreeBoardDAO.getInstance();
+			FreeCommentDAO fcdao=FreeCommentDAO.getInstance();
 			System.out.println(url);    // 접속 url 출력
 			
 			if(url.contentEquals("/login.manager")) {   // 로그인 요청
@@ -314,6 +336,232 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("hasNotRecomment", hasNotRecomment);
 				System.out.println(hasNotRecomment);
 				request.getRequestDispatcher("manager/manager.inquire/inquireDetail.jsp").forward(request,response);
+			}else if(url.contentEquals("/write.manager")) {
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/NBwrite.jsp").forward(request,response);
+				
+			}
+			else if(url.contentEquals("/writeView.manager")) { //관리자페이지 공지사항 글쓰기
+				System.out.println("정보를 받아옴");
+				String filesPath =request.getServletContext().getRealPath("files");
+
+				File filesFolder = new File(filesPath);
+				System.out.println("프로젝트가 저장된 진짜 경로" + filesPath);
+
+				if(!filesFolder.exists()) filesFolder.mkdir();
+				MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
+				
+				int seq = nbdao.getSeq();
+				String title =multi.getParameter("title");
+				String contents= multi.getParameter("contents");
+				
+				String branch = multi.getParameter("branch");
+				String khClass = multi.getParameter("KhClass");
+
+				int result = nbdao.write(seq,title,contents,khClass,branch);
+				System.out.println("게시글 입력 여부"+ result);
+
+				Set<String>fileNames = multi.getFileNameSet();
+				System.out.println("파일갯수 "+fileNames.size());
+				for(String fileName : fileNames) {
+					System.out.println("파라미터 이름: "+ fileName);
+					String oriName = multi.getOriginalFileName(fileName);
+					String sysName = multi.getFilesystemName(fileName);
+
+					if(oriName!=null) {  
+						int fileUpload =nfdao.fileUpload(new NoticeFilesDTO(0,oriName,sysName,null,seq));
+						System.out.println(fileUpload);
+					}
+				}
+				List<NoticeBoardDTO> boardlist =nbdao.boardList();// 목록 받아오기
+				request.setAttribute("boardlist", boardlist);
+				RequestDispatcher rd = request.getRequestDispatcher("manager/manager.board/NBwriteView.jsp"); //게시물 등록 성공 화면
+				rd.forward(request, response);
+				
+			}else if(url.contentEquals("/detailView.manager")) { //관리자페이지 상세보기
+				int boardseq = Integer.parseInt(request.getParameter("seq"));
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				nbdao.viewCountPlus(boardseq);//조회수
+
+				NoticeBoardDTO nbdto = nbdao.detailView(boardseq); //상세 보기
+				System.out.println("게시글 번호 :"+boardseq);
+				request.setAttribute("view", nbdto);
+				
+				List<NoticeFilesDTO>fileList = nfdao.selectAll(boardseq); 
+				System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
+				request.setAttribute("filelist", fileList);
+
+				request.setAttribute("count", ncdao); //댓글 수 출력 
+				List<NoticeCommentsDTO> list =ncdao.CommentsList(boardseq);//댓글리스트				
+				request.setAttribute("reply", list); 
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/NBdetailView.jsp").forward(request, response);
+			
+			
+			}else if(url.contentEquals("/noticeModify.manager")) { //관리자페이지 공지사항 글쓰기 수정
+				int boardseq = Integer.parseInt(request.getParameter("seq"));
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				System.out.println(boardseq);
+				NoticeBoardDTO bdto = nbdao.detailView(boardseq);
+				request.setAttribute("view", bdto);
+
+				List<NoticeFilesDTO> fileList = nfdao.selectAll(boardseq);
+				System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
+				System.out.println("파일 갯수: "+ fileList.size());
+				request.setAttribute("filelist", fileList);
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/NBmodify.jsp").forward(request, response);
+				
+				
+			}else if(url.contentEquals("/noticeModifyView.manager")) { //관리자페이지 공지사항 글 수정 페이지
+			
+				String filesPath =request.getServletContext().getRealPath("files"); 
+				System.out.println(filesPath);
+				
+				File filesFolder = new File(filesPath);
+				System.out.println("프로젝트가 저장 경로" + filesPath);
+
+				if(!filesFolder.exists()) {filesFolder.mkdir();}
+				
+				MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
+
+
+				int boardSeq = Integer.parseInt(multi.getParameter("seq"));
+			
+				String uptitle = multi.getParameter("title");
+				System.out.println("수정한 제목:" +uptitle);
+				String upcontents = multi.getParameter("contents");
+				System.out.println("수정한 내용: "+ upcontents);
+			
+				String[]del=multi.getParameterValues("delete");
+				
+				if(del!= null) {
+					for(String deleteFile : del) {
+						System.out.println("지울 파일 번호 "+ deleteFile);
+
+						String sysName = nfdao.getSysName(Integer.parseInt(deleteFile));
+						File targetFile = new File(filesPath +"/" + sysName); 
+						boolean result = targetFile.delete();
+						System.out.println("파일 삭제 여부 :" + result);
+						if(result) {nfdao.fileDelete(Integer.parseInt(deleteFile));}
+					}
+				}else {
+				
+				int result = nbdao.modify(boardSeq, uptitle, upcontents);
+				System.out.println("수정 결과"+ result);
+			
+				Set<String>fileNames = multi.getFileNameSet();
+				System.out.println("파일갯수 "+fileNames.size());
+				for(String fileName : fileNames) {
+					System.out.println("파라미터 이름: "+ fileName);
+					String oriName = multi.getOriginalFileName(fileName);
+					String sysName = multi.getFilesystemName(fileName);
+
+					
+					if(oriName!=null) {  
+						System.out.println("파일이름" + oriName + "DB에 저장됨.");
+					
+						nfdao.fileUpload(new NoticeFilesDTO(0,oriName,sysName,null,boardSeq));			
+					}
+				}
+				}
+				String branch = multi.getParameter("branch");		
+				int currentPage =Integer.parseInt(multi.getParameter("currentPage"));
+				String category = multi.getParameter("category");
+				String search = multi.getParameter("search");
+				NoticeBoardDTO dto = nbdao.detailView(boardSeq);
+					List<NoticeFilesDTO> flist = nfdao.selectAll(boardSeq);
+					request.setAttribute("view", dto);
+					request.setAttribute("filelist", flist);
+					request.setAttribute("page", currentPage);
+					request.setAttribute("branch", branch);
+					request.setAttribute("category", category);
+					request.setAttribute("search", search);
+					request.getRequestDispatcher("manager/manager.board/NBmodifyView.jsp").forward(request, response);
+
+			}else if(url.contentEquals("/noticeDelete.manager")) { //관리자페이지 공지사항 글쓰기 삭제
+				System.out.println("삭제중");
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+				nbdao.delete(seq);
+				request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+				request.getRequestDispatcher("manager/manager.board/NBdeleteView.jsp").forward(request, response);
+				//관리자페이지 공지사항 댓글 삭제!!!
+			}else if(url.contentEquals("/deleteCom.manager")) { //관리자페이지 공지사항 글쓰기 삭제
+				
+				int comment_seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println("댓글번호: " + comment_seq);
+				int result = ncdao.deleteReply(comment_seq);
+				System.out.println("게시글 삭제 행 갯수:" +result);
+				int parent = Integer.parseInt(request.getParameter("parent"));
+				System.out.println("게시글번호: " + parent);
+				
+				if(result>0) {
+					response.sendRedirect("/detailView.manager?seq="+parent);
+				}		
+			}   else if(url.contentEquals("/freeBoardDetail.manager")) {  		// 자유게시판 상세보기
+				 int boardSeq = Integer.parseInt(request.getParameter("seq"));
+				 String branch = request.getParameter("branch");		
+					int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+					String category = request.getParameter("category");
+					String search = request.getParameter("search");
+		            fbdao.viewCountPlus(boardSeq);//조회수
+
+		            FreeBoardDTO bdto = fbdao.detailView(boardSeq); //상세 보기
+		            System.out.println("게시글 번호 :"+boardSeq);
+		            request.setAttribute("view", bdto);
+
+		            List<FreeFilesDTO>fileList = ffdao.selectAll(boardSeq); //첨부파일 목록 출력   
+		            System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
+		            request.setAttribute("filelist", fileList);//파일리스트를 request애 담는다.
+		            request.setAttribute("page", currentPage);
+					request.setAttribute("branch", branch);
+					request.setAttribute("category", category);
+					request.setAttribute("search", search);
+		            request.setAttribute("count", fcdao); //댓글 수 출력 
+		            List<FreeCommentDTO> list =fcdao.CommentsList(boardSeq);//댓글리스트            
+		            request.setAttribute("reply", list); //댓글리스트를 request를 담는다.
+		            request.getRequestDispatcher("manager/manager.board/FBdetailView.jsp").forward(request, response);
+
+			}else if(url.contentEquals("/freeBoardDelete.manager")) {
+				int boardSeq = Integer.parseInt(request.getParameter("seq"));
+				 String branch = request.getParameter("branch");		
+					int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+					String category = request.getParameter("category");
+					String search = request.getParameter("search");
+					managerDao.deleteFreeBoard(boardSeq);
+					 request.setAttribute("page", currentPage);
+						request.setAttribute("branch", branch);
+						request.setAttribute("category", category);
+						request.setAttribute("search", search);
+			            request.getRequestDispatcher("manager/manager.board/FBboardDelete.jsp").forward(request, response);
+
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

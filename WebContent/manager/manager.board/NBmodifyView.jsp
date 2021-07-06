@@ -14,12 +14,13 @@
 	<c:choose>
 	<c:when test="${view!=null}">
 		alert("게시글 수정에 성공하셨습니다.");
+		location.href = "${pageContext.request.contextPath}/noticeList.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}";
 		</c:when>
 		<c:otherwise>
 		alert("다시 확인해주세요.");
 		</c:otherwise>
 		</c:choose>
-	location.href = "/list.manager?cpage=1";
+		
 	</script>
 </body>
 </html>

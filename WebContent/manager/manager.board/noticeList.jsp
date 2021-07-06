@@ -60,7 +60,7 @@
 									<th scope="row">${i.seq}</th>
 									<td>${i.branch}</td>
 									<td>${i.khClass}</td>
-									<td>${i.title}</td>
+									<td><a href="${pageContext.request.contextPath}/detailView.manager?seq=${i.seq}&currentPage=${page}&branch=${branch}&category=${category}&search=${search}">${i.title}</a></td>
 									<td>${i.viewCount}</td>
 									<td>${i.write_date}</td>
 								</tr>
@@ -123,7 +123,7 @@
 	<script>
 	$(function(){
 		$("#writebtn").on("click",function(){
-			 location.href="";
+			 location.href="${pageContext.request.contextPath}/write.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}";
 		})
 	})
 	</script>

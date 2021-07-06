@@ -32,9 +32,7 @@
 					<li><a
 						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">과제게시판
 							</a></li>
-							<li><a
-						href="${pageContext.request.contextPath}/assList.manager?branch=all&currentPage=1&category=&search=">SNS
-							관리</a></li>
+							<li>
 				</ul></li>
 			<li><a href="#">신고 관리<i class="fas fa-caret-down"></i></a>
 				<ul class="submenu">
@@ -48,14 +46,7 @@
 					<li><a href="${pageContext.request.contextPath}/inquireList.manager?currentPage=1&category=&search=">문의 내용 관리</a></li>
 
 				</ul>
-			<li><a href="#">자리 신청 관리<i class="fas fa-caret-down"></i></a>
-				<ul class="submenu">
-					<li><a href="#">종로</a></li>
-					<li><a href="#">당산</a></li>
-					<li><a href="#">강남</a></li>
-
-
-				</ul></li>
+			
 		</ul>
 	</div>
 </div>
