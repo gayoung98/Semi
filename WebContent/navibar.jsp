@@ -10,10 +10,10 @@
                     <a class="nav-link">게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">과제</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/list.ass?currentPage=1">과제</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">타자</a>
+                      <a class="nav-link">타자</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="seat/seat.jsp">자리 신청</a>
@@ -27,12 +27,14 @@
                 <div class="col-2 sub">
                 </div>
                 <div class="col-2 sub" style="text-align: center;">
-                     <a href="${pageContext.request.contextPath}/list.fboard?cpage=1">공지</a><br> <a href="${pageContext.request.contextPath}/list.nboard?cpage=1">자유</a>
+                       <a href="${pageContext.request.contextPath}/list.nboard?cpage=1">공지</a><br> <a href="${pageContext.request.contextPath}/list.fboard?cpage=1">자유</a>
                 </div>
                 <div class="col-2 sub">
                 </div>
                 <div class="col-2 sub" style="text-align: center;">
-                    검정<br>기록
+                       <a href="https://typing.malangmalang.com/typing-practice/exercising-sentence-typing">검정</a>
+                       <br>
+                       <a href="#">기록</a>
                 </div>
                 <div class="col-2 sub">
                 </div>
