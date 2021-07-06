@@ -410,7 +410,6 @@ scale
 	let writechat = document.getElementById("wirtechat");
 
 	const Chat = (function() {
-		const myName = ${login};
 
 		// init 함수
 		function init() {
@@ -482,7 +481,7 @@ scale
 													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {
 
-														if (resp[i].writer == ${login}) {
+														if (resp[i].writer == $("#writer")) {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg1\">");
 															msgBox.attr(
@@ -556,7 +555,7 @@ scale
 						<input type=text id="writechat" name="writechat"
 							placeholder="Press Enter for send message.">
 					</div>
-					<input type="hidden" name="writer" value="${login }">
+					<input type="hidden" name="writer" id = writer value="${login }">
 				</form>
 			</div>
 			<div class="wrapper" id="wrapper">

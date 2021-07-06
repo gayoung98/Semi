@@ -59,7 +59,6 @@
             font-size: 150%;
             text-align: center;
         }
-
         .seat {
             background-color: white
         }
@@ -79,8 +78,22 @@
         
     </style>
     
+
 		<script>
         $(function () {
+        	
+        	$.ajax({
+        		url: "${pageContext.request.contextPath}/complete.seat",
+        		dataType: "JSON"
+        	}).done(function(result){
+        		for(var i=0; i<result.length; i++){
+        			$("#"+result[i]).css("background-color","rgb(252, 255, 53)")
+        			$("#"+result[i]).attr("data-Ischoose","true")
+        		
+        	}
+        	})
+        	
+        	
         	let id = "blue";
             let sub = 0;
             let before_seat = null;
@@ -136,8 +149,8 @@
             })
        
             $(document).on("click",".seat",function(){
-            	console.log($(this).attr("id"));
-            	console.log($(this).attr("data-Ischoose"));
+    //        	console.log($(this).attr("id"));
+      //      	console.log($(this).attr("data-Ischoose"));
             	if($(this).attr("data-Ischoose")==="false"){
 	                $.ajax({
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
@@ -156,7 +169,7 @@
 	                	alert("예약이 취소되었습니다.");
 	                	$("#"+result).css("background-color","white");
 	                	$("#"+result).attr("data-Ischoose","false");
-	                })	
+	                })
                 }
             	
             	
@@ -183,6 +196,7 @@
         <div>
         [KH 종로반 E 클래스 교실 구조]
         </div>
+        <input type = hidden id =temp>
         <table border="1" width=700 id=table2>
             <tr>
                 <td colspan="3" align="left">

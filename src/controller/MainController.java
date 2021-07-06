@@ -16,11 +16,13 @@ import com.google.gson.Gson;
 
 import dao.CalanderDAO;
 import dao.MainDAO;
+import dao.MemberDAO;
 import dao.MyPageDAO;
 import dao.ProfileFileDAO;
 import dao.inquiredDAO;
 import dto.InquireDTO;
 import dto.MainDTO;
+import dto.MemberDTO;
 
 
 @WebServlet("*.main")
@@ -36,16 +38,18 @@ public class MainController extends HttpServlet {
 			String ctxPath = request.getContextPath();
 			String url = requestURI.substring(ctxPath.length());
 			MainDAO dao = MainDAO.getInstance();
-		
+			MemberDAO memdao = MemberDAO.getInstance();
 			System.out.println(url);
 			if(url.contentEquals("/writechat.main")) {
 				String contents = request.getParameter("writechat");
 				String writer = request.getParameter("writer");
 				System.out.println(writer);
 				
-				//MemberDTO dto = 
+				MemberDTO dto = memdao.getMainInfo(writer);
+				String id = dto.getId();
+				String kh_class = dto.getKhClass();
 				
-				int result = dao.writechat(new MainDTO(writer, contents));
+				int result = dao.writechat(writer, id, contents, kh_class);
 				response.sendRedirect(ctxPath+"/main.main");
 			} else if(url.contentEquals("/main.main")) {
 				

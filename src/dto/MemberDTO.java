@@ -58,6 +58,13 @@ public MemberDTO(String id, String khClass, String branch) {
       this.khClass = khClass;
       this.branch = branch;
    }
+
+public MemberDTO(String name, String id, String khClass, String branch) {
+    this.name = name;
+	this.id = id;
+    this.khClass = khClass;
+    this.branch = branch;
+ }
    
    public String getEmail() {
       return email;

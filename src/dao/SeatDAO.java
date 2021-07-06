@@ -29,11 +29,13 @@ public class SeatDAO {
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	public int insert(SeatDTO dto) throws Exception{
-		String sql = "insert into seat values(seat_SEQ.nextval, 'm','email','name',?,sysdate)";
+	public int insert(String email, String name, String seat_number) throws Exception{
+		String sql = "insert into seat values(seat_SEQ.nextval, 'm',?,?,?,sysdate)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, dto.getSeat_number());
+			pstat.setString(1, email);
+			pstat.setString(2, name);
+			pstat.setString(3, seat_number);
 			int result = pstat.executeUpdate();
 			return result;
 		}
@@ -61,14 +63,14 @@ public class SeatDAO {
 			}
 		}
 	}
-	public List<Integer> reservedList() throws Exception{
-		List <Integer> li = new ArrayList<Integer>();
+	public List<String> reservedList() throws Exception{
+		List <String> li = new ArrayList<String>();
 		String sql = "select seat_number from seat";
 		try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery();){
 				while(rs.next()) {
-					li.add(rs.getInt(1));
+					li.add(rs.getString(1));
 				}
 				return li;
 			}

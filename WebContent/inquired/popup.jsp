@@ -77,7 +77,7 @@
         <form action= "${pageContext.request.contextPath}/inquired.main" method="post">
             <div class="form-group">
             <label for="exampleFormControlInput1"><strong>작성자</strong></label>
-            <input type="email" class="form-control" id="writer" name="writer" value = "${id }" readonly>
+            <input type="email" class="form-control" id="writer" name="writer" value = "${login }" readonly>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><strong>주제 분류</strong></label>
