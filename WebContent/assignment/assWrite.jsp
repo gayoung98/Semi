@@ -83,7 +83,6 @@
 				</div>
 			</div>
 
-
 			<div class="row content" style="padding: 0px;">
 				<div class="col-12">
 					<div id="editor">
