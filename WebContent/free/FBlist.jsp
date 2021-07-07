@@ -103,13 +103,13 @@ $("#back").on("click",function(){
 				href="${pageContext.request.contextPath}/list.fboard?cpage=1">전체</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=종로&cpage=1&category=&keyword=">종로</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=J&cpage=1&category=&keyword=">종로</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=강남&cpage=1&category=&keyword=">강남</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=K&cpage=1&category=&keyword=">강남</a>
 			</li>
 			<li class="nav-item"><a class="nav-link "
-				href="${pageContext.request.contextPath}/list.fboard?branch=당산&cpage=1&category=&keyword=">당산</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=D&cpage=1&category=&keyword=">당산</a>
 			</li>
 		</ul>
 
