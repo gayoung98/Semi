@@ -27,7 +27,7 @@ div[class*=col]{
 padding: 0px;
 margin:0px;
 }
-/* .navbar>.container-fluid {
+ .navbar>.container-fluid {
             padding: 0px;
         }
 
@@ -44,7 +44,7 @@ margin:0px;
             top: 100%;
             background-color: #55555550;
         }
- */
+ 
 
 .chat_wrap {
 	width: 100%;
