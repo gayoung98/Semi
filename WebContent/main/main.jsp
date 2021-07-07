@@ -486,7 +486,7 @@ scale
 													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {
 
-														if (resp[i].writer == $("#writer")) {
+														if (resp[i].writer == $("#writer").val()) {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg1\">");
 															msgBox.attr(
@@ -594,7 +594,7 @@ scale
     	<div id="up">
     		<div style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>	
     	</div>		
-		<div id="inquire">
+		<div id="inquire" style="cursor:pointer;">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
 		</div>
 		<div class="footer">
