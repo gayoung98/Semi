@@ -70,14 +70,16 @@ div {
 
 		<div class="row title">
 			<div class="col-3">${assView.writer}</div>
-			<div class="col-6">${assView.title}</div>
+			<div class="col-5">${assView.title}</div>
 			<div class="col-3">${assView.write_date}</div>
+			<div class="col-1">${assView.viewCount }</div>
 		</div>
 
 		<div class="row files">
 			<div class="col-12">
-				<a
-					href="download.ass?seq=${assFiles.seq}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">${assFiles.oriName }</a>
+				<a href="download.ass?seq=${assFiles.seq}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">
+					${assFiles.oriName }
+				</a>
 			</div>
 		</div>
 

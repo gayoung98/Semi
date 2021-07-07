@@ -158,7 +158,7 @@ public class AssDAO {
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, viewCount++);
+			pstat.setInt(1, ++viewCount);
 			pstat.setInt(2, seq);
 			int result = pstat.executeUpdate();
 

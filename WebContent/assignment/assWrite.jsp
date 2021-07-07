@@ -96,7 +96,7 @@
 						<p>
 							<br>
 						</p>
-
+ 
 					</div>
 					<textarea id="contents" name="contents" style="display: none"></textarea>
 
