@@ -17,7 +17,7 @@ html[Attributes Style] {
 html {
     display: block;
 }
-
+header{border-bottom:1px solid #ddd;}
 body {
     -webkit-text-size-adjust: none;
 }
@@ -162,40 +162,40 @@ button {
                     <legend class="screen_out"></legend>
                     <strong class="tit_report tit_report"><span>신고사유 선택</span></strong>
                     
-              <form action="${pageContext.request.contextPath}/report.police" method="post">
-                    <input type="hidden" name="fboard_seq" value="${seq}">
+              <form action="${pageContext.request.contextPath}/report.fboard" method="post">
+                    <input type="hidden" name="fboard_seq" value="${view.seq}">
                     <ul class="list_report">
                         <li id="r1" class="reason">
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="1" checked>
+                                <input type="radio" name="contents" class="inp_radio" value ="욕설, 비방, 차별, 혐오" checked>
                                 <label for="r1" class="lab_radio"><span class="ico_report ico_check"></span><span>욕설, 비방, 차별, 혐오</span><span class="ico_report ico_arr"></span></label>
                             </div>
                         </li>
                        
                         <li id="r2" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="2">
+                                <input type="radio" name="contents" class="inp_radio" value ="불법 정보">
                                 <label for="r2" class="lab_radio"><span class="ico_report ico_check"></span><span>불법 정보</span><span class="ico_report ico_arr"></span></label>
                             </div>
                             
                         </li>
                         <li id="r3" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="3">
+                                <input type="radio" name="contents" class="inp_radio" value ="음란, 청소년 유해">
                                 <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>음란, 청소년 유해</span><span class="ico_report ico_arr"></span></label>
                             </div>
                            
                         </li>
                         <li id="r4" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="4">
+                                <input type="radio" name="contents" class="inp_radio" value ="개인 정보 노출, 유포, 거래">
                                 <label for="r4" class="lab_radio"><span class="ico_report ico_check"></span><span>개인 정보 노출, 유포, 거래</span><span class="ico_report ico_arr"></span></label>
                             </div>
                           
                         </li>
                         <li id="r5" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="5">
+                                <input type="radio" name="contents" class="inp_radio" value ="도배, 스팸">
                                 <label for="r5" class="lab_radio"><span class="ico_report ico_check"></span><span>도배, 스팸</span><span class="ico_report ico_arr"></span></label>
                             </div>                        
                         </li>                             

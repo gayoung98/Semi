@@ -287,7 +287,6 @@
 					
 					$("#modifyForm").on("submit", function () { //댓글 수정 폼
 						let inputcom = $("<input>");
-						let parent = $
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
 						inputcom.val($("#com").text());
@@ -310,11 +309,34 @@
 					});
 					
 				  //게시글 신고
-					   $("#report").on("click",function() {
-						   
-						  window.open("${pageContext.request.contextPath}/free/reportPop.jsp","게시글 신고","width=300,height=400");           
-					    });  
-					 
+					 /* $("#report").on("click",function() {							
+					
+						  window.open("${pageContext.request.contextPath}/reportForm.fboard?board_Seq={$}","게시글 신고","width=300,height=400");           
+					    });    */
+					
+					function openPop(){
+				         
+				         
+				        let pop_title = "popupOpener" ;
+				         
+				        window.open("게시글 신고", pop_title) ;
+				         
+				        var frmData = document.frmData ;
+				        frmData.target = pop_title ;
+				        frmData.action = "${pageContext.request.contextPath}/reportForm.fboard" ;
+				         
+				        frmData.submit() ;
+				         
+				         
+				         
+				    }
+					    
+					    /* function popup(seq){
+						/* 매개변수 num을 알럿으로 출력한다. */
+						/*  alert(seq); */
+						/* 다음과 같이 window.open 함수로 url에 값을 전달한다. */
+				/* 		 window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+seq,"게시글 신고","width=300, height=400");
+					 } */ 
 					
 				});
 			</script>
@@ -337,7 +359,7 @@
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${member.email }/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                  			<img src="${pageContext.request.contextPath}/profile/${member.email}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
@@ -346,7 +368,7 @@
 		                   		
 		                   	</div>
 						<div class="name_box">
-							<a href="#" role="button" class="target"> ${view.writer} </a> <em
+							<a href="#" role="button"> ${view.writer} </a> <em
 								class="position">${view.branch}지점  </em>
 						</div>
 					</div>
@@ -360,6 +382,8 @@
 							<a href="#" role="button" class="button_comment"> <strong class="num"> 댓글
 									${count.replyCount(view.seq)}</strong>
 							</a>
+							
+						
 							<button type="button" class="btn btn-danger" id="report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
 						</div>
 					</div>

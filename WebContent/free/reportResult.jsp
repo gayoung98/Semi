@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-<h3>해당 게시글의 신고 접수되었습니다.</h3>
+<fieldset> 신고 접수  </fieldset>
+<legend>해당 게시글의 신고 접수되었습니다.</legend>
 </body>
 </html>
