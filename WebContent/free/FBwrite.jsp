@@ -90,6 +90,8 @@ nav{padding:0;margin: 0;}
 			border-color: #fff;
 		
 		}
+		  #file_box{margin-left:20px;}
+		
 		.btn_wrap {
 			padding-top: 10px;
 		}
