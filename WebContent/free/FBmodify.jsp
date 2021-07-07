@@ -126,7 +126,7 @@
                 $(function () {
 
                     $("#listBtn").on("click", function () {
-                        location.href = '/list.fboard?cpage=1';
+                        location.href = "${pageContext.request.contextPath}/list.fboard?cpage=1";
                     });
                     $('#summernote').val('${view.contents}');
                     $("#summernote").summernote(
@@ -195,8 +195,7 @@
                                 </a>
                                 <div class="name_box">
                                     <a href="#" role="button"> ${view.writer} </a> <em class="position">${view.branch}지점
-                                        ${login.khClass}반
-                                        ${login.position} </em>
+                                         </em>
                                 </div>
                             </div>
                             <!-- 작성일자,조회수 -->

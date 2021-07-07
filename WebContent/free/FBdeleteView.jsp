@@ -18,7 +18,7 @@
 		alert("다시 확인해주세요.");
 		</c:otherwise>
 		</c:choose>
-	location.href = "/list.fboard?cpage=1";
+	location.href = "${pageContext.request.contextPath}/list.fboard?cpage=1";
 	</script>
 </body>
 </html>

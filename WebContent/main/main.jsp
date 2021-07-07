@@ -553,7 +553,7 @@ scale
 					method="post" id="submit">
 					<div class="input-div">
 						<input type=text id="writechat" name="writechat"
-							placeholder="Press Enter for send message.">
+							placeholder="Press Enter for send message." autofocus>
 					</div>
 					<input type="hidden" name="writer" id = writer value="${login }">
 				</form>
