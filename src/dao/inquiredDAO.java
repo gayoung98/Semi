@@ -57,7 +57,7 @@ public class inquiredDAO {
 	}
 	
 	public List<InquireDTO> getList(String session) throws Exception{
-		String sql = "select * from inquire where id =?";
+		String sql = "select * from inquire where id =? order by reg_date";
 		List<InquireDTO> li = new ArrayList<InquireDTO>(); 
 		try(Connection conn = this.getConnection();
 			PreparedStatement psmt = conn.prepareStatement(sql);){

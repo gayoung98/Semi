@@ -25,12 +25,20 @@ $(function(){
 	
 })
 
+
+
 </script>
+<style type="text/css">
+.btn_container{
+	    float: right;
+	    margin-right:3%;
+	}
+</style>
 
 </head>
 
 <body>
-
+	<div class ="cotainer-fluid">
 	<table class="table">
 	<tbody>
 		<tr>
@@ -87,9 +95,11 @@ $(function(){
 		</tr>
 		</tbody>
 	</table>
+	 
 			<div class ="btn_container">
-                <button type="submit" class="btn btn-light" id="submit_btn" >Submit</button>
+                <!-- <button type="submit" class="btn btn-light" id="submit_btn" >Submit</button> -->
                 <button type="button" class="btn btn-danger" id="close_popup">Cancel</button>
             </div>
+        </div>
 </body>
 </html>

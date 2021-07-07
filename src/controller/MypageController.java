@@ -17,7 +17,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.CalanderDAO;
+import dao.MemberDAO;
 import dao.MyPageDAO;
+import dao.NoticeBoardDAO;
 import dao.ProfileFileDAO;
 import dao.inquiredDAO;
 import dto.MemberDTO;
@@ -45,6 +47,8 @@ public class MypageController extends HttpServlet{
 		Calendar cal = Calendar.getInstance();
 		Calendar caltoGre = new GregorianCalendar(); 
 		inquiredDAO idao = inquiredDAO.getInstance();
+		NoticeBoardDAO nbd = NoticeBoardDAO.getInstance();
+		MemberDAO md = MemberDAO.getInstance();
 		System.out.println(url);
 		switch (url) {
 		case "/mypage.mp": 
@@ -69,6 +73,7 @@ public class MypageController extends HttpServlet{
 			    request.setAttribute("d_day_percent",Util.dDay_to_Total());
 				request.setAttribute("FreeBoard", mpd.getWrittenFreeBoard(session));
 				request.setAttribute("Inquired", mpd.getWrittenInquired(session));
+				request.setAttribute("Notice", nbd.getMypageNotice(md.getAllInfo(session).getBranch())); 
 				request.getRequestDispatcher("Mypage/mypage.jsp").forward(request, response);
 				
 			} catch (Exception e) {
