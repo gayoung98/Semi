@@ -53,11 +53,13 @@ margin:0px;
 
 .card {
 	float: left;
-	top: 55px;
+	top: 85px;
 	left: 8%;
 	width: 70%;
 	text-align: center;
 }
+#writechat{text-align:center;}
+#writechat:focus{outline:none;}
 
 .writebox {
 	float: left;
@@ -156,6 +158,7 @@ img {
 
 body {
 	min-height: 500px;
+	background-color: #D8E3E7;
 }
 
 .fas {
@@ -165,6 +168,7 @@ body {
 .msg2:hover .fas {
 	display: block;
 }
+
 /* 로딩바 */
 .footer {
 	display: block;
@@ -547,7 +551,7 @@ scale
 
 <body>
 <jsp:include page= "/navibar.jsp" />
-	<div class = container>
+	<div class = "container">
 		<input type=hidden id=length value="${list}">
 		
 		<div class =row>
@@ -569,13 +573,13 @@ scale
 		</div>
 		</div>
 		<div class = "col-8">
-		<div class="chat_wrap">
+		<div class="chat_wrap  shadow bg-white rounded">
 			<div class="writebox">
 				<form action="${pageContext.request.contextPath}/writechat.main"
 					method="post" id="submit">
 					<div class="input-div">
 						<input type=text id="writechat" name="writechat"
-							placeholder="Press Enter for send message." autofocus>
+							placeholder="Press Enter for send message."autofocus>
 					</div>
 					<input type="hidden" name="writer" id = writer value="${login }">
 				</form>
