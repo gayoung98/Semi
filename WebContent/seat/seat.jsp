@@ -156,11 +156,11 @@
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
 	                	data: {"seatNumber":$(this).attr("id")}
 	                }).done(function(result){
-	                	alert("예약되었습니다.");
-	                	console.log(result);
+	                	console.log(result)
 	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
 	                	$("#"+result).attr("data-Ischoose","true");
 	                	$("#"+result).html("예약완료")
+	                	alert("예약되었습니다.")
 	                	
 	                })	
                 }else{
@@ -168,10 +168,10 @@
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
 	                	data: {"cancelSeat":$(this).attr("id")}
 	                }).done(function(result){
-	                	alert("예약이 취소되었습니다.");
 	                	$("#"+result).css("background-color","white");
 	                	$("#"+result).attr("data-Ischoose","false");
 	                	$("#"+result).html("<i class=\"fas fa-desktop\">" + "<br>" + result)
+	                	alert("예약이 취소되었습니다.")
 	                })
                 }
             	
