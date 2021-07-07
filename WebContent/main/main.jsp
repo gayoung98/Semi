@@ -139,7 +139,13 @@ margin:0px;
 	right: 15%;
 	width: 50px;
 }
-div{border: 1px solid black}
+#up {
+	position: fixed;
+	bottom: 10%;
+	right: 15%;
+	width: 50px;
+}
+/*div{border: 1px solid black}*/
 img {
 	width: 100%;
 }
@@ -540,8 +546,8 @@ scale
 			</c:choose>
 			<p class="card-text">닉네임 님</p>
 			<div class="card-body">
-				<a href="${pageContext.request.contextPath}/mypage.mp" id="mypage" class="card-link">마이페이지</a> <a href="#"
-					id="logout" class="card-link">로그아웃</a>
+				<a href="${pageContext.request.contextPath}/mypage.mp" id="mypage" class="card-link">마이페이지</a> 
+				<a href="${pageContext.request.contextPath}/signout.member"id="logout" class="card-link">로그아웃</a>
 			</div>
 		</div>
 		</div>
@@ -578,13 +584,16 @@ scale
 					</div>
 				</div>
 			</div>
-</div>
+		</div>
 		</div>
 		<div class = col-2>
 		
 		</div>
 		</div>
 		</div>
+    	<div id="up">
+        	<i class="fas fa-chevron-up"></i>	
+    	</div>		
 		<div id="inquire">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
 		</div>
