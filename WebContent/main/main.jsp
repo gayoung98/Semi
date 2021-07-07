@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Main</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
@@ -141,8 +141,8 @@ margin:0px;
 }
 #up {
 	position: fixed;
-	bottom: 10%;
-	right: 15%;
+	bottom: 17%;
+	right: 14%;
 	width: 50px;
 }
 /*div{border: 1px solid black}*/
@@ -592,7 +592,7 @@ scale
 		</div>
 		</div>
     	<div id="up">
-        	<i class="fas fa-chevron-up"></i>	
+    		<div style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>	
     	</div>		
 		<div id="inquire">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
