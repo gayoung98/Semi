@@ -7,12 +7,23 @@
   <title>freeBoard Write</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
             <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-            		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   <style>
+  * {
+	margin: 0;
+	padding: 0;
+}
+div[class*=col]{
+padding: 0px;
+margin:0px;
+}
+
+  body {background-color: #D8E3E7;}
   	/*navibar*/
+nav{padding:0;margin: 0;}
 			
   .navbar>.container-fluid {
             padding: 0px;
@@ -42,7 +53,8 @@
 			padding-bottom: 10px;
 			border-bottom: 1px solid #ddd;
 		}
-
+	#title_input{
+		width:800px;}
 		.title .seq {
 			float: left;
 			display: block;
@@ -85,7 +97,8 @@
 		legend {
                     border: 0;
                 }
-                
+      .footer{padding-bottom:10px;}          
+      
 	</style>
 
    <script>
@@ -133,13 +146,13 @@
 <body>
 <jsp:include page="/navibar.jsp"></jsp:include>
 
-<div class="container">
-		<h2 class="text-center mb-3">자유게시판 글쓰기</h2>
-	<form action="${pageContext.request.contextPath}/write.fboard" method="post" enctype="multipart/form-data" >
+<div class="container shadow bg-white rounded">
+<!-- 		<h2 class="text-center mb-3">자유게시판</h2>
+ -->	<form action="${pageContext.request.contextPath}/write.fboard" method="post" enctype="multipart/form-data" >
 			<div class="contents_box">	
 					<div class="title">		
 					<h3>
-						<input type="text" name="title" id="" placeholder="제목을 입력하세요">
+						<input type="text" name="title" id="title_input" placeholder="제목을 입력하세요">
 					</h3>
 					
 				</div>
@@ -154,7 +167,7 @@
                                 <input type="file"name="file">
                           
                         </fieldset>
-				<div class="btn_wrap text-right">
+				<div class="btn_wrap text-right footer">
 					<input type="submit" class="btn btn-primary" value="등록하기">
 					<input type=button class="btn btn-dark" value="목록으로" id="listBtn">
 				</div>
