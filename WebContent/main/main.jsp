@@ -169,6 +169,8 @@ body {
 	display: block;
 }
 
+#mypage,#logout{text-decoration:none;color : black;}
+
 /* 로딩바 */
 .footer {
 	display: block;
