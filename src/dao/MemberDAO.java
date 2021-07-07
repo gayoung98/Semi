@@ -194,7 +194,7 @@ public class MemberDAO {
 				if(rs.next()) {
 
 					String name = rs.getString("name");
-					String phone = rs.getString("");
+					String phone = rs.getString("phone");
 					String id = rs.getString("id");
 					String khClass = rs.getString("khclass");
 					String branch = rs.getString("branch");
