@@ -52,8 +52,7 @@ div {
 </head>
 <body>
 
-	<c:choose>
-		<c:when test="${position == teacher}">
+	
 			<jsp:include page="/navibar.jsp" />
 			<div class="container">
 				<div class="row header" style="text-align: center;">
@@ -124,77 +123,7 @@ div {
 					</div>
 				</div>
 			</div>
-		</c:when>
-
-		<c:otherwise>
-			<jsp:include page="/navibar.jsp" />
-			<div class="container">
-				<div class="row header" style="text-align: center;">
-					<h2>과제</h2>
-				</div>
-
-				<div class="row search" style="text-align: center;">
-					<form action="search.board" method="post">
-						<select name=search>
-							<option>제목</option>
-							<option>내용</option>
-							<option>작성자</option>
-							<option>제목 + 내용</option>
-						</select> <input type="text" name="text" placeholder="검색어를 입력하세요">
-						<input type="hidden" name="cpage" value=1>
-						<button>[검색]</button>
-
-					</form>
-				</div>
-
-				<div class="row columns">
-					<div class="col-1"></div>
-					<div class="col-5">title</div>
-					<div class="col-2">writer</div>
-					<div class="col-3">write_date</div>
-					<div clss="col-1">조회</div>
-				</div>
-
-				<c:forEach var="item" items="${assList}">
-					<div class="row list">
-						<div class="col-1">${item.seq }</div>
-						<div class="col-5">${item.title }</div>
-						<div class="col-2">${item.writer }</div>
-						<div class="col-3">${item.write_date }</div>
-						<div class="col-1">${item.viewCount }</div>
-					</div>
-				</c:forEach>
-
-				<div class="row footer">
-					<div class="col-3"></div>
-
-					<div class="col-6" style="text-align: center;">
-						<nav>
-							<c:forEach var="i" items="${pageNavi }" varStatus="s">
-								<c:choose>
-									<c:when test="${i == '<'}">
-										<a
-											href="${pageContext.request.contextPath}/list.board?currentPage=${pageNavi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
-									</c:when>
-									<c:when test="${i == '>'}">
-										<a
-											href="${pageContext.request.contextPath}/list.board?currentPage=${pageNavi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
-									</c:when>
-									<c:otherwise>
-										<a
-											href="${pageContext.request.contextPath}/list.board?currentPage=${i}&category=${category}&keyword=${keyword}">${i }</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</nav>
-					</div>
-
-					<div class="col-3"></div>
-				</div>
-			</div>
-		</c:otherwise>
-	</c:choose>
-
+		
 
 </body>
 </html>

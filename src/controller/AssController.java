@@ -23,9 +23,11 @@ import config.AssFileConfig;
 import dao.AssDAO;
 import dao.AssFilesDAO;
 import dao.AssSubmitDAO;
+import dao.MemberDAO;
 import dto.AssDTO;
 import dto.AssFilesDTO;
 import dto.AssSubmitDTO;
+import dto.MemberDTO;
 
 
 @WebServlet("*.ass")
@@ -46,6 +48,7 @@ public class AssController extends HttpServlet {
 		AssDAO dao = AssDAO.getInstance();
 		AssFilesDAO daoF = AssFilesDAO.getInstance();
 		AssSubmitDAO daoS = AssSubmitDAO.getInstance();
+		MemberDAO daoM = MemberDAO.getInstance();
 
 		try {
 
@@ -112,21 +115,20 @@ public class AssController extends HttpServlet {
 				System.out.println("board_seq: "+seq);
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
-				//String email = (String) request.getSession().getAttribute("login");
-				//String writer = daoM.getInfo(email).getName();
-				//String id = daoM.getInfo(email).getId();
-				//String khClass = daoM.getInfo(email).getKhClass();
-				//String branch = daoM.getInfo(email).getBranch();
-				String writer = "teacher";
-				String id ="t001JA";
-				String khClass = "JA";
-				String branch = "J";				
+				
+				String email = (String) request.getSession().getAttribute("login");
+				String writer = daoM.getAllInfo(email).getName();
+				String id = daoM.getAllInfo(email).getId();
+				String khClass = daoM.getAllInfo(email).getKhClass();
+				String branch = daoM.getAllInfo(email).getBranch();
+				int viewCount = 0;
+				//String writer = "teacher";
+				//String id ="t001JA";
+				//String khClass = "JA";
+				//String branch = "J";				
 
-				//멀티 파트로 받아온 파일은 request.getParameter로 안 불려짐.
-				//			MemberDTO memberdto = (MemberDTO)request.getSession().getAttribute("login");
-				//			String writer = memberdto.getId();
-				//			String t_number = memberdto.getT_number();
-				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, null, 0);
+
+				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, null, viewCount);
 
 				int insert = dao.insert(dto);
 				if(insert>0) {
@@ -153,9 +155,16 @@ public class AssController extends HttpServlet {
 
 			}else if(url.contentEquals("/list.ass")) {
 
-				//				String loginEmail = (String)request.getSession().getAttribute("login");
-				//				String position = dao.getPosition(loginEmail);
+				String email = (String)request.getSession().getAttribute("login");
+				String name = daoM.getAllInfo(email).getName();
+				String id = daoM.getAllInfo(email).getId();
+;				String khClass= daoM.getAllInfo(email).getKhClass();
+				String branch = daoM.getAllInfo(email).getBranch();
+				String position = daoM.getAllInfo(email).getPosition();
+				MemberDTO dtoM = new MemberDTO(name, id, khClass, branch, position);
 
+				
+				
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
 
@@ -172,11 +181,11 @@ public class AssController extends HttpServlet {
 				if(keyword!=null && category!=null) {
 					keyword = keyword.toLowerCase();
 					System.out.println("검색어: " + keyword);
-					assList = dao.getPageList(startNum, endNum, category, keyword);
-					pageNavi = dao.getPageNavi(currentPage,category,keyword);
+					assList = dao.getPageList(khClass, branch, startNum, endNum, category, keyword);
+					pageNavi = dao.getPageNavi(khClass, branch, currentPage,category,keyword);
 				}else {
-					assList = dao.getPageList(startNum, endNum);
-					pageNavi = dao.getPageNavi(currentPage,null,null);
+					assList = dao.getPageList(khClass, branch, startNum, endNum);
+					pageNavi = dao.getPageNavi(khClass, branch, currentPage,null,null);
 				}
 
 
