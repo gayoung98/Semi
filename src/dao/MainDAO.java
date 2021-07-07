@@ -59,16 +59,22 @@ public class MainDAO {
 			return list;
 		}
 	}
-	public List<MainDTO> likeFacebook(int viewcount,int index) throws Exception{
-		String sql = "select * from(select row_number() over(order by seq desc) rnum, seq, writer, id, contents, class, write_date from chatBoard where contents is not null) where rnum between ? and ?";
+	public List<MainDTO> likeFacebook(int viewcount,int index, String khclass, String branch) throws Exception{
+		String sql = "select "
+				+ "c.seq, c.writer, c.id, c.contents, c.class, c.write_date "
+				+ "from "
+				+ "(select row_number() over(order by seq desc) rnum, seq, writer, id, contents, class, write_date from chatboard  where contents is not null) c join kh_member m on c.writer = m.email "
+				+ "where rnum between ? and ? and khclass= ? and branch = ?";
 		List<MainDTO> li = new ArrayList();
 		try(Connection conn = this.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql)){
 			psmt.setInt(1, 1+viewcount*(index-1));
 			psmt.setInt(2, viewcount*index);
+			psmt.setString(3, khclass);
+			psmt.setString(4, branch);
 			try(ResultSet rs = psmt.executeQuery()){
 				while(rs.next()) {
-					li.add(new MainDTO(rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7)));
+					li.add(new MainDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6)));
 				}
 			}
 			return li;
@@ -91,13 +97,7 @@ public class MainDAO {
 
 	}
 	public List<MainDTO> classList(String khclass, String branch) throws Exception{
-		String sql = "select "
-				+ "    chatboard.seq, chatboard.writer, chatboard.id, chatboard.contents, chatboard.class, chatboard.write_date "
-				+ " from "
-				+ "    CHATBOARD join kh_member "
-				+ " on chatboard.writer = kh_member.email "
-				+ " where"
-				+ "    khclass = ? and branch = ?";
+		String sql = "select chatboard.seq, chatboard.writer, chatboard.id, chatboard.contents, chatboard.class, chatboard.write_date from CHATBOARD join kh_member on chatboard.writer = kh_member.email where khclass = ? and branch = ?";
 		List<MainDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){

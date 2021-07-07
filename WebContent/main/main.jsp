@@ -169,6 +169,8 @@ body {
 	display: block;
 }
 
+#mypage,#logout{text-decoration:none;color : black;}
+
 /* 로딩바 */
 .footer {
 	display: block;
@@ -556,7 +558,7 @@ scale
 		
 		<div class =row>
 		<div class="col-2"> 
-		<div class="card">
+		<div class="card shadow bg-white rounded">
 			<c:choose>
 				<c:when test="${profile_img != null }">
 					<img src="${pageContext.request.contextPath}/profile/${login }/${profile_img.sysName}" class="card-img-top" alt="...">
