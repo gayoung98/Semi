@@ -89,6 +89,21 @@ public class SeatDAO {
 			return count;
 		}
 	}
+	public boolean mySeat(String email, String seat_number) throws Exception{
+		String sql = "select * from seat where email = ? and seat_number = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, email);
+			pstat.setString(2, seat_number);
+			try(ResultSet rs = pstat.executeQuery()){
+				if(rs.next()) {
+					return true;
+				}else {
+					return false;
+				}
+			}
+		}
+	}
 }
 
 

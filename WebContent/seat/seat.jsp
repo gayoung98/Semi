@@ -160,7 +160,7 @@
 	                	console.log(result);
 	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
 	                	$("#"+result).attr("data-Ischoose","true");
-	                	$("#"+result).html(result.name)
+	                	$("#"+result).html("예약완료")
 	                	
 	                })	
                 }else{

@@ -63,8 +63,12 @@ public class SeatController extends HttpServlet {
 					}
 				}
 				if(request.getParameter("cancelSeat")!=null) {
+					String seat_number = (String)request.getParameter("cancelSeat");
+					boolean mySeat = dao.mySeat(email, seat_number);
+					if(mySeat == true) {
 					dao.delete(new SeatDTO(request.getParameter("cancelSeat")));
 					response.getWriter().append(request.getParameter("cancelSeat"));
+					}
 				}
 
 			} else if(url.contentEquals("/complete.seat")) {
