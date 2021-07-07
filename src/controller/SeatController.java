@@ -29,23 +29,7 @@ public class SeatController extends HttpServlet {
 			SeatDAO dao = SeatDAO.getInstance();
 			MemberDAO memdao = MemberDAO.getInstance();
 			System.out.println(url);
-			if(url.contentEquals("/reserve.seat")) {
-				/*
-				 * //String seat_day = request.getParameter("seat_day");
-				 * if(dao.reservedList().size()!=0) request.setAttribute("reservedList",
-				 * dao.reservedList()); String seat_number =
-				 * request.getParameter("seat_number"); boolean already =
-				 * dao.isReserved(seat_number); if(already == false) { int result =
-				 * dao.insert(new SeatDTO(seat_number)); }else { int result = dao.delete(new
-				 * SeatDTO(seat_number)); }
-				 * request.getRequestDispatcher("seat/seat.jsp").forward(request, response);
-				 * //response.sendRedirect("seat/seat.seat");
-				 */				
-			}else if(url.contentEquals("/seat.seat")) {
-				//String seat_day = request.getParameter("seat_day");
-				//request.getRequestDispatcher("seat/seat.jsp").forward(request, response);
-
-			}else if(url.contentEquals("/reserve2.seat")){
+			if(url.contentEquals("/reserve2.seat")){
 				System.out.println((String)request.getParameter("seatNumber"));
 				System.out.println((String)request.getParameter("cancelSeat"));
 				String email = (String) request.getSession().getAttribute("login");
