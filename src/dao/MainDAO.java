@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.MainDTO;
+import dto.MemberDTO;
 
 public class MainDAO {
 	private volatile static MainDAO instance;
@@ -73,6 +74,22 @@ public class MainDAO {
 	         return li;
 	      }
 	   }
+	
+	public String getName(String email) throws Exception{
+		String sql = "select name from kh_member where email = ?";
+		String name = null;
+		try(Connection con = this.getConnection();
+			PreparedStatement psmt = con.prepareStatement(sql);){
+			psmt.setString(1, email);
+			try(ResultSet rs = psmt.executeQuery();){
+				if(rs.next()) {
+					name = rs.getString("name");
+				}
+			}
+			return name;
+		}
+		
+	}
 
 }
 
