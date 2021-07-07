@@ -70,7 +70,7 @@ public class ManagerDAO {
 		}else {
 			isSearch += " and "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by branch) rnum ,email,name,phone,id,khClass,branch,position,sign_Up_Date from kh_member where position= '"+position+"'"+isBranch+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by branch ,khClass,name) rnum ,email,name,phone,id,khClass,branch,position,sign_Up_Date from kh_member where position= '"+position+"'"+isBranch+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<MemberDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -178,7 +178,7 @@ public class ManagerDAO {
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,branch,writer,title,contents,id,write_date,viewCount,policecount from freeboard where "+isBranch+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,branch,writer,title,contents,id,write_date,viewCount,policecount from freeboard where "+isBranch+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<FreeBoardDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -285,7 +285,7 @@ public class ManagerDAO {
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,writer,title,contents,write_date,khClass,branch,viewCount from noticeboard where "+isBranch+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,writer,title,contents,write_date,khClass,branch,viewCount from noticeboard where "+isBranch+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<NoticeBoardDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -392,7 +392,7 @@ public class ManagerDAO {
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,writer,id,title,contents,khClass,branch,write_date,viewCount from Ass where "+isBranch+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,writer,id,title,contents,khClass,branch,write_date,viewCount from Ass where "+isBranch+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<AssDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -424,7 +424,7 @@ public class ManagerDAO {
 					Date write_date = rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 					
-					list.add(new AssDTO(seq,writer,title,contents,id,khClass,kBranch,write_date,viewCount));
+					list.add(new AssDTO(seq,writer,id,title,contents,khClass,kBranch,write_date,viewCount));
 				}
 				return list;
 			}
@@ -499,7 +499,7 @@ public class ManagerDAO {
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,id,contents,parent,reg_date from freepolice where "+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,id,contents,parent,reg_date from freepolice where "+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<FreePoliceDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -592,7 +592,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 		}else {
 			isSearch += " "+ category+" like '%"+search+"%'";
 		}
-		String sql ="select * from (select row_number() over(order by 2 desc) rnum ,seq,id,major_category,sub_category,contents,recomment,reg_date from inquire where "+isSearch+") where rnum between ? and ?";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,id,major_category,sub_category,contents,recomment,reg_date from inquire where "+isSearch+") where rnum between ? and ?";
 		System.out.println(sql);
 		List<InquireDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
@@ -677,7 +677,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 	}
 	///////////////////////////////////////////////////////////////인덱스 게시판
 	public List<FreeBoardDTO> indexBoard() throws Exception {
-		String sql ="select * from (select row_number() over(order by 1 desc) rnum ,seq,branch,title,writer,write_date from freeboard) where rnum between 1 and 5";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,branch,title,writer,write_date from freeboard) where rnum between 1 and 5";
 		List<FreeBoardDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -706,7 +706,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 	}
 	///////////////////////////////////////////////인데스 신고
 	public List<FreePoliceDTO> indexPolice() throws Exception {
-		String sql ="select * from (select row_number() over(order by 1) rnum ,seq,id,contents,parent,reg_date from freepolice) where rnum between 1 and 5";
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,id,contents,parent,reg_date from freepolice) where rnum between 1 and 5";
 		List<FreePoliceDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -811,6 +811,15 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 	}
 	public int deleteFreeBoard (int seq)throws Exception{
 		String sql="delete from freeboard where seq =?";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	public int deleteAss(int seq) throws Exception{
+		String sql="delete from ass where seq =?";
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);

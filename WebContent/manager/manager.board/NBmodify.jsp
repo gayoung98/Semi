@@ -22,9 +22,6 @@
 	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/manager/css/manager.css">
 <style>
-  h2{padding-right:170px;}
-  
-  
 		.title {
 			overflow: hidden;
 			padding-bottom: 10px;
