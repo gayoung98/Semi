@@ -220,10 +220,12 @@
 							let cancel = $("<button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
+							cancel.attr("onclick","self.close();");
+							$(".deleteReply").remove();
+							
 							$(this).before(cancel);
 							$(this).before(complete);
-							$(".deleteReply").remove();
-
+					
 							$(this).remove();
 
 						} else {
@@ -274,7 +276,7 @@
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date">${view.writeDate}</span> <span class="count">조회
+						<span class="date">${view.write_date}</span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
 						<!-- 댓글 수 -->
@@ -334,7 +336,7 @@
 
 										<!-- 댓글 수정 controller -->
 										<div class="btn_wrap text-right" id="buttons">
-											<c:if test="${i.writer == login.name}">
+											<c:if test="${i.writer == login}">
 
 												<!-- 게시글 번호 -->
 												<input type="hidden" name="seq" value="${i.seq}">
@@ -361,7 +363,7 @@
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
 						<form action="${pageContext.request.contextPath}/write.noticom" method="post">
-							<strong>${login.name}</strong>
+							<strong>${dto.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
 							<input type="submit" class="btn btn-dark" id="replyBtn" value="등록">
@@ -373,7 +375,7 @@
 				<!-- 로그인 유저와 글쓴이가 같다면? 수정/삭제 -->
 				<div class="btn_wrap text-right">
 					<c:choose>
-						<c:when test="${login.name == view.writer}">
+						<c:when test="${login == view.writer}">
 							<button type="button" value="${view.seq}" class="btn btn-primary"
 								id="modifyBtn">수정하기</button>
 							<button type="button" value="${view.seq}" id="deleteBtn" name="delete"

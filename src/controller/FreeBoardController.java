@@ -132,13 +132,13 @@ public class FreeBoardController extends HttpServlet {
 				System.out.println("내용 :" + contents);
 
 				String email = (String) request.getSession().getAttribute("login");
-				MemberDTO dto = mdao.getMainInfo(email);				
-				
+				MemberDTO dto = mdao.getMainInfo(email);
+
 				//파일 업로드 작업
 				int seq = fbdao.getSeq();				
 				String branch =dto.getBranch();
 				System.out.println("지점: "+ branch);
-				String writer =dto.getName();
+				String writer = email;
 				System.out.println("작성자: "+ writer);
 
 				String id = dto.getId();
@@ -169,6 +169,12 @@ public class FreeBoardController extends HttpServlet {
 				rd.forward(request, response);
 
 			}else if(url.contentEquals("/detailView.fboard")) {  //게시글 상세보기
+				
+				String email = (String) request.getSession().getAttribute("login");
+				MemberDTO dto = mdao.getMainInfo(email);
+				request.setAttribute("dto", dto);
+				
+				
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
 
 				fbdao.viewCountPlus(boardseq);//조회수
@@ -188,6 +194,8 @@ public class FreeBoardController extends HttpServlet {
 				request.getRequestDispatcher("free/FBdetailView.jsp").forward(request, response);
 
 			}else if(url.contentEquals("/modify.fboard")){ //수정하기
+				
+				
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println(boardseq);
 				FreeBoardDTO bdto = fbdao.detailView(boardseq);

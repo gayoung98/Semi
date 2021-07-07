@@ -40,6 +40,18 @@ public class NoticeBoardDTO {
 		}
 
 
+		public NoticeBoardDTO(int seq, String branch, String khClass, String writer, String title,
+				String contents, Date write_date, int viewCount) {
+			this.seq = seq;
+			this.writer = writer;
+			this.title = title;
+			this.contents = contents;
+			this.write_date = write_date;
+			this.khClass = khClass;
+			this.branch = branch;
+			this.viewCount=viewCount;
+		}
+
 		public int getSeq() {
 	        return seq;
 	    }

@@ -39,7 +39,7 @@ public class NoticeBoardDAO {
 		try(Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
-		
+//			pstat.setNString(2, writer);
 			pstat.setNString(2, title);
 			pstat.setNString(3, contents);
 			pstat.setNString(4, khClass);
@@ -68,7 +68,7 @@ public class NoticeBoardDAO {
 				String branch = rs.getNString("branch");
 				int viewCount = rs.getInt("viewCount");
 
-				NoticeBoardDTO dto = new NoticeBoardDTO(seq,writer,title,contents,write_date,khClass,branch,viewCount);
+				NoticeBoardDTO dto = new NoticeBoardDTO(seq,branch,khClass,writer,title,contents,write_date,viewCount);        
 				list.add(dto);
 			}
 			return list;
@@ -80,10 +80,11 @@ public class NoticeBoardDAO {
 				+ "(select "
 				+ "    row_number() over(order by seq desc) rnum, "
 				+ "    seq, "
-				+ "    branch, "
 				+ "    writer,"
-				+ "    title, "
+				+ "    title,"
 				+ "    write_date,"
+				+ "    KhClass,"
+				+ "    branch,"
 				+ "    viewCount"
 				+ "    from noticeBoard)"
 				+ "where rnum between ? and ?";
@@ -100,11 +101,50 @@ public class NoticeBoardDAO {
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
-					String khClass = rs.getNString("khClass");
+					String khClass = rs.getNString("KhClass");
 					String branch = rs.getNString("branch");
 					int viewCount = rs.getInt("viewCount");
 
-					NoticeBoardDTO dto = new NoticeBoardDTO(seq,writer,title,null,write_date,khClass,branch,viewCount);		           
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,branch,khClass,writer,title,null,write_date,viewCount);        
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	
+	public List<NoticeBoardDTO> getEachBranch(int startNum, int endNum,String branch) throws Exception{ //게시글 범위 출력 
+		String sql = "select * from "
+				+ "(select "
+				+ "    row_number() over(order by seq desc) rnum, "
+				+ "    seq, "
+				+ "    branch, "
+				+ "    khClass, "
+				+ "    writer,"
+				+ "    title, "
+				+ "    write_date,"
+				+ "    viewCount"
+				+ "    from noticeBoard where branch=? )"
+				+ "where rnum between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setNString(1,branch); 
+			pstat.setInt(2,startNum); //사작 번호
+			pstat.setInt(3,endNum); //끝 번호
+			try(ResultSet rs = pstat.executeQuery();){
+				List<NoticeBoardDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String writer =rs.getNString("writer");
+					String title = rs.getNString("title");
+					Date write_date =rs.getDate("write_date");
+					String khClass = rs.getNString("khClass");
+					String findBranch = rs.getNString("branch");
+					int viewCount = rs.getInt("viewCount");
+					
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,findBranch,khClass,writer,title,null,write_date,viewCount);        
+
 					list.add(dto);
 				}
 				return list;
@@ -112,15 +152,16 @@ public class NoticeBoardDAO {
 		}
 	}
 
-	public List<NoticeBoardDTO> getPageList(int startNum, int endNum, String category, String keyWord) throws Exception{ // 검색할 때, 게시글 범위 출력 +카테고리, 키워드 포함 
+	public List<NoticeBoardDTO> searchAll(int startNum, int endNum, String category, String keyWord) throws Exception{ // 검색할 때, 게시글 범위 출력 +카테고리, 키워드 포함 
 		String sql = "select * from "
 				+ "(select "
 				+ "    row_number() over(order by seq desc) rnum, "
 				+ "    seq, "
-				+ "    branch, "
 				+ "    writer,"
 				+ "    title, "
 				+ "    write_date,"
+				+ "    KhClass,"
+				+ "    branch,"
 				+ "    viewCount"
 				+ "    from noticeBoard where "+category+" like ? )"
 				+ "where rnum between ? and ?";
@@ -136,12 +177,50 @@ public class NoticeBoardDAO {
 					int seq = rs.getInt("seq");
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
-					
 					Date write_date =rs.getDate("write_date");
 					String branch = rs.getNString("branch");
 					String khClass = rs.getNString("khClass");
 					int viewCount = rs.getInt("viewCount");
-					NoticeBoardDTO dto = new NoticeBoardDTO(seq,writer,title,null,write_date,khClass,branch,viewCount);		           
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,branch,khClass,writer,title,null,write_date,viewCount);        
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	
+	public List<NoticeBoardDTO> searchEachBranch(String branch, String category, String keyWord,int startNum, int endNum) throws Exception{ // 검색할 때, 게시글 범위 출력 +카테고리, 키워드 포함
+
+		String sql = "select * from "
+				+ "(select "
+				+ "    row_number() over(order by seq desc) rnum, "
+				+ "    seq, "
+				+ "    branch,"
+				+ "    khClass,"
+				+ "    writer,"
+				+ "    title, "
+				+ "    write_date,"
+				+ "    viewCount"
+				+ "    from noticeBoard where branch= ? and "+category+" like ? )"
+				+ "where rnum between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setNString(1, branch);
+			pstat.setNString(2,"%"+keyWord+"%"); //sql 구문에 like 뒤에 %keyword%
+			pstat.setInt(3,startNum); //사작 번호
+			pstat.setInt(4,endNum); //끝 번호
+			try(ResultSet rs = pstat.executeQuery();){
+				List<NoticeBoardDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String findBranch = rs.getNString("branch");
+					String khClass = rs.getNString("khClass");
+					String writer =rs.getNString("writer");
+					String title = rs.getNString("title");
+					Date write_date =rs.getDate("write_date");
+					int viewCount = rs.getInt("viewCount");
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,findBranch,khClass,writer,title,null,write_date,viewCount);        
 					list.add(dto);
 				}
 				return list;
@@ -178,13 +257,12 @@ public class NoticeBoardDAO {
 				String khClass = rs.getString("khClass");
 				Date write_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
-
-				NoticeBoardDTO result = new NoticeBoardDTO(num,writer,title,contents,write_date,khClass,branch,viewCount);		
+				NoticeBoardDTO result = new NoticeBoardDTO(num,branch,khClass,writer,title,null,write_date,viewCount);		
 				return result;
 			}
 		}
 	}
-	public NoticeBoardDTO boardView(int boardseq) throws Exception{ //게시글 조회수 출력
+	public FreeBoardDTO boardView(int boardseq) throws Exception{ //게시글 조회수 출력
 		String sql = "select viewCount from noticeBoard where seq = ?";
 		try(
 				Connection con = this.getConnection();
@@ -195,7 +273,7 @@ public class NoticeBoardDAO {
 					ResultSet rs = pstat.executeQuery();
 					){
 				if(rs.next()) {
-					return new NoticeBoardDTO(boardseq, rs.getInt("viewCount"));
+					return new FreeBoardDTO(boardseq, rs.getInt("viewCount"));
 				}
 				return null;
 			}
