@@ -166,19 +166,21 @@ public class AssDAO {
 		}
 	}
 
-	public List<AssDTO> getPageList(int startNum, int endNum, String category, String keyword) throws Exception{
+	public List<AssDTO> getPageList(String khClass, String branch, int startNum, int endNum, String category, String keyword) throws Exception{
 
 
 		if(StringUtils.isBlank(category) || StringUtils.isBlank(keyword)) {
-			String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khClass, branch, write_date, viewCount from ass) where rnum between ? and ?";
+			String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khClass, branch, write_date, viewCount from ass where khClass=? and branch=?) where rnum between ? and ?";
 			try(
 					Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);
 
 					){
 
-				pstat.setInt(1,  startNum);
-				pstat.setInt(2,  endNum);
+				pstat.setString(1, khClass);
+				pstat.setString(2, branch);
+				pstat.setInt(3,  startNum);
+				pstat.setInt(4,  endNum);
 				ResultSet rs = pstat.executeQuery();
 				List<AssDTO> list = new ArrayList<>();
 
@@ -189,8 +191,8 @@ public class AssDAO {
 					String id =rs.getString("id");
 					String title = rs.getString("title");
 					String contents= rs.getString("contents");
-					String khClass = rs.getString("khClass");
-					String branch = rs.getNString("branch");
+					//String khClass = rs.getString("khClass");
+					//String branch = rs.getNString("branch");
 					Date write_date = rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 					AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, write_date, viewCount);
@@ -200,16 +202,18 @@ public class AssDAO {
 			}
 		}else {
 
-			String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, lower(title) l_title, title, lower(contents) l_contents, contents, khClass, branch, write_date, viewCount from ass)where l_"+category+" like ? and rnum between ? and ?";
+			String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, lower(title) l_title, title, lower(contents) l_contents, contents, khClass, branch, write_date, viewCount from ass where khClass=? and branch=?)where l_"+category+" like ? and rnum between ? and ?";
 			try(
 					Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);
 
 					){
 
-				pstat.setString(1, "%"+keyword+"%");
-				pstat.setInt(2,  startNum);
-				pstat.setInt(3,  endNum);
+				pstat.setString(1, khClass);
+				pstat.setString(2, branch);
+				pstat.setString(3, "%"+keyword+"%");
+				pstat.setInt(4, startNum);
+				pstat.setInt(5, endNum);
 
 				ResultSet rs = pstat.executeQuery();
 				List<AssDTO> list = new ArrayList<>();
@@ -221,8 +225,8 @@ public class AssDAO {
 					String id =rs.getString("id");
 					String title = rs.getString("title");
 					String contents= rs.getString("contents");
-					String khClass = rs.getString("khClass");
-					String branch = rs.getNString("branch");
+					//String khClass = rs.getString("khClass");
+					//String branch = rs.getNString("branch");
 					Date write_date = rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
@@ -234,18 +238,20 @@ public class AssDAO {
 		}
 	}
 
-	public List<AssDTO> getPageList(int startNum, int endNum) throws Exception{
+	public List<AssDTO> getPageList(String khClass, String branch, int startNum, int endNum) throws Exception{
 
 
-		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khClass, branch, write_date, viewCount from ass) where rnum between ? and ?";
+		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khClass, branch, write_date, viewCount from ass where khClass=? and branch=?) where rnum between ? and ?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 
 				){
-
-			pstat.setInt(1,  startNum);
-			pstat.setInt(2,  endNum);
+			
+			pstat.setString(1, khClass);
+			pstat.setNString(2,  branch);
+			pstat.setInt(3,  startNum);
+			pstat.setInt(4,  endNum);
 			ResultSet rs = pstat.executeQuery();
 			List<AssDTO> list = new ArrayList<>();
 
@@ -256,8 +262,8 @@ public class AssDAO {
 				String id =rs.getString("id");
 				String title = rs.getString("title");
 				String contents= rs.getString("contents");
-				String khClass = rs.getString("khClass");
-				String branch = rs.getNString("branch");
+				//String khClass = rs.getString("khClass");
+				//String branch = rs.getNString("branch");
 				Date write_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
 				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, write_date, viewCount);
@@ -267,26 +273,29 @@ public class AssDAO {
 		}
 	}
 
-	private int getRecordCount(String category, String keyword) throws Exception {
-		String sql = "select count(*) from ass";
+	private int getRecordCount(String khClass, String branch, String category, String keyword) throws Exception {
+		String sql = "select count(*) from ass where khClass=? and branch=?";
 		if(!StringUtils.isBlank(category) && !StringUtils.isBlank(keyword)) {
 			sql+=" where "+category+" like '%"+keyword+"%'";
 		}
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery();
+				
 				){
-
+			
+			pstat.setString(1, khClass);
+			pstat.setString(2, branch);
+			ResultSet rs = pstat.executeQuery();
 			rs.next();
 			return rs.getInt(1);
 
 		}
 	}
 
-	public List<String> getPageNavi(int currentPage, String category, String keyword) throws Exception{
+	public List<String> getPageNavi(String khClass, String branch, int currentPage, String category, String keyword) throws Exception{
 
-		int recordTotalCount = this.getRecordCount(category, keyword);
+		int recordTotalCount = this.getRecordCount(khClass, branch, category, keyword);
 
 		int pageTotalCount = 0;
 
