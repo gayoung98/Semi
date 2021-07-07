@@ -178,7 +178,7 @@
         
             <div class="container">
                 <!-- 게시물 제목 -->
-                <form action="/modifyedit.fboard" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/modifyedit.fboard" method="post" enctype="multipart/form-data">
 
                     <div class="contents_box">
                         <div class="col-12 title_area">
@@ -195,12 +195,12 @@
                                 </a>
                                 <div class="name_box">
                                     <a href="#" role="button"> ${view.writer} </a> <em class="position">${view.branch}지점
-                                         </em>
+                                    </em>
                                 </div>
                             </div>
                             <!-- 작성일자,조회수 -->
                             <div class="articleInfo">
-                                <span class="date">${view.writeDate}</span> <span class="count">조회
+                                <span class="date">${view.write_date}</span> <span class="count">조회
                                     ${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
                             </div>
@@ -234,7 +234,7 @@
                         </fieldset>
                         <div class="btn_wrap text-right">
                             <input type="submit" class="btn btn-primary" value="수정 완료">
-                            <input type=button class="btn btn-dark" value="목록으로" id="listBtn">
+                            <input type= "button" class="btn btn-dark" value="목록으로" id="listBtn">
 
                         </div>
                     </div>

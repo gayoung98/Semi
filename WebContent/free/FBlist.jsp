@@ -103,13 +103,13 @@ $("#back").on("click",function(){
 				href="${pageContext.request.contextPath}/list.fboard?cpage=1">전체</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=J&cpage=1&category=&keyword=">종로</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=종로&cpage=1&category=&keyword=">종로</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=K&cpage=1&category=&keyword=">강남</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=강남&cpage=1&category=&keyword=">강남</a>
 			</li>
 			<li class="nav-item"><a class="nav-link "
-				href="${pageContext.request.contextPath}/list.fboard?branch=D&cpage=1&category=&keyword=">당산</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=당산&cpage=1&category=&keyword=">당산</a>
 			</li>
 		</ul>
 
@@ -129,11 +129,11 @@ $("#back").on("click",function(){
 				<div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
 				<div class="col-12 col-md-2">${i.branch}</div>
 				<div class="col-12 col-md-4 title">
-					<a href="${pageContext.request.contextPath}/detailView.fboard?seq=${i.seq}">${i.title}</a>
+					<a href="detailView.fboard?seq=${i.seq}">${i.title}</a>
 					[${count.replyCount(i.seq)}]
 				</div>
 				<div class="col-3 col-md-2  d-md-block">${i.writer}</div>
-				<div class="col-2 col-md-2  d-md-block">${i.writeDate}</div>
+				<div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
 				<div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
 			</div>
 		</c:forEach>
