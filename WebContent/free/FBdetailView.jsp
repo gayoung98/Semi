@@ -219,6 +219,9 @@
 							let cancel = $("<button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
+							cancel.attr("onclick","self.close();");
+							$(".deleteReply").remove();
+
 							$(this).before(cancel);
 							$(this).before(complete);
 							$(this).remove();

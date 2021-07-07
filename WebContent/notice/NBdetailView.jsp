@@ -220,10 +220,12 @@
 							let cancel = $("<button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
+							cancel.attr("onclick","self.close();");
+							$(".deleteReply").remove();
+							
 							$(this).before(cancel);
 							$(this).before(complete);
-							$(".deleteReply").remove();
-
+					
 							$(this).remove();
 
 						} else {
@@ -334,7 +336,7 @@
 
 										<!-- 댓글 수정 controller -->
 										<div class="btn_wrap text-right" id="buttons">
-											<c:if test="${i.writer == dto.name}">
+											<c:if test="${i.writer == login}">
 
 												<!-- 게시글 번호 -->
 												<input type="hidden" name="seq" value="${i.seq}">
