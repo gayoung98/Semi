@@ -66,9 +66,19 @@ public class NoticeBoardDAO {
 				Date write_date =rs.getDate("write_date");
 				String khClass = rs.getNString("khClass");
 				String branch = rs.getNString("branch");
+				String khBranch="";
+				if(branch.contentEquals("J")) {
+					khBranch+="종로";
+				}else if(branch.contentEquals("D")) {
+					khBranch+="당산";
+				}else if(branch.contentEquals("K")) {
+					khBranch+="강남";
+				}else{
+					khBranch+="전체";
+				}
 				int viewCount = rs.getInt("viewCount");
 
-				NoticeBoardDTO dto = new NoticeBoardDTO(seq,branch,khClass,writer,title,contents,write_date,viewCount);        
+				NoticeBoardDTO dto = new NoticeBoardDTO(seq,khBranch,khClass,writer,title,contents,write_date,viewCount);        
 				list.add(dto);
 			}
 			return list;
@@ -103,9 +113,19 @@ public class NoticeBoardDAO {
 					Date write_date =rs.getDate("write_date");
 					String khClass = rs.getNString("KhClass");
 					String branch = rs.getNString("branch");
+					String khBranch="";
+					if(branch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(branch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(branch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					int viewCount = rs.getInt("viewCount");
 
-					NoticeBoardDTO dto = new NoticeBoardDTO(seq,branch,khClass,writer,title,null,write_date,viewCount);        
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,khBranch,khClass,writer,title,null,write_date,viewCount);        
 					list.add(dto);
 				}
 				return list;
@@ -141,9 +161,19 @@ public class NoticeBoardDAO {
 					Date write_date =rs.getDate("write_date");
 					String khClass = rs.getNString("khClass");
 					String findBranch = rs.getNString("branch");
+					String khBranch="";
+					if(findBranch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(findBranch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(findBranch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					int viewCount = rs.getInt("viewCount");
 					
-					NoticeBoardDTO dto = new NoticeBoardDTO(seq,findBranch,khClass,writer,title,null,write_date,viewCount);        
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,khBranch,khClass,writer,title,null,write_date,viewCount);        
 
 					list.add(dto);
 				}
@@ -179,9 +209,19 @@ public class NoticeBoardDAO {
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
 					String branch = rs.getNString("branch");
+					String khBranch="";
+					if(branch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(branch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(branch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					String khClass = rs.getNString("khClass");
 					int viewCount = rs.getInt("viewCount");
-					NoticeBoardDTO dto = new NoticeBoardDTO(seq,branch,khClass,writer,title,null,write_date,viewCount);        
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,khBranch,khClass,writer,title,null,write_date,viewCount);        
 					list.add(dto);
 				}
 				return list;
@@ -215,12 +255,22 @@ public class NoticeBoardDAO {
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String findBranch = rs.getNString("branch");
+					String khBranch="";
+					if(findBranch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(findBranch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(findBranch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					String khClass = rs.getNString("khClass");
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
-					NoticeBoardDTO dto = new NoticeBoardDTO(seq,findBranch,khClass,writer,title,null,write_date,viewCount);        
+					NoticeBoardDTO dto = new NoticeBoardDTO(seq,khBranch,khClass,writer,title,null,write_date,viewCount);        
 					list.add(dto);
 				}
 				return list;
@@ -254,10 +304,20 @@ public class NoticeBoardDAO {
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");
 				String branch = rs.getString("branch");
+				String khBranch="";
+				if(branch.contentEquals("J")) {
+					khBranch+="종로";
+				}else if(branch.contentEquals("D")) {
+					khBranch+="당산";
+				}else if(branch.contentEquals("K")) {
+					khBranch+="강남";
+				}else{
+					khBranch+="전체";
+				}
 				String khClass = rs.getString("khClass");
 				Date write_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
-				NoticeBoardDTO result = new NoticeBoardDTO(num,branch,khClass,writer,title,null,write_date,viewCount);		
+				NoticeBoardDTO result = new NoticeBoardDTO(num,khBranch,khClass,writer,title,contents,write_date,viewCount);		
 				return result;
 			}
 		}

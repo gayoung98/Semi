@@ -23,6 +23,8 @@ import dao.FreeBoardDAO;
 import dao.FreeCommentDAO;
 import dao.FreeFilesDAO;
 import dao.MemberDAO;
+import dao.MyPageDAO;
+import dao.ProfileFileDAO;
 import dto.FreeBoardDTO;
 import dto.FreeCommentDTO;
 import dto.FreeFilesDTO;
@@ -51,6 +53,11 @@ public class FreeBoardController extends HttpServlet {
 			FreeBoardDAO fbdao = FreeBoardDAO.getInstance();
 			MemberDAO mdao = MemberDAO.getInstance();
 			FreeFilesDAO ffdao =FreeFilesDAO.getInstance();
+			MyPageDAO mpd = MyPageDAO.getInstance();
+			ProfileFileDAO pfd = ProfileFileDAO.getInstance();
+			String session = (String) request.getSession().getAttribute("login");
+
+
 
 			if(url.contentEquals("/list.fboard")) { //게시글 목록 
 
@@ -98,14 +105,24 @@ public class FreeBoardController extends HttpServlet {
 					pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
 				}
 				
+
+				
+				if(pfd.selectBySeq(mpd.getID(session)).size()==0){
+					String filesPath = request.getServletContext().getRealPath("profile/"+session);      
+				    File filesFolder = new File(filesPath);
+				    if(!filesFolder.exists()) filesFolder.mkdirs();
+				    request.setAttribute("defalut_profile_img","profile.png");
+				} else { 
+					request.setAttribute("profile_img",pfd.getFile(mpd.getID(session)));
+					 }
+				
+				
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("navi", pageNavi);
-
-				//카테고리, 키워드,branch request에 담아라!
 				request.setAttribute("category", category);
 				request.setAttribute("keyword", keyWord);
 				request.setAttribute("branch", branch);
-
+				request.setAttribute("member",mpd.getMember(session));
 
 				request.setAttribute("count", fcdao); //댓글 수 출력 
 				RequestDispatcher rd = request.getRequestDispatcher("free/FBlist.jsp");
@@ -131,14 +148,13 @@ public class FreeBoardController extends HttpServlet {
 				System.out.println("제목 :" + title);
 				System.out.println("내용 :" + contents);
 
-				String email = (String) request.getSession().getAttribute("login");
-				MemberDTO dto = mdao.getMainInfo(email);
+				MemberDTO dto = mdao.getMainInfo(session);
 
 				//파일 업로드 작업
 				int seq = fbdao.getSeq();				
 				String branch =dto.getBranch();
 				System.out.println("지점: "+ branch);
-				String writer = email;
+				String writer = session;
 				System.out.println("작성자: "+ writer);
 
 				String id = dto.getId();
