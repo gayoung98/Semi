@@ -74,7 +74,7 @@ public class NoticeBoardDAO {
 				}else if(branch.contentEquals("K")) {
 					khBranch+="강남";
 				}else{
-					khBranch+="미정";
+					khBranch+="전체";
 				}
 				int viewCount = rs.getInt("viewCount");
 
@@ -121,7 +121,7 @@ public class NoticeBoardDAO {
 					}else if(branch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					int viewCount = rs.getInt("viewCount");
 
@@ -169,7 +169,7 @@ public class NoticeBoardDAO {
 					}else if(findBranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					int viewCount = rs.getInt("viewCount");
 					
@@ -217,7 +217,7 @@ public class NoticeBoardDAO {
 					}else if(branch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					String khClass = rs.getNString("khClass");
 					int viewCount = rs.getInt("viewCount");
@@ -263,7 +263,7 @@ public class NoticeBoardDAO {
 					}else if(findBranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					String khClass = rs.getNString("khClass");
 					String writer =rs.getNString("writer");
@@ -312,7 +312,7 @@ public class NoticeBoardDAO {
 				}else if(branch.contentEquals("K")) {
 					khBranch+="강남";
 				}else{
-					khBranch+="미정";
+					khBranch+="전체";
 				}
 				String khClass = rs.getString("khClass");
 				Date write_date = rs.getDate("write_date");

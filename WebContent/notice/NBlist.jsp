@@ -10,6 +10,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
+	body {background-color: #D8E3E7;}
+
 /*navibar*/
   .navbar>.container-fluid {
             padding: 0px;
@@ -28,19 +30,27 @@
             background-color: #55555550;
         }
 .container {
-    margin-top: 40px;
-    width: 100%;
+    margin-top: 50px;
+    width: 90%;
 }
-.first{
+.first {
 	border-bottom: 3px solid black;
+	margin-left:10px;
+	margin-right:10px;
+	text-align:center;
 }
 
-.second{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+.second {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+	margin-left:10px;
+	margin-right:10px;
+	text-align:center;
 }
 
 h2{margin-left: 20px;
 font-weight: bold;
+padding-top:10px;
+
 padding-bottom:10px;}
 
 ul{padding-top:10px;
@@ -64,7 +74,7 @@ float: right;
 .search{ margin-top: 20px;
 }
 
-.footer{padding-top:10px;}
+.footer{padding-top:10px; padding-bottom:30px;}
 
 </style>
 
@@ -85,7 +95,7 @@ $("#back").on("click",function(){
 <body>
 <jsp:include page="/navibar.jsp"></jsp:include>
 
-    <div class="container">        
+    <div class="container shadow bg-white rounded">        
 <h2 class ="text-center">공지 게시판</h2>
     <ul class="nav justify-content-center">
         <li class="nav-item">
@@ -101,27 +111,25 @@ $("#back").on("click",function(){
           <a class="nav-link " href="${pageContext.request.contextPath}/list.nboard?branch=D&cpage=1&category=&keyword=">당산</a>
         </li>
       </ul>
-
+		
         <div class="row first">
             <div class="col-12 col-md-1 d-none d-md-block">No</div>
-            <div class="col-12 col-md-2" style="text-align: center;">지점명</div>
-            <div class="col-12 col-md-1" style="text-align: center;">반</div>
+            <div class="col-12 col-md-2">지점/반</div>
             <div class="col-12 col-md-3 title" >제목</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성자</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
-            <div class="col-12 col-md-1 d-none d-md-block">조회수</div>
+            <div class="col-12 col-md-2 d-none d-md-block">조회수</div>
         </div>
 
    <c:forEach var="i" items="${boardlist}">
             <div class="row second">
             
                 <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
-                <div class="col-12 col-md-2"style="text-align: center;">${i.branch}</div>
-                <div class="col-12 col-md-1"style="text-align: center;">${i.khClass}</div>
+                <div class="col-12 col-md-2">${i.branch}/ ${i.khClass} </div>
                 <div class="col-12 col-md-3 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
                 <div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
-                <div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
+                <div class="col-1 col-md-2  d-md-block">${i.viewCount}</div>
             </div>
         </c:forEach>
         
@@ -157,9 +165,9 @@ $("#back").on("click",function(){
 					</c:choose>
 				</c:forEach>
 			</div>	
-        <div class="footer">
-         <input type=button class="btn btn-dark" value="메인으로" id="back">
-        </div>
+        <div class="text-right footer">
+         <input type=button class="btn btn-secondary" value="메인으로" id="back">
+        
  	<div class="search">
  		<form action="${pageContext.request.contextPath}/list.nboard" method="get">
 	<c:choose>
@@ -194,6 +202,7 @@ $("#back").on("click",function(){
 				</c:choose>
 	 </form>		  
  </div>	
+ </div>
     </div>
 </body>
 </html>

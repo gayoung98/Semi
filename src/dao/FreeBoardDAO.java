@@ -70,7 +70,7 @@ public class FreeBoardDAO {
 				}else if(branch.contentEquals("K")) {
 					khBranch+="강남";
 				}else{
-					khBranch+="미정";
+					khBranch+="전체";
 				}
 				String title = rs.getNString("title");
 				String contents = rs.getNString("contents");
@@ -115,7 +115,7 @@ public class FreeBoardDAO {
 					}else if(findBranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
@@ -160,7 +160,7 @@ public class FreeBoardDAO {
 					}else if(findBranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
@@ -206,7 +206,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 					}else if(searchedBranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
@@ -253,7 +253,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 					}else if(searchedBranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
-						khBranch+="미정";
+						khBranch+="전체";
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
@@ -299,7 +299,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				}else if(branch.contentEquals("K")) {
 					khBranch+="강남";
 				}else{
-					khBranch+="미정";
+					khBranch+="전체";
 				}
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");

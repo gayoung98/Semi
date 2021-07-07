@@ -12,6 +12,15 @@
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   <style>
+  * {
+	margin: 0;
+	padding: 0;
+}
+div[class*=col]{
+padding: 0px;
+margin:0px;
+}
+  body {background-color: #D8E3E7;}
   	/*navibar*/
 			
   .navbar>.container-fluid {
@@ -42,7 +51,8 @@
 			padding-bottom: 10px;
 			border-bottom: 1px solid #ddd;
 		}
-
+	#title_input{
+		width:800px;}
 		.title .seq {
 			float: left;
 			display: block;
@@ -133,13 +143,13 @@
 <body>
 <jsp:include page="/navibar.jsp"></jsp:include>
 
-<div class="container">
+<div class="container shadow bg-white rounded">
 		<h2 class="text-center mb-3">자유게시판 글쓰기</h2>
 	<form action="${pageContext.request.contextPath}/write.fboard" method="post" enctype="multipart/form-data" >
 			<div class="contents_box">	
 					<div class="title">		
 					<h3>
-						<input type="text" name="title" id="" placeholder="제목을 입력하세요">
+						<input type="text" name="title" id="title_input" placeholder="제목을 입력하세요">
 					</h3>
 					
 				</div>

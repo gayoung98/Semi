@@ -12,7 +12,11 @@
 		
 			
 			<style>
+	*{margin-left:10px;}
+		body {background-color: #D8E3E7;}
+			
 			/*navibar*/
+			.navbar{padding:0px;}
 			
   .navbar>.container-fluid {
             padding: 0px;
@@ -23,15 +27,18 @@
             justify-content: space-around;
         }
         .slide {
+          
             position: absolute;
             width: 100%;
-            height: 40px;
+            height: 50px;
             top: 100%;
             background-color: #55555550;
         }
 				.container {
-					margin-top: 40px;
-					width: 100%;
+					max-width: 1000px;
+					margin-top: 50px;
+					
+					
 				}
 
 				div {
@@ -49,6 +56,7 @@
 
 				.title_area {
 					border-bottom: 1px solid #ddd;
+					padding-top:20px;
 				}
 
 
@@ -75,7 +83,11 @@
 				}
 
 				/* 작성자 정보 */
+				.profile_info{
+				margin-left:10px;
+				}
 				.WriterInfo .profile_info .name_box .name {
+				padding-top:10px;
 					margin-right: 6px;
 					font-size: 13px;
 					font-weight: 700;
@@ -182,7 +194,14 @@
 					margin-left: 5px;
 				}
 				
+				.footer{
+				padding-top:10px;
+				padding-bottom:10px;}
+				
+				/* 신고하기  */
 				#report{font-size:12px;}
+				
+			
 			</style>
 			<script>
 				$(function () {
@@ -272,7 +291,7 @@
 		<body>
 		<jsp:include page="/navibar.jsp"></jsp:include>
 		
-			<div class="container">
+			<div class="container shadow bg-white rounded">
 				<!-- 게시물 제목 -->
 				<div class="col-12 title_area">
 
@@ -390,7 +409,7 @@
 				</div>
 				<hr>
 				<!-- 로그인 유저와 글쓴이가 같다면? 수정/삭제 -->
-				<div class="btn_wrap text-right">
+				<div class="btn_wrap text-right footer">
 					<c:choose>
 						<c:when test="${login== view.writer}">
 							<button type="button" value="${view.seq}" class="btn btn-primary"

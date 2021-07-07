@@ -10,6 +10,7 @@
 			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 			<style>
+				body {background-color: #D8E3E7;}
 				/*navibar*/
 			
   .navbar>.container-fluid {
@@ -30,6 +31,7 @@
 				.container {
 					margin-top: 40px;
 					width: 100%;
+					margin-left:10px;
 				}
 
 				div {
@@ -261,7 +263,7 @@
 
 		<body>
 			<jsp:include page="/navibar.jsp"></jsp:include>
-			<div class="container">
+			<div class="container shadow bg-white rounded">
 				<!-- 게시물 제목 -->
 				<div class="col-12 title_area">
 
