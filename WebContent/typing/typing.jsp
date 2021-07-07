@@ -77,29 +77,32 @@ button {
 			</div>
 			<div class="col-2"></div>
 		</div>
-		<div class="row record" style="text-align: center;">
-			<div class="col-2"></div>
-			<div class="col-6 recbox">
-				<div class="row rec">
 
-					<div class="col-6">타자</div>
-					<div class="col-6">정확도</div>
+		<form action="write.typ" method="post">
+			<div class="row record" style="text-align: center;">
+				<div class="col-2"></div>
+				<div class="col-6 recbox">
+					<div class="row rec">
+
+						<div class="col-6">타자</div>
+						<div class="col-6">정확도</div>
 
 
-					<div class="col-6">
-						<input type="text" name="record" id="record">
+						<div class="col-6">
+							<input type="text" name="record" id="record">
+						</div>
+						<div class="col-6">
+							<input type="text" name="accuracy" id="record">
+						</div>
+
 					</div>
-					<div class="col-6">
-						<input type="text" name="accuracy" id="record">
-					</div>
-
 				</div>
+				<div class="col-2">
+					<button type="submit">제출</button>
+				</div>
+				<div class="col-2"></div>
 			</div>
-			<div class="col-2">
-				<button type="submit">제출</button>
-			</div>
-			<div class="col-2"></div>
-		</div>
+		</form>
 		<div class="row footer"></div>
 	</div>
 </body>

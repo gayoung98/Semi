@@ -40,16 +40,16 @@ public class TypingDAO {
 	
 	public int insert(TypingDTO dto) throws Exception {
 		
-		String sql = "insert into Typing values(?,?,?,?,?, sysdate)";
+		String sql = "insert into Typing values(typing_seq.nextval,?,?,?,?, sysdate)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, dto.getSeq());
-			pstat.setNString(2, dto.getWriter());
-			pstat.setNString(3, dto.getId());
-			pstat.setInt(4, dto.getRecord());
-			pstat.setInt(5, dto.getAccurate());
+			
+			pstat.setNString(1, dto.getWriter());
+			pstat.setNString(2, dto.getId());
+			pstat.setInt(3, dto.getRecord());
+			pstat.setInt(4, dto.getAccuracy());
 			int result = pstat.executeUpdate();
 			return result;
 		}			
@@ -71,12 +71,13 @@ public class TypingDAO {
 				int seq = rs.getInt("seq");
 				String writer = rs.getString("writer");
 				int record = rs.getInt("record");
-				int accurate = rs.getInt("accurate");
+				int accuracy = rs.getInt("accuracy");
 				Date reg_date = rs.getDate("reg_date");
-				TypingDTO dto = new TypingDTO(seq, writer, id, record, accurate, reg_date);
+				TypingDTO dto = new TypingDTO(seq, writer, id, record, accuracy, reg_date);
 				list.add(dto);
+				
 			}
-			return list;	
+			return list;
 			
 		}			
 	
