@@ -30,13 +30,13 @@ html{}
 	top: 100%;
 	background-color: #55555550;
 }
-
+/*전체*/
 .container {
 	margin-top: 50px;
-	width: 90%;
+	width: 900px;
 
-	
 }
+
 
 .first {
 	border-bottom: 3px solid black;
@@ -59,9 +59,9 @@ h2 {
 	padding-bottom: 10px;
 }
 
-ul {
+.branch_list {
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 40px;
 }
 
 li a:hover {
@@ -110,7 +110,7 @@ $("#back").on("click",function(){
 
 	<div class="container shadow bg-white rounded">
 		<h2 class="text-center">자유게시판</h2>
-		<ul class="nav justify-content-center">
+		<ul class="nav justify-content-center branch_list">
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page"
 				href="${pageContext.request.contextPath}/list.fboard?cpage=1">전체</a>
@@ -129,25 +129,25 @@ $("#back").on("click",function(){
 
 		<div class="row first">
 			<div class="col-12 col-md-1 d-none d-md-block">No</div>
-			<div class="col-12 col-md-2" ">지점명</div>
-			<div class="col-12 col-md-3 title">제목</div>
+			<div class="col-12 col-md-1" >지점</div>
+			<div class="col-12 col-md-5 title">제목</div>
 			<div class="col-12 col-md-2 d-none d-md-block">작성자</div>
 			<div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
-			<div class="col-12 col-md-2 d-none d-md-block">조회수</div>
+			<div class="col-12 col-md-1 d-none d-md-block">조회수</div>
 		</div>
 
 		<c:forEach var="i" items="${boardlist}">
 			<div class="row second">
 
 				<div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
-				<div class="col-12 col-md-2">${i.branch}</div>
-				<div class="col-12 col-md-3 title">
+				<div class="col-12 col-md-1">${i.branch}</div>
+				<div class="col-12 col-md-5 title">
 					<a href="detailView.fboard?seq=${i.seq}">${i.title}</a>
 					[${count.replyCount(i.seq)}]
 				</div>
 				<div class="col-3 col-md-2  d-md-block">${i.writer}</div>
 				<div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
-				<div class="col-1 col-md-2  d-md-block">${i.viewCount}</div>
+				<div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
 			</div>
 		</c:forEach>
 

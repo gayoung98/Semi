@@ -12,13 +12,13 @@
 		
 			
 			<style>
-	*{margin-left:10px;}
 		body {background-color: #D8E3E7;}
 			
 			/*navibar*/
-			.navbar{padding:0px;}
+		
+			nav{padding:0;margin: 0;}
 			
-  .navbar>.container-fluid {
+  		.navbar>.container-fluid {
             padding: 0px;
         }
 
@@ -27,24 +27,26 @@
             justify-content: space-around;
         }
         .slide {
-          
             position: absolute;
             width: 100%;
             height: 50px;
             top: 100%;
             background-color: #55555550;
         }
+        ul{
+        padding:0px;}
 				.container {
-					max-width: 1000px;
+					max-width: 900px;
 					margin-top: 50px;
-					
-					
+					width: 100%;
+					margin-bottom:20px;
 				}
 
 				div {
 					display: block;
 				}
-
+				h3{margin-left: 20px;
+				}
 				h2 {
 					margin-left: 20px;
 					margin-bottom: 0px;
@@ -58,7 +60,6 @@
 					border-bottom: 1px solid #ddd;
 					padding-top:20px;
 				}
-
 
 				li a:hover {
 					color: cadetblue;
@@ -77,12 +78,26 @@
 
 				/* 내용 */
 				.contents {
+					padding:0;
+					margin-left:20px;
 					height: 200px;
+					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-
+				p{margin-left:20px;}
+				
 				/* 작성자 정보 */
+				.card-img-top{
+				width:100%;
+				}
+
+				.profilebox{
+  			  width: 80px;
+   			 height: 50px; 
+    		overflow: hidden;
+    
+			}
 				.profile_info{
 				margin-left:10px;
 				}
@@ -96,9 +111,23 @@
 				.WriterInfo .article_info {
 					font-size: 12px;
 					line-height: 13px;
-					
+					width: 95%;
 				}
-				.writerInfo{margin-bottom:20px;}
+				span{
+				margin-left:20px;}
+				.count{
+				font-weight:800;}
+				
+				.writerInfo{margin-bottom:15px;
+				margin-top:10px;
+				padding-left:20px;
+				width:98%;
+				}
+				
+				legend{
+				margin-left:20px;
+				padding:0;
+				}
 				/* 댓글 */
 				.com {
 					float: right;
@@ -149,7 +178,7 @@
 				
 				}
 
-				ul {
+				.comment_list {
 					list-style: none;
 					list-style-position: initial;
 					list-style-image: initial;
@@ -165,8 +194,10 @@
 				}
 
 				.comment_box {
-					border: 1px solid black;
-					padding-right: 0;
+				border: 1px solid #ddd;
+				margin-left:20px;
+				width:800px;
+					padding-right: 20;
 				}
 
 				.CommentBox .comment_list .comment_info_box {
@@ -193,10 +224,11 @@
 				.complete {
 					margin-left: 5px;
 				}
+				.listBtn{margin-right:10px;}
 				
 				.footer{
 				padding-top:10px;
-				padding-bottom:10px;}
+				padding-bottom:20px;}
 				
 				/* 신고하기  */
 				#report{font-size:12px;}
@@ -301,8 +333,18 @@
 				<!-- 작성자 정보 -->
 				<div class="writerInfo">
 					<div class="profile_info">
-						<a href=""> <img src="title.jpg" alt="프로필 사진" width="30" height="30">
-						</a>
+					
+					<div class ="profilebox shadow bg-white" >
+			                	<c:choose>
+				                	<c:when test="${profile_img != null}">
+			                  			<img src="${pageContext.request.contextPath}/profile/${member.email }/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                   		</c:when>
+			                   		<c:otherwise>
+			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
+			                   		</c:otherwise>
+		                   		</c:choose>
+		                   		
+		                   	</div>
 						<div class="name_box">
 							<a href="#" role="button" class="target"> ${view.writer} </a> <em
 								class="position">${view.branch}지점  </em>

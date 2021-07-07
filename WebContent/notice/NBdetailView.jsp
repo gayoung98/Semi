@@ -10,13 +10,17 @@
 			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 			<style>
-				body {background-color: #D8E3E7;}
-				/*navibar*/
 			
-  .navbar>.container-fluid {
+				body {background-color: #D8E3E7;}
+				
+				/*navibar*/
+			nav{padding:0;margin: 0;}
+			
+ 			 .navbar>.container-fluid {
             padding: 0px;
         }
-
+ 		ul{
+        padding:0px;}
         .navbar-nav {
             flex-grow: 1;
             justify-content: space-around;
@@ -24,20 +28,23 @@
         .slide {
             position: absolute;
             width: 100%;
-            height: 40px;
+            height: 50px;
             top: 100%;
             background-color: #55555550;
         }
 				.container {
-					margin-top: 40px;
+					max-width: 900px;
+					margin-top: 50px;
 					width: 100%;
-					margin-left:10px;
+					margin-bottom:20px;
 				}
 
 				div {
 					display: block;
 				}
-
+				
+				h3{margin-left: 20px;
+				}
 				h2 {
 					margin-left: 20px;
 					margin-bottom: 0px;
@@ -49,11 +56,15 @@
 
 				.title_area {
 					border-bottom: 1px solid #ddd;
+					padding-top:30px;
+					
 				}
 
 				a {
 					text-decoration: none;
 					cursor: pointer;
+					font-weight: bold;
+					
 				}
 
 				li a:hover {
@@ -72,27 +83,41 @@
 				/* 내용 */
 				.contents {
 					padding:0;
+					margin-left:20px;
 					height: 200px;
+					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-
+				p{margin-left:20px;}
+				
 				/* 작성자 정보 */
+				.profile_info{
+				margin-left:10px;
+				}
 				.writer{padding-left: 10px;
 				padding-top:10px;
-				padding-bottom:10px;
 				}
 				.WriterInfo .profile_info .name_box .name {
 					margin-right: 6px;
 					font-size: 13px;
 					font-weight: 700;
 				}
-
+				span{
+				margin-left:20px;}
+				
+				.count{
+				font-weight:800;}
+				
 				.WriterInfo .article_info {
 					font-size: 12px;
 					line-height: 13px;
+					width: 95%;
+					
 				}
-
+				legend{
+				margin-left:20px;
+				}
 				/* 댓글 */
 				.com {
 					float: right;
@@ -142,7 +167,7 @@
 					display: list-item;
 				}
 
-				ul {
+				.comment_list {
 					list-style: none;
 					list-style-position: initial;
 					list-style-image: initial;
@@ -157,8 +182,10 @@
 				}
 
 				.comment_box {
-					border: 1px solid black;
-					padding-right: 0;
+				border: 1px solid #ddd;
+				margin-left:20px;
+				width:800px;
+					padding-right: 20;
 				}
 
 				.CommentBox .comment_list .comment_info_box {
@@ -181,10 +208,14 @@
 					float: right;
 					margin-left: 5px;
 				}
-
+				
 				.complete {
 					margin-left: 5px;
 				}
+				.listBtn{margin-right:10px;}
+				.footer{
+				padding-top:10px;
+				padding-bottom:20px;}
 			</style>
 			<script>
 				$(function () {
@@ -375,7 +406,7 @@
 				</div>
 <hr>
 				<!-- 로그인 유저와 글쓴이가 같다면? 수정/삭제 -->
-				<div class="btn_wrap text-right">
+				<div class="btn_wrap text-right footer">
 					<c:choose>
 						<c:when test="${login == view.writer}">
 							<button type="button" value="${view.seq}" class="btn btn-primary"
@@ -384,7 +415,7 @@
 								class="btn btn-dark">삭제</button>
 						</c:when>
 					</c:choose>
-					<a href="${pageContext.request.contextPath}/list.nboard?cpage=1" class="btn btn-secondary">목록으로</a>
+					<a href="${pageContext.request.contextPath}/list.nboard?cpage=1" class="btn btn-secondary listBtn">목록으로</a>
 
 				</div>
 			</div>

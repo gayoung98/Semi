@@ -31,7 +31,7 @@
         }
 .container {
     margin-top: 50px;
-    width: 90%;
+    width: 900px;
 }
 .first {
 	border-bottom: 3px solid black;
@@ -53,8 +53,8 @@ padding-top:10px;
 
 padding-bottom:10px;}
 
-ul{padding-top:10px;
-padding-bottom:10px;
+.branch_list{padding-top:10px;
+padding-bottom:40px;
 }
 
 li a:hover{
@@ -97,7 +97,7 @@ $("#back").on("click",function(){
 
     <div class="container shadow bg-white rounded">        
 <h2 class ="text-center">공지 게시판</h2>
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center branch_list">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/list.nboard?cpage=1">전체</a>
         </li>
@@ -115,10 +115,10 @@ $("#back").on("click",function(){
         <div class="row first">
             <div class="col-12 col-md-1 d-none d-md-block">No</div>
             <div class="col-12 col-md-2">지점/반</div>
-            <div class="col-12 col-md-3 title" >제목</div>
+            <div class="col-12 col-md-4 title" >제목</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성자</div>
             <div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
-            <div class="col-12 col-md-2 d-none d-md-block">조회수</div>
+            <div class="col-12 col-md-1 d-none d-md-block">조회수</div>
         </div>
 
    <c:forEach var="i" items="${boardlist}">
@@ -126,10 +126,10 @@ $("#back").on("click",function(){
             
                 <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
                 <div class="col-12 col-md-2">${i.branch}/ ${i.khClass} </div>
-                <div class="col-12 col-md-3 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
+                <div class="col-12 col-md-4 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
                 <div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
-                <div class="col-1 col-md-2  d-md-block">${i.viewCount}</div>
+                <div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
             </div>
         </c:forEach>
         
