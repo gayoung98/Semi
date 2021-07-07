@@ -27,7 +27,7 @@ div[class*=col]{
 padding: 0px;
 margin:0px;
 }
-.navbar>.container-fluid {
+/* .navbar>.container-fluid {
             padding: 0px;
         }
 
@@ -44,7 +44,7 @@ margin:0px;
             top: 100%;
             background-color: #55555550;
         }
-
+ */
 
 .chat_wrap {
 	width: 100%;
@@ -110,8 +110,7 @@ margin:0px;
 
 .input-div {
 	top: 55px;
-	width: 60%;
-	margin:auto;
+	width: 100%;
 	background-color: #FFF;
 	text-align: center;
 	border-bottom: 1px solid #F18C7E;
@@ -123,7 +122,7 @@ margin:0px;
 	width: 100%;
 	height: 80px;
 	border: none;
-	padding: 10px;
+
 }
 
 .wrapper {
@@ -140,7 +139,7 @@ margin:0px;
 	right: 15%;
 	width: 50px;
 }
-
+div{border: 1px solid black}
 img {
 	width: 100%;
 }
@@ -529,7 +528,7 @@ scale
 		<input type=hidden id=length value="${list}">
 		
 		<div class =row>
-		<div class="col-3"> 
+		<div class="col-2"> 
 		<div class="card">
 			<c:choose>
 				<c:when test="${profile_img != null }">
@@ -546,7 +545,7 @@ scale
 			</div>
 		</div>
 		</div>
-		<div class = "col-9">
+		<div class = "col-8">
 		<div class="chat_wrap">
 			<div class="writebox">
 				<form action="${pageContext.request.contextPath}/writechat.main"
@@ -580,6 +579,9 @@ scale
 				</div>
 			</div>
 </div>
+		</div>
+		<div class = col-2>
+		
 		</div>
 		</div>
 		</div>
