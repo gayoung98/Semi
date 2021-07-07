@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -162,18 +163,23 @@ public class MemberDAO {
 		}
 		
 		public MemberDTO getMainInfo(String email) throws Exception{
-			String sql = "select name, id,khclass,branch from kh_member where email=?";
+			
+			String sql = "select name, phone, id, khClass, branch, position, signUpDate from kh_member where email=?";
 			MemberDTO dto = null;
 			try(Connection connection = this.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 				preparedStatement.setString(1, email);
 				try(ResultSet rs = preparedStatement.executeQuery();){
 					if(rs.next()) {
+						
 						String name = rs.getString("name");
+						String phone = rs.getString("");
 						String id = rs.getString("id");
 						String khClass = rs.getString("khclass");
 						String branch = rs.getString("branch");
-						dto = new MemberDTO(name,id,khClass,branch);
+						String position = rs.getString("position");
+						Date signUpDate = rs.getDate("signupDate");
+						dto = new MemberDTO(name, phone, id, khClass, branch, position, signUpDate);
 					}
 				}
 				return dto;
