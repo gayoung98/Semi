@@ -281,11 +281,12 @@ public class AssDAO {
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery();
+				
 				){
 			
 			pstat.setString(1, khClass);
 			pstat.setString(2, branch);
+			ResultSet rs = pstat.executeQuery();
 			rs.next();
 			return rs.getInt(1);
 
