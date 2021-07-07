@@ -76,6 +76,8 @@ body {background-color: #D8E3E7;}
             top: 100%;
             background-color: #55555550;
         }
+        
+        h2{display:inline;}
 </style>
 
 <script>
@@ -208,17 +210,16 @@ body {background-color: #D8E3E7;}
                       <h2>Noctice</h2>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title"><a href="#">공지1</a></h5>
-                      <h5 class="card-title"><a href="#">공지2</a></h5>
-                      <h5 class="card-title"><a href="#">공지3</a></h5>
-                      <h5 class="card-title"><a href="#">공지4</a></h5>
+                    <c:forEach var="item" items="${Notice }">
+                      <h5 class="card-title"><a href="#">${item.title }</a></h5>
+                    </c:forEach>
                     </div>
                   </div>
                 </div>
                 <div class="col-6">
                     <div class="card">
                         <div class="card-header">
-                          <h2>Board Written</h2> <a href ="#">더보기(More)</a>
+                          <h2>Board Written</h2><a href ="#">더보기(More)</a>
                         </div>
                         <div class="card-body">
                           <h5 class="card-title"><a href="#">내가 쓴글 1</a></h5>
