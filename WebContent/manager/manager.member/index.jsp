@@ -49,23 +49,7 @@
 				<jsp:include page="../menu.jsp"></jsp:include>
 				<div>
 					<div class="container">
-						<div class="content">
-							<div class="col">
-								<h3>낙서장</h3>
-								<div>
-									<div class="click2edit">낙서장입니다!!</div>
-									<button id="edit" class="btn btn-primary" onclick="edit()"
-										type="button">Edit 1</button>
-									<button id="save" class="btn btn-primary" onclick="save()"
-										type="button">Save 2</button>
-
-
-								</div>
-							</div>
-
-
-						</div>
-
+					
 						<div class="content">
 							<div class="col">
 								<div class="mini">
@@ -136,8 +120,7 @@
 
 
 				</div>
-			</div>
-
+		</div>
 
 		</c:when>
 		<c:otherwise>
@@ -153,16 +136,7 @@
 				location.href = "../login.jsp";
 			})
 		})
-		var edit = function() {
-			$('.click2edit').summernote({
-				focus : true
-			});
-		};
-
-		var save = function() {
-			var markup = $('.click2edit').summernote('code');
-			$('.click2edit').summernote('destroy');
-		};
+		
 	</script>
 </body>
 </html>

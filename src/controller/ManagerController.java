@@ -21,6 +21,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import config.FileConfig;
 import config.ManagerConfig;
+import dao.AssDAO;
+import dao.AssFilesDAO;
+import dao.AssSubmitDAO;
 import dao.FreeBoardDAO;
 import dao.FreeCommentDAO;
 import dao.FreeFilesDAO;
@@ -29,6 +32,8 @@ import dao.NoticeBoardDAO;
 import dao.NoticeCommentDAO;
 import dao.NoticeFileDAO;
 import dto.AssDTO;
+import dto.AssFilesDTO;
+import dto.AssSubmitDTO;
 import dto.FreeBoardDTO;
 import dto.FreeCommentDTO;
 import dto.FreeFilesDTO;
@@ -68,6 +73,9 @@ public class ManagerController extends HttpServlet {
 			FreeFilesDAO ffdao=FreeFilesDAO.getInstance();
 			FreeBoardDAO fbdao=FreeBoardDAO.getInstance();
 			FreeCommentDAO fcdao=FreeCommentDAO.getInstance();
+			AssDAO assDao=AssDAO.getInstance();
+			AssFilesDAO assFileDao=AssFilesDAO.getInstance();
+			AssSubmitDAO assSubmitDao=AssSubmitDAO.getInstance();
 			System.out.println(url);    // 접속 url 출력
 			
 			if(url.contentEquals("/login.manager")) {   // 로그인 요청
@@ -556,13 +564,53 @@ public class ManagerController extends HttpServlet {
 					String category = request.getParameter("category");
 					String search = request.getParameter("search");
 					managerDao.deleteFreeBoard(boardSeq);
-					 request.setAttribute("page", currentPage);
+					
+			           response.sendRedirect(ctxPath+"/boardList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
+
+			}else if(url.contentEquals("/assDetail.manager")) {
+
+	            int seq = Integer.parseInt(request.getParameter("seq"));
+	            String branch = request.getParameter("branch");		
+				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+				String category = request.getParameter("category");
+				String search = request.getParameter("search");
+	            AssDTO ass  = assDao.select(seq);
+	            int viewCount = ass.getViewCount();
+	            viewCount = assDao.addViewCount(seq, viewCount);
+
+
+	            AssFilesDTO assFiles = assFileDao.select(seq);
+	          
+	            List<AssSubmitDTO> assSubmit = assSubmitDao.selectAll(seq);
+
+	            request.setAttribute("assView", ass);
+	            request.setAttribute("assFiles", assFiles);
+	            request.setAttribute("assSubmit", assSubmit);
+	            request.setAttribute("page", currentPage);
+				request.setAttribute("branch", branch);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+
+	            RequestDispatcher rd = request.getRequestDispatcher("manager/manager.board/assDetail.jsp");
+	            rd.forward(request,response);
+
+
+	         }else if(url.contentEquals("/assDelete.manager")) {
+	        	 	int delSeq = Integer.parseInt(request.getParameter("seq"));
+		            String branch = request.getParameter("branch");		
+					int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+					String category = request.getParameter("category");
+					String search = request.getParameter("search");
+					managerDao.deleteAss(delSeq);
+					  request.setAttribute("page", currentPage);
 						request.setAttribute("branch", branch);
 						request.setAttribute("category", category);
 						request.setAttribute("search", search);
-			            request.getRequestDispatcher("manager/manager.board/FBboardDelete.jsp").forward(request, response);
+						 response.sendRedirect(ctxPath+"/assList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
+				        
 
-			}
+					
+	         }
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
