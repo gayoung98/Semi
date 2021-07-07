@@ -37,11 +37,11 @@ public class NoticeCommentController extends HttpServlet {
 			MemberDTO dto = mdao.getMainInfo(email);
 			
 			String id = dto.getId();
-			System.out.println("학번" + id);
-			String writer = dto.getName();
-			System.out.println(writer);
+			System.out.println("학번 :" + id);
+			String writer = email;
+			System.out.println("댓글 작성자 :" +writer);
 			String comments = request.getParameter("comments");
-			System.out.println(comments);
+			System.out.println("댓글 내용 :" +comments);
 			int parent = Integer.parseInt(request.getParameter("parent"));//댓글이 달린 게시글				
 			System.out.println(parent +" 번 글의 댓글 작성 " +comments);
 
@@ -74,7 +74,7 @@ public class NoticeCommentController extends HttpServlet {
 			int result = ncdao.modifyReply(comment_seq, comments); //댓글 수정 dao
 			System.out.println("댓글 수정 여부: " + result);
 			
-			request.getRequestDispatcher(ctxPath+"/detailView.nboard?seq="+parent).forward(request, response);;
+			request.getRequestDispatcher("/detailView.nboard?seq="+parent).forward(request, response);;
 			System.out.println("/detailView.nboard?seq="+parent);
 			
 		}

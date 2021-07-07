@@ -221,8 +221,6 @@
 							cancel.text("취소");
 							$(this).before(cancel);
 							$(this).before(complete);
-							$(".deleteReply").remove();
-
 							$(this).remove();
 
 						} else {
@@ -231,11 +229,15 @@
 
 					});
 
+					
+					
 					$("#modifyForm").on("submit", function () { //댓글 수정 폼
 						let inputcom = $("<input>");
+						let parent = $
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
 						inputcom.val($("#com").text());
+						
 
 						$("#modifyForm").append(inputcom);
 
@@ -286,7 +288,7 @@
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date">${view.writeDate}</span> <span class="count">조회
+						<span class="date">${view.write_date}</span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
 						<!-- 댓글 수 및 신고버튼-->
@@ -311,7 +313,7 @@
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
 							<a
-								href="${pageContext.request.contextPath}/download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}">${file.oriName}</a>
+								href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}">${file.oriName}</a>
 							<br>
 						</c:forEach>
 					</fieldset>
@@ -335,7 +337,7 @@
 										</a>
 									</div>
 									<!--댓글 수정-->
-									<form action="/modify.freecom" method="post" id="modifyForm">
+									<form action="${pageContext.request.contextPath}/modify.freecom" method="post" id="modifyForm">
 										<div class="comment_text">
 											<p class="text_view">
 												<span class="modify_option" id="com">${i.comments}</span>
@@ -348,7 +350,7 @@
 
 										<!-- 댓글 수정 controller -->
 										<div class="btn_wrap text-right" id="buttons">
-											<c:if test="${i.writer == login.name}">
+											<c:if test="${i.writer == login}">
 
 												<!-- 게시글 번호 -->
 												<input type="hidden" name="seq" value="${i.seq}">
@@ -375,7 +377,7 @@
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
 						<form action="${pageContext.request.contextPath}/write.freecom" method="post">
-							<strong>${login.name}</strong>
+							<strong>${dto.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
 							<input type="submit" class="btn btn-dark" id="replyBtn" value="등록">
@@ -387,7 +389,7 @@
 				<!-- 로그인 유저와 글쓴이가 같다면? 수정/삭제 -->
 				<div class="btn_wrap text-right">
 					<c:choose>
-						<c:when test="${login.name == view.writer}">
+						<c:when test="${login== view.writer}">
 							<button type="button" value="${view.seq}" class="btn btn-primary"
 								id="modifyBtn">수정하기</button>
 							<button type="button" value="${view.seq}" id="deleteBtn" name="delete"

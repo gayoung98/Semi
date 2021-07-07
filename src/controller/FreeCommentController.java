@@ -38,12 +38,13 @@ public class FreeCommentController extends HttpServlet {
 
 			if(url.contentEquals("/write.freecom")) { //댓글 작성하기
 				System.out.println("댓글 작성중");
+				
 				String email = (String) request.getSession().getAttribute("login");
-				MemberDTO dto = mdao.getMainInfo(email);
+				MemberDTO dto = mdao.getMainInfo(email);				
 				
 				String id = dto.getId();
 				System.out.println("학번" + id);
-				String writer = dto.getName();
+				String writer = email;
 				System.out.println(writer);
 				String comments = request.getParameter("comments");
 				System.out.println(comments);
@@ -79,7 +80,7 @@ public class FreeCommentController extends HttpServlet {
 				int result = fcdao.modifyReply(comment_seq, comments); //댓글 수정 dao
 				System.out.println("댓글 수정 여부: " + result);
 				
-				request.getRequestDispatcher(ctxPath+"/detailView.fboard?seq="+parent).forward(request, response);;
+				request.getRequestDispatcher("/detailView.fboard?seq="+parent).forward(request, response);;
 				System.out.println(ctxPath+"/detailView.fboard?seq="+parent);
 				
 			}
