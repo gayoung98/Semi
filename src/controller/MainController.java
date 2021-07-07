@@ -58,6 +58,9 @@ public class MainController extends HttpServlet {
 				
 				String email = (String)request.getSession().getAttribute("login");
 				String name = dao.getName(email);
+				MemberDTO dto = memdao.getMainInfo(email);
+				String khclass = dto.getKhClass();
+				String branch = dto.getBranch();
 				
 				if(pfd.getFile(mpd.getID((String)request.getSession().getAttribute("login"))).getSysName()!=null) {
 					request.setAttribute("profile_img",pfd.getFile(mpd.getID((String)request.getSession().getAttribute("login"))));
@@ -66,7 +69,7 @@ public class MainController extends HttpServlet {
 				}
 				request.setAttribute("name",name);
 	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
-	            request.setAttribute("list", dao.getAllList().size());
+	            request.setAttribute("list", dao.classList(khclass, branch).size());
 	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
 				Gson g = new Gson();
