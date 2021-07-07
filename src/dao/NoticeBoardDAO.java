@@ -456,5 +456,21 @@ public class NoticeBoardDAO {
 			rs.next();
 			return rs.getInt(1);
 		}
-	}	
+	}
+	
+	public List<NoticeBoardDTO> getMypageNotice(String branch) throws Exception{
+		String sql  = "select * from (select row_number() over(order by seq desc) rnum,seq,writer,title, contents,write_date,khclass,branch,viewcount from noticeBoard where branch = ? or branch ='all') where rnum between 1 and 4";
+		List<NoticeBoardDTO> li = new ArrayList<NoticeBoardDTO>();
+		try(Connection conn = this.getConnection();
+				PreparedStatement psmt = conn.prepareStatement(sql)) {
+			psmt.setString(1, branch);
+			try(ResultSet rs = psmt.executeQuery()){
+				while(rs.next()) {
+				li.add(new NoticeBoardDTO(rs.getInt(2),rs.getString(3),rs.getString(4), rs.getString(5),rs.getDate(6),rs.getString(7),rs.getString(8),rs.getInt(9)));
+			}
+			}
+			return li;
+		}
+		
+	}
 }

@@ -41,7 +41,7 @@ $("#cancel").on("click", function(){
 
 <center>
 <h3>
-  ${email} 님! <br>
+  ${login } 님! <br>
   <small class="text-muted">소중한 의견 감사합니다!</small>
 </h3>
 	 <div class ="btn_container">

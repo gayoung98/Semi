@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,12 +29,13 @@ import dto.AssSubmitDTO;
 import dto.MemberDTO;
 
 
+
 @WebServlet("*.ass")
 public class AssController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
-	@SuppressWarnings("unchecked")
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -67,18 +67,18 @@ public class AssController extends HttpServlet {
 
 				String oriName = multi.getOriginalFileName("file");
 				String sysName = multi.getFilesystemName("file");
-				
+
 
 				if(oriName!=null) {  
 					daoF.insert(new AssFilesDTO(0,oriName,sysName,null,0));
 					System.out.println("파일명 \""+oriName+"\" 저장 완료");
-					
+
 				}
-				
+
 				//((List<String>)request.getSession().getAttribute("ingFilesList")).add(sysName);
 				String returnPath = "/files/"+sysName;
 				response.getWriter().append(returnPath);
-				
+
 				//
 
 				//	            for(String fileName : fileNames) {
@@ -93,8 +93,8 @@ public class AssController extends HttpServlet {
 				//	                  System.out.println(fileUpload);
 				//	               }
 				//	            }
-				
-				
+
+
 			}else if(url.contentEquals("/write.ass")) {
 
 				System.out.println("writeboard");
@@ -115,7 +115,7 @@ public class AssController extends HttpServlet {
 				System.out.println("board_seq: "+seq);
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
-				
+
 				String email = (String) request.getSession().getAttribute("login");
 				String writer = daoM.getAllInfo(email).getName();
 				String id = daoM.getAllInfo(email).getId();
@@ -142,13 +142,13 @@ public class AssController extends HttpServlet {
 				System.out.println(sysName);
 
 				if(oriName !=null) {
-				AssFilesDTO dtoF = new AssFilesDTO(0, oriName, sysName, null, seq);
-				int result = daoF.insert(dtoF);
-				if(result>0) {
-					System.out.println("파일 업로드 완료");
-				}else {
-					System.out.println("파일 업로드 안 됨.");
-				}
+					AssFilesDTO dtoF = new AssFilesDTO(0, oriName, sysName, null, seq);
+					int result = daoF.insert(dtoF);
+					if(result>0) {
+						System.out.println("파일 업로드 완료");
+					}else {
+						System.out.println("파일 업로드 안 됨.");
+					}
 				}
 
 				response.sendRedirect("list.ass?currentPage=1");
@@ -158,13 +158,11 @@ public class AssController extends HttpServlet {
 				String email = (String)request.getSession().getAttribute("login");
 				String name = daoM.getAllInfo(email).getName();
 				String id = daoM.getAllInfo(email).getId();
-;				String khClass= daoM.getAllInfo(email).getKhClass();
+				String khClass= daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
 				String position = daoM.getAllInfo(email).getPosition();
 				MemberDTO dtoM = new MemberDTO(name, id, khClass, branch, position);
 
-				
-				
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
 
@@ -177,7 +175,7 @@ public class AssController extends HttpServlet {
 
 				List<AssDTO> assList;
 				List<String> pageNavi;
-				
+
 				if(keyword!=null && category!=null) {
 					keyword = keyword.toLowerCase();
 					System.out.println("검색어: " + keyword);
@@ -189,7 +187,8 @@ public class AssController extends HttpServlet {
 				}
 
 
-				//				request.setAttribute("position", position);
+				request.setAttribute("member", dtoM);
+				request.setAttribute("position", position);
 				request.setAttribute("assList", assList);
 
 				request.setAttribute("pageNavi", pageNavi);
@@ -211,7 +210,7 @@ public class AssController extends HttpServlet {
 				if(result>0) {
 					System.out.println("++viewCount");
 				}
-				
+
 				AssDTO ass2 = dao.select(seq); //viewCount가 1 올라간 내역으로 다시 추출.
 				AssFilesDTO assFiles = daoF.select(seq);
 
@@ -229,12 +228,12 @@ public class AssController extends HttpServlet {
 			}else if(url.contentEquals("/delete.ass")) {
 
 				int delSeq = Integer.parseInt(request.getParameter("delSeq"));
-				
+
 				int deleteAss = dao.delete(delSeq);
 				if(deleteAss>0) {
 					System.out.println("과제 삭제 완료");
 					System.out.println("지울 파일의 parent"+ delSeq);
-					
+
 					String filesPath = request.getServletContext().getRealPath("files");
 					String sysName = daoF.getSysName(delSeq);
 					File targetFile = new File(filesPath +"/" + sysName); 
@@ -242,17 +241,17 @@ public class AssController extends HttpServlet {
 					System.out.println("파일 삭제 여부: " + result);
 					if(result) {daoF.deleteAll(delSeq);}
 					response.sendRedirect("list.ass?currentPage=1");
-					
+
 				}else {
 					System.out.println("과제 삭제 실패");
 				}
-				
-				
+
+
 
 			}else if(url.contentEquals("/modiForm.ass")) {
 
 				System.out.println("modiForm.ass");
-				
+
 				int seq = Integer.parseInt(request.getParameter("ass_seq"));
 
 				AssDTO ass  = dao.select(seq);
@@ -309,20 +308,20 @@ public class AssController extends HttpServlet {
 
 				String delTarget = multi.getParameter("delete");
 
-				
-				if(delTarget!= null) {  
-					
-						System.out.println("지울 파일 번호 "+ delTarget);
 
-						String sysName = daoF.getSysName(Integer.parseInt(delTarget));
-						File targetFile = new File(filesPath +"/" + sysName); 
-						boolean result = targetFile.delete();
-						System.out.println("파일 삭제 여부: " + result);
-						if(result) {daoF.delete(Integer.parseInt(delTarget));}
-					
+				if(delTarget!= null) {  
+
+					System.out.println("지울 파일 번호 "+ delTarget);
+
+					String sysName = daoF.getSysName(Integer.parseInt(delTarget));
+					File targetFile = new File(filesPath +"/" + sysName); 
+					boolean result = targetFile.delete();
+					System.out.println("파일 삭제 여부: " + result);
+					if(result) {daoF.delete(Integer.parseInt(delTarget));}
+
 				}								
-				
-				
+
+
 				String oriName = multi.getOriginalFileName("file"); //오리지널 이름
 				String sysName = multi.getFilesystemName("file"); //서버에 저장된 이름
 				System.out.println(oriName);
@@ -341,7 +340,6 @@ public class AssController extends HttpServlet {
 
 			}else if(url.contentEquals("/download.ass")) {
 
-				int seq = Integer.parseInt(request.getParameter("seq"));
 				String oriName = request.getParameter("oriName");
 				String sysName = request.getParameter("sysName");
 				String filesPath = request.getServletContext().getRealPath("files");

@@ -68,12 +68,17 @@ public class MainController extends HttpServlet {
 					request.setAttribute("defalut_profile_img","profile.png");
 				}
 				request.setAttribute("name",name);
-	            request.setAttribute("firstlist", dao.likeFacebook(10, 1));
+	            request.setAttribute("firstlist", dao.likeFacebook(10, 1, khclass, branch));
 	            request.setAttribute("list", dao.classList(khclass, branch).size());
 	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
 				Gson g = new Gson();
-				List<MainDTO> list = dao.likeFacebook(10, Integer.parseInt(request.getParameter("count")));
+				String email = (String)request.getSession().getAttribute("login");
+				String name = dao.getName(email);
+				MemberDTO dto = memdao.getMainInfo(email);
+				String khclass = dto.getKhClass();
+				String branch = dto.getBranch();
+				List<MainDTO> list = dao.likeFacebook(10, Integer.parseInt(request.getParameter("count")), khclass, branch);
 				String result = g.toJson(list);
 				response.getWriter().append(result);
 			} else if(url.contentEquals("/calander.main")) {
