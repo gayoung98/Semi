@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Manager;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -46,8 +47,12 @@ import dto.NoticeFilesDTO;
 
 
 
+
 @WebServlet("*.manager")
 public class ManagerController extends HttpServlet {
+	Logger l = Logger.getLogger(ManagerController.class);
+	
+	
 	private HttpSession session;
 	public HttpSession getSession() {
 		return session;
@@ -58,11 +63,14 @@ public class ManagerController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset =utf-8");
-		
+		request.getRemoteAddr();
 		try {
+			
 			String requestURI = request.getRequestURI();
 			String ctxPath = request.getContextPath();
 			String url = requestURI.substring(ctxPath.length());
@@ -79,11 +87,13 @@ public class ManagerController extends HttpServlet {
 			System.out.println(url);    // 접속 url 출력
 			
 			if(url.contentEquals("/login.manager")) {   // 로그인 요청
+				l.trace(request.getRemoteAddr()+ " 로그인을 시도함");
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				
 				boolean login = managerDao.login(id, pw);
 				if(login) {
+					l.trace(request.getRemoteAddr()+ " 로그인 완료");
 					request.getSession().setAttribute("login", id);
 					response.sendRedirect(ctxPath+"/index.manager");
 					
@@ -100,6 +110,7 @@ public class ManagerController extends HttpServlet {
 				request.getRequestDispatcher("manager/manager.member/index.jsp").forward(request,response);
 			}
 			else if(url.contentEquals("/logout.manager")) {   // 로그아웃 
+				l.trace(request.getRemoteAddr()+" 로그아웃함");
 				request.getSession().invalidate();
 				response.sendRedirect("manager/login.jsp"); 
 			}else if (url.contentEquals("/teacher.manager")) {      // 강사 목록
@@ -612,6 +623,7 @@ public class ManagerController extends HttpServlet {
 					
 	         }
 		}catch(Exception e) {
+			l.trace(request.getRemoteAddr()+" 에러남");
 			e.printStackTrace();
 		}
 	}
