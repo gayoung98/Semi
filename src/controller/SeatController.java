@@ -75,7 +75,13 @@ public class SeatController extends HttpServlet {
 
 			} else if(url.contentEquals("/complete.seat")) {
 				Gson gs =new Gson(); 
-				response.getWriter().append(gs.toJson(dao.reservedList()));
+				
+				String email = (String)request.getSession().getAttribute("login");
+				MemberDTO dto = memdao.getMainInfo(email);
+				String khclass = dto.getKhClass();
+				String branch = dto.getBranch();
+				
+				response.getWriter().append(gs.toJson(dao.classList(khclass, branch)));
 			}
 			
 			

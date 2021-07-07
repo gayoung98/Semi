@@ -105,12 +105,19 @@ public class SeatDAO {
 		}
 	}
 
-	public List<SeatDTO> classList(String email) throws Exception{
+	public List<SeatDTO> classList(String khclass, String branch) throws Exception{
 		List <SeatDTO> li = new ArrayList<SeatDTO>();
-		String sql = "select seat.seq, seat.seat_day, email, seat.name, seat.seat_number, seat.apply_date from seat join kh_member using (email)";
+		String sql = "select "
+				+ "    seat.seq, seat.seat_day, email, seat.name, seat.seat_number, seat.apply_date "
+				+ "from "
+				+ "    seat join kh_member "
+				+ "using (email)"
+				+ "where"
+				+ "    khclass = ? and branch = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, email);
+			pstat.setString(1, khclass);
+			pstat.setString(2, branch);
 			try(ResultSet rs = pstat.executeQuery()){
 				while(rs.next()) {
 					li.add(new SeatDTO(rs.getInt(1), rs.getString(2),  rs.getString(3),  rs.getString(4),  rs.getString(5),  rs.getDate(6)));
