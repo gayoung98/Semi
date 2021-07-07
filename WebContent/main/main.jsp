@@ -139,12 +139,16 @@ margin:0px;
 	right: 15%;
 	width: 50px;
 }
-#up {
+#top {
 	position: fixed;
 	bottom: 17%;
-	right: 14%;
-	width: 50px;
+	right: 16%;
+	width: 35px;
+	display: none;
+	text-decoration:none;
+	color : black
 }
+
 /*div{border: 1px solid black}*/
 img {
 	width: 100%;
@@ -486,7 +490,7 @@ scale
 													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {
 
-														if (resp[i].writer == $("#writer").val()) {
+														if (resp[i].writer == $("#writer")) {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg1\">");
 															msgBox.attr(
@@ -521,6 +525,19 @@ scale
 	            $("#inquire").on("click", function(){
 	                let popup = window.open('${pageContext.request.contextPath}/inquired/popup.jsp', 'inquire', 'width=550px,height=600px,scrollbars=no,resizable=no');
 	            })
+	        })
+	        $(function(){
+	        	$( window ).scroll( function() {
+	        		if ( $( this ).scrollTop() > 200 ) {
+	        			$( '#top' ).fadeIn();
+	        		} else {
+	        			$( '#top' ).fadeOut();
+	        		}
+	        	} );
+	        	$( '#top' ).click( function() {
+	        		$( 'html, body' ).animate( { scrollTop : 0 }, 400 );
+	        		return false;
+	        	} );
 	        })
 		
 	});
@@ -592,10 +609,10 @@ scale
 		</div>
 		</div>
     	<div id="up">
-    		<div style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>	
+    		<a href="#" id="top"><img src="up.png"></a>	
     	</div>		
-		<div id="inquire" style="cursor:pointer;">
-			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png" />
+		<div id="inquire">
+			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png"/>
 		</div>
 		<div class="footer">
 			<div class="sk-circle" id="hiddenDivLoading">
