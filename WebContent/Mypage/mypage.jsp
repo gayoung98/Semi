@@ -79,8 +79,28 @@ body {background-color: #D8E3E7;}
 </style>
 
 <script>
+
+	let callPopUp = function(){
+		$(".card-title").on("click", function(){
+			
+			switch ($(this).attr("name")) {
+			case "inquired":
+				window.open("${pageContext.request.contextPath}/inquired.mp?seq="+$(this).attr("id"), "inquired", 'width=550px,height=600px,scrollbars=no,resizable=no');
+				break;
+			case value:break;
+			case value:break;
+			case value:break;
+			}
+			
+		})	
+	}	
+	
+	let InquiredList = function(){
+		window.open("${pageContext.request.contextPath}/inquiredList.mp", "inquiredList", 'width=1280px,height=480px,scrollbars=no,resizable=no');
+	}
+	
 	$(function(){
-		
+	
 	$("#cog").on("click", function(){	
 		$("#file").click();		
 	})
@@ -198,7 +218,7 @@ body {background-color: #D8E3E7;}
                 <div class="col-6">
                     <div class="card">
                         <div class="card-header">
-                          <h2>Board Written</h2>
+                          <h2>Board Written</h2> <a href ="#">더보기(More)</a>
                         </div>
                         <div class="card-body">
                           <h5 class="card-title"><a href="#">내가 쓴글 1</a></h5>
@@ -214,7 +234,7 @@ body {background-color: #D8E3E7;}
                 <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                      <h2>Subject</h2>
+                      <h2>Subject</h2> <a href ="#">더보기(More)</a>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title"><a href="#">내가 낸 과제1</a></h5>
@@ -227,13 +247,12 @@ body {background-color: #D8E3E7;}
                 <div class="col-6">
                     <div class="card">
                         <div class="card-header">
-                          <h2>SNS Record</h2>
+                          <h2>Q&A</h2><a href ="javascript:InquiredList();">더보기(More)</a>
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title"><a href="#">SNS 1</a></h5>
-                          <h5 class="card-title"><a href="#">SNS 2</a></h5>
-                          <h5 class="card-title"><a href="#">SNS 3</a></h5>
-                          <h5 class="card-title"><a href="#">SNS 4</a></h5>
+                         <c:forEach var="item" items="${Inquired }">
+                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:callPopUp();">${item.contents}</a></h5>
+                         </c:forEach>
                         </div>
                       </div>
                     </div>

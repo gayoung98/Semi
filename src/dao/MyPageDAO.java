@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
+import dto.FreeBoardDTO;
+import dto.InquireDTO;
 import dto.MemberDTO;
 
 public class MyPageDAO {
@@ -78,6 +79,39 @@ public class MyPageDAO {
 		}
 	}
 	
+	public List<FreeBoardDTO> getWrittenFreeBoard(String session) throws Exception{
+	String sql = "select * from (select row_number() over(order by seq desc) rnum, seq,branch,writer,title, contents, id,write_date, viewCount, policecount from freeboard where writer =?) where rnum between 1 and 4";
+	List<FreeBoardDTO> li =  new ArrayList<FreeBoardDTO>();
+	try(Connection conn = this.getConnection();
+		PreparedStatement psmt = conn.prepareStatement(sql);){
+		psmt.setString(1, session); 
+		try(ResultSet rs = psmt.executeQuery()){
+			while(rs.next()) {
+				li.add(new FreeBoardDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getDate(8),rs.getInt(9),rs.getInt(10))); 
+			}
+			return li; 
+		}
+	}
+	
+	}
+	
+	public List<InquireDTO> getWrittenInquired(String session) throws Exception{
+		String sql = "select * from (select row_number() over(order by seq desc) rnum,seq,id,major_category,sub_category, contents,recomment,reg_date from inquire where id =?) where rnum between 1 and 4";
+		List<InquireDTO> li =  new ArrayList<InquireDTO>();
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setString(1, session); 
+			try(ResultSet rs = psmt.executeQuery()){
+				while(rs.next()) {
+					li.add(new InquireDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDate(8))); 
+				}
+				return li; 
+			}
+		}
+		
+		}
+	
+
 	
 
 }
