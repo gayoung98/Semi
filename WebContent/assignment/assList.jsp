@@ -150,16 +150,18 @@ div {
 				<div class="row columns">
 					<div class="col-1"></div>
 					<div class="col-5">title</div>
-					<div class="col-3">writer</div>
+					<div class="col-2">writer</div>
 					<div class="col-3">write_date</div>
+					<div clss="col-1">조회</div>
 				</div>
 
 				<c:forEach var="item" items="${assList}">
 					<div class="row list">
 						<div class="col-1">${item.seq }</div>
 						<div class="col-5">${item.title }</div>
-						<div class="col-3">${item.writer }</div>
+						<div class="col-2">${item.writer }</div>
 						<div class="col-3">${item.write_date }</div>
+						<div class="col-1">${item.viewCount }</div>
 					</div>
 				</c:forEach>
 

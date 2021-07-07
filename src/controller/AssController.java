@@ -195,19 +195,23 @@ public class AssController extends HttpServlet {
 
 				int seq = Integer.parseInt(request.getParameter("ass_seq"));
 
-				AssDTO ass  = dao.select(seq);
-				int viewCount = ass.getViewCount();
-				viewCount = dao.addViewCount(seq, viewCount);
-
-
+				AssDTO ass1  = dao.select(seq); //해당 seq의 정보들 추출
+				int viewCount = ass1.getViewCount();
+				System.out.println(viewCount);
+				int result = dao.addViewCount(seq, viewCount);
+				if(result>0) {
+					System.out.println("++viewCount");
+				}
+				
+				AssDTO ass2 = dao.select(seq); //viewCount가 1 올라간 내역으로 다시 추출.
 				AssFilesDTO assFiles = daoF.select(seq);
-				//List<CommentDTO> commentList = daoC.getCommentList(seqBoardString); 
+
 				List<AssSubmitDTO> assSubmit = daoS.selectAll(seq);
 
-				request.setAttribute("assView", ass);
+				request.setAttribute("assView", ass2);
 				request.setAttribute("assFiles", assFiles);
 				request.setAttribute("assSubmit", assSubmit);
-				//request.setAttribute("comments", commentList);
+
 
 				RequestDispatcher rd = request.getRequestDispatcher("assignment/assView.jsp");
 				rd.forward(request,response);
