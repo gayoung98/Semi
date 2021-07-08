@@ -7,18 +7,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- include libraries(jQuery, bootstrap) -->
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+	crossorigin="anonymous"></script>
+
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
 
@@ -27,6 +26,14 @@
 * {
 	box-sizing: border-box;
 	text-align: center;
+}
+
+body {
+	background-color: #D8E3E7;
+}
+
+.container {
+	margin-top: 80px;
 }
 
 .row {
@@ -65,9 +72,10 @@
 </head>
 <body>
 	<jsp:include page="/navibar.jsp" />
-	<form action="${pageContext.request.contextPath}/write.ass"
-		method="post" enctype="multipart/form-data">
-		<div class="container">
+	<div class="container p-4 shadow bg-white rounded">
+		<form action="${pageContext.request.contextPath}/write.ass"
+			method="post" enctype="multipart/form-data">
+
 			<div class="row header">
 				<div class="col-12">
 					<h3>과제</h3>
@@ -85,19 +93,7 @@
 
 			<div class="row content" style="padding: 0px;">
 				<div class="col-12">
-					<div id="editor">
-
-						<p>Hello World!</p>
-
-						<p>
-							Some initial <strong>bold</strong> text
-						</p>
-
-						<p>
-							<br>
-						</p>
- 
-					</div>
+					<div id="editor"></div>
 					<textarea id="contents" name="contents" style="display: none"></textarea>
 
 					<!-- Include the Quill library -->
@@ -126,15 +122,16 @@
 
 			<div class="row buttons" style="margin-top: 58px;">
 				<div class="col-6" style="text-align: left;">
-					<button type="button">이전</button>
+					<button type="button" class="btn btn-secondary">이전</button>
 				</div>
 				<div class="col-6" style="text-align: right;">
-					<button type="submit">제출</button>
+					<button type="submit" class="btn btn-primary">제출</button>
 				</div>
 			</div>
-		</div>
-		<input type=hidden id=seq>
-	</form>
+
+			<input type=hidden id=seq>
+		</form>
+	</div>
 
 </body>
 </html>

@@ -15,10 +15,40 @@
 <style>
 * {
 	box-sizing: border-box;
+	text-align: center;
 }
 
-div {
-	border: 1px solid black;
+body {
+	background-color: #D8E3E7;
+}
+
+.container {
+	margin-top: 80px;
+}
+
+.header {
+	margin: 3%;
+}
+
+.search {
+	margin: 3%;
+}
+
+.columns {
+	margin: 2%;
+}
+
+.list {
+	margin: 1%;
+}
+
+.footer {
+	margin: 2%;
+}
+
+a{
+	text-decoration: none;
+	color: black;
 }
 
 .navbar>.container-fluid {
@@ -39,14 +69,14 @@ div {
 }
 </style>
 <script>
-	$(function(){
-		 $("#write").on("click",function(){
-			 location.href="assignment/assWrite.jsp";
-		 })
-		 $(".del").on("click", function(){
-			 let delSeq = $(this).parent().siblings(".seq").text();
-			 location.href="delete.ass?delSeq="+delSeq;
-		 })
+	$(function() {
+		$("#write").on("click", function() {
+			location.href = "assignment/assWrite.jsp";
+		})
+		$(".del").on("click", function() {
+			let delSeq = $(this).parent().siblings(".seq").text();
+			location.href = "delete.ass?delSeq=" + delSeq;
+		})
 	})
 </script>
 </head>
@@ -54,7 +84,7 @@ div {
 
 
 	<jsp:include page="/navibar.jsp" />
-	<div class="container">
+	<div class="container p-4 shadow bg-white rounded">
 		<div class="row header" style="text-align: center;">
 			<h2>과제</h2>
 		</div>
@@ -73,9 +103,10 @@ div {
 
 		<div class="row columns">
 			<div class="col-1"></div>
-			<div class="col-5">title</div>
-			<div class="col-2">writer</div>
-			<div class="col-3">write_date</div>
+			<div class="col-5">제목</div>
+			<div class="col-1">작성자</div>
+			<div class="col-3">작성일</div>
+			<div class="col-1">조회</div>
 			<div clss="col-1"></div>
 		</div>
 
@@ -83,14 +114,15 @@ div {
 			<div class="row list" style="overflow: hidden">
 				<div class="col-1 seq">${item.seq }</div>
 				<div class="col-5">
-					<a href="view.ass?ass_seq=${item.seq}">${item.title }</a>
+					<a href="view.ass?ass_seq=${item.seq}"><b>${item.title }</b></a>
 				</div>
-				<div class="col-2">${item.writer }</div>
+				<div class="col-1">${item.writer }</div>
 				<div class="col-3">${item.write_date }</div>
+				<div class="col-1">${item.viewCount }</div>
 				<div class="col-1">
 					<c:choose>
-						<c:when test="${item.id==member.id}">
-							<button class=del seq="${item.seq }">x</button>
+						<c:when test="${item.id==loginId}">
+							<button seq="${item.seq }" class="btn btn-dark del">x</button>
 						</c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
@@ -123,10 +155,10 @@ div {
 				</nav>
 			</div>
 
-			<div class="col-3">
+			<div class="col-3" style="" text-align:right">
 				<c:choose>
-					<c:when test="${position=='teacher'}">
-						<button id="write">글쓰기</button>
+					<c:when test="${loginPosition=='teacher'}">
+						<button class="btn btn-primary" id="write">글쓰기</button>
 					</c:when>
 					<c:otherwise></c:otherwise>
 				</c:choose>

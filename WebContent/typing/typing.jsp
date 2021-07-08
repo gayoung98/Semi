@@ -25,6 +25,10 @@ div {
 .row {
 	text-align: center;
 }
+.rRecord{
+	display: inline-block;
+	width: 50%;
+}
 
 input {
 	height: 100%;
@@ -34,9 +38,16 @@ input {
 button {
 	height: 100%;
 	width: 100%;
+	color: cornflowerblue;
 }
 </style>
-
+<script>
+$(function(){
+	let record = $(".rRecord").attr("record");
+	
+	$(".rRecord").css("height":record);
+})
+</script>
 </head>
 <body>
 	<div class="container">
@@ -46,34 +57,20 @@ button {
 		<div class="row chart">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<div class="row cRecord">
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-					<div class="col-1"></div>
-				</div>
-				<div class="row cDate">
-					<div class="col-1">4/2</div>
-					<div class="col-1">4/9</div>
-					<div class="col-1">4/16</div>
-					<div class="col-1">4/23</div>
-					<div class="col-1">4/30</div>
-					<div class="col-1">5/7</div>
-					<div class="col-1">5/14</div>
-					<div class="col-1">5/21</div>
-					<div class="col-1">5/28</div>
-					<div class="col-1">6/4</div>
-					<div class="col-1">6/11</div>
-					<div class="col-1">6/18</div>
-				</div>
+				<c:forEach var="item" items="${recentList}">
+					<div class="row cRecord">
+						<div class="col-1">
+						<div class="rRecord" record="${item.record}">${item.record}</div>
+						</div>
+						
+					</div>
+
+
+					<div class="row cDate">
+						<div class="col-1">${item.reg_date }</div>
+
+					</div>
+				</c:forEach>
 			</div>
 			<div class="col-2"></div>
 		</div>

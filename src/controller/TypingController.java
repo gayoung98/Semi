@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +55,16 @@ public class TypingController extends HttpServlet {
 
 				response.sendRedirect("typing.jsp");
 
-			}else if(url.contentEquals("chatList.typ")) {
+			}else if(url.contentEquals("view.typ")) {
+				
+				String email = (String)request.getSession().getAttribute("login");
+				String id = daoM.getAllInfo(email).getId();
+				List<TypingDTO> recentList = daoT.getRecentList(id);
+				
+				request.setAttribute("recentList", recentList);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("typing.jsp");
+				rd.forward(request,response);
 				
 			}
 

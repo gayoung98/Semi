@@ -16,6 +16,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.AssSubmitDAO;
+import dao.MemberDAO;
 import dto.AssSubmitDTO;
 
 
@@ -33,6 +34,7 @@ public class AssSubmitController extends HttpServlet {
 		String ctxPath = request.getContextPath();
 		String url = requestURI.substring(ctxPath.length());
 		AssSubmitDAO dao = AssSubmitDAO.getInstance();
+		MemberDAO daoM = MemberDAO.getInstance();
 
 		try {
 			if(url.contentEquals("/write.assSubmit")) {
@@ -49,11 +51,10 @@ public class AssSubmitController extends HttpServlet {
 				MultipartRequest multi = new MultipartRequest(request, filesPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 				//파라미터: 멀티파트로 업그레이드할 인자, 저장 경로, 최대 사이즈 , 인코딩, 파일명명규칙(겹치는 이름있으면 뒤에 숫자붙임. 인터넷 검색 필요)
 
-				//String email = (String)request.getSession().getAttribute("login");
-				//String writer = daoM.getInfo(email).getName();
-				//String id = daoM.getInfo(email).getId();
-				String writer = "test";
-				String id = "test";
+				String email = (String)request.getSession().getAttribute("login");
+				String writer = daoM.getAllInfo(email).getName();
+				String id = daoM.getAllInfo(email).getId();
+
 				String oriName = multi.getOriginalFileName("assSubmit"); //오리지널 이름
 				String sysName = multi.getFilesystemName("assSubmit"); //서버에 저장된 이름
 				System.out.println(oriName);
