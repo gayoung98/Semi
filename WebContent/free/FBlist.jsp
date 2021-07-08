@@ -82,7 +82,8 @@ a {
 }
 
 .search {
-	margin-top: 20px;
+	margin-left:20px;
+	float:left;
 }
 
 .footer {
@@ -206,7 +207,7 @@ $("#back").on("click",function(){
 						<input type="hidden" name="cpage" value="1">
 						<input type="text" placeholder="검색어를 입력하세요" name="keyword"
 							required value="${keyword}">
-						<input type="submit" value="찾기" class="btn btn-dark"
+						<input type="submit" value="찾기" class="btn btn-dark "
 							id="searchBtn">
 							
 					</c:otherwise>
