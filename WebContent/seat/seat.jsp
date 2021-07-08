@@ -142,7 +142,7 @@ body {
         		dataType: "JSON"
         	}).done(function(result){
         		for(var i=0; i<result.length; i++){
-        			$("#"+result[i].seat_number).css("background-color","rgb(252, 255, 53)")
+        			$("#"+result[i].seat_number).css("background-color","rgb(255, 255, 166)")
         			$("#"+result[i].seat_number).attr("data-Ischoose","true")
         			$("#"+result[i].seat_number).html(result[i].name)
         	}
@@ -151,7 +151,7 @@ body {
         	
             let sub = 0;
             let before_seat = null;
-            for (let index = 1; index <= 18; index += 3) {//이거같음 이거 생성되는건넹
+            for (let index = 1; index <= 18; index += 3) {
                 let tr = $("<tr>");
                 for (let index2 = index; index2 < index + 3; index2++) {
                     let number = index2 - sub;
@@ -219,7 +219,7 @@ body {
 	                		alert("해당 요일은 이미 14명이 신청하였습니다.")
 	                	}else{
 	                		if(confirm("해당 좌석을 예약하시겠습니까?")){
-	                		$("#"+result).css("background-color","rgb(252, 255, 53)");
+	                		$("#"+result).css("background-color","rgb(255, 255, 166)");
 		                	$("#"+result).attr("data-Ischoose","true");
 		                	$("#"+result).html("예약완료")
 		                	alert("예약완료")
