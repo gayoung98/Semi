@@ -34,7 +34,7 @@
                 <div class="col-2 sub" style="text-align: center;">
                        <a href="https://typing.malangmalang.com/typing-practice/exercising-sentence-typing">검정</a>
                        <br>
-                       <a href="#">기록</a>
+                       <a href="${pageContext.request.contextPath}/view.typ">기록</a>
                 </div>
                 <div class="col-2 sub">
                 </div>

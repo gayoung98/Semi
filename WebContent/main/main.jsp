@@ -42,8 +42,9 @@ margin:0px;
             width: 100%;
             height: 50px;
             top: 100%;
-            background-color: #55555550;
+            background-color: #00ff0000;
         }
+a{text-decoration:none;color: black;font-weight: bold;}
  
 
 .chat_wrap {
