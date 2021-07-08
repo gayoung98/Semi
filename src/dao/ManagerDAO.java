@@ -12,20 +12,23 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-
+import org.apache.log4j.Logger;
 
 import config.ManagerConfig;
+
 import dto.AssDTO;
 import dto.FreeBoardDTO;
 import dto.FreePoliceDTO;
 import dto.InquireDTO;
-import dto.ManagerDTO;
+
 import dto.MemberDTO;
 import dto.NoticeBoardDTO;
 import utils.Util;
 
 public class ManagerDAO {
 	private volatile static ManagerDAO instance;
+	private Logger l= Logger.getLogger(ManagerDAO.class);
+	
 	private ManagerDAO() {
 
 	}
@@ -53,6 +56,7 @@ public class ManagerDAO {
 				){pstat.setNString(1, id);
 				pstat.setNString(2, Util.getSHA512(pw));
 				try(ResultSet rs= pstat.executeQuery();){
+					
 					return rs.next();
 
 				}

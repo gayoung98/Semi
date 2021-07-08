@@ -44,17 +44,19 @@ nav{padding:0;margin: 0;}
   	.container {
 			max-width: 900px;
 			margin: 30px auto;
-			margin-top:30px;
+			margin-top:50px;
 
 		}
 
 		.title {
 			overflow: hidden;
+			padding-top: 10px;
 			padding-bottom: 10px;
 			border-bottom: 1px solid #ddd;
 		}
 	#title_input{
 		width:800px;}
+		
 		.title .seq {
 			float: left;
 			display: block;
@@ -79,25 +81,28 @@ nav{padding:0;margin: 0;}
 
 
 		.contents {
-			padding: 20px;
+			padding-top:20px;
+			padding-left:20px;
+			margin-right:20px;
 			min-height: 350px;
 		}
 
 		.contents textarea {
 			padding: 5px;
-			width: 100%;
-			height: 90%;
+			width: 90%;
+			height: 80%;
 			border-color: #fff;
 		
 		}
+		  #file_box{margin-left:20px;}
+		
 		.btn_wrap {
 			padding-top: 10px;
 		}
 		
-		legend {
-                    border: 0;
+		legend { border: 0;
                 }
-      .footer{padding-bottom:10px;}          
+      .footer{padding-bottom:20px;}          
       
 	</style>
 
