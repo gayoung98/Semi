@@ -105,8 +105,8 @@
 												<tr>
 
 													<td>${p.id }</td>
-													<td>${p.contents}</td>
-													<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=&currentPage=1&category=&search=&seq=${p.parent}">${p.parent}</a></td>
+													<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=&currentPage=1&category=&search=&seq=${p.parent}">${p.contents}</a></td>
+													<td>${p.parent}</td>
 													<td>${p.reg_date}</td>
 												</tr>
 											</c:forEach>
