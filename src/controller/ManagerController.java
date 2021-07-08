@@ -104,8 +104,9 @@ public class ManagerController extends HttpServlet {
 			}else if(url.contentEquals("/index.manager")) {
 				List<FreeBoardDTO> boardList = managerDao.indexBoard();
 				List<FreePoliceDTO> policeList = managerDao.indexPolice();
-			
+				List<InquireDTO> inquireList = managerDao.indexInquire();
 				request.setAttribute("list", boardList);
+				request.setAttribute("ilist", inquireList);
 				request.setAttribute("plist", policeList);
 				request.getRequestDispatcher("manager/manager.member/index.jsp").forward(request,response);
 			}
@@ -617,6 +618,7 @@ public class ManagerController extends HttpServlet {
 					String category = request.getParameter("category");
 					String search = request.getParameter("search");
 					managerDao.deleteAss(delSeq);
+					l.trace(request.getRemoteAddr()+" 과제게시판 삭제");
 					  request.setAttribute("page", currentPage);
 						request.setAttribute("branch", branch);
 						request.setAttribute("category", category);

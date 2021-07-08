@@ -73,7 +73,7 @@
 												<tr>
 
 													<td>${i.branch }</td>
-													<td>${i.title }</td>
+													<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=all&currentPage=1&category=&search=&seq=${i.seq}">${i.title }</a></td>
 													<td>${i.writer }</td>
 													<td>${i.write_date}</td>
 												</tr>
@@ -82,6 +82,8 @@
 									</table>
 								</div>
 							</div>
+							</div>
+							<div class="content">
 							<div class="col">
 								<div class="mini">
 									<h4>신고 목록</h4>
@@ -104,8 +106,43 @@
 
 													<td>${p.id }</td>
 													<td>${p.contents}</td>
-													<td>${p.parent}</td>
+													<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=&currentPage=1&category=&search=&seq=${p.parent}">${p.parent}</a></td>
 													<td>${p.reg_date}</td>
+												</tr>
+											</c:forEach>
+
+
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+						</div>
+							<div class="content">
+							<div class="col">
+								<div class="mini">
+									<h4>문의 목록</h4>
+									<a
+										href="${pageContext.request.contextPath}/boardPolice.manager?currentPage=1&category=&search=">더
+										보기</a>
+									<table class="table">
+										<thead class="thead-dark">
+											<tr>
+
+												<th scope="col">문의 ID</th>
+												<th scope="col">대분류</th>
+												<th scope="col">소분류</th>
+												<th scope="col">문의날짜</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="m" items="${ilist}" varStatus="s">
+												<tr>
+
+													<td><a href="${pageContext.request.contextPath}/inquireDetail.manager?seq=${m.seq}&currentPage=1&category=&search=">${m.id}</a></td>
+													<td>${m.major_category}</td>
+													<td>${m.sub_category}</td>
+													<td>${m.reg_date}</td>
 												</tr>
 											</c:forEach>
 
@@ -133,7 +170,7 @@
 	<script>
 		$(function() {
 			$("#back").on("click", function() {
-				location.href = "../login.jsp";
+				location.href = "${pageContext.request.contextPath}/manager/login.jsp";
 			})
 		})
 		

@@ -727,6 +727,27 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 			return list;
 		}
 	}
+	/////////////////////////////////////////////////////////// 인덱스 문의
+	public List<InquireDTO> indexInquire() throws Exception {
+		String sql ="select * from (select row_number() over(order by seq desc) rnum ,seq,id,major_category,sub_category,reg_date from inquire) where rnum between 1 and 5";
+		List<InquireDTO> list = new ArrayList<>();
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs= pstat.executeQuery();){
+			while(rs.next()) {
+				int seq = rs.getInt("seq");
+				
+				String id = rs.getString("id");
+				
+				String major_category =rs.getString("major_category");
+				String sub_category =rs.getString("sub_category");
+				Date reg_date = rs.getDate("reg_date");
+				list.add(new InquireDTO(seq,id,major_category,sub_category,reg_date));
+			}
+			return list;
+		}
+	}
+	
 	public List<InquireDTO> getInquire(int seq) throws Exception {
 		String sql ="select * from inquire where seq=?";
 		List<InquireDTO> list = new ArrayList<>();
@@ -827,6 +848,15 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	public int logRecording(String log) throws Exception{
+		String sql="insert into log values(log_seq.nextval,?)";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, log);
 			int result = pstat.executeUpdate();
 			return result;
 		}

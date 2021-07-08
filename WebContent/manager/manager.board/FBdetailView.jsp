@@ -158,22 +158,7 @@
 				
 				#report{font-size:12px;}
 			</style>
-			<script>
-				$(function () {
-				
-					$("#deleteBtn").on("click",function () { //게시글 삭제
-								let check = confirm("정말 게시글을 삭제하겠습니까?");
-								if (check) {
-									location.href = "${pageContext.request.contextPath}/freeBoardDelete.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
-										+ $("#deleteBtn").val(); //게시글 삭제 확인 팝업
-								} else {
-									return;
-								}
-							});
-
-					
-				});
-			</script>
+			
 		</head>
 
 		<body>
@@ -254,7 +239,11 @@
 											class="comment_nickname"> ${i.writer}
 										</a>
 									</div>
-							
+							<div class="comment_text">
+											<p class="text_view">
+												<span class="modify_option" id="com">${i.comments}</span>
+											</p>
+										</div>
 								</div>
 							</li>
 						</ul>
@@ -269,7 +258,7 @@
 							<button type="button" value="${view.seq}" id="deleteBtn" name="delete"
 								class="btn btn-dark">삭제</button>
 
-					<a href="${pageContext.request.contextPath}/boardList.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}" class="btn btn-secondary">목록으로</a>
+					<button id="back" type="button" class="btn btn-secondary">뒤로가기</button>
 
 				</div>
 			</div>
@@ -278,3 +267,22 @@
 			</div>
 			</div>
 		</body>
+		<script>
+				$(function () {
+				
+					$("#deleteBtn").on("click",function () { //게시글 삭제
+								let check = confirm("정말 게시글을 삭제하겠습니까?");
+								if (check) {
+									location.href = "${pageContext.request.contextPath}/freeBoardDelete.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
+										+ $("#deleteBtn").val(); //게시글 삭제 확인 팝업
+								} else {
+									return;
+								}
+							});
+					$("#back").on("click",function(){
+						history.back();
+					})
+					
+				});
+			</script>
+			</html>
