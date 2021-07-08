@@ -17,6 +17,7 @@ html[Attributes Style] {
 html {
     display: block;
 }
+hr{margin:0; padding:0px;}
 header{border-bottom:1px solid #ddd;}
 body {
     -webkit-text-size-adjust: none;
@@ -25,7 +26,7 @@ body, button, input, select, td, textarea, th {
     font-size: 14px;
     line-height: 1.5;
     color: #000;}
-    
+    .title_report{text-align:center;}
     .report_type .tit_popup {
     font-size: 18px;
     line-height: 55px;
@@ -53,7 +54,6 @@ body, button, input, select, td, textarea, th {
 legend {
     display: block;
     padding-inline-start: 2px;
-        
     padding-inline-end: 2px;
     border-width: initial;
     border-style: none;
@@ -64,26 +64,26 @@ legend {
     list-style: none;
 }
 
-blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, select, td, textarea, th, ul {
-    margin: 0;
-    padding: 0;
-}
+ 
 .ir_caption, .screen_out {
     overflow: hidden;
     line-height: 0;
     text-indent: -9999px;
 }
+.list_report{width:300px;}
 
-ul{display: block;
+ul{width:300px;
+display: block;
     list-style-type: disc;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;}
+    padding-inline-start: 40px;
+    margin-left:30px;}
     
     
-  .popup_body{    padding-inline-start: 40px;}
+  .popup_body{ padding-inline-start: 40px;}
   }
 
 a, a:active, a:hover {
@@ -104,8 +104,6 @@ button {
 
 .report_type .txt_guide {
     display: block;
-    padding-left: 14px;
-    margin: 2px 20px 18px;
     text-indent: -14px;
     font-size: 13px;
     line-height: 17px;
@@ -128,9 +126,10 @@ button {
  	text-align:center;	
     font-size: 15px;
     line-height: 38px;
-   
     text-align: center;
 }
+
+
 .report_type .btn_comm .inner_btn {
     display: block;
     height: 38px;
@@ -141,16 +140,15 @@ button {
     line-height: 38px;
     text-align: center;}
     
-    .btn_group{padding-inline-start: 40px;}
-    .btn_group .cancel_btn{ border:1px solid #ddd;}
-    .btn_group .btn_confirm{border:1px solid #ddd;}
-    
+  
+    .btn_group .cancel_btn{border:1px solid #ddd; width:25%; }
+        .btn_group .btn_confirm{border:1px solid #ddd; width:25%;}
+
 </style>
 
 </head>
 <body>
-<div id="app">
-    <div>
+<div id="app ">
         <div class="report_type">
            
             <section class="section_popup">
@@ -160,13 +158,13 @@ button {
                 <div class="popup_body">
                 
                     <legend class="screen_out"></legend>
-                    <strong class="tit_report tit_report"><span>신고사유 선택</span></strong>
+                    <strong class="tit_report text-center"><span>신고사유 선택</span></strong>
                     
               <form action="${pageContext.request.contextPath}/report.fboard" method="post">
                     <input type="hidden" name="fboard_seq" value="${view.seq}">
                     <ul class="list_report">
                         <li id="r1" class="reason">
-                            <div class="choice_wrap">
+                            <div class="choice_wrap ">
                                 <input type="radio" name="contents" class="inp_radio" value ="욕설, 비하" checked>
                                 <label for="r1" class="lab_radio"><span class="ico_report ico_check"></span><span>욕설, 비하</span><span class="ico_report ico_arr"></span></label>
                             </div>
@@ -202,13 +200,13 @@ button {
                     </ul>
 
 
-                    <div class="btn_group">
-                        <button type="button" class="btn btn-light cancel_btn"><span class="inner_btn" onclick="self.close();">취소</span></button>
+                    <div class="btn_group text-center">
+                        <button type="button" class="btn btn-light cancel_btn"><span class="inner_btn" onclick="self.close();" id="cancel">취소</span></button>
                         <button type="submit" class="btn btn-dark btn_confirm"><span class="inner_btn" id="submitBtn">신청</span></button>
                     </div>
                     <input type="hidden" name="seq" value="${view.seq}">
                     </form>
-                    <span class="txt_guide">※ 허위신고일 경우, 신고자의 서비스 활동이 제한될 수 있습니다.</span>
+                    <span class="txt_guide text-center">※ 허위신고일 경우, 신고자의 서비스 활동이 제한될 수 있습니다.</span>
                 </div>
             </section>
 

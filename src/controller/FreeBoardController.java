@@ -54,10 +54,9 @@ public class FreeBoardController extends HttpServlet {
 			FreeBoardDAO fbdao = FreeBoardDAO.getInstance();
 			MemberDAO mdao = MemberDAO.getInstance();
 			FreeFilesDAO ffdao =FreeFilesDAO.getInstance();
-			MyPageDAO mpd = MyPageDAO.getInstance();
-			ProfileFileDAO pfd = ProfileFileDAO.getInstance();
+			MyPageDAO mpdao = MyPageDAO.getInstance();
+			ProfileFileDAO pfdao = ProfileFileDAO.getInstance();
 			FreePoliceDAO fpdao = FreePoliceDAO.getInstance();
-
 			String session = (String) request.getSession().getAttribute("login");
 
 
@@ -107,24 +106,12 @@ public class FreeBoardController extends HttpServlet {
 				}else {
 					pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
 				}
-				
-
-				
-				if(pfd.selectBySeq(mpd.getID(session)).size()==0){
-					String filesPath = request.getServletContext().getRealPath("profile/"+session);      
-				    File filesFolder = new File(filesPath);
-				    if(!filesFolder.exists()) filesFolder.mkdirs();
-				    request.setAttribute("defalut_profile_img","profile.png");
-				} else { 
-					request.setAttribute("profile_img",pfd.getFile(mpd.getID(session)));
-					 }
-			
+	
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("navi", pageNavi);
 				request.setAttribute("category", category);
 				request.setAttribute("keyword", keyWord);
 				request.setAttribute("branch", branch);
-				request.setAttribute("member",mpd.getMember(session));
 
 				request.setAttribute("count", fcdao); //댓글 수 출력 
 				RequestDispatcher rd = request.getRequestDispatcher("free/FBlist.jsp");
@@ -188,15 +175,26 @@ public class FreeBoardController extends HttpServlet {
 
 			}else if(url.contentEquals("/detailView.fboard")) {  //게시글 상세보기
 				
-				String email = (String) request.getSession().getAttribute("login");
-				MemberDTO dto = mdao.getMainInfo(email);
+				MemberDTO dto = mdao.getMainInfo(session);
 				request.setAttribute("dto", dto);
-				
 				
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
 
 				fbdao.viewCountPlus(boardseq);//조회수
+				
+				//프로필 사진 출력
+				if(pfdao.selectBySeq(mpdao.getID(session)).size()==0){
+					String filesPath = request.getServletContext().getRealPath("profile/"+session);      
+				    File filesFolder = new File(filesPath);
+				    if(!filesFolder.exists()) filesFolder.mkdirs();
+				    request.setAttribute("defalut_profile_img","profile.png");
+				} else { 
+					request.setAttribute("profile_img",pfdao.getFile(mpdao.getID(session)));
+					 }
+				
+				request.setAttribute("member",mpdao.getMember(session));
 
+				
 				FreeBoardDTO bdto = fbdao.detailView(boardseq); //상세 보기
 				System.out.println("게시글 번호 :"+boardseq);
 				request.setAttribute("view", bdto);

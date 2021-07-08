@@ -42,8 +42,9 @@ margin:0px;
             width: 100%;
             height: 50px;
             top: 100%;
-            background-color: #55555550;
+            background-color: #00ff0000;
         }
+a{text-decoration:none;color: black;font-weight: bold;}
  
 
 .chat_wrap {
@@ -483,7 +484,7 @@ scale
 		var isScroll = true;
 
 		let loadNewPage = $(window).on("scroll",(function() {
-							if (((window.innerHeight + window.scrollY) >= $("#wrapper").height())&& isScroll) {
+							if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight)&& isScroll) {
 								$.ajax({
 													url : "${pageContext.request.contextPath}/listchat.main",
 													type : "get",
@@ -491,7 +492,7 @@ scale
 													dataType : "json"
 												}).done(
 												function(resp) {
-													if (count > Number($("#length").val()) / 8)
+													if (count > Number($("#length").val()) / 10)
 														isScroll = false;
 													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {

@@ -90,7 +90,6 @@ public class SeatController extends HttpServlet {
 				/* request.getRequestDispatcher("seat/seat.jsp").forward(request, response); */
 			
 			}else if(url.contentEquals("/confirmCancel.seat")) {
-				date = request.getParameter("date");
 				String email = (String) request.getSession().getAttribute("login");
 				MemberDTO dto = memdao.getMainInfo(email);
 				String name =  dto.getName();
