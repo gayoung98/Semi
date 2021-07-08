@@ -60,18 +60,14 @@ public class MainDAO {
 		}
 	}
 	public List<MainDTO> likeFacebook(int viewcount,int index, String khclass, String branch) throws Exception{
-		String sql = "select "
-				+ "c.seq, c.writer, c.id, c.contents, c.class, c.write_date "
-				+ "from "
-				+ "(select row_number() over(order by seq desc) rnum, seq, writer, id, contents, class, write_date from chatboard  where contents is not null) c join kh_member m on c.writer = m.email "
-				+ "where rnum between ? and ? and c.class=? and m.branch=?";
+		String sql = "select seq, writer, id, contents, class, write_date from (select row_number() over(order by c.seq desc) rnum, c.seq, c.writer, c.id, c.contents, c.class, c.write_date, m.branch from chatboard c,kh_member m where c.contents is not null and m.email =c.writer and m.branch =? and c.class =? ) where rnum between ? and ?";
 		List<MainDTO> li = new ArrayList();
 		try(Connection conn = this.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql)){
-			psmt.setInt(1, 1+viewcount*(index-1));
-			psmt.setInt(2, viewcount*index);
-			psmt.setString(3, khclass);
-			psmt.setString(4, branch);
+			psmt.setString(1, branch);
+			psmt.setString(2, khclass);
+			psmt.setInt(3, 1+viewcount*(index-1));
+			psmt.setInt(4, viewcount*index);
 			try(ResultSet rs = psmt.executeQuery()){
 				while(rs.next()) {
 					li.add(new MainDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6)));
