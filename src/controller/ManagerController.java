@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Manager;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -46,8 +47,12 @@ import dto.NoticeFilesDTO;
 
 
 
+
 @WebServlet("*.manager")
 public class ManagerController extends HttpServlet {
+	Logger l = Logger.getLogger(ManagerController.class);
+	
+	
 	private HttpSession session;
 	public HttpSession getSession() {
 		return session;
@@ -58,11 +63,14 @@ public class ManagerController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset =utf-8");
-		
+		request.getRemoteAddr();
 		try {
+			
 			String requestURI = request.getRequestURI();
 			String ctxPath = request.getContextPath();
 			String url = requestURI.substring(ctxPath.length());
@@ -79,11 +87,13 @@ public class ManagerController extends HttpServlet {
 			System.out.println(url);    // 접속 url 출력
 			
 			if(url.contentEquals("/login.manager")) {   // 로그인 요청
+				l.trace(request.getRemoteAddr()+ " 로그인을 시도함");
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				
 				boolean login = managerDao.login(id, pw);
 				if(login) {
+					l.trace(request.getRemoteAddr()+ " 로그인 완료");
 					request.getSession().setAttribute("login", id);
 					response.sendRedirect(ctxPath+"/index.manager");
 					
@@ -100,6 +110,7 @@ public class ManagerController extends HttpServlet {
 				request.getRequestDispatcher("manager/manager.member/index.jsp").forward(request,response);
 			}
 			else if(url.contentEquals("/logout.manager")) {   // 로그아웃 
+				l.trace(request.getRemoteAddr()+" 로그아웃함");
 				request.getSession().invalidate();
 				response.sendRedirect("manager/login.jsp"); 
 			}else if (url.contentEquals("/teacher.manager")) {      // 강사 목록
@@ -273,6 +284,8 @@ public class ManagerController extends HttpServlet {
 				System.out.println(hasNotRecomment);
 				request.getRequestDispatcher("manager/manager.inquire/inquireDetail.jsp").forward(request,response);
 			}else if(url.contentEquals("/teacherDelete.manager")) {  // 강사 정보 삭제
+				
+				l.trace(request.getRemoteAddr()+" 강사 정보 삭제");
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
 				String category = request.getParameter("category");
 				String search = request.getParameter("search");
@@ -298,7 +311,7 @@ public class ManagerController extends HttpServlet {
 				String search = request.getParameter("search");
 				String branch = request.getParameter("branch");
 				String delId = request.getParameter("delId");
-				
+				l.trace(request.getRemoteAddr()+" 학생 정보 삭제");
 				managerDao.memberDelete(delId);
 				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
 				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
@@ -358,11 +371,12 @@ public class ManagerController extends HttpServlet {
 				
 			}
 			else if(url.contentEquals("/writeView.manager")) { //관리자페이지 공지사항 글쓰기
-				System.out.println("정보를 받아옴");
+				l.trace(request.getRemoteAddr()+" 공지사항 작성");
+			
 				String filesPath =request.getServletContext().getRealPath("files");
 
 				File filesFolder = new File(filesPath);
-				System.out.println("프로젝트가 저장된 진짜 경로" + filesPath);
+				
 
 				if(!filesFolder.exists()) filesFolder.mkdir();
 				MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
@@ -375,12 +389,12 @@ public class ManagerController extends HttpServlet {
 				String khClass = multi.getParameter("KhClass");
 
 				int result = nbdao.write(seq,title,contents,khClass,branch);
-				System.out.println("게시글 입력 여부"+ result);
+				
 
 				Set<String>fileNames = multi.getFileNameSet();
-				System.out.println("파일갯수 "+fileNames.size());
+			
 				for(String fileName : fileNames) {
-					System.out.println("파라미터 이름: "+ fileName);
+					
 					String oriName = multi.getOriginalFileName(fileName);
 					String sysName = multi.getFilesystemName(fileName);
 
@@ -421,6 +435,7 @@ public class ManagerController extends HttpServlet {
 			
 			
 			}else if(url.contentEquals("/noticeModify.manager")) { //관리자페이지 공지사항 글쓰기 수정
+				l.trace(request.getRemoteAddr()+" 공지사항 수정");
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
 				String branch = request.getParameter("branch");		
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
@@ -442,7 +457,7 @@ public class ManagerController extends HttpServlet {
 				
 				
 			}else if(url.contentEquals("/noticeModifyView.manager")) { //관리자페이지 공지사항 글 수정 페이지
-			
+				l.trace(request.getRemoteAddr()+" 공지사항 수정");
 				String filesPath =request.getServletContext().getRealPath("files"); 
 				System.out.println(filesPath);
 				
@@ -508,7 +523,7 @@ public class ManagerController extends HttpServlet {
 					request.getRequestDispatcher("manager/manager.board/NBmodifyView.jsp").forward(request, response);
 
 			}else if(url.contentEquals("/noticeDelete.manager")) { //관리자페이지 공지사항 글쓰기 삭제
-				System.out.println("삭제중");
+			
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				String branch = request.getParameter("branch");		
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
@@ -522,7 +537,7 @@ public class ManagerController extends HttpServlet {
 				request.getRequestDispatcher("manager/manager.board/NBdeleteView.jsp").forward(request, response);
 				//관리자페이지 공지사항 댓글 삭제!!!
 			}else if(url.contentEquals("/deleteCom.manager")) { //관리자페이지 공지사항 글쓰기 삭제
-				
+				l.trace(request.getRemoteAddr()+" 공지사항 삭제");
 				int comment_seq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println("댓글번호: " + comment_seq);
 				int result = ncdao.deleteReply(comment_seq);
@@ -564,7 +579,7 @@ public class ManagerController extends HttpServlet {
 					String category = request.getParameter("category");
 					String search = request.getParameter("search");
 					managerDao.deleteFreeBoard(boardSeq);
-					
+					l.trace(request.getRemoteAddr()+" 자유게시판 삭제");
 			           response.sendRedirect(ctxPath+"/boardList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
 
 			}else if(url.contentEquals("/assDetail.manager")) {
@@ -612,6 +627,7 @@ public class ManagerController extends HttpServlet {
 					
 	         }
 		}catch(Exception e) {
+			l.trace(request.getRemoteAddr()+" 에러남");
 			e.printStackTrace();
 		}
 	}
