@@ -97,7 +97,7 @@ public class AssController extends HttpServlet {
 
 			}else if(url.contentEquals("/write.ass")) {
 
-				System.out.println("writeboard");
+				System.out.println("write.ass");
 
 				String filesPath = request.getServletContext().getRealPath("files");
 				File filesFolder = new File(filesPath); //java.io.file
@@ -156,12 +156,12 @@ public class AssController extends HttpServlet {
 			}else if(url.contentEquals("/list.ass")) {
 
 				String email = (String)request.getSession().getAttribute("login");
-				String name = daoM.getAllInfo(email).getName();
+				
 				String id = daoM.getAllInfo(email).getId();
 				String khClass= daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
 				String position = daoM.getAllInfo(email).getPosition();
-				MemberDTO dtoM = new MemberDTO(name, id, khClass, branch, position);
+				
 
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
@@ -187,8 +187,8 @@ public class AssController extends HttpServlet {
 				}
 
 
-				request.setAttribute("member", dtoM);
-				request.setAttribute("position", position);
+				request.setAttribute("loginId", id);
+				request.setAttribute("loginPosition", position);
 				request.setAttribute("assList", assList);
 
 				request.setAttribute("pageNavi", pageNavi);
@@ -202,6 +202,8 @@ public class AssController extends HttpServlet {
 			}else if(url.contentEquals("/view.ass")) {
 
 				int seq = Integer.parseInt(request.getParameter("ass_seq"));
+				String email = (String)request.getSession().getAttribute("login");
+				String id = daoM.getAllInfo(email).getId();
 
 				AssDTO ass1  = dao.select(seq); //해당 seq의 정보들 추출
 				int viewCount = ass1.getViewCount();
@@ -216,6 +218,7 @@ public class AssController extends HttpServlet {
 
 				List<AssSubmitDTO> assSubmit = daoS.selectAll(seq);
 
+				request.setAttribute("loginId", id);
 				request.setAttribute("assView", ass2);
 				request.setAttribute("assFiles", assFiles);
 				request.setAttribute("assSubmit", assSubmit);
@@ -284,20 +287,15 @@ public class AssController extends HttpServlet {
 				System.out.println("ass_seq: "+seq);
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
-				//String email = (String) request.getSession().getAttribute("login");
-				//String writer = daoM.getInfo(email).getName();
-				//String id = daoM.getInfo(email).getId();
-				//String khClass = daoM.getInfo(email).getKhClass();
-				//String branch = daoM.getInfo(email).getBranch();
-				String writer = "teacher";
-				String id ="t001JA";
-				String khClass = "JA";
-				String branch = "J";				
+				
+				String email = (String) request.getSession().getAttribute("login");
+				String writer = daoM.getAllInfo(email).getName();
+				String id = daoM.getAllInfo(email).getId();
+				String khClass = daoM.getAllInfo(email).getKhClass();
+				String branch = daoM.getAllInfo(email).getBranch();
+							
 
-				//멀티 파트로 받아온 파일은 request.getParameter로 안 불려짐.
-				//			MemberDTO memberdto = (MemberDTO)request.getSession().getAttribute("login");
-				//			String writer = memberdto.getId();
-				//			String t_number = memberdto.getT_number();
+				
 				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, null, 0);
 
 				int insert = dao.update(dto);

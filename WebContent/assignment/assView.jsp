@@ -77,9 +77,9 @@ div {
 
 		<div class="row files">
 			<div class="col-12">
-				<a href="download.ass?seq=${assFiles.seq}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">
-					${assFiles.oriName }
-				</a>
+				<a
+					href="download.ass?seq=${assFiles.seq}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">
+					${assFiles.oriName } </a>
 			</div>
 		</div>
 
@@ -124,18 +124,25 @@ div {
 			</form>
 		</c:forEach>
 
-		<form
-			action="${pageContext.request.contextPath}/modiForm.ass?ass_seq=${assView.seq}"
-			method=post>
-			<div class="row buttons">
-				<div class="col-6" style="text-align: left;">
-					<button type="button">back</button>
-				</div>
-				<div class="col-6" style="text-align: right;">
-					<button type="submit">Modify</button>
-				</div>
+
+		<div class="row buttons">
+			<div class="col-6" style="text-align: left;">
+				<button type="button">back</button>
 			</div>
-		</form>
+			<div class="col-6" style="text-align: right;">
+				<c:choose>
+					<c:when test="${assView.id==loginId}">
+						<form
+							action="${pageContext.request.contextPath}/modiForm.ass?ass_seq=${assView.seq}"
+							method=post>
+							<button type="submit">Modify</button>
+						</form>
+					</c:when>
+					<c:otherwise></c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+
 
 	</div>
 

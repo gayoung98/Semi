@@ -89,7 +89,7 @@ div {
 				<div class="col-3">${item.write_date }</div>
 				<div class="col-1">
 					<c:choose>
-						<c:when test="${item.id==member.id}">
+						<c:when test="${item.id==loginId}">
 							<button class=del seq="${item.seq }">x</button>
 						</c:when>
 						<c:otherwise></c:otherwise>
@@ -125,7 +125,7 @@ div {
 
 			<div class="col-3">
 				<c:choose>
-					<c:when test="${position=='teacher'}">
+					<c:when test="${loginPosition=='teacher'}">
 						<button id="write">글쓰기</button>
 					</c:when>
 					<c:otherwise></c:otherwise>
