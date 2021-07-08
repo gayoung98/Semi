@@ -64,7 +64,7 @@ public class MainDAO {
 				+ "c.seq, c.writer, c.id, c.contents, c.class, c.write_date "
 				+ "from "
 				+ "(select row_number() over(order by seq desc) rnum, seq, writer, id, contents, class, write_date from chatboard  where contents is not null) c join kh_member m on c.writer = m.email "
-				+ "where rnum between ? and ? and khclass= ? and branch = ?";
+				+ "where rnum between ? and ? and c.class=? and m.branch=?";
 		List<MainDTO> li = new ArrayList();
 		try(Connection conn = this.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql)){

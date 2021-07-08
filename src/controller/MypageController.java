@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +21,14 @@ import dao.CalanderDAO;
 import dao.MemberDAO;
 import dao.MyPageDAO;
 import dao.NoticeBoardDAO;
+import dao.NoticeCommentDAO;
+import dao.NoticeFileDAO;
 import dao.ProfileFileDAO;
 import dao.inquiredDAO;
 import dto.MemberDTO;
+import dto.NoticeBoardDTO;
+import dto.NoticeCommentsDTO;
+import dto.NoticeFilesDTO;
 import dto.ProfileFileDTO;
 import utils.*;
 
@@ -73,7 +79,7 @@ public class MypageController extends HttpServlet{
 			    request.setAttribute("d_day_percent",Util.dDay_to_Total());
 				request.setAttribute("FreeBoard", mpd.getWrittenFreeBoard(session));
 				request.setAttribute("Inquired", mpd.getWrittenInquired(session));
-				request.setAttribute("Notice", nbd.getMypageNotice(md.getAllInfo(session).getBranch())); 
+				request.setAttribute("Notice", nbd.getMypageNotice(md.getAllInfo(session).getBranch()));
 				request.getRequestDispatcher("Mypage/mypage.jsp").forward(request, response);
 				
 			} catch (Exception e) {
@@ -164,6 +170,8 @@ public class MypageController extends HttpServlet{
 			}
 			
 			break;
+			
+		case "/notice.mp":break;
 			}	
 	    }
 	}
