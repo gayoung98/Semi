@@ -89,7 +89,8 @@
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-				p {margin-left:20px;}
+				.target{margin-left:20px; margin-top:10px;}
+
 				
 				/* 작성자 정보 */
 				.profile_info{
@@ -321,13 +322,13 @@
 				</div>
 				<!-- 게시글  내용 -->
 				<div class="col-12 md-5 contents">
-					<p id="contents_text">${view.contents}</p>
+					<p class="target">${view.contents}</p>
 				</div>
 				<hr>
 				<!--첨부 파일리스트 출력  -->
 				<div id="content">
 					<fieldset class="file_box">
-						<legend>[첨부 파일 리스트]</legend>
+						<legend>[첨부 파일 목록]</legend>
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
 							<a href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}" class="files">${file.oriName}</a>

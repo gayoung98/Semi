@@ -15,8 +15,6 @@
 		body {background-color: #D8E3E7;}
 			
 			/*navibar*/
-		
-			nav{padding:0;margin: 0;}
 			
   		.navbar>.container-fluid {
             padding: 0px;
@@ -77,13 +75,14 @@
 				.title {
 					text-align: center;
 				}
-				/* 작성자 정보 */
+				
+					/*프로필 사진*/
 				.card-img-top{
 				width:100%;
 				}
 
 				.profilebox{
-  			  width: 80px;
+  			  width: 90px;
    			 height: 50px; 
     		overflow: hidden;
     
@@ -91,9 +90,14 @@
 				.profile_info{
 				margin-left:10px;
 				}
-				
+					/* 작성자 정보 */
+					.name_box{
+					margin-top:10px;
+					}
+					
+					
 				.WriterInfo .profile_info .name_box .name {
-				padding-top:10px;
+					padding-top:10px;
 					margin-right: 6px;
 					font-size: 13px;
 					font-weight: 700;
@@ -125,11 +129,8 @@
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-				p {margin-left:20px;}
-				
-				
-				
-				
+				p {margin-left:20px; margin-top:10px;}
+	
 				legend{
 				margin-left:20px;
 				padding:0;
@@ -301,8 +302,6 @@
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
 						inputcom.val($("#com").text());
-						
-
 						$("#modifyForm").append(inputcom);
 
 					});
@@ -310,7 +309,7 @@
 				  //게시글 신고
 					  $("#report").on("click",function() {							
 					let parent ="${view.seq}";
-						  window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+parent,"게시글 신고","width=350,height=450");           
+						  window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+parent,"게시글 신고","width=450,height=450");           
 					    });   
 					
 						});
@@ -334,7 +333,7 @@
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${member.email}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                  			<img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
@@ -370,7 +369,7 @@
 				<!--첨부 파일리스트 출력  -->
 				<div id="content">
 					<fieldset class="file_box">
-						<legend>[첨부 파일 리스트]</legend>
+						<legend>[첨부 파일 목록]</legend>
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
 							<a
