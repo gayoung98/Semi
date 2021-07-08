@@ -24,6 +24,12 @@ public class FreePoliceDTO {
 		this.reg_date = reg_date;
 	}
 
+	public FreePoliceDTO(String id, String contents, int parent) {
+		this.id = id;
+		this.contents = contents;
+		this.parent = parent;
+	}
+
 	public int getSeq() {
 		return seq;
 	}

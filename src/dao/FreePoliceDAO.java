@@ -29,13 +29,13 @@ public class FreePoliceDAO {
 		return ds.getConnection();
 	}
 
-	public int report(String id, String contents, String parent) throws Exception{ //게시글 신고하기
+	public int report(String id,String contents, int parent) throws Exception{ //게시글 신고하기
 		String sql="insert into freepolice values(freepolice_seq.nextval,?,?,?,sysdate)";
 		try(Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setNString(1, id);
 			pstat.setNString(2, contents);
-			pstat.setNString(3, parent);
+			pstat.setInt(3, parent);
 			int result = pstat.executeUpdate();
 
 			return result;

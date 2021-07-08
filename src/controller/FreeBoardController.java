@@ -22,6 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.FreeBoardDAO;
 import dao.FreeCommentDAO;
 import dao.FreeFilesDAO;
+import dao.FreePoliceDAO;
 import dao.MemberDAO;
 import dao.MyPageDAO;
 import dao.ProfileFileDAO;
@@ -55,6 +56,8 @@ public class FreeBoardController extends HttpServlet {
 			FreeFilesDAO ffdao =FreeFilesDAO.getInstance();
 			MyPageDAO mpd = MyPageDAO.getInstance();
 			ProfileFileDAO pfd = ProfileFileDAO.getInstance();
+			FreePoliceDAO fpdao = FreePoliceDAO.getInstance();
+
 			String session = (String) request.getSession().getAttribute("login");
 
 
@@ -115,8 +118,7 @@ public class FreeBoardController extends HttpServlet {
 				} else { 
 					request.setAttribute("profile_img",pfd.getFile(mpd.getID(session)));
 					 }
-				
-				
+			
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("navi", pageNavi);
 				request.setAttribute("category", category);
@@ -287,6 +289,26 @@ public class FreeBoardController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				int result = fbdao.delete(seq);
 				response.sendRedirect("free/FBdeleteView.jsp");
+				
+			}else if(url.contentEquals("/reportForm.fboard")) { //게시물 신고폼으로
+				System.out.println("seq 넘기!!");
+				int board_seq = Integer.parseInt(request.getParameter("seq"));
+				FreeBoardDTO dto = fbdao.detailView(board_seq);
+				request.setAttribute("view", dto);
+				request.getRequestDispatcher("free/reportPop.jsp").forward(request, response);
+
+			}else if(url.contentEquals("/report.fboard")) { //게시글 신고
+				System.out.println("신고접수!!");
+					
+				MemberDTO dto = mdao.getMainInfo(session);
+				String id = dto.getId();
+				String contents = request.getParameter("contents");
+				int parent = Integer.parseInt(request.getParameter("seq"));
+				int result = fpdao.report(id,contents,parent);
+				System.out.println("신고글 등록 여부 : "+ result);
+
+				RequestDispatcher rd = request.getRequestDispatcher("free/reportResult.jsp"); //게시물 등록 성공 화면
+				rd.forward(request, response);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

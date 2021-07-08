@@ -287,7 +287,6 @@
 					
 					$("#modifyForm").on("submit", function () { //댓글 수정 폼
 						let inputcom = $("<input>");
-						let parent = $
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
 						inputcom.val($("#com").text());
@@ -310,13 +309,12 @@
 					});
 					
 				  //게시글 신고
-					   $("#report").on("click",function() {
-						   
-						  window.open("${pageContext.request.contextPath}/free/reportPop.jsp","게시글 신고","width=300,height=400");           
-					    });  
-					 
+					  $("#report").on("click",function() {							
+					let parent ="${view.seq}";
+						  window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+parent,"게시글 신고","width=350,height=450");           
+					    });   
 					
-				});
+						});
 			</script>
 		</head>
 
@@ -337,7 +335,7 @@
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${member.email }/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                  			<img src="${pageContext.request.contextPath}/profile/${member.email}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
@@ -346,7 +344,7 @@
 		                   		
 		                   	</div>
 						<div class="name_box">
-							<a href="#" role="button" class="target"> ${view.writer} </a> <em
+							<a href="#" role="button"> ${view.writer} </a> <em
 								class="position">${view.branch}지점  </em>
 						</div>
 					</div>
