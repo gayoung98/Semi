@@ -112,6 +112,14 @@
 		} else{
 			$("#hidden_form").css("display","none");
 		}
+		
+		$("#submit").on("click",function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/regex.member",
+				type : "get",
+				data : {"email":$("#email").val(),"pw":$("pw").val(),"phone":$("#phone").val()},
+			})
+		})
 		 
 	})
 </script>
@@ -178,7 +186,7 @@
     	</div>
     	<center><div>
     	</div>
-        	<input type="submit" class="btn btn-outline-info w-25" value="가입하기">
+        	<input type="submit" class="btn btn-outline-info w-25" id="submit" value="가입하기">
         	<input type="reset" class="btn btn-outline-info w-25" value="취소하기">
         	<a href="${pageContext.request.contextPath}/index.jsp"><input type="button" class="btn btn-outline-info w-25" value="뒤로가기"></a>
     	</div></center>

@@ -49,20 +49,10 @@ public class LoginController extends HttpServlet {
 				}
 				
 			}else if(url.contentEquals("/join.member")) {
-				String email = request.getParameter("email");
-				boolean emailregex = Pattern.matches("\\S+@\\w+\\.\\w+(\\.\\w+)?", email);
-	            System.out.println("이메일 : " +emailregex);
-				
+				String email = request.getParameter("email");			
 				String pw = request.getParameter("pw");
-				boolean pwregex = Pattern.matches("^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$", pw);
-	            System.out.println("비밀번호 : "+ pwregex);	
-				
-				String name = request.getParameter("name");
-				
-				String phone = request.getParameter("phone").trim();
-				boolean regex = Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", phone);
-	            System.out.println("핸드폰 : " + regex);
-	            
+				String name = request.getParameter("name");			
+				String phone = request.getParameter("phone");            
 				String position = request.getParameter("position");
 				
 				MemberDTO dto = dao.getInfo(name, phone);
@@ -140,6 +130,25 @@ public class LoginController extends HttpServlet {
 					response.sendRedirect(ctxPath+"/view/checkView.jsp");
 				}
 				
+			}else if(url.contentEquals("/regex.member")) {
+				String email = request.getParameter("email");
+				boolean emailregex = Pattern.matches("\\S+@\\w+\\.\\w+(\\.\\w+)?", email);
+				if(emailregex == false) {
+					response.sendRedirect(ctxPath+"/view/emailRegex.jsp");
+				}
+	            
+				String phone = request.getParameter("phone");
+				boolean phoneregex = Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", phone);
+				if(phoneregex == false) {
+	            	response.sendRedirect(ctxPath+"/view/emailRegex.jsp");
+	            }
+				
+				//String pw = request.getParameter("pw");
+				//boolean pwregex = Pattern.matches("^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$", pw);
+	           // if(pwregex == false) {
+	           // 	response.sendRedirect(ctxPath+"/view/emailRegex.jsp");
+	           // }
+	            
 			}
 			
 		}catch(Exception e) {
