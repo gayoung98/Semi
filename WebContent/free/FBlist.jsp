@@ -10,6 +10,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
+html{}
+	body {background-color: #D8E3E7;min-height:900px;}
+
 /*navibar*/
 .navbar>.container-fluid {
 	padding: 0px;
@@ -27,29 +30,38 @@
 	top: 100%;
 	background-color: #55555550;
 }
-
+/*전체*/
 .container {
-	margin-top: 10px;
-	width: 100%;
+	margin-top: 50px;
+	width: 900px;
+
 }
+
 
 .first {
 	border-bottom: 3px solid black;
+	margin-left:10px;
+	margin-right:10px;
+	text-align:center;
 }
 
 .second {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+	margin-left:10px;
+	margin-right:10px;
+	text-align:center;
 }
 
-h2 {
+h2 {	
 	margin-left: 20px;
 	font-weight: bold;
+	padding-top:10px;
 	padding-bottom: 10px;
 }
 
-ul {
+.branch_list {
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 40px;
 }
 
 li a:hover {
@@ -66,7 +78,7 @@ a {
 }
 
 .writeBtn {
-	float: right;
+	padding-left:10px;	
 }
 
 .search {
@@ -75,6 +87,7 @@ a {
 
 .footer {
 	padding-top: 10px;
+	padding-bottom: 30px;
 }
 </style>
 
@@ -95,29 +108,29 @@ $("#back").on("click",function(){
 <body>
 	<jsp:include page="/navibar.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container shadow bg-white rounded">
 		<h2 class="text-center">자유게시판</h2>
-		<ul class="nav justify-content-center">
+		<ul class="nav justify-content-center branch_list">
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page"
 				href="${pageContext.request.contextPath}/list.fboard?cpage=1">전체</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=종로&cpage=1&category=&keyword=">종로</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=J&cpage=1&category=&keyword=">종로</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=강남&cpage=1&category=&keyword=">강남</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=K&cpage=1&category=&keyword=">강남</a>
 			</li>
 			<li class="nav-item"><a class="nav-link "
-				href="${pageContext.request.contextPath}/list.fboard?branch=당산&cpage=1&category=&keyword=">당산</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=D&cpage=1&category=&keyword=">당산</a>
 			</li>
 		</ul>
 
 
 		<div class="row first">
 			<div class="col-12 col-md-1 d-none d-md-block">No</div>
-			<div class="col-12 col-md-2" style="text-align: center;">지점명</div>
-			<div class="col-12 col-md-4 title">제목</div>
+			<div class="col-12 col-md-1" >지점</div>
+			<div class="col-12 col-md-5 title">제목</div>
 			<div class="col-12 col-md-2 d-none d-md-block">작성자</div>
 			<div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
 			<div class="col-12 col-md-1 d-none d-md-block">조회수</div>
@@ -127,8 +140,8 @@ $("#back").on("click",function(){
 			<div class="row second">
 
 				<div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
-				<div class="col-12 col-md-2">${i.branch}</div>
-				<div class="col-12 col-md-4 title">
+				<div class="col-12 col-md-1">${i.branch}</div>
+				<div class="col-12 col-md-5 title">
 					<a href="detailView.fboard?seq=${i.seq}">${i.title}</a>
 					[${count.replyCount(i.seq)}]
 				</div>
@@ -161,10 +174,10 @@ $("#back").on("click",function(){
 				</c:choose>
 			</c:forEach>
 		</div>
-		<div class="footer">
-			<button type="button" name="write" class="btn btn-dark writeBtn">글쓰기</button>
-			<input type=button class="btn btn-dark" value="메인으로" id="back">
-		</div>
+		<div class="text-right footer">
+			<button type="button" name="write" class="btn btn-primary writeBtn">글쓰기</button>
+			<input type=button class="btn btn-secondary" value="메인으로" id="back">
+		
 		<div class="search">
 			<form action="${pageContext.request.contextPath}/list.fboard"
 				method="get">
@@ -199,6 +212,7 @@ $("#back").on("click",function(){
 					</c:otherwise>
 				</c:choose>
 			</form>
+		</div>
 		</div>
 	</div>
 </body>

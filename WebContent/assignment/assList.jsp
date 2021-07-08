@@ -52,78 +52,88 @@ div {
 </head>
 <body>
 
-	
-			<jsp:include page="/navibar.jsp" />
-			<div class="container">
-				<div class="row header" style="text-align: center;">
-					<h2>과제</h2>
+
+	<jsp:include page="/navibar.jsp" />
+	<div class="container">
+		<div class="row header" style="text-align: center;">
+			<h2>과제</h2>
+		</div>
+
+		<div class="row search" style="text-align: center;">
+
+			<form action="list.ass">
+				<input type="hidden" name="currentPage" value="${currentPage}">
+				<select name="category">
+					<option value="title">제목</option>
+					<option value="contents">내용</option>
+				</select> <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+				<button type="submit" id="search">search</button>
+			</form>
+		</div>
+
+		<div class="row columns">
+			<div class="col-1"></div>
+			<div class="col-5">title</div>
+			<div class="col-2">writer</div>
+			<div class="col-3">write_date</div>
+			<div clss="col-1"></div>
+		</div>
+
+		<c:forEach var="item" items="${assList}">
+			<div class="row list" style="overflow: hidden">
+				<div class="col-1 seq">${item.seq }</div>
+				<div class="col-5">
+					<a href="view.ass?ass_seq=${item.seq}">${item.title }</a>
 				</div>
-
-				<div class="row search" style="text-align: center;">
-
-					<form action="list.ass">
-						<input type="hidden" name="currentPage" value="${currentPage}">
-						<select name="category">
-							<option value="title">제목</option>
-							<option value="contents">내용</option>
-						</select> <input type="text" name="keyword" placeholder="검색어를 입력하세요">
-						<button type="submit" id="search">search</button>
-					</form>
-				</div>
-
-				<div class="row columns">
-					<div class="col-1"></div>
-					<div class="col-5">title</div>
-					<div class="col-2">writer</div>
-					<div class="col-3">write_date</div>
-					<div clss="col-1"></div>
-				</div>
-
-				<c:forEach var="item" items="${assList}">
-					<div class="row list" style="overflow: hidden">
-						<div class="col-1 seq">${item.seq }</div>
-						<div class="col-5">
-							<a href="view.ass?ass_seq=${item.seq}">${item.title }</a>
-						</div>
-						<div class="col-2">${item.writer }</div>
-						<div class="col-3">${item.write_date }</div>
-						<div class="col-1">
+				<div class="col-2">${item.writer }</div>
+				<div class="col-3">${item.write_date }</div>
+				<div class="col-1">
+					<c:choose>
+						<c:when test="${item.id==member.id}">
 							<button class=del seq="${item.seq }">x</button>
-						</div>
-
-					</div>
-				</c:forEach>
-
-				<div class="row footer">
-					<div class="col-3"></div>
-
-					<div class="col-6" style="text-align: center;">
-						<nav>
-							<c:forEach var="i" items="${pageNavi }" varStatus="s">
-								<c:choose>
-									<c:when test="${i == '<'}">
-										<a
-											href="${pageContext.request.contextPath}/list.ass?currentPage=${pageNavi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
-									</c:when>
-									<c:when test="${i == '>'}">
-										<a
-											href="${pageContext.request.contextPath}/list.ass?currentPage=${pageNavi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
-									</c:when>
-									<c:otherwise>
-										<a
-											href="${pageContext.request.contextPath}/list.ass?currentPage=${i}&category=${category}&keyword=${keyword}">${i }</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</nav>
-					</div>
-
-					<div class="col-3">
-						<button id="write">글쓰기</button>
-					</div>
+						</c:when>
+						<c:otherwise></c:otherwise>
+					</c:choose>
 				</div>
+
 			</div>
-		
+		</c:forEach>
+
+		<div class="row footer">
+			<div class="col-3"></div>
+
+			<div class="col-6" style="text-align: center;">
+				<nav>
+					<c:forEach var="i" items="${pageNavi }" varStatus="s">
+						<c:choose>
+							<c:when test="${i == '<'}">
+								<a
+									href="${pageContext.request.contextPath}/list.ass?currentPage=${pageNavi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
+							</c:when>
+							<c:when test="${i == '>'}">
+								<a
+									href="${pageContext.request.contextPath}/list.ass?currentPage=${pageNavi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
+							</c:when>
+							<c:otherwise>
+								<a
+									href="${pageContext.request.contextPath}/list.ass?currentPage=${i}&category=${category}&keyword=${keyword}">${i }</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</nav>
+			</div>
+
+			<div class="col-3">
+				<c:choose>
+					<c:when test="${position=='teacher'}">
+						<button id="write">글쓰기</button>
+					</c:when>
+					<c:otherwise></c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 </html>

@@ -19,14 +19,32 @@
     let callPopUp = function(e){
 		window.open("${pageContext.request.contextPath}/inquired.mp?seq="+e, "inquired", 'width=550px,height=600px,scrollbars=no,resizable=no');
 	}	
+    $(function(){
+    
+    	$("#inquired_btn").on("click",function(){
+    		let popup = window.open('${pageContext.request.contextPath}/inquired/popup.jsp', 'inquire', 'width=550px,height=600px,scrollbars=no,resizable=no');
+    	})
+    	
+    	 $("#close_popup").on("click", function(){
+	        parent.window.close();
+	    })
+    })
     
     
     
     </script>
     
+    <style type="text/css">
+    .btn_container{
+	    float: right;
+	    margin-right:3%;
+	}
+    
+    </style>
+    
 </head>
 <body>
-
+<div class = "container-fluid">
   <table class="table">
   <thead class="thead-light">
     <tr>
@@ -60,15 +78,24 @@
       <td colspan =2><a href ="javascript:callPopUp(${item.seq})">${item.contents }</a></td>
       <td>${item.reg_date }</td>
       <td>
-      <c:if test="${item.recomment==null }">
-     <span class="badge badge-secondary">답변 대기</span>
-      </c:if>
-      <span class="badge badge-danger">답변 완료</span>
+      <c:choose>
+      <c:when test="${item.recomment==null }">
+     	<span class="badge badge-secondary">답변 대기</span>
+      </c:when>
+      <c:otherwise>
+      	<span class="badge badge-danger">답변 완료</span>
+      </c:otherwise>
+      </c:choose>
       </td>
     </tr>
     </c:forEach>
   </tbody>
 </table>
-
+	<div class ="btn_container">
+                <button type="button" class="btn btn-light" id="inquired_btn" >문의하기</button>
+                <button type="button" class="btn btn-danger" id="close_popup">닫기</button>
+            </div>
+            
+            </div>
 </body>
 </html>
