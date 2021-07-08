@@ -15,10 +15,15 @@
 <style>
 * {
 	box-sizing: border-box;
+	text-align: center;
 }
 
-div {
-	border: 1px solid black;
+body {
+	background-color: #D8E3E7;
+}
+
+.container {
+	margin-top: 80px;
 }
 
 .navbar>.container-fluid {
@@ -54,7 +59,7 @@ div {
 
 
 	<jsp:include page="/navibar.jsp" />
-	<div class="container">
+	<div class="container p-4 shadow bg-white rounded">
 		<div class="row header" style="text-align: center;">
 			<h2>과제</h2>
 		</div>
@@ -90,7 +95,7 @@ div {
 				<div class="col-1">
 					<c:choose>
 						<c:when test="${item.id==loginId}">
-							<button class=del seq="${item.seq }">x</button>
+							<button seq="${item.seq }" class="btn btn-dark del">x</button>
 						</c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
@@ -123,10 +128,10 @@ div {
 				</nav>
 			</div>
 
-			<div class="col-3">
+			<div class="col-3" style=""text-align: right">
 				<c:choose>
 					<c:when test="${loginPosition=='teacher'}">
-						<button id="write">글쓰기</button>
+						<button class="btn btn-primary" id="write">글쓰기</button>
 					</c:when>
 					<c:otherwise></c:otherwise>
 				</c:choose>

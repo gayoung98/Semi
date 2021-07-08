@@ -19,34 +19,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<!-- include summernote css/js -->
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+
 <style>
 * {
 	box-sizing: border-box;
 	text-align: center;
 }
 
+.row {
+	margin: 4%;
+}
+
 #title {
-	margin-top: 3%;
 	width: 100%;
 	height: 100%;
-}
-
-#content {
-	width: 100%;
-	margin-top: 4%;
-	margin-bottom: 2%;
-	text-align: left;
-}
-
-.buttons {
-	padding-bottom: 15px;
 }
 
 .navbar>.container-fluid {
@@ -65,45 +54,41 @@
 	top: 100%;
 	background-color: #55555550;
 }
-</style>
 
+.ql-editor {
+	min-height: 40vh;
+	min-width: 100%;
+	overflow-y: auto;
+}
+</style>
 <script>
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                height: 300,                 // set editor height
-                minHeight: null,             // set minimum height of editor
-                maxHeight: null,             // set maximum height of editor
-                focus: true                  // set focus to editable area after initializing summernote
-            });
-        })
-        $(function(){
-        	
-        	$("#fileDel").on("click", function() {
-    			let seq = ($(this).attr("seq"));
-    			
-    			let inputFile = $("<input>");
-    			inputFile.attr("type","file");
-    			inputFile.attr("name","file");
-    			
-    			let inputBox = $("<div>");
-    			inputBox.attr("class","col-12");
-    			inputBox.attr("style","margin-top: 3%;");
-    			
-    			inputBox.append(inputFile);
-    			$("#files").append(inputBox);
-    			    			
-    			$(this).parent().remove();
-    			let del = $("<input>");
-    			del.attr("type", "hidden");
-    			del.attr("name", "delete");
-    			del.attr("value", seq);
-    			$(".title").append(del);
-    			
-    		});
-        	
-        })
-        
-	</script>
+	$(function() {
+
+		$("#fileDel").on("click", function() {
+			let seq = ($(this).attr("seq"));
+
+			let inputFile = $("<input>");
+			inputFile.attr("type", "file");
+			inputFile.attr("name", "file");
+
+			let inputBox = $("<div>");
+			inputBox.attr("class", "col-12");
+			inputBox.attr("style", "margin-top: 3%;");
+
+			inputBox.append(inputFile);
+			$("#files").append(inputBox);
+
+			$(this).parent().remove();
+			let del = $("<input>");
+			del.attr("type", "hidden");
+			del.attr("name", "delete");
+			del.attr("value", seq);
+			$(".title").append(del);
+
+		});
+
+	})
+</script>
 
 </head>
 <body>
@@ -119,11 +104,11 @@
 
 			</div>
 			<div class="row title">
-				<div class="col-12">
-					<input type="text" name="title" value="${assView.title}" id="title">
+				<div class="col-12 col-md-8">
+					<input type="text" name="title" id="title" value="${assView.title}">
 				</div>
-
 			</div>
+
 			<div class="row files">
 				<div class="col-12" style="margin-top: 3%;">
 					${assFiles.oriName}
@@ -135,13 +120,34 @@
 
 			<div class="row content" style="padding: 0px;">
 				<div class="col-12">
-					<!-- <textarea name="contents" id="summernote"></textarea>  -->
-					<textarea rows=10 cols=20 id="contents" name="contents"
-						value="${assView.contents}"></textarea>
+					<div id="editor">${assView.contents}</div>
+					<textarea id="contents" name="contents" style="display: none"></textarea>
+
+					<!-- Include the Quill library -->
+					<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+					<!-- Initialize Quill editor -->
+					<script>
+						var quill = new Quill('#editor', {
+							theme : 'snow'
+						});
+
+						// 폼(input)에 자동저장
+
+						$(".ql-editor").on('blur', function() {
+
+							var myEditor = document.querySelector('#editor');
+							var html = myEditor.children[0].innerHTML;
+							$("#contents").html(html);
+
+						});
+					</script>
 				</div>
+
 			</div>
 
-			<div class="row buttons">
+
+			<div class="row buttons" style="margin-top: 58px;">
 				<div class="col-6" style="text-align: left;">
 					<button type="button">이전</button>
 				</div>
@@ -150,6 +156,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</form>
 
 </body>
