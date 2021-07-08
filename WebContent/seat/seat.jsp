@@ -80,8 +80,25 @@
     
 
 		<script>
+		//let date = "mo";  /// 저걸 
         $(function () {
-        	
+          // 일케 해봄?예..똑같음..아 페이지가 다시 레프레쉬 되는거지?ㅖ. ㅇ 금데 그럼 적어도 월요일에 내가 예약한거라도 나와야되는데 왜 안나올까..
+        	/* $(document).on("click",".week",function(){
+            	console.log($(this).attr("id"))
+            	date = $(this).attr("id");
+            	/* location.href = "${pageContext.request.contextPath}/complete.seat?date="+date */
+           /* $.ajax({
+        		url: "${pageContext.request.contextPath}/complete.seat",
+        		dataType: "JSON"
+        	}).done(function(result){
+        		for(var i=0; i<result.length; i++){
+        			$("#"+result[i].seat_number).css("background-color","rgb(252, 255, 53)")
+        			$("#"+result[i].seat_number).attr("data-Ischoose","true")
+        			$("#"+result[i].seat_number).html(result[i].name)
+        	}
+        	})
+            }) */
+         	
         	$.ajax({
         		url: "${pageContext.request.contextPath}/complete.seat",
         		dataType: "JSON"
@@ -94,10 +111,9 @@
         	})
         	
         	
-        	let id = "blue";
             let sub = 0;
             let before_seat = null;
-            for (let index = 1; index <= 18; index += 3) {
+            for (let index = 1; index <= 18; index += 3) {//이거같음 이거 생성되는건넹
                 let tr = $("<tr>");
                 for (let index2 = index; index2 < index + 3; index2++) {
                     let number = index2 - sub;
@@ -138,7 +154,7 @@
                     
                 }
                 $(".right").append(tr);
-            }
+            } 
 			
             /* $(document).on("click", ".seat", function () {
             	//confirm("해당 좌석을 예약하시겠습니까?")
@@ -147,6 +163,8 @@
             $(".noselect").on("click",function(){
             	alert("선택할 수 없는 좌석입니다.")
             })
+            
+            
        
             $(document).on("click",".seat",function(){
     //        	console.log($(this).attr("id"));
@@ -157,10 +175,20 @@
 	                	data: {"seatNumber":$(this).attr("id")}
 	                }).done(function(result){
 	                	console.log(result)
-	                	$("#"+result).css("background-color","rgb(252, 255, 53)");
-	                	$("#"+result).attr("data-Ischoose","true");
-	                	$("#"+result).html("예약완료")
-	                	alert("예약되었습니다.")
+	                	if(result == "already"){
+	                		alert("이미 다른 좌석을 예약하셨습니다.")
+	                	}else if(result == "corona"){
+	                		alert("해당 요일은 이미 14명이 신청하였습니다.")
+	                	}else{
+	                		if(confirm("해당 좌석을 예약하시겠습니까?")){
+	                		$("#"+result).css("background-color","rgb(252, 255, 53)");
+		                	$("#"+result).attr("data-Ischoose","true");
+		                	$("#"+result).html("예약완료")
+		                	alert("예약완료")
+	                		}else{
+	                			location.href = "${pageContext.request.contextPath}/confirmReserve.seat?seat_number="+result;
+	                		}
+	                	}
 	                	
 	                })	
                 }else{
@@ -168,17 +196,25 @@
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
 	                	data: {"cancelSeat":$(this).attr("id")}
 	                }).done(function(result){
-	                	$("#"+result).css("background-color","white");
-	                	$("#"+result).attr("data-Ischoose","false");
-	                	$("#"+result).html("<i class=\"fas fa-desktop\">" + "<br>" + result)
-	                	alert("예약이 취소되었습니다.")
+	                	if(result == "notmyseat"){
+	                		alert("다른 사람이 먼저 예약한 자리입니다.")
+	                	}else{
+	                		if(confirm("예약을 취소하시겠습니까?")){
+	                			$("#"+result).css("background-color","white");
+			                	$("#"+result).attr("data-Ischoose","false");
+			                	$("#"+result).html("<i class=\"fas fa-desktop\">" + "<br>" + result)
+			                	alert("예약이 취소되었습니다.")
+	                		}else{
+	                			location.href = "${pageContext.request.contextPath}/confirmCancel.seat?seat_number="+result;
+	                		}
+	                	}
 	                })
                 }
             	
             	
             })
             
-        
+        //console.log(date);
             	
             })
             
@@ -191,11 +227,11 @@
 <input type = "hidden" id="writer" value = "${login }">
     <center>
         <div class="day">
-            <div class="mon">월</div>
-            <div class="tue">화</div>
-            <div class="wed">수</div>
-            <div class="thu">목</div>
-            <div class="fri">금</div>
+            <div class="week" id="mo"><a href = "${pageContext.request.contextPath}/date.seat?date=mo">월</a></div>
+            <div class="week" id="tu"><a href ="${pageContext.request.contextPath}/date.seat?date=tu">화</a></div>
+            <div class="week" id="we"><a href ="${pageContext.request.contextPath}/date.seat?date=we">수</a></div>
+            <div class="week" id="th"><a href ="${pageContext.request.contextPath}/date.seat?date=th">목</a></div>
+            <div class="week" id="fr"><a href ="${pageContext.request.contextPath}/date.seat?date=fr">금</a></div>
         </div>
         <div>
         [KH 종로반 E 클래스 교실 구조]

@@ -8,17 +8,19 @@
             <title>freeBoard modify</title>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
             <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-            		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-            <style>
-            
+         
+         <style>
+            body {background-color: #D8E3E7;}
             /*navibar*/
-  .navbar>.container-fluid {
+ 		 .navbar>.container-fluid {
             padding: 0px;
         }
-
+		ul{
+        padding:0px;}
         .navbar-nav {
             flex-grow: 1;
             justify-content: space-around;
@@ -35,27 +37,35 @@
                     max-width: 900px;
                     margin-left: 10px;
                     margin: 30px auto;
-                    margin-top:30px;
+                    margin-top:50px;
+                    margin-bottom:20px;
+                    
                 }
 
                 div {
                     display: block;
                 }
+                
+			
 
                 h2 {
                     margin-left: 20px;
                     margin-bottom: 0px;
+                    font-weight: bold;   
                     display: block;
                     margin-inline-end: 0px;
                 }
 
                 .title_area {
                     border-bottom: 1px solid #ddd;
+                    padding-top:30px;
                 }
 
                 a {
                     text-decoration: none;
                     cursor: pointer;
+                    font-weight: bold;
+                    
                 }
 
                 li a:hover {
@@ -70,7 +80,8 @@
                 .title_are {
                     margin-top: 10px;
                 }
-
+			#title_input{
+				width:800px;}
                 .title_area h2 input {
                     border: none;
                 }
@@ -89,16 +100,20 @@
                     width: 100%;
                     height: 90%;
                 }
+                p{margin-left:20px;}
+                
 
                 /* 작성자 정보 */
+                .profile_info{
+				margin-left:20px;
+				}
                 .WriterInfo {
                     margin-top: 10px;
                 }
-
-                .articleInfo {
-                    margin-top: 5px;
-                    margin-bottom: 5px;
-                }
+			.writer{padding-left: 10px;
+				padding-top:10px;
+				}
+         
 
                 .WriterInfo .profile_info .name_box .name {
                     padding: 10px;
@@ -106,20 +121,35 @@
                     font-size: 13px;
                     font-weight: 700;
                 }
-
+                
+			
                 .profile_info img {
                     margin-top: 10px;
                 }
-
+			span{
+				margin-left:20px;}
+				
+				.count{
+				font-weight:800;}
+				
                 .WriterInfo .article_info {
                     font-size: 12px;
-                    line-height: 13px;
+					line-height: 13px;
+					width: 95%;
                 }
-
+			.articleInfo {
+					margin-top: 10px;
+					margin-bottom: 10px;
+				}
                 legend {
                     border: 0;
+                    margin-left:20px;
                 }
-                
+                #file_box{margin-left:20px;}
+                .footer{
+				padding-top:10px;
+				padding-bottom:20px;}
+				
                 hr{padding:0;}
             </style>
             <script>
@@ -176,7 +206,7 @@
         <body>
         <jsp:include page="/navibar.jsp"></jsp:include>
         
-            <div class="container">
+            <div class="container shadow bg-white rounded">
                 <!-- 게시물 제목 -->
                 <form action="${pageContext.request.contextPath}/modifyedit.fboard" method="post" enctype="multipart/form-data">
 
@@ -184,7 +214,7 @@
                         <div class="col-12 title_area">
 
                             <h2>
-                                <input type="text" name="title" size="50" value="${view.title}">
+                                <input id="title_input" type="text" name="title" size="50" value="${view.title}">
                             </h2>
 
                         </div>
@@ -232,7 +262,7 @@
                                 <input type="file" name="file" multiple="multiple"> <br>
                                 <input type="file"name="file">
                         </fieldset>
-                        <div class="btn_wrap text-right">
+                        <div class="btn_wrap text-right footer">
                             <input type="submit" class="btn btn-primary" value="수정 완료">
                             <input type= "button" class="btn btn-dark" value="목록으로" id="listBtn">
 

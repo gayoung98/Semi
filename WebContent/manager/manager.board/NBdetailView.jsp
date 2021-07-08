@@ -295,18 +295,7 @@ textarea {
 												<span>${i.write_date}</span>
 											</div>
 										</div> <!-- 댓글 수정 controller -->
-										<div class="btn_wrap text-right" id="buttons">
-
-
-											<!-- 댓글 삭제 -->
-											<form id=replyForm>
-												<button type="button" value="${i.seq}"
-													class="btn btn-dark deleteReply">삭제</button>
-												<input type="hidden" value="${i.seq}"> <input
-													type="hidden" value="${i.parent}">
-
-											</form>
-										</div>
+										
 									</li>
 								</ul>
 							</c:forEach>

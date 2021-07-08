@@ -12,9 +12,13 @@
 		
 			
 			<style>
-			/*navibar*/
+		body {background-color: #D8E3E7;}
 			
-  .navbar>.container-fluid {
+			/*navibar*/
+		
+			nav{padding:0;margin: 0;}
+			
+  		.navbar>.container-fluid {
             padding: 0px;
         }
 
@@ -25,19 +29,24 @@
         .slide {
             position: absolute;
             width: 100%;
-            height: 40px;
+            height: 50px;
             top: 100%;
             background-color: #55555550;
         }
+        ul{
+        padding:0px;}
 				.container {
-					margin-top: 40px;
+					max-width: 900px;
+					margin-top: 50px;
 					width: 100%;
+					margin-bottom:20px;
 				}
 
 				div {
 					display: block;
 				}
-
+				h3{margin-left: 20px;
+				}
 				h2 {
 					margin-left: 20px;
 					margin-bottom: 0px;
@@ -49,8 +58,8 @@
 
 				.title_area {
 					border-bottom: 1px solid #ddd;
+					padding-top:20px;
 				}
-
 
 				li a:hover {
 					color: cadetblue;
@@ -69,13 +78,31 @@
 
 				/* 내용 */
 				.contents {
+					padding:0;
+					margin-left:20px;
 					height: 200px;
+					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-
+				p{margin-left:20px;}
+				
 				/* 작성자 정보 */
+				.card-img-top{
+				width:100%;
+				}
+
+				.profilebox{
+  			  width: 80px;
+   			 height: 50px; 
+    		overflow: hidden;
+    
+			}
+				.profile_info{
+				margin-left:10px;
+				}
 				.WriterInfo .profile_info .name_box .name {
+				padding-top:10px;
 					margin-right: 6px;
 					font-size: 13px;
 					font-weight: 700;
@@ -84,9 +111,23 @@
 				.WriterInfo .article_info {
 					font-size: 12px;
 					line-height: 13px;
-					
+					width: 95%;
 				}
-				.writerInfo{margin-bottom:20px;}
+				span{
+				margin-left:20px;}
+				.count{
+				font-weight:800;}
+				
+				.writerInfo{margin-bottom:15px;
+				margin-top:10px;
+				padding-left:20px;
+				width:98%;
+				}
+				
+				legend{
+				margin-left:20px;
+				padding:0;
+				}
 				/* 댓글 */
 				.com {
 					float: right;
@@ -137,7 +178,7 @@
 				
 				}
 
-				ul {
+				.comment_list {
 					list-style: none;
 					list-style-position: initial;
 					list-style-image: initial;
@@ -153,8 +194,10 @@
 				}
 
 				.comment_box {
-					border: 1px solid black;
-					padding-right: 0;
+				border: 1px solid #ddd;
+				margin-left:20px;
+				width:800px;
+					padding-right: 20;
 				}
 
 				.CommentBox .comment_list .comment_info_box {
@@ -181,8 +224,16 @@
 				.complete {
 					margin-left: 5px;
 				}
+				.listBtn{margin-right:10px;}
 				
+				.footer{
+				padding-top:10px;
+				padding-bottom:20px;}
+				
+				/* 신고하기  */
 				#report{font-size:12px;}
+				
+			
 			</style>
 			<script>
 				$(function () {
@@ -236,7 +287,6 @@
 					
 					$("#modifyForm").on("submit", function () { //댓글 수정 폼
 						let inputcom = $("<input>");
-						let parent = $
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
 						inputcom.val($("#com").text());
@@ -259,20 +309,19 @@
 					});
 					
 				  //게시글 신고
-					   $("#report").on("click",function() {
-						   
-						  window.open("${pageContext.request.contextPath}/free/reportPop.jsp","게시글 신고","width=300,height=400");           
-					    });  
-					 
+					  $("#report").on("click",function() {							
+					let parent ="${view.seq}";
+						  window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+parent,"게시글 신고","width=350,height=450");           
+					    });   
 					
-				});
+						});
 			</script>
 		</head>
 
 		<body>
 		<jsp:include page="/navibar.jsp"></jsp:include>
 		
-			<div class="container">
+			<div class="container shadow bg-white rounded">
 				<!-- 게시물 제목 -->
 				<div class="col-12 title_area">
 
@@ -282,10 +331,20 @@
 				<!-- 작성자 정보 -->
 				<div class="writerInfo">
 					<div class="profile_info">
-						<a href=""> <img src="title.jpg" alt="프로필 사진" width="30" height="30">
-						</a>
+					
+					<div class ="profilebox shadow bg-white" >
+			                	<c:choose>
+				                	<c:when test="${profile_img != null}">
+			                  			<img src="${pageContext.request.contextPath}/profile/${member.email}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                   		</c:when>
+			                   		<c:otherwise>
+			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
+			                   		</c:otherwise>
+		                   		</c:choose>
+		                   		
+		                   	</div>
 						<div class="name_box">
-							<a href="#" role="button" class="target"> ${view.writer} </a> <em
+							<a href="#" role="button"> ${view.writer} </a> <em
 								class="position">${view.branch}지점  </em>
 						</div>
 					</div>
@@ -390,7 +449,7 @@
 				</div>
 				<hr>
 				<!-- 로그인 유저와 글쓴이가 같다면? 수정/삭제 -->
-				<div class="btn_wrap text-right">
+				<div class="btn_wrap text-right footer">
 					<c:choose>
 						<c:when test="${login== view.writer}">
 							<button type="button" value="${view.seq}" class="btn btn-primary"

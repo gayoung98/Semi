@@ -62,13 +62,23 @@ public class FreeBoardDAO {
 			while(rs.next()) {
 				int seq = rs.getInt("seq");
 				String branch = rs.getNString("branch");
+				String khBranch="";
+				if(branch.contentEquals("J")) {
+					khBranch+="종로";
+				}else if(branch.contentEquals("D")) {
+					khBranch+="당산";
+				}else if(branch.contentEquals("K")) {
+					khBranch+="강남";
+				}else{
+					khBranch+="전체";
+				}
 				String title = rs.getNString("title");
 				String contents = rs.getNString("contents");
 				String writer =rs.getNString("writer");
 				Date write_date =rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
 
-				FreeBoardDTO dto = new FreeBoardDTO(seq,branch,writer,title,contents,null,write_date,viewCount,0);
+				FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,contents,null,write_date,viewCount,0);
 				list.add(dto);
 			}
 			return list;
@@ -97,12 +107,22 @@ public class FreeBoardDAO {
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String findBranch = rs.getNString("branch");
+					String khBranch="";
+					if(findBranch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(findBranch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(findBranch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,findBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -132,12 +152,22 @@ public class FreeBoardDAO {
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String findBranch = rs.getNString("branch");
+					String khBranch="";
+					if(findBranch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(findBranch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(findBranch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,findBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -168,12 +198,22 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String searchedBranch = rs.getNString("branch");
+					String khBranch="";
+					if(searchedBranch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(searchedBranch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(searchedBranch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,searchedBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -205,12 +245,22 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String searchedBranch = rs.getNString("branch");
+					String khBranch="";
+					if(searchedBranch.contentEquals("J")) {
+						khBranch+="종로";
+					}else if(searchedBranch.contentEquals("D")) {
+						khBranch+="당산";
+					}else if(searchedBranch.contentEquals("K")) {
+						khBranch+="강남";
+					}else{
+						khBranch+="전체";
+					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,searchedBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -241,13 +291,23 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				rs.next();
 				int num = rs.getInt("seq");
 				String branch = rs.getString("branch");
+				String khBranch="";
+				if(branch.contentEquals("J")) {
+					khBranch+="종로";
+				}else if(branch.contentEquals("D")) {
+					khBranch+="당산";
+				}else if(branch.contentEquals("K")) {
+					khBranch+="강남";
+				}else{
+					khBranch+="전체";
+				}
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");
 				String writer = rs.getString("writer");
 				Date writer_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
 
-				FreeBoardDTO result = new FreeBoardDTO(num,branch,writer,title,contents,null,writer_date,viewCount,0);
+				FreeBoardDTO result = new FreeBoardDTO(num,khBranch,writer,title,contents,null,writer_date,viewCount,0);
 				return result;
 			}
 		}

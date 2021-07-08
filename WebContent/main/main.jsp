@@ -496,7 +496,7 @@ scale
 													console.log("count= "+ count)
 													for (var i = 0; i < resp.length; i++) {
 
-														if (resp[i].writer == $("#writer").val()) {
+														if (resp[i].writer === $("#writer").val()) {
 															let msgBox = $("<div class=\"msgBox\">");
 															let msg = $("<div class=\"msg1\">");
 															msgBox.attr(
