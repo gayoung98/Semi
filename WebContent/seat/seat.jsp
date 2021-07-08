@@ -20,10 +20,8 @@
     
 
 		<script>
-		//let date = "mo";  /// 저걸 
         $(function () {
-          // 일케 해봄?예..똑같음..아 페이지가 다시 레프레쉬 되는거지?ㅖ. ㅇ 금데 그럼 적어도 월요일에 내가 예약한거라도 나와야되는데 왜 안나올까..
-        	/* $(document).on("click",".week",function(){
+         /* $(document).on("click",".week",function(){
             	console.log($(this).attr("id"))
             	date = $(this).attr("id");
             	/* location.href = "${pageContext.request.contextPath}/complete.seat?date="+date */
@@ -65,7 +63,8 @@
                     tr.append(td);
                     }else {
                     	let td = $("<td class=noselect data-seat=A" + number + " data-Ischoose= false align=center>")
-                        td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
+                        //td.append("<i class=\"fas fa-desktop\">" + "<br>" + "A" + number)
+                        td.append("X")
                             td.css("width", "100");
                         
                         tr.append(td);
@@ -86,8 +85,9 @@
                          tr.append(td);
                     }else{
                     	 let td = $("<td class=noselect data-seat=B" + number + " data-Ischoose= false align=center>")
-                         td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
-                             td.css("width", "100");
+                         //td.append("<i class=\"fas fa-desktop\">" + "<br>" + "B" + number)
+                         td.append("X")    
+                         td.css("width", "100");
                          
                          tr.append(td);
                     }

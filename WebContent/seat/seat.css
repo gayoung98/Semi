@@ -67,8 +67,14 @@ a{text-decoration:none;color: black;font-weight: bold;}
         	margin-top : 2%;
         }
         .noselect{
-        	background-color:rgb(99, 99, 99);
-        	
+        	background-color:rgb(47, 47, 47);
+        	color: #fff;
+  			font-family: 'Helvetica', 'Arial', sans-serif;
+  			font-size: 2em;
+  			font-weight: bold;
+  			text-align: center;
+ 			width: 40px;
+ 			height: 40px;
         }
         
         .week>a{
