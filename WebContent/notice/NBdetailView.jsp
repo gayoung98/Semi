@@ -89,7 +89,7 @@
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-				p{margin-left:20px;}
+				p {margin-left:20px;}
 				
 				/* 작성자 정보 */
 				.profile_info{
@@ -103,7 +103,7 @@
 					font-size: 13px;
 					font-weight: 700;
 				}
-				span{
+				.date,.count{
 				margin-left:20px;}
 				
 				.count{
@@ -112,12 +112,16 @@
 				.WriterInfo .article_info {
 					font-size: 12px;
 					line-height: 13px;
-					width: 95%;
-					
+					width: 50%;
+					margin-left:30px;
 				}
 				legend{
 				margin-left:20px;
 				}
+				
+				/* 첨부파일 */
+				.files{margin-left:30px;}
+				
 				/* 댓글 */
 				.com {
 					float: right;
@@ -179,6 +183,7 @@
 				.CommentBox .comment_list .CommentItem {
 					margin-left: 46px;
 					padding-left: 0;
+				
 				}
 
 				.comment_box {
@@ -201,21 +206,25 @@
 				.deleteReply {
 					float: right;
 					margin-right: 5px;
-					padding-top: 5px;
+					margin-top:5px;
+					
 				}
 
 				.modifyReply {
 					float: right;
 					margin-left: 5px;
+					margin-top:5px;
 				}
 				
 				.complete {
 					margin-left: 5px;
 				}
 				.listBtn{margin-right:10px;}
+				
 				.footer{
 				padding-top:10px;
 				padding-bottom:20px;}
+				
 			</style>
 			<script>
 				$(function () {
@@ -244,7 +253,7 @@
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
 						let check = confirm("정말 댓글을 수정하겠습니까?");
 						if (check) {
-							$(".modify_option").attr("contenteditable", "true");
+							$(".modify_option:eq(0)").attr("contenteditable", "true");
 							$(".modify_option:eq(0)").focus();
 
 							let complete = $("<button>");
@@ -277,17 +286,6 @@
 
 					});
 
-					$(".deleteReply").on("click", function () { //댓글 삭제
-						let check = confirm("정말 댓글을 삭제하겠습니까?");
-						if (check) {
-							$("#replyForm").attr("action", "delete.noticom");
-							$(this).next().attr("name", "seq");
-							$(this).next().next().attr("name", "parent");
-							$("#replyForm").submit();
-						} else {
-							return;
-						}
-					});
 				});
 			</script>
 		</head>
@@ -323,7 +321,7 @@
 				</div>
 				<!-- 게시글  내용 -->
 				<div class="col-12 md-5 contents">
-					<p class="target">${view.contents}</p>
+					<p id="contents_text">${view.contents}</p>
 				</div>
 				<hr>
 				<!--첨부 파일리스트 출력  -->
@@ -332,8 +330,7 @@
 						<legend>[첨부 파일 리스트]</legend>
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
-							<a
-								href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}">${file.oriName}</a>
+							<a href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}" class="files">${file.oriName}</a>
 							<br>
 						</c:forEach>
 					</fieldset>
@@ -347,6 +344,7 @@
 					<c:forEach items="${reply}" var="i">
 						<ul class="comment_list">
 							<li class="commentItem">
+							
 								<!-- 댓글 출력 -->
 								<div class="col-12 d-md-block comment_box">
 
@@ -358,6 +356,8 @@
 									<!--댓글 수정-->
 									<form action="${pageContext.request.contextPath}/modify.noticom" method="post" id="modifyForm">
 										<div class="comment_text">
+											
+											
 											<p class="text_view">
 												<span class="modify_option" id="com">${i.comments}</span>
 											</p>
@@ -382,12 +382,12 @@
 									</form>
 
 									<!-- 댓글 삭제 -->
-									<form id=replyForm>
-										<button type="button" value="${i.seq}"
+									<form action="${pageContext.request.contextPath}/delete.noticom" method="post">
+										<button type="submit" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
-										<input type="hidden" value="${i.seq}"> <input type="hidden" value="${i.parent}">
+										<input type="hidden" name="seq" value="${i.seq}"> 
+										<input type="hidden" name="parent" value="${i.parent}">
 										</c:if>
-
 									</form>
 								</div>
 							</li>

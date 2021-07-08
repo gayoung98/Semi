@@ -33,8 +33,10 @@
             top: 100%;
             background-color: #55555550;
         }
-        ul{
-        padding:0px;}
+        		ul{
+        			padding:0px;}
+        			
+        		/* 상단: 제목 */
 				.container {
 					max-width: 900px;
 					margin-top: 50px;
@@ -75,18 +77,6 @@
 				.title {
 					text-align: center;
 				}
-
-				/* 내용 */
-				.contents {
-					padding:0;
-					margin-left:20px;
-					height: 200px;
-					width: 95%;
-					border: 1px solid #ddd;
-					border-radius: 10px;
-				}
-				p{margin-left:20px;}
-				
 				/* 작성자 정보 */
 				.card-img-top{
 				width:100%;
@@ -101,6 +91,7 @@
 				.profile_info{
 				margin-left:10px;
 				}
+				
 				.WriterInfo .profile_info .name_box .name {
 				padding-top:10px;
 					margin-right: 6px;
@@ -111,9 +102,10 @@
 				.WriterInfo .article_info {
 					font-size: 12px;
 					line-height: 13px;
-					width: 95%;
+					width: 70%;
+					margin-left:30px;
 				}
-				span{
+				.date,.date{
 				margin-left:20px;}
 				.count{
 				font-weight:800;}
@@ -123,11 +115,29 @@
 				padding-left:20px;
 				width:98%;
 				}
+
+				/* 내용 */
+				.contents {
+					padding:0;
+					margin-left:20px;
+					height: 200px;
+					width: 95%;
+					border: 1px solid #ddd;
+					border-radius: 10px;
+				}
+				p {margin-left:20px;}
+				
+				
+				
 				
 				legend{
 				margin-left:20px;
 				padding:0;
 				}
+				
+				/* 첨부파일 */
+				.files{margin-left:30px;}
+				
 				/* 댓글 */
 				.com {
 					float: right;
@@ -213,14 +223,15 @@
 				.deleteReply {
 					float: right;
 					margin-right: 5px;
-					padding-top: 5px;
+					margin-top:5px;
+					
 				}
 
 				.modifyReply {
 					float: right;
 					margin-left: 5px;
+					margin-top:5px;
 				}
-
 				.complete {
 					margin-left: 5px;
 				}
@@ -261,7 +272,7 @@
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
 						let check = confirm("정말 댓글을 수정하겠습니까?");
 						if (check) {
-							$(".modify_option").attr("contenteditable", "true");
+							$(".modify_option:eq(0)").attr("contenteditable", "true");
 							$(".modify_option:eq(0)").focus();
 
 							let complete = $("<button>");
@@ -294,18 +305,6 @@
 
 						$("#modifyForm").append(inputcom);
 
-					});
-
-					$(".deleteReply").on("click", function () { //댓글 삭제
-						let check = confirm("정말 댓글을 삭제하겠습니까?");
-						if (check) {
-							$("#replyForm").attr("action", "delete.freecom");
-							$(this).next().attr("name", "seq");
-							$(this).next().next().attr("name", "parent");
-							$("#replyForm").submit();
-						} else {
-							return;
-						}
 					});
 					
 				  //게시글 신고
@@ -375,7 +374,7 @@
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
 							<a
-								href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}">${file.oriName}</a>
+								href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
 							<br>
 						</c:forEach>
 					</fieldset>
@@ -425,12 +424,12 @@
 									</form>
 
 									<!-- 댓글 삭제 -->
-									<form id=replyForm>
-										<button type="button" value="${i.seq}"
+									<form action="${pageContext.request.contextPath}/delete.freecom" method="post">
+										<button type="submit" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
-										<input type="hidden" value="${i.seq}"> <input type="hidden" value="${i.parent}">
+										<input type="hidden" name="seq" value="${i.seq}"> 
+										<input type="hidden" name="parent" value="${i.parent}">
 										</c:if>
-
 									</form>
 								</div>
 							</li>
