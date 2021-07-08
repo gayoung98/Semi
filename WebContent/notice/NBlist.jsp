@@ -71,8 +71,11 @@ text-align: center;
 .writeBtn{
 float: right;
 }
-.search{ margin-top: 20px;
+.search {
+	margin-left:20px;
+	float:left;
 }
+
 
 .footer{padding-top:10px; padding-bottom:30px;}
 
