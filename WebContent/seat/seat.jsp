@@ -59,7 +59,7 @@ body {
         }
 		
 		.day{
-			margin-top : 7%;
+			margin-top : 7%;	
 			margin-bottom : 3%;
 		}
         .day>div{
