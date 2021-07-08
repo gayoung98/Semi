@@ -15,6 +15,7 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
 
 <style>
@@ -22,6 +23,18 @@
 	margin: 0;
 	padding: 0;
 }
+
+.container{
+	background-color:white;
+}
+
+body {
+	min-height: 500px;
+	background-color: #D8E3E7;
+}
+
+
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
 .navbar>.container-fluid {
             padding: 0px;
         }
@@ -61,6 +74,7 @@
         }
         .seat {
             background-color: white
+            font: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
         }
 
         div {
@@ -72,9 +86,33 @@
         }
         .noselect{
         	background-color:rgb(99, 99, 99);
+        	
         }
         
-        
+        .week>a{
+        	list-style-type: none;
+        	color:black;
+        	font-family: 'Roboto', Gmarket Sans, sans-serif;
+        	letter-spacing: 0.1px;
+        	font-weight: 400;
+        	font: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+        }
+        .week:hover a{
+        	cursor: pointer;
+        	
+        }
+        .seat:hover {
+        	cursor : pointer;
+        }
+        .letter{
+        	font: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+        	font-family: 'Roboto', Gmarket Sans, sans-serif;
+        	letter-spacing: 0.1px;
+        	font-weight: 400;
+        }
+        #choose_seat{
+        	height : 60px;
+        }
         
     </style>
     
@@ -225,6 +263,7 @@
 <jsp:include page= "/navibar.jsp" />
 <input type=hidden id=length value="${list}">
 <input type = "hidden" id="writer" value = "${login }">
+	<div class="container shadow bg-white rounded">
     <center>
         <div class="day">
             <div class="week" id="mo"><a href = "${pageContext.request.contextPath}/date.seat?date=mo">월</a></div>
@@ -233,8 +272,8 @@
             <div class="week" id="th"><a href ="${pageContext.request.contextPath}/date.seat?date=th">목</a></div>
             <div class="week" id="fr"><a href ="${pageContext.request.contextPath}/date.seat?date=fr">금</a></div>
         </div>
-        <div>
-        [KH 종로반 E 클래스 교실 구조]
+        <div class="letter">
+        [우리반 좌석 예약]
         </div>
         <input type = hidden id =temp>
         <table border="1" width=700 id=table2>
@@ -258,6 +297,7 @@
         <div id=choose_seat>
         </div>
     </center>
+    </div>
     
 </body>
 </html>
