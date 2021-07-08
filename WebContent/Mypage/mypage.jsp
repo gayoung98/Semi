@@ -81,22 +81,25 @@ body {background-color: #D8E3E7;}
 </style>
 
 <script>
+let callPopUp = function(){
+	$(".card-title").on("click", function(){
+		
+		switch ($(this).attr("name")) {
+		case "inquired":
+			window.open("${pageContext.request.contextPath}/inquired.mp?seq="+$(this).attr("id"), "inquired", 'width=550px,height=600px,scrollbars=no,resizable=no');
+			break;
+		case "notice":
+			location.href="${pageContext.request.contextPath}/detailView.nboard?seq="+$(this).attr("id");
+			break;
+		case "freeboard":
+			location.href="${pageContext.request.contextPath}/detailView.fboard?seq="+$(this).attr("id");
+			break;
+		case value:break;
+		}
+		
+	})	
+}	
 
-	let callPopUp = function(){
-		$(".card-title").on("click", function(){
-			
-			switch ($(this).attr("name")) {
-			case "inquired":
-				window.open("${pageContext.request.contextPath}/inquired.mp?seq="+$(this).attr("id"), "inquired", 'width=550px,height=600px,scrollbars=no,resizable=no');
-				break;
-			case value:break;
-			case value:break;
-			case value:break;
-			}
-			
-		})	
-	}	
-	
 	let InquiredList = function(){
 		window.open("${pageContext.request.contextPath}/inquiredList.mp", "inquiredList", 'width=1280px,height=480px,scrollbars=no,resizable=no');
 	}
@@ -207,11 +210,27 @@ body {background-color: #D8E3E7;}
                 <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                      <h2>Noctice</h2>
+                      <h2>Noctice</h2><a href ="${pageContext.request.contextPath}/list.nboard?cpage=1">더보기(More)</a>
                     </div>
                     <div class="card-body">
                     <c:forEach var="item" items="${Notice }">
-                      <h5 class="card-title"><a href="#">${item.title }</a></h5>
+                      <h5 class="card-title" name ="notice" id="${item.seq}" >
+                      <c:choose>
+                      	<c:when test="${item.branch =='all'}">
+                      		<span class="badge badge-danger">전체</span>
+                      	</c:when>
+                      	<c:when test="${item.branch =='J'}">
+                      		<span class="badge badge-info">종로</span>
+                      	</c:when>
+                      		<c:when test="${item.branch =='G'}">
+                      		<span class="badge badge-info">강남</span>
+                      	</c:when>
+                      		<c:when test="${item.branch =='D'}">
+                      		<span class="badge badge-info">당산</span>
+                      	</c:when>
+                      </c:choose>
+                      <a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a>
+                      </h5>
                     </c:forEach>
                     </div>
                   </div>
@@ -219,13 +238,12 @@ body {background-color: #D8E3E7;}
                 <div class="col-6">
                     <div class="card">
                         <div class="card-header">
-                          <h2>Board Written</h2><a href ="#">더보기(More)</a>
+                          <h2>Board Written</h2><a href ="${pageContext.request.contextPath}/list.fboard?category=writer&cpage=1&keyword=${login}">더보기(More)</a>
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title"><a href="#">내가 쓴글 1</a></h5>
-                          <h5 class="card-title"><a href="#">내가 쓴글 2</a></h5>
-                          <h5 class="card-title"><a href="#">내가 쓴글 3</a></h5>
-                          <h5 class="card-title"><a href="#">내가 쓴글 4</a></h5>
+                        <c:forEach var="item" items="${FreeBoard}">
+                          <h5 class="card-title" name = freeboard id =${item.seq }><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a></h5>
+                        </c:forEach>
                         </div>
                       </div>
                     </div>
@@ -252,14 +270,13 @@ body {background-color: #D8E3E7;}
                         </div>
                         <div class="card-body">
                          <c:forEach var="item" items="${Inquired }">
-                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:callPopUp();">${item.contents}</a></h5>
+                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.contents}</a></h5>
                          </c:forEach>
                         </div>
                       </div>
                     </div>
             </div>
         </div>
-
 </body>
 </html>
 </html>
