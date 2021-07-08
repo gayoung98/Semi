@@ -28,6 +28,14 @@
 	text-align: center;
 }
 
+body {
+	background-color: #D8E3E7;
+}
+
+.container {
+	margin-top: 80px;
+}
+
 .row {
 	margin: 4%;
 }
@@ -64,9 +72,10 @@
 </head>
 <body>
 	<jsp:include page="/navibar.jsp" />
-	<form action="${pageContext.request.contextPath}/write.ass"
-		method="post" enctype="multipart/form-data">
-		<div class="container">
+	<div class="container p-4 shadow bg-white rounded">
+		<form action="${pageContext.request.contextPath}/write.ass"
+			method="post" enctype="multipart/form-data">
+
 			<div class="row header">
 				<div class="col-12">
 					<h3>과제</h3>
@@ -84,9 +93,7 @@
 
 			<div class="row content" style="padding: 0px;">
 				<div class="col-12">
-					<div id="editor">
- 
-					</div>
+					<div id="editor"></div>
 					<textarea id="contents" name="contents" style="display: none"></textarea>
 
 					<!-- Include the Quill library -->
@@ -115,15 +122,16 @@
 
 			<div class="row buttons" style="margin-top: 58px;">
 				<div class="col-6" style="text-align: left;">
-					<button type="button">이전</button>
+					<button type="button" class="btn btn-secondary">이전</button>
 				</div>
 				<div class="col-6" style="text-align: right;">
-					<button type="submit">제출</button>
+					<button type="submit" class="btn btn-primary">제출</button>
 				</div>
 			</div>
-		</div>
-		<input type=hidden id=seq>
-	</form>
+
+			<input type=hidden id=seq>
+		</form>
+	</div>
 
 </body>
 </html>

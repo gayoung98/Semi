@@ -26,6 +26,31 @@ body {
 	margin-top: 80px;
 }
 
+.header {
+	margin: 3%;
+}
+
+.search {
+	margin: 3%;
+}
+
+.columns {
+	margin: 2%;
+}
+
+.list {
+	margin: 1%;
+}
+
+.footer {
+	margin: 2%;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
 .navbar>.container-fluid {
 	padding: 0px;
 }
@@ -44,14 +69,14 @@ body {
 }
 </style>
 <script>
-	$(function(){
-		 $("#write").on("click",function(){
-			 location.href="assignment/assWrite.jsp";
-		 })
-		 $(".del").on("click", function(){
-			 let delSeq = $(this).parent().siblings(".seq").text();
-			 location.href="delete.ass?delSeq="+delSeq;
-		 })
+	$(function() {
+		$("#write").on("click", function() {
+			location.href = "assignment/assWrite.jsp";
+		})
+		$(".del").on("click", function() {
+			let delSeq = $(this).parent().siblings(".seq").text();
+			location.href = "delete.ass?delSeq=" + delSeq;
+		})
 	})
 </script>
 </head>
@@ -78,9 +103,10 @@ body {
 
 		<div class="row columns">
 			<div class="col-1"></div>
-			<div class="col-5">title</div>
-			<div class="col-2">writer</div>
-			<div class="col-3">write_date</div>
+			<div class="col-5">제목</div>
+			<div class="col-1">작성자</div>
+			<div class="col-3">작성일</div>
+			<div class="col-1">조회</div>
 			<div clss="col-1"></div>
 		</div>
 
@@ -88,10 +114,11 @@ body {
 			<div class="row list" style="overflow: hidden">
 				<div class="col-1 seq">${item.seq }</div>
 				<div class="col-5">
-					<a href="view.ass?ass_seq=${item.seq}">${item.title }</a>
+					<a href="view.ass?ass_seq=${item.seq}"><b>${item.title }</b></a>
 				</div>
-				<div class="col-2">${item.writer }</div>
+				<div class="col-1">${item.writer }</div>
 				<div class="col-3">${item.write_date }</div>
+				<div class="col-1">${item.viewCount }</div>
 				<div class="col-1">
 					<c:choose>
 						<c:when test="${item.id==loginId}">
@@ -128,7 +155,7 @@ body {
 				</nav>
 			</div>
 
-			<div class="col-3" style=""text-align: right">
+			<div class="col-3" style="" text-align:right">
 				<c:choose>
 					<c:when test="${loginPosition=='teacher'}">
 						<button class="btn btn-primary" id="write">글쓰기</button>

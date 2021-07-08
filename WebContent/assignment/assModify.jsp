@@ -29,15 +29,22 @@
 	text-align: center;
 }
 
+body {
+	background-color: #D8E3E7;
+}
+
+.container {
+	margin-top: 80px;
+}
+
 .row {
 	margin: 4%;
 }
 
 #title {
 	width: 100%;
-	height: 100%;
+	height: 40px;
 }
-
 .navbar>.container-fluid {
 	padding: 0px;
 }
@@ -93,24 +100,28 @@
 </head>
 <body>
 	<jsp:include page="/navibar.jsp" />
+	<div class="container p-4 shadow bg-white rounded">
 	<form
 		action="${pageContext.request.contextPath}/modiProc.ass?ass_seq=${assView.seq}"
 		method="post" enctype="multipart/form-data">
-		<div class="container">
+		
 			<div class="row header">
 				<div class="col-12">
-					<h3>과제</h3>
+					<h2>과제</h2>
 				</div>
 
 			</div>
 			<div class="row title">
-				<div class="col-12 col-md-8">
+				<div class="col-2"></div>
+				<div class="col-1" style="line-height: 40px;"><b>제목</b></div>
+				<div class="col-7">
 					<input type="text" name="title" id="title" value="${assView.title}">
 				</div>
+				<div class="col-2"></div>
 			</div>
 
 			<div class="row files">
-				<div class="col-12" style="margin-top: 3%;">
+				<div class="col-12">
 					${assFiles.oriName}
 
 					<button type="button" id="fileDel" seq="${assFiles.seq}">삭제</button>
@@ -149,15 +160,16 @@
 
 			<div class="row buttons" style="margin-top: 58px;">
 				<div class="col-6" style="text-align: left;">
-					<button type="button">이전</button>
+					<button type="button" class="btn btn-secondary">이전</button>
 				</div>
 				<div class="col-6" style="text-align: right;">
-					<button type="submit">제출</button>
+					<button type="submit" class="btn btn-primary">제출</button>
 				</div>
 			</div>
-		</div>
+		
 		
 	</form>
+	</div>
 
 </body>
 </html>
