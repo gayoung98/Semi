@@ -25,6 +25,7 @@
 }
 
 .container{
+	margin-top :5%;
 	background-color:white;
 }
 
@@ -58,7 +59,7 @@ body {
         }
 		
 		.day{
-			margin-top : 5%;
+			margin-top : 7%;
 			margin-bottom : 3%;
 		}
         .day>div{
