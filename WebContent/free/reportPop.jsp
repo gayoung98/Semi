@@ -167,29 +167,29 @@ button {
                     <ul class="list_report">
                         <li id="r1" class="reason">
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="욕설, 비방, 차별, 혐오" checked>
-                                <label for="r1" class="lab_radio"><span class="ico_report ico_check"></span><span>욕설, 비방, 차별, 혐오</span><span class="ico_report ico_arr"></span></label>
+                                <input type="radio" name="contents" class="inp_radio" value ="욕설, 비하" checked>
+                                <label for="r1" class="lab_radio"><span class="ico_report ico_check"></span><span>욕설, 비하</span><span class="ico_report ico_arr"></span></label>
                             </div>
                         </li>
                        
                         <li id="r2" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="불법 정보">
-                                <label for="r2" class="lab_radio"><span class="ico_report ico_check"></span><span>불법 정보</span><span class="ico_report ico_arr"></span></label>
+                                <input type="radio" name="contents" class="inp_radio" value ="불법 정보 및 상업적 광고 및 판매">
+                                <label for="r2" class="lab_radio"><span class="ico_report ico_check"></span><span>불법 정보 및 상업적 광고 및 판매</span><span class="ico_report ico_arr"></span></label>
                             </div>
                             
                         </li>
                         <li id="r3" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="음란, 청소년 유해">
-                                <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>음란, 청소년 유해</span><span class="ico_report ico_arr"></span></label>
+                                <input type="radio" name="contents" class="inp_radio" value ="음란물/불건전한 대화">
+                                <label for="inpChoice1" class="lab_radio"><span class="ico_report ico_check"></span><span>음란물/불건전한 대화</span><span class="ico_report ico_arr"></span></label>
                             </div>
                            
                         </li>
                         <li id="r4" class="reason" >
                             <div class="choice_wrap">
-                                <input type="radio" name="contents" class="inp_radio" value ="개인 정보 노출, 유포, 거래">
-                                <label for="r4" class="lab_radio"><span class="ico_report ico_check"></span><span>개인 정보 노출, 유포, 거래</span><span class="ico_report ico_arr"></span></label>
+                                <input type="radio" name="contents" class="inp_radio" value ="개인 정보 유출, 사칭, 사기">
+                                <label for="r4" class="lab_radio"><span class="ico_report ico_check"></span><span>개인 정보 유출, 사칭, 사기</span><span class="ico_report ico_arr"></span></label>
                             </div>
                           
                         </li>
@@ -206,7 +206,7 @@ button {
                         <button type="button" class="btn btn-light cancel_btn"><span class="inner_btn" onclick="self.close();">취소</span></button>
                         <button type="submit" class="btn btn-dark btn_confirm"><span class="inner_btn" id="submitBtn">신청</span></button>
                     </div>
-                    
+                    <input type="hidden" name="seq" value="${view.seq}">
                     </form>
                     <span class="txt_guide">※ 허위신고일 경우, 신고자의 서비스 활동이 제한될 수 있습니다.</span>
                 </div>

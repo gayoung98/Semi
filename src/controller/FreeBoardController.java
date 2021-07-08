@@ -291,6 +291,7 @@ public class FreeBoardController extends HttpServlet {
 				response.sendRedirect("free/FBdeleteView.jsp");
 				
 			}else if(url.contentEquals("/reportForm.fboard")) { //게시물 신고폼으로
+				System.out.println("seq 넘기!!");
 				int board_seq = Integer.parseInt(request.getParameter("seq"));
 				FreeBoardDTO dto = fbdao.detailView(board_seq);
 				request.setAttribute("view", dto);

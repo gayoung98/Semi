@@ -309,36 +309,12 @@
 					});
 					
 				  //게시글 신고
-					 /* $("#report").on("click",function() {							
+					  $("#report").on("click",function() {							
+					let parent ="${view.seq}";
+						  window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+parent,"게시글 신고","width=350,height=450");           
+					    });   
 					
-						  window.open("${pageContext.request.contextPath}/reportForm.fboard?board_Seq={$}","게시글 신고","width=300,height=400");           
-					    });    */
-					
-					function openPop(){
-				         
-				         
-				        let pop_title = "popupOpener" ;
-				         
-				        window.open("게시글 신고", pop_title) ;
-				         
-				        var frmData = document.frmData ;
-				        frmData.target = pop_title ;
-				        frmData.action = "${pageContext.request.contextPath}/reportForm.fboard" ;
-				         
-				        frmData.submit() ;
-				         
-				         
-				         
-				    }
-					    
-					    /* function popup(seq){
-						/* 매개변수 num을 알럿으로 출력한다. */
-						/*  alert(seq); */
-						/* 다음과 같이 window.open 함수로 url에 값을 전달한다. */
-				/* 		 window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+seq,"게시글 신고","width=300, height=400");
-					 } */ 
-					
-				});
+						});
 			</script>
 		</head>
 
@@ -382,8 +358,6 @@
 							<a href="#" role="button" class="button_comment"> <strong class="num"> 댓글
 									${count.replyCount(view.seq)}</strong>
 							</a>
-							
-						
 							<button type="button" class="btn btn-danger" id="report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
 						</div>
 					</div>
