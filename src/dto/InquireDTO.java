@@ -29,7 +29,16 @@ public class InquireDTO {
       this.sub_category = sub_category;
       this.contents = contents;
    }
-   public int getSeq() {
+   
+   public InquireDTO(int seq, String id, String major_category, String sub_category, Date reg_date) {
+	super();
+	this.seq = seq;
+	this.id = id;
+	this.major_category = major_category;
+	this.sub_category = sub_category;
+	this.reg_date = reg_date;
+}
+public int getSeq() {
       return seq;
    }
    public void setSeq(int seq) {

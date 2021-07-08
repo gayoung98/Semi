@@ -51,8 +51,8 @@
 								<c:forEach var="i" items="${list}" varStatus="s">
 								<tr>
 									<th scope="row">${s.count}</th>
-									<td>${i.id}</td>
-									<td><a href="${pageContext.request.contextPath}/inquireDetail.manager?seq=${i.seq}&currentPage=${page}&category=${category}&search=${search}">${i.major_category}</a></td>
+									<td><a href="${pageContext.request.contextPath}/inquireDetail.manager?seq=${i.seq}&currentPage=${page}&category=${category}&search=${search}">${i.id}</a></td>
+									<td>${i.major_category}</td>
 									<td>${i.sub_category}</td>
 									<td>${i.reg_date}</td>
 									
