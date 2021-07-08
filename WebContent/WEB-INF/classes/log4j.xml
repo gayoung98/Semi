@@ -2,16 +2,26 @@
 <!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
  
-    <!-- 콘솔 로그 -->
-    <appender name="infoConsole" class="org.apache.log4j.ConsoleAppender">
+   
+     <!-- 특정 크기마다 백업하며 로그-->
+    <appender name="rolling" class="org.apache.log4j.RollingFileAppender">    	
+        <param name="file" value="D:/log/log.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="1MB"/>
+        <param name="MaxBackupIndex" value="1"/>  
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%5p] %d{YYYY-MM-dd hh\:mm s} (%F\:%L) %c{1}.%M \: %m%n" />
-        </layout>  
-    </appender>
+            <param name="ConversionPattern" value="[%5p] %d{YYYY-MM-dd hh\:mm s} (%F\:%L) %c{1}.%M \: %m%n"/>
+        </layout>
+    </appender> 
+    
+    
     <logger name ="controller">
     <level value="trace">
     </level>
+    <appender-ref ref="rolling" />
     </logger>
+    
+    
     <logger name="dao">
     <level value="trace">
     </level>
@@ -19,9 +29,9 @@
     
     
     <!-- root 설정 -->
-    <root>
+    
+     <root>
         <level value="trace" />
-        <appender-ref ref="infoConsole" />
+        <appender-ref ref="rolling" />
     </root>
-     
 </log4j:configuration>

@@ -852,15 +852,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 			return result;
 		}
 	}
-	public int logRecording(String log) throws Exception{
-		String sql="insert into log values(log_seq.nextval,?)";
-		try(Connection con = this.getConnection(); 
-				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, log);
-			int result = pstat.executeUpdate();
-			return result;
-		}
-	}
+	
 }
 					
 					

@@ -51,8 +51,7 @@ import dto.NoticeFilesDTO;
 @WebServlet("*.manager")
 public class ManagerController extends HttpServlet {
 	Logger l = Logger.getLogger(ManagerController.class);
-	
-	
+		
 	private HttpSession session;
 	public HttpSession getSession() {
 		return session;
@@ -88,6 +87,7 @@ public class ManagerController extends HttpServlet {
 			
 			if(url.contentEquals("/login.manager")) {   // 로그인 요청
 				l.trace(request.getRemoteAddr()+ " 로그인을 시도함");
+			
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				
