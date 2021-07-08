@@ -284,6 +284,8 @@ public class ManagerController extends HttpServlet {
 				System.out.println(hasNotRecomment);
 				request.getRequestDispatcher("manager/manager.inquire/inquireDetail.jsp").forward(request,response);
 			}else if(url.contentEquals("/teacherDelete.manager")) {  // 강사 정보 삭제
+				
+				l.trace(request.getRemoteAddr()+" 강사 정보 삭제");
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
 				String category = request.getParameter("category");
 				String search = request.getParameter("search");
@@ -309,7 +311,7 @@ public class ManagerController extends HttpServlet {
 				String search = request.getParameter("search");
 				String branch = request.getParameter("branch");
 				String delId = request.getParameter("delId");
-				
+				l.trace(request.getRemoteAddr()+" 학생 정보 삭제");
 				managerDao.memberDelete(delId);
 				int endNum= currentPage * ManagerConfig.Record_count_Per_Page;
 				int startNum = endNum - (ManagerConfig.Record_count_Per_Page-1);
@@ -369,11 +371,12 @@ public class ManagerController extends HttpServlet {
 				
 			}
 			else if(url.contentEquals("/writeView.manager")) { //관리자페이지 공지사항 글쓰기
-				System.out.println("정보를 받아옴");
+				l.trace(request.getRemoteAddr()+" 공지사항 작성");
+			
 				String filesPath =request.getServletContext().getRealPath("files");
 
 				File filesFolder = new File(filesPath);
-				System.out.println("프로젝트가 저장된 진짜 경로" + filesPath);
+				
 
 				if(!filesFolder.exists()) filesFolder.mkdir();
 				MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
@@ -386,12 +389,12 @@ public class ManagerController extends HttpServlet {
 				String khClass = multi.getParameter("KhClass");
 
 				int result = nbdao.write(seq,title,contents,khClass,branch);
-				System.out.println("게시글 입력 여부"+ result);
+				
 
 				Set<String>fileNames = multi.getFileNameSet();
-				System.out.println("파일갯수 "+fileNames.size());
+			
 				for(String fileName : fileNames) {
-					System.out.println("파라미터 이름: "+ fileName);
+					
 					String oriName = multi.getOriginalFileName(fileName);
 					String sysName = multi.getFilesystemName(fileName);
 
@@ -432,6 +435,7 @@ public class ManagerController extends HttpServlet {
 			
 			
 			}else if(url.contentEquals("/noticeModify.manager")) { //관리자페이지 공지사항 글쓰기 수정
+				l.trace(request.getRemoteAddr()+" 공지사항 수정");
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
 				String branch = request.getParameter("branch");		
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
@@ -453,7 +457,7 @@ public class ManagerController extends HttpServlet {
 				
 				
 			}else if(url.contentEquals("/noticeModifyView.manager")) { //관리자페이지 공지사항 글 수정 페이지
-			
+				l.trace(request.getRemoteAddr()+" 공지사항 수정");
 				String filesPath =request.getServletContext().getRealPath("files"); 
 				System.out.println(filesPath);
 				
@@ -519,7 +523,7 @@ public class ManagerController extends HttpServlet {
 					request.getRequestDispatcher("manager/manager.board/NBmodifyView.jsp").forward(request, response);
 
 			}else if(url.contentEquals("/noticeDelete.manager")) { //관리자페이지 공지사항 글쓰기 삭제
-				System.out.println("삭제중");
+			
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				String branch = request.getParameter("branch");		
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
@@ -533,7 +537,7 @@ public class ManagerController extends HttpServlet {
 				request.getRequestDispatcher("manager/manager.board/NBdeleteView.jsp").forward(request, response);
 				//관리자페이지 공지사항 댓글 삭제!!!
 			}else if(url.contentEquals("/deleteCom.manager")) { //관리자페이지 공지사항 글쓰기 삭제
-				
+				l.trace(request.getRemoteAddr()+" 공지사항 삭제");
 				int comment_seq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println("댓글번호: " + comment_seq);
 				int result = ncdao.deleteReply(comment_seq);
@@ -575,7 +579,7 @@ public class ManagerController extends HttpServlet {
 					String category = request.getParameter("category");
 					String search = request.getParameter("search");
 					managerDao.deleteFreeBoard(boardSeq);
-					
+					l.trace(request.getRemoteAddr()+" 자유게시판 삭제");
 			           response.sendRedirect(ctxPath+"/boardList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
 
 			}else if(url.contentEquals("/assDetail.manager")) {
