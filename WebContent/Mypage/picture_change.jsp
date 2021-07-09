@@ -18,8 +18,8 @@
 
 <style>
 .profilebox{
-    width: 150px;
-    height: 150px; 
+    width: 250px;
+    height: 250px; 
     border-radius: 30%;
     overflow: hidden;
     margin : auto;
@@ -50,6 +50,7 @@
 <script>
 $(function(){
 	$("#fileUpload").on('change', function () {
+		let before = $("#profile").attr("src");
         if (typeof (FileReader) != "undefined") {
             var image_holder = $(".profilebox");
             image_holder.empty();
@@ -62,9 +63,15 @@ $(function(){
                     "name" : "profile"
                 }).appendTo(image_holder);
             }
-            image_holder.show();
-            reader.readAsDataURL($(this)[0].files[0]);
-            console.log($(this)[0].files[0]);
+            if(!($(this)[0].files[0].size >= (1024*1024*5))){
+            	image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+                console.log($(this)[0].files[0]);
+            }
+            else{
+            	alert("사진 용량은 5mb이하로 등록해주세요!");
+            	$("#fileUpload").val("");
+            }
         } else {
             alert("This browser does not support FileReader.");
         }
@@ -89,9 +96,9 @@ $(function(){
 <body>
 <form action="${pageContext.request.contextPath}/profileUpdate.mp" method="post" enctype="multipart/form-data">
 	<div class = container>
-	<div class="card border-success mb-3" style="max-width: 18rem;">
-	  <div class="card-header bg-transparent border-success"> <h3>프로필 사진 변경 </h3></div>
-	  <div class="card-body text-success">
+	<div class="card border-secondary mb-3" style="max-width: 30rem;">
+	  <div class="card-header bg-transparent border-secondary"> <h3>프로필 사진 변경 </h3></div>
+	  <div class="card-body text-secondary">
 	    <h5 class="card-title">
 	    <div id = before>
 		 <div class=profilebox>
@@ -101,7 +108,7 @@ $(function(){
 	    </h5>
 	    <p class="card-text"><input type="file" id="fileUpload" name = after_profile><br/></p>
 	  </div>
-	  <div class="card-footer bg-transparent border-success">
+	  <div class="card-footer bg-transparent border-secondary">
 	  	  <button type="submit" class="btn btn-light" id="submit_btn">Accept</button>
 	      <button type="button" class="btn btn-danger" id="close_popup">Cancel</button>
 	  </div>

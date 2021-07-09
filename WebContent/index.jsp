@@ -23,9 +23,11 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 		}
-		#login{width: 350px;}
+		
+	.loginbox{margin-left: 15%;}
+		#login{width: 250px;}
 		img{display: inline-block;
-    		width: 100%;
+    		width: 250px;
     		height: 39.3px;
     		overflow: hidden;
     		object-fit: cover;
@@ -42,6 +44,7 @@
 <body>
 	<div class="container p-4 shadow bg-white rounded">
 		<h2 class="mb-5 text-center">KH Story로그인</h2>
+		<div class = loginbox>
 			<div class="form-row align-items-center mt-4">
 				<div class="col-6 text-center">
 					<button type="button" class="btn btn-outline-info" id="login">로그인</button>
@@ -89,7 +92,7 @@
 					</script>				
 				</div>
             </div>   
-                     
+         </div>     
 			<div class="form-row align-items-center mt-4">
 				<div class="col-12">
 					<center><a href="joinForm.member">회원가입</a></center>

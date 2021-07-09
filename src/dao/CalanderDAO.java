@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Date;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import dto.CalanderDTO;
+import dto.MemberDTO;
 
 import java.util.*;
 
@@ -83,6 +84,23 @@ public class CalanderDAO {
 				return li;
 			}
 		}
+	}
+	
+	public Date[] getCoursePeriod(MemberDTO m_temp) throws Exception {
+		String sql = "select event_date from Academic_Calendar where branch =? and khclass=? and day_type BETWEEN 'begin' and 'end'";
+		Date[] temp = new Date[2];
+		try(Connection conn = this.getConnection();
+				PreparedStatement psmt = conn.prepareStatement(sql)){
+				psmt.setString(1, m_temp.getBranch() );
+				psmt.setString(2, m_temp.getKhClass());
+				try(ResultSet rs = psmt.executeQuery();){
+					int index=0;
+					while(rs.next()) {
+						temp[index++] =rs.getDate(1);
+					}
+					return temp;
+				}
+			}
 	}
 	
 }

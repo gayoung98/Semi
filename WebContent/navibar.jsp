@@ -10,7 +10,7 @@
                     <a class="nav-link">게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="list.ass?currentPage=1">과제</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/list.ass?currentPage=1">과제</a>
                 </li>
                 <li class="nav-item">
                       <a class="nav-link">타자</a>
@@ -19,7 +19,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/seat/seat.jsp">자리 신청</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="calander.main">스케줄</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/calander.main">스케줄</a>
                 </li>
 
             </ul>

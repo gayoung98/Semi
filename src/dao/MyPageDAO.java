@@ -110,8 +110,22 @@ public class MyPageDAO {
 		}
 		
 		}
-	
-
-	
+	public List<MemberDTO> getStudentList(MemberDTO temp) throws Exception{
+		String sql = "select * from kh_member where branch =? and khclass =? and position not in ?";
+		List<MemberDTO> li =  new ArrayList<MemberDTO>();
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setString(1, temp.getBranch());
+			psmt.setString(2, temp.getKhClass()); 
+			psmt.setString(3, temp.getPosition()); 
+			try(ResultSet rs = psmt.executeQuery()){
+				while(rs.next()) {
+					li.add(new MemberDTO(rs.getString(2),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getDate(10))); 
+				}
+				return li; 
+			}
+		}
+		
+		}
 
 }
