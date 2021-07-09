@@ -112,7 +112,7 @@ nav{padding:0;margin: 0;}
     	$("#listBtn").on("click",function(){
     		location.href = "${pageContext.request.contextPath}/list.fboard?cpage=1";
     	});
-    	
+
     	 $("#summernote").summernote(
                  {
                      height: 300, // 에디터 높이
@@ -140,10 +140,24 @@ nav{padding:0;margin: 0;}
                          '20', '22', '24', '28', '30', '36', '50', '72']
                  });
 
-        
-        
-        
-        
+    	 $("#submit").on("click",function(){
+    		    let titleCheck = $("#title_input");
+    		    let contentsCheck=$("#summernote");
+
+    		    if (titleCheck.val()=="") {
+    		        alert("제목을 입력해주세요.");
+    		        titleCheck.focus();
+    		        return false;
+    		    }
+    		    else if (contentsCheck.val()=="") {
+    		        alert("내용을 입력해주세요.");
+    		       contentsCheck.focus();
+					return false;
+    		    }
+           		$("#form").submit();
+
+    		});
+ 
     });
   </script>
 </head>
@@ -153,11 +167,11 @@ nav{padding:0;margin: 0;}
 
 <div class="container shadow bg-white rounded">
 <!-- 		<h2 class="text-center mb-3">자유게시판</h2>
- -->	<form action="${pageContext.request.contextPath}/write.fboard" method="post" enctype="multipart/form-data" >
+ -->	<form action="${pageContext.request.contextPath}/write.fboard" method="post" enctype="multipart/form-data" id="form" >
 			<div class="contents_box">	
 					<div class="title">		
 					<h3>
-						<input type="text" name="title" id="title_input" placeholder="제목을 입력하세요">
+						<input type="text" name="title" id="title_input" placeholder="제목을 입력하세요" required>
 					</h3>
 					
 				</div>
@@ -173,8 +187,8 @@ nav{padding:0;margin: 0;}
                           
                         </fieldset>
 				<div class="btn_wrap text-right footer">
-					<input type="submit" class="btn btn-primary" value="등록하기">
-					<input type=button class="btn btn-dark" value="목록으로" id="listBtn">
+					<input type="submit" class="btn btn-primary" id="submit" value="등록하기">
+					<input type="button" class="btn btn-dark" value="목록으로" id="listBtn">
 				</div>
 			</div>
 		</form>

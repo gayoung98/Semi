@@ -271,8 +271,7 @@
 							});
 
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
-						let check = confirm("정말 댓글을 수정하겠습니까?");
-						if (check) {
+						
 							$(".modify_option:eq(0)").attr("contenteditable", "true");
 							$(".modify_option:eq(0)").focus();
 
@@ -289,10 +288,6 @@
 							$(this).before(complete);
 							$(this).remove();
 
-						} else {
-							return;
-						}
-
 					});
 
 					
@@ -304,6 +299,17 @@
 						inputcom.val($("#com").text());
 						$("#modifyForm").append(inputcom);
 
+					});
+					
+					
+					$("#deleteReply").on("click",function () { //댓글 삭제
+						let check = confirm("정말 댓글을 삭제하겠습니까?");
+						if (check) {
+							$("form").submit();
+						} else {
+							return;
+						}
+						
 					});
 					
 				  //게시글 신고
@@ -333,7 +339,7 @@
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                  			<img src="${pageContext.request.contextPath}/profile/${view.name}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
@@ -342,7 +348,7 @@
 		                   		
 		                   	</div>
 						<div class="name_box">
-							<a href="#" role="button"> ${view.writer} </a> <em
+							<a href="#" role="button"> ${view.name} </a> <em
 								class="position">${view.branch}지점  </em>
 						</div>
 					</div>
@@ -423,7 +429,7 @@
 									</form>
 
 									<!-- 댓글 삭제 -->
-									<form action="${pageContext.request.contextPath}/delete.freecom" method="post">
+									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="form">
 										<button type="submit" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 

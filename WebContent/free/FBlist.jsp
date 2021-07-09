@@ -131,10 +131,10 @@ $("#back").on("click",function(){
 		<div class="row first">
 			<div class="col-12 col-md-1 d-none d-md-block">No</div>
 			<div class="col-12 col-md-1" >지점</div>
-			<div class="col-12 col-md-5 title">제목</div>
+			<div class="col-12 col-md-4 title">제목</div>
 			<div class="col-12 col-md-2 d-none d-md-block">작성자</div>
 			<div class="col-12 col-md-2 d-none d-md-block">작성일자</div>
-			<div class="col-12 col-md-1 d-none d-md-block">조회수</div>
+			<div class="col-12 col-md-2 d-none d-md-block">조회수</div>
 		</div>
 
 		<c:forEach var="i" items="${boardlist}">
@@ -142,13 +142,13 @@ $("#back").on("click",function(){
 
 				<div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
 				<div class="col-12 col-md-1">${i.branch}</div>
-				<div class="col-12 col-md-5 title">
+				<div class="col-12 col-md-4 title">
 					<a href="detailView.fboard?seq=${i.seq}">${i.title}</a>
 					[${count.replyCount(i.seq)}]
 				</div>
-				<div class="col-3 col-md-2  d-md-block">${i.writer}</div>
+				<div class="col-3 col-md-2  d-md-block">${i.name}</div>
 				<div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
-				<div class="col-1 col-md-1  d-md-block">${i.viewCount}</div>
+				<div class="col-1 col-md-2  d-md-block">${i.viewCount}</div>
 			</div>
 		</c:forEach>
 
@@ -187,7 +187,6 @@ $("#back").on("click",function(){
 					<c:when test="${not empty branch}">
 						<select name="category">
 							<option value="title">제목</option>
-							<option value="writer">작성자</option>
 							<option value="contents">내용</option>
 						</select>
 						<input type="hidden" name="cpage" value="1">
@@ -201,7 +200,6 @@ $("#back").on("click",function(){
 					<c:otherwise>
 						<select name="category">
 							<option value="title">제목</option>
-							<option value="writer">작성자</option>
 							<option value="contents">내용</option>
 						</select>
 						<input type="hidden" name="cpage" value="1">
