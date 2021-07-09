@@ -75,10 +75,13 @@ public class FreeBoardDAO {
 				String title = rs.getNString("title");
 				String contents = rs.getNString("contents");
 				String writer =rs.getNString("writer");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String id = daoM.getAllInfo(writer).getId();
+				String name = daoM.getAllInfo(writer).getName();
 				Date write_date =rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
 
-				FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,contents,null,write_date,viewCount,0);
+				FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,contents, id, name, write_date,viewCount,0);
 				list.add(dto);
 			}
 			return list;
@@ -190,6 +193,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
+			
 			pstat.setNString(1,"%"+keyWord+"%"); //sql 구문에 like 뒤에 %keyword%
 			pstat.setInt(2,startNum); //사작 번호
 			pstat.setInt(3,endNum); //끝 번호
