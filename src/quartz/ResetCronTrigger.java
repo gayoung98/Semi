@@ -25,7 +25,7 @@ JobDetail job = newJob(ResetJob.class).withIdentity("job1", "group1").build();
 			Trigger trigger = newTrigger()
 							.withIdentity("trigger1", "group1")
 							.startNow()
-							  .withSchedule(cronSchedule("0 0 18 ? * fri"))
+							  .withSchedule(cronSchedule("0 5 17 ? * fri"))
 							.build();
 			
 			scheduler.scheduleJob(job, trigger);
