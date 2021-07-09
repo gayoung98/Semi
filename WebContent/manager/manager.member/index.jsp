@@ -123,7 +123,7 @@
 								<div class="mini">
 									<h4>문의 목록</h4>
 									<a
-										href="${pageContext.request.contextPath}/boardPolice.manager?currentPage=1&category=&search=">더
+										href="${pageContext.request.contextPath}/inquireList.manager?currentPage=1&category=&search=">더
 										보기</a>
 									<table class="table">
 										<thead class="thead-dark">
