@@ -122,10 +122,13 @@ public class FreeBoardDAO {
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String id = daoM.getAllInfo(writer).getId();
+					String name = daoM.getAllInfo(writer).getName();
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -167,10 +170,13 @@ public class FreeBoardDAO {
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String id = daoM.getAllInfo(writer).getId();
+					String name = daoM.getAllInfo(writer).getName();
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -194,10 +200,6 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			
-			if(category.contentEquals("writer")) {
-				MemberDAO daoM = MemberDAO.getInstance();
-				keyWord = daoM.getEmailByName(keyWord);
-			}
 			pstat.setNString(1,"%"+keyWord+"%"); //sql 구문에 like 뒤에 %keyword%
 			pstat.setInt(2,startNum); //사작 번호
 			pstat.setInt(3,endNum); //끝 번호
@@ -218,10 +220,13 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String id = daoM.getAllInfo(writer).getId();
+					String name = daoM.getAllInfo(writer).getName();
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -265,10 +270,13 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 					}
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String id = daoM.getAllInfo(writer).getId();
+					String name = daoM.getAllInfo(writer).getName();
 					Date write_date =rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,null,write_date,viewCount,0);		           
+					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
 					list.add(dto);
 				}
 				return list;
@@ -312,10 +320,13 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");
 				String writer = rs.getString("writer");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String id = daoM.getAllInfo(writer).getId();
+				String name = daoM.getAllInfo(writer).getName();
 				Date writer_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
 
-				FreeBoardDTO result = new FreeBoardDTO(num,khBranch,writer,title,contents,null,writer_date,viewCount,0);
+				FreeBoardDTO result = new FreeBoardDTO(num,khBranch,writer,title,contents,id,name,writer_date,viewCount,0);
 				return result;
 			}
 		}
