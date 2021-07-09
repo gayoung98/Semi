@@ -16,12 +16,16 @@ public class FreeBoardDTO {
 	    private String contents;
 
 	    private String id;
+	    
+	    private String name;
 
-	    private Date write_date;
+		private Date write_date;
 
 	    private int viewCount;
 
 	    private int policeCount;
+	    
+	    
 	    
 	    public FreeBoardDTO() {}
 
@@ -47,8 +51,23 @@ public class FreeBoardDTO {
 			this.title = title;
 			this.write_date = write_date;
 		}
+		
+		 public FreeBoardDTO(int seq, String branch, String writer, String title, String contents, String id,
+				String name, Date write_date, int viewCount, int policeCount) {
+			super();
+			this.seq = seq;
+			this.branch = branch;
+			this.writer = writer;
+			this.title = title;
+			this.contents = contents;
+			this.id = id;
+			this.name = name;
+			this.write_date = write_date;
+			this.viewCount = viewCount;
+			this.policeCount = policeCount;
+		}
 
-		 public FreeBoardDTO(int seq, int viewCount) {
+		public FreeBoardDTO(int seq, int viewCount) {
 	    	  this.seq = seq;
 	    	  this.viewCount = viewCount;
 		}
@@ -100,6 +119,15 @@ public class FreeBoardDTO {
 		public void setId(String id) {
 			this.id = id;
 		}
+		
+	    public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
 
 		public Date getWrite_date() {
 			return write_date;
@@ -125,6 +153,7 @@ public class FreeBoardDTO {
 			this.policeCount = policeCount;
 		}
 
+		
 	
 	
 }
