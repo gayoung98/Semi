@@ -86,14 +86,14 @@ public class ManagerController extends HttpServlet {
 			System.out.println(url);    // 접속 url 출력
 			
 			if(url.contentEquals("/login.manager")) {   // 로그인 요청
-				l.trace(request.getRemoteAddr()+ " 로그인을 시도함");
 			
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				
 				boolean login = managerDao.login(id, pw);
+				l.trace(request.getRemoteAddr()+ " 관리자로그인을 시도함");
 				if(login) {
-					l.trace(request.getRemoteAddr()+ " 로그인 완료");
+					l.trace(request.getRemoteAddr()+ " 관리자 로그인 완료");
 					request.getSession().setAttribute("login", id);
 					response.sendRedirect(ctxPath+"/index.manager");
 					
@@ -111,7 +111,7 @@ public class ManagerController extends HttpServlet {
 				request.getRequestDispatcher("manager/manager.member/index.jsp").forward(request,response);
 			}
 			else if(url.contentEquals("/logout.manager")) {   // 로그아웃 
-				l.trace(request.getRemoteAddr()+" 로그아웃함");
+				l.trace(request.getRemoteAddr()+" 관리자 로그아웃함");
 				request.getSession().invalidate();
 				response.sendRedirect("manager/login.jsp"); 
 			}else if (url.contentEquals("/teacher.manager")) {      // 강사 목록
@@ -269,6 +269,8 @@ public class ManagerController extends HttpServlet {
 				System.out.println(hasNotRecomment);
 				request.getRequestDispatcher("manager/manager.inquire/inquireDetail.jsp").forward(request,response);
 			}else if ( url.contentEquals("/writeRecomment.manager")) {			// 답변 작성
+				
+				l.trace(request.getRemoteAddr()+" 문의 답변");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
 				String category = request.getParameter("category");
@@ -343,6 +345,8 @@ public class ManagerController extends HttpServlet {
 				System.out.println(hasNotRecomment);
 				request.getRequestDispatcher("manager/manager.inquire/inquireDetail.jsp").forward(request,response);
 			}else if(url.contentEquals("/modifyRecomment.manager")) {		// 답변 수정
+				
+				l.trace(request.getRemoteAddr()+" 문의 답변 삭제");
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
 				String category = request.getParameter("category");
 				String search = request.getParameter("search");
@@ -436,7 +440,7 @@ public class ManagerController extends HttpServlet {
 			
 			
 			}else if(url.contentEquals("/noticeModify.manager")) { //관리자페이지 공지사항 글쓰기 수정
-				l.trace(request.getRemoteAddr()+" 공지사항 수정");
+				
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
 				String branch = request.getParameter("branch");		
 				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
@@ -629,7 +633,7 @@ public class ManagerController extends HttpServlet {
 					
 	         }
 		}catch(Exception e) {
-			l.trace(request.getRemoteAddr()+" 에러남");
+			l.trace(request.getRemoteAddr()+" 관리자 페이지 에러");
 			e.printStackTrace();
 		}
 	}
