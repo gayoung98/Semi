@@ -206,4 +206,21 @@ public class MemberDAO {
 			return dto;
 		}
 	}
+	public String getEmailByName(String name) throws Exception {
+		String sql = "select email from kh_member where name=?";
+		try(Connection connection = this.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+			preparedStatement.setString(1, name);
+			String email = null;
+
+			try(ResultSet rs = preparedStatement.executeQuery();){
+
+				if(rs.next()) {
+					email = rs.getString("email");
+				}
+			}
+			return email;
+		}
+
+	}
 }
