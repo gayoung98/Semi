@@ -120,6 +120,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	bottom: 10%;
 	right: 15%;
 	width: 50px;
+	cursor:pointer;
 }
 #top {
 	position: fixed;
