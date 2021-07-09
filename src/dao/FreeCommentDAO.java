@@ -57,11 +57,13 @@ public class FreeCommentDAO {
 				int num = rs.getInt("seq");
 				String id = rs.getNString("id");
 				String writer = rs.getNString("writer");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String comments = rs.getNString("comments");
 				Date writer_date = rs.getDate("write_date");
 				int parent_seq = rs.getInt("parent");
 
-				FreeCommentDTO result = new FreeCommentDTO(num,id,writer,comments,writer_date,parent_seq);
+				FreeCommentDTO result = new FreeCommentDTO(num,id,name,writer,comments,writer_date,parent_seq);
 				return result;
 
 			}
@@ -80,11 +82,13 @@ public class FreeCommentDAO {
 				int num = rs.getInt("seq");
 				String id = rs.getNString("id");
 				String writer = rs.getNString("writer");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String comments = rs.getNString("comments");
 				Date writer_date = rs.getDate("write_date");
-				int parent = rs.getInt("parent");
+				int parent_seq = rs.getInt("parent");
 
-				FreeCommentDTO dto = new FreeCommentDTO(num,id,writer,comments,writer_date,parent);
+				FreeCommentDTO dto = new FreeCommentDTO(num,id,name,writer,comments,writer_date,parent_seq);
 				list.add(dto);
 			}
 			return list;

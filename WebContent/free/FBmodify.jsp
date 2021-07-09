@@ -89,20 +89,7 @@
                 .title_area h2 input:focus {
                     outline: none;
                 }
-
-                /* 내용 */
-                .contents {
-                    padding: 10px;
-                    min-height: 250px;
-                }
-
-                .contents textarea {
-                    width: 100%;
-                    height: 90%;
-                }
-                p{margin-left:20px;}
-                
-
+				
                 /* 작성자 정보 */
                 .profile_info{
 				margin-left:20px;
@@ -141,6 +128,23 @@
 					margin-top: 10px;
 					margin-bottom: 10px;
 				}
+				
+                /* 내용 */
+                .contents {
+                    padding: 10px;
+                    min-height: 250px;
+                }
+
+                .contents textarea {
+                    width: 100%;
+                    height: 90%;
+                }
+                p{margin-left:20px;}
+                
+                
+				/* 첨부파일 */
+				.delfiles{margin-left:20px;}
+				.delAttach{margin-left:20px;}
                 legend {
                     border: 0;
                     margin-left:20px;
@@ -266,7 +270,7 @@
                                 <legend>[첨부 파일 리스트]</legend>
                                 <c:forEach var="file" items="${filelist}">
                                     <!--첨부파일 다운로드-->
-                                    <div>${file.oriName}<button type="button" class="btn btn-dark delAttach"
+                                    <div class = "delfiles">${file.oriName}<button type="button" class="btn btn-dark delAttach"
                                             seq="${file.seq}">삭제</button>
                                     </div>
                                 </c:forEach>

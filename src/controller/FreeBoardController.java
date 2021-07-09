@@ -81,31 +81,33 @@ public class FreeBoardController extends HttpServlet {
 				List<String>pageNavi;//페이지 네비게이션 리스트
 
 				if(keyWord==null || keyWord.contentEquals("")){ //keyword가 없거나, keyword의 input 박스가 비워 있을 경우
-					if(branch==null & category==null & keyWord== null) {
+					if(branch==null || branch.contentEquals("")&  category.contentEquals("") & keyWord.contentEquals("")) {
 						System.out.println("전체");
 						boardlist =fbdao.getPageList(startNum,endNum);
-						
+						 pageNavi =fbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
+						 
 					}else {
-						System.out.println("지점");
+						System.out.println("각 지점");
 						boardlist =fbdao.getEachBranch(startNum,endNum,branch);// 페이지 리스트 시작 번호, 끝번호 parameter로 받음
+						pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
+
 					}
 				}else { //keyword를 쳤을 때, branch null이면 
 					if(branch==null){
-						System.out.println("key 전체");
+						System.out.println("keyword + 전체");
 						boardlist =fbdao.searchAll(startNum,endNum,category,keyWord);
+						 pageNavi =fbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
+
 
 					}else {
+						System.out.println("keyword + 각 지점");
 						boardlist =fbdao.searchBranch(branch,category,keyWord,startNum,endNum); //페이징 네비게이션 시작/끝 번호 + category 키워드를 parameter로 받음
-						System.out.println("key 지점");
+						pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
+
 					}
 				}
 				
 				System.out.println(boardlist);
-				if(branch==null){
-				 pageNavi =fbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
-				}else {
-					pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
-				}
 	
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("navi", pageNavi);
@@ -243,10 +245,14 @@ public class FreeBoardController extends HttpServlet {
 				System.out.println("수정한 제목:" +uptitle);
 				String upcontents = multi.getParameter("contents");
 				System.out.println("수정한 내용: "+ upcontents);
-				//String형 배열 return
+				
+					//String형 배열 return
 				String[]del=multi.getParameterValues("delete");
-
-				if(del!= null) {
+				
+				if(del== null) {
+					
+					
+				}else if(del!= null) {
 					for(String deleteFile : del) {
 						System.out.println("지울 파일 번호 "+ deleteFile);
 
@@ -256,26 +262,28 @@ public class FreeBoardController extends HttpServlet {
 						System.out.println("파일 삭제 여부 :" + result);
 						if(result) {ffdao.fileDelete(Integer.parseInt(deleteFile));}
 					}
-				}
-				System.out.println(del.length);
+					
+					System.out.println(del.length);
 
-				int result = fbdao.modify(board_seq, uptitle, upcontents);
-				System.out.println("수정 결과"+ result);
+					int result = fbdao.modify(board_seq, uptitle, upcontents);
+					System.out.println("수정 결과"+ result);
 
-				Set<String>fileNames = multi.getFileNameSet();
-				System.out.println("파일갯수 "+fileNames.size());
-				for(String fileName : fileNames) {
-					System.out.println("파라미터 이름: "+ fileName);
-					String oriName = multi.getOriginalFileName(fileName);
-					String sysName = multi.getFilesystemName(fileName);
+					Set<String>fileNames = multi.getFileNameSet();
+					System.out.println("파일갯수 "+fileNames.size());
+					for(String fileName : fileNames) {
+						System.out.println("파라미터 이름: "+ fileName);
+						String oriName = multi.getOriginalFileName(fileName);
+						String sysName = multi.getFilesystemName(fileName);
 
 
-					if(oriName!=null) {  
-						System.out.println("파일이름" + oriName + "DB에 저장됨.");
+						if(oriName!=null) {  
+							System.out.println("파일이름" + oriName + "DB에 저장됨.");
 
-						int fileUpload =ffdao.fileUpload(new FreeFilesDTO(0,oriName,sysName,null,board_seq));			
+							int fileUpload =ffdao.fileUpload(new FreeFilesDTO(0,oriName,sysName,null,board_seq));			
+						}
 					}
 				}
+			
 				FreeBoardDTO dto = fbdao.detailView(board_seq);
 				List<FreeFilesDTO> flist = ffdao.selectAll(board_seq);
 				request.setAttribute("view", dto);
