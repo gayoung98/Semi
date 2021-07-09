@@ -73,28 +73,37 @@ public class NoticeBoardController extends HttpServlet {
 				List<String>pageNavi;//페이지 네비게이션 리스트
 
 				if(keyWord==null || keyWord.contentEquals("")){ //keyword가 없거나, keyword의 input 박스가 비워 있을 경우
-					if(branch==null & category==null & keyWord== null) {
+					if(branch==null || branch.contentEquals("")&  category.contentEquals("") & keyWord.contentEquals("")) {
 						System.out.println("전체");
 						boardlist =nbdao.getPageList(startNum,endNum);
+						 pageNavi =nbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
+
 						
 					}else { //각 지점의 
-						System.out.println("지점");
+						System.out.println("각 지점");
 						boardlist =nbdao.getEachBranch(startNum,endNum,branch);// 페이지 리스트 시작 번호, 끝번호 parameter로 받음
+						pageNavi =nbdao.getPageNavi(cpage,category,keyWord,branch);
+
 					}
 					
 					
 				}else { //keyword를 쳤을 때, branch null이면 
 					if(branch==null){
-						System.out.println("key 전체");
+						System.out.println("keyword + 전체");
 						boardlist =nbdao.searchAll(startNum,endNum,category,keyWord);
+						 pageNavi =nbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
+
 
 					}else{
+						System.out.println("keyword + 각 지점");
 						boardlist =nbdao.searchEachBranch(branch,category,keyWord,startNum,endNum); //페이징 네비게이션 시작/끝 번호 + category 키워드를 parameter로 받음
-						System.out.println("key 지점");
+						pageNavi =nbdao.getPageNavi(cpage,category,keyWord,branch);
+
+						
 					}
 				}
-					System.out.println(boardlist);
-				pageNavi =nbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
+				
+				System.out.println(boardlist);
 				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("navi", pageNavi);
 

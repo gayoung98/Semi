@@ -84,7 +84,7 @@
 				.contents {
 					padding:0;
 					margin-left:20px;
-					height: 200px;
+					height: 500px;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
@@ -286,6 +286,16 @@
 						$("#modifyForm").append(inputcom);
 
 					});
+					
+					$(".deleteReply").on("click",function () { //댓글 삭제
+						let check = confirm("정말 댓글을 삭제하겠습니까?");
+						if (check) {
+							$("delReplyForm").submit();
+						} else {
+							return;
+						}
+						
+					});
 
 				});
 			</script>
@@ -351,7 +361,7 @@
 
 									<div class="comment_writerInfo">
 										<a id="" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-											class="comment_nickname"> ${i.writer}
+											class="comment_nickname"> ${i.name}
 										</a>
 									</div>
 									<!--댓글 수정-->
