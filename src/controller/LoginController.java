@@ -95,7 +95,7 @@ public class LoginController extends HttpServlet {
 			}else if(url.contentEquals("/signout.member")) {
 				l.trace(request.getRemoteAddr()+" 로그아웃");
 				 request.getSession().invalidate();
-				 response.sendRedirect("login.jsp");
+				 response.sendRedirect("index.jsp");
 				 
 			}else if(url.contentEquals("/findId.member")) {
 				response.sendRedirect("member/findId.jsp");
@@ -106,7 +106,8 @@ public class LoginController extends HttpServlet {
 				String email = dao.findId(name, phone);
 				String firstEmail = email.split("@")[0];
 				String secondEmail = email.split("@")[1];
-				//response.getWriter().append("*".(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
+				response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
+				//response.getWriter().append(email);
 				
 			}else if(url.contentEquals("/findPw.member")){
 				response.sendRedirect("member/findPw.jsp");
