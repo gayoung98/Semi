@@ -36,7 +36,7 @@ public class EmailController extends HttpServlet {
 		try {
 			
 		      String host = "smtp.naver.com";
-		      String user = Config.user;
+		      String user = Config.from;
 		      String password  = Config.password;
 		      String to = request.getParameter("email");
 		      String sub = Config.sub;
