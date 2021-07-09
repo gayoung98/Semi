@@ -11,6 +11,8 @@ public class InquireDTO {
    private String contents;
    private String recomment;
    private Date reg_date;
+   
+   public InquireDTO() {}
    public InquireDTO(int seq, String id, String major_category, String sub_category, String contents,String recomment,
          Date reg_date) {
       super();
