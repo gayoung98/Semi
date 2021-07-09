@@ -18,16 +18,32 @@
       let ch1 = $("#ch")
       let phone1 = $("#phone")
       
-      let id = document.getElementById("email");  
       let ch2 = document.getElementById("ch");
       let phone = document.getElementById("phone");
       let val = document.getElementById("val");
       
-      let idRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
       let pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
       let phoneRegex = /^010-?\d{3,4}-?\d{4}$/;
       
-     /*  document.getElementById("ch").oninput = function(){
+      $("#btn").on("click",function(){
+    	  let msg ="";
+    	  if(!pwRegex.test($("#pw").val())){
+    		  msg += "비밀번호 양식 "
+    		  $("#pw").val("");
+    		  $("#ch").val("");
+    	  }
+    	  if(!phoneRegex.test($("#phone").val())){
+    		  msg += "핸드폰 양식 "
+    		  $("#phone").val("");
+    	  }
+    	  if(msg==""){
+    		  $(this).attr("type","submit");
+    	  }else{
+    		  alert(msg+"확인해주세요!");
+    	  }
+      })
+      
+     document.getElementById("ch").oninput = function(){
          let pw = document.getElementById("pw").value;
            let ch = document.getElementById("ch").value;
             if(pw != ch){
@@ -37,7 +53,7 @@
             }
         }   
             
-      ch1.blur(function(){
+      /* ch1.blur(function(){
            let resultpw = pwRegex.test(ch2.value);
             if(resultpw){
                 return;
@@ -75,6 +91,11 @@
         margin-left: 10px; 
         margin-bottom: 5%;
         border:0 solid black;}
+    #btn{
+    	width: 60%;
+        margin-left: 10px; 
+        margin-bottom: 5%;
+    }   
     #val{float: right;}
     h2{padding:15px}
     i{padding:20px}
@@ -131,7 +152,7 @@
            <input type=text name="phone" id="phone" placeholder="핸드폰" value = "${member.phone}">
        </div>
       <div><center>
-           <input type="submit" class="btn btn-outline-info w-25" value="수정하기">
+           <button type="button" class="btn btn-outline-info w-25" id = btn>수정하기</button>
            <a href="${pageContext.request.contextPath}/mypage.mp"><input type="button" class="btn btn-outline-info w-25" value="뒤로가기"></a>
        </center></div>
 		

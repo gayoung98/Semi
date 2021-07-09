@@ -127,7 +127,7 @@ public class MainController extends HttpServlet {
 					boolean insertResult = result >0 ? true : false;
 					System.out.println(String.valueOf(insertResult));
 					request.setAttribute("result", insertResult);
-					request.getRequestDispatcher("PopResult.jsp").forward(request, response);
+					request.getRequestDispatcher("inquired/PopResult.jsp").forward(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

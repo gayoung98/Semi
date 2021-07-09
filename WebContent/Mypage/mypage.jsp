@@ -98,7 +98,12 @@ let callPopUp = function(){
 		}
 		
 	})	
-}	
+}
+
+let studentinfo = function(){
+	window.open("${pageContext.request.contextPath}/studentinfo.mp","studentinfo","width=720px,height=1280px,scrollbars=no,resizable=no")
+	
+}
 
 	let InquiredList = function(){
 		window.open("${pageContext.request.contextPath}/inquiredList.mp", "inquiredList", 'width=1280px,height=480px,scrollbars=no,resizable=no');
@@ -106,17 +111,19 @@ let callPopUp = function(){
 	
 	$(function(){
 	
-	$("#cog").on("click", function(){	
-		$("#file").click();		
-	})
-	
 	$("#picture_modify").on("click", function(){
 		let origin_picture = $("#profile").attr("src");
-		let popup = window.open('picture_change.mp?origin='+origin_picture, 'change','width=320px,height=400px,scrollbars=no,resizable=no');
+		let popup = window.open('picture_change.mp?origin='+origin_picture, 'change','width=550px,height=480px,scrollbars=no,resizable=no');
 	})
 	
 	})
 </script>
+
+<c:if test="${update_result!=null }">
+	<script>
+		alert("정보 수정이 완료되었습니다!");
+	</script>
+</c:if>
 </head>
 <body>
 <jsp:include page="/navibar.jsp"></jsp:include>
@@ -152,7 +159,14 @@ let callPopUp = function(){
 	                   	</div>
                    	</div>
                     <div class="card-body">
-                      <h5 class="card-title">${member.name} </h5>
+                    <c:choose>
+                    	<c:when test="${member.position=='teacher' }">
+                    		 <h5 class="card-title">${member.name} 강사님 </h5>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<h5 class="card-title">${member.name} </h5>
+                    	</c:otherwise>
+                    </c:choose>
                       <p class="card-text">
                             <p>KH 
                             <c:choose>
@@ -166,9 +180,9 @@ let callPopUp = function(){
 	                            	강남점
 	                            </c:otherwise>
                             </c:choose>
+                            ${member.khClass } 클래스
                             </p>
                             <p>디지털 컨버전스 자바 양성과정</p>
-                            <p>${member.khClass } 클래스 / 조성태 강사님</p>
                       </p>
                     </div>
                   </div>
@@ -205,8 +219,84 @@ let callPopUp = function(){
             </div>
             
             </div>
-
-            <div class="row">
+            
+            <c:choose>
+				<c:when test="${member.position=='teacher' }">
+					<div class = "row">
+						<div class = "col-6">
+							 <div class="card">
+				                  <div class="card-header">
+				                      <h2>Process In Progress</h2>
+				                   </div>
+				                   <div class="card-body">
+				                  		<table class="table">
+											  <thead class="thead-dark">
+											    <tr>
+											      <th scope="col">회차</th>
+											      <th scope="col" colspan=2 style ="text-align: center">수강</th>
+											      <th scope="col">수강인원</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											    <tr>
+											      <th scope="row">1</th> 
+											      <td scope="col" colspan=2 style ="text-align: center"><a href="javascript:void(0)" onclick ="javascript:studentinfo();" return false;>디지털 컨버전스 자바 양성 과정</a></td>
+											      <td>${studentNumber} 명</td>
+											    </tr>
+											    <tr>
+											      <th scope="row">2</th>
+											      <td scope="col" colspan=2 style ="text-align: center">미정</td>
+											      <td>-명</td>
+											    </tr>
+											    <tr>
+											   <th scope="row">3</th>
+											      <td scope="col" colspan=2 style ="text-align: center">미정</td>
+											      <td>-명</td>
+											    </tr>
+											  </tbody>
+											</table>
+				                   </div>
+				                 </div>
+						</div>
+						
+						<div class = "col-6">
+							<div class ="row">
+								<div class = "col-12">
+									 <div class="card">
+				                        <div class="card-header">
+				                          <h2>Board Written</h2><a href ="${pageContext.request.contextPath}/list.fboard?category=writer&cpage=1&keyword=${login}">더보기(More)</a>
+				                        </div>
+				                        <div class="card-body">
+				                        <c:forEach var="item" items="${FreeBoard}">
+				                          <h5 class="card-title" name = freeboard id =${item.seq }><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a></h5>
+				                        </c:forEach>
+				                        </div>
+				                      </div>
+								</div>
+							</div>
+							
+								<div class = "row">
+								<div class = "col-12">
+									  <div class="card">
+                        <div class="card-header">
+                          <h2>Q&A</h2><a href ="javascript:InquiredList();">더보기(More)</a>
+                        </div>
+                        <div class="card-body">
+                         <c:forEach var="item" items="${Inquired }">
+                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.contents}</a></h5>
+                         </c:forEach>
+                        </div>
+                      </div>
+								</div>
+							</div>
+							
+							
+						</div>
+					
+					</div>
+				</c:when>
+				<c:otherwise>
+				   <div class="row">
                 <div class="col-6">
                 <div class="card">
                     <div class="card-header">
@@ -276,6 +366,10 @@ let callPopUp = function(){
                       </div>
                     </div>
             </div>
+				
+				</c:otherwise>
+
+			</c:choose>
         </div>
 </body>
 </html>

@@ -80,6 +80,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("FreeBoard", mpd.getWrittenFreeBoard(session));
 				request.setAttribute("Inquired", mpd.getWrittenInquired(session));
 				request.setAttribute("Notice", nbd.getMypageNotice(md.getAllInfo(session).getBranch()));
+				request.setAttribute("studentNumber", mpd.getStudentList(md.getAllInfo((String)request.getSession().getAttribute("login"))).size());
 				request.getRequestDispatcher("Mypage/mypage.jsp").forward(request, response);
 				
 			} catch (Exception e) {
@@ -106,13 +107,21 @@ public class MypageController extends HttpServlet{
 			String id = multi.getParameter("id");
 			String update_pw = multi.getParameter("pw"); 
 			String update_phone=multi.getParameter("phone");
+			System.out.println(id);
+			System.out.println(update_pw);
+			System.out.println(update_phone);
 			try {
-				mpd.update(new MemberDTO(id, update_pw, update_phone));
-				if(pfd.getFile(id) != null) pfd.deletefile(id); 
+				MemberDTO temp_member = new MemberDTO();
+				temp_member.setPw(Util.getSHA512(update_pw));
+				temp_member.setId(id);
+				temp_member.setPhone(update_phone);
+				int result=mpd.update(temp_member);
+				if(multi.getOriginalFileName("profile") != null) {
+				if(pfd.getFile(id) != null) pfd.deletefile(id);
 				pfd.insert(new ProfileFileDTO(multi.getOriginalFileName("profile"), multi.getFilesystemName("profile"),id));
-				int result = mpd.update(new MemberDTO(id, update_pw, update_phone));
+				}
 				request.setAttribute("update_result", result);
-				request.getRequestDispatcher("Mypage/mypage.mp").forward(request, response);
+				request.getRequestDispatcher("/mypage.mp").forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,16 +145,16 @@ public class MypageController extends HttpServlet{
 			MultipartRequest profile_multi  = new MultipartRequest(request,profile_filesPath,maxSize,"utf8",new DefaultFileRenamePolicy());
 			String update_profile = profile_multi.getOriginalFileName("after_profile");
 			System.out.println(update_profile);
-			
-			String temp = URLEncoder.encode(profile_multi.getFilesystemName("after_profile"),StandardCharsets.UTF_8.toString());
-			
+		
 			try {
 				if(update_profile != null) {
+					String temp = URLEncoder.encode(update_profile,StandardCharsets.UTF_8.toString());
 					if(pfd.getFile(mpd.getID(session)) != null) pfd.deletefile(mpd.getID(session));
 					pfd.insert(new ProfileFileDTO(profile_multi.getOriginalFileName("after_profile"), profile_multi.getFilesystemName("after_profile"),mpd.getID(session)));
 					response.sendRedirect("picture_change.mp?origin="+ctxPath+"/profile/"+session+"/"+temp+"&change_result=true");	
 				} else {
-					response.sendRedirect("picture_change.mp?origin="+ctxPath+"/profile/"+session+"/"+pfd.getFile(mpd.getID(session)).getSysName()+"&change_result=false");
+					String temp = URLEncoder.encode(pfd.getFile(mpd.getID(session)).getSysName(),StandardCharsets.UTF_8.toString());
+					response.sendRedirect("picture_change.mp?origin="+ctxPath+"/profile/"+session+"/"+temp+"&change_result=false");
 				} 
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -171,7 +180,16 @@ public class MypageController extends HttpServlet{
 			
 			break;
 			
-		case "/notice.mp":break;
+		case "/studentinfo.mp":
+			try {
+				request.setAttribute("studentList", mpd.getStudentList(md.getAllInfo((String)request.getSession().getAttribute("login"))));
+				request.setAttribute("calander",cd.getCoursePeriod(md.getAllInfo((String)request.getSession().getAttribute("login"))));
+				request.getRequestDispatcher("inquired/studentList.jsp").forward(request, response);
+			} catch (Exception e) {
+				e.getStackTrace();
+				System.out.println(e.getMessage());
+			}
+			break;
 			}	
 	    }
 	}
