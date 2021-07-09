@@ -22,6 +22,11 @@ $(function(){
 	   $("#close_popup").on("click", function(){
 	        parent.window.close();
 	    })
+	    
+	    $("#update_btn").on("click", function(){
+	    	
+	    	location.href = "${pageContext.request.contextPath}/updateRequired.mp?seq="+$("#update_btn").val();
+	    })
 	
 })
 
@@ -87,17 +92,30 @@ $(function(){
 		</tr>
 		<c:if test=""></c:if>
 		<tr>
-			<th scope="row" colspan=2>답변
+		<c:choose>
+			<c:when test="${inquired.recomment ==null }">
+			<td colspan=2 style ="text-align: center; line-height: 100px;">
+			 <div class="form-group">
+                <div class="form-control"  style ="height:100px">빠르게 원인 파악중입니다! 잠시만 기다려주세요!</div>
+                </div>
+            </td>
+			</c:when>
+			<c:otherwise>
+				<th scope="row" colspan=2>답변
 			 <div class="form-group">
                 <div class="form-control"  style ="height:100px">${inquired.recomment }</div>
                 </div>
 			</th>
+			</c:otherwise>
+		</c:choose>
 		</tr>
 		</tbody>
 	</table>
 	 
 			<div class ="btn_container">
-                <!-- <button type="submit" class="btn btn-light" id="submit_btn" >Submit</button> -->
+			<c:if test="${inquired.recomment ==null }">
+				<button type="button" class="btn btn-light" id="update_btn" value =${inquired.seq }>수정하기</button> 
+			</c:if>
                 <button type="button" class="btn btn-danger" id="close_popup">Cancel</button>
             </div>
         </div>
