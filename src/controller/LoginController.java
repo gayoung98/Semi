@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import dao.MemberDAO;
 import dto.MemberDTO;
 
 
 @WebServlet("*.member")
 public class LoginController extends HttpServlet {
-
+	Logger l = Logger.getLogger(LoginController.class);
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -76,18 +78,22 @@ public class LoginController extends HttpServlet {
 				}
 								
 			}else if(url.contentEquals("/login.member")) {
+				
 				String email = request.getParameter("id");
 				String pw = request.getParameter("pw");
+				l.trace(request.getRemoteAddr()+" 로그인 시도");
 				String result = dao.login(email, pw);
 				
 				if(result != null) {
 					request.getSession().setAttribute("login",result);
+					l.trace(request.getRemoteAddr()+" 로그인 완료");
 					response.sendRedirect("main.main");
 				}else {
 					response.sendRedirect(ctxPath+"/view/loginView.jsp");
 				}	
 								
 			}else if(url.contentEquals("/signout.member")) {
+				l.trace(request.getRemoteAddr()+" 로그아웃");
 				 request.getSession().invalidate();
 				 response.sendRedirect("login.jsp");
 				 
@@ -115,6 +121,7 @@ public class LoginController extends HttpServlet {
 				request.getRequestDispatcher("/view/modifyView.jsp").forward(request, response);
 				
 			}else if(url.contentEquals("/member/updatePw.member")) {
+				l.trace(request.getRemoteAddr()+" 비밀번호 변경");
 				request.setAttribute("email", request.getParameter("email"));
 				request.getRequestDispatcher("updatePw.jsp").forward(request, response);
 				
