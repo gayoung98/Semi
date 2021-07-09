@@ -194,6 +194,10 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			
+			if(category.contentEquals("writer")) {
+				MemberDAO daoM = MemberDAO.getInstance();
+				keyWord = daoM.getEmailByName(keyWord);
+			}
 			pstat.setNString(1,"%"+keyWord+"%"); //sql 구문에 like 뒤에 %keyword%
 			pstat.setInt(2,startNum); //사작 번호
 			pstat.setInt(3,endNum); //끝 번호
