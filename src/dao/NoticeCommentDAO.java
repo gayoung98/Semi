@@ -57,11 +57,13 @@ public class NoticeCommentDAO {
 				int num = rs.getInt("seq");
 				String id = rs.getNString("id");
 				String writer = rs.getNString("writer");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String comments = rs.getNString("comments");
 				Date writer_date = rs.getDate("write_date");
 				int parent_seq = rs.getInt("parent");
 
-				NoticeCommentsDTO result = new NoticeCommentsDTO(num,id,writer,comments,writer_date,parent_seq);
+				NoticeCommentsDTO result = new NoticeCommentsDTO(num,id,name,writer,comments,writer_date,parent_seq);
 				return result;
 
 			}
@@ -80,11 +82,13 @@ public class NoticeCommentDAO {
 				int num = rs.getInt("seq");
 				String id = rs.getNString("id");
 				String writer = rs.getNString("writer");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String comments = rs.getNString("comments");
 				Date writer_date = rs.getDate("write_date");
 				int parent = rs.getInt("parent");
 
-				NoticeCommentsDTO dto = new NoticeCommentsDTO(num,id,writer,comments,writer_date,parent);
+				NoticeCommentsDTO dto = new NoticeCommentsDTO(num,id,name,writer,comments,writer_date,parent);
 				list.add(dto);
 			}
 			return list;

@@ -56,6 +56,29 @@ public class inquiredDAO {
 		}
 	}
 	
+	
+	public int delete(int seq) throws Exception{
+		String sql = "delete from inquire where seq = ?";
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setInt(1,seq);
+			return psmt.executeUpdate();	
+		}
+	}
+	
+	public int update(InquireDTO temp) throws Exception{
+		String sql = "update inquire set id=?,major_category=?,sub_category=?, contents=?,reg_date=sysdate where seq = ?";
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setString(1,temp.getId());
+			psmt.setString(2,temp.getMajor_category());
+			psmt.setString(3,temp.getSub_category());
+			psmt.setString(4,temp.getContents());
+			psmt.setInt(5,temp.getSeq());
+			return psmt.executeUpdate();	
+		}
+	}
+	
 	public List<InquireDTO> getList(String session) throws Exception{
 		String sql = "select * from inquire where id =? order by reg_date";
 		List<InquireDTO> li = new ArrayList<InquireDTO>(); 

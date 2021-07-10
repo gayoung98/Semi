@@ -124,7 +124,7 @@
 				.contents {
 					padding:0;
 					margin-left:20px;
-					height: 200px;
+					height: 500px;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
@@ -289,8 +289,6 @@
 							$(this).remove();
 
 					});
-
-					
 					
 					$("#modifyForm").on("submit", function () { //댓글 수정 폼
 						let inputcom = $("<input>");
@@ -301,11 +299,10 @@
 
 					});
 					
-					
-					$("#deleteReply").on("click",function () { //댓글 삭제
+					$(".deleteReply").on("click",function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
 						if (check) {
-							$("form").submit();
+							$("delReplyForm").submit();
 						} else {
 							return;
 						}
@@ -339,7 +336,7 @@
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${view.name}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                  			<img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
@@ -399,7 +396,7 @@
 
 									<div class="comment_writerInfo">
 										<a id="" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-											class="comment_nickname"> ${i.writer}
+											class="comment_nickname"> ${i.name}
 										</a>
 									</div>
 									<!--댓글 수정-->
@@ -429,7 +426,7 @@
 									</form>
 
 									<!-- 댓글 삭제 -->
-									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="form">
+									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="delReplyForm">
 										<button type="submit" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 

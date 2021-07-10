@@ -25,6 +25,7 @@ import dao.NoticeCommentDAO;
 import dao.NoticeFileDAO;
 import dao.ProfileFileDAO;
 import dao.inquiredDAO;
+import dto.InquireDTO;
 import dto.MemberDTO;
 import dto.NoticeBoardDTO;
 import dto.NoticeCommentsDTO;
@@ -74,7 +75,9 @@ public class MypageController extends HttpServlet{
 					 
 				request.setAttribute("calander", cd.getMonth(cal.get(caltoGre.MONTH)+1, mpd.getMember(session).getBranch(), mpd.getMember(session).getKhClass()));
 				request.setAttribute("rest_calander", cd.rest_getMonth(mpd.getMember(session).getBranch(), mpd.getMember(session).getKhClass()));
+				request.setAttribute("period", cd.getCoursePeriod(md.getAllInfo((String)(request.getSession().getAttribute("login")))));
 				request.setAttribute("member",mpd.getMember(session));
+				request.setAttribute("teacher", mpd.getTeacher(mpd.getMember(session)));
 			    request.setAttribute("d_day",Util.dDay_to_Today());
 			    request.setAttribute("d_day_percent",Util.dDay_to_Total());
 				request.setAttribute("FreeBoard", mpd.getWrittenFreeBoard(session));
@@ -188,6 +191,68 @@ public class MypageController extends HttpServlet{
 			} catch (Exception e) {
 				e.getStackTrace();
 				System.out.println(e.getMessage());
+			}
+			break;
+			
+		case "/detailStudent.mp": 
+			String email = request.getParameter("email");
+			try {
+				request.setAttribute("member", md.getAllInfo(email));
+				request.setAttribute("email", email);
+				request.setAttribute("teacher", mpd.getTeacher(mpd.getMember(email)));
+				System.out.println(mpd.getID(email));
+				if(pfd.getFile(mpd.getID(email)).getSysName()!=null) {
+					request.setAttribute("profile_img",ctxPath+"/"+"profile"+"/"+email+"/"+pfd.getFile(mpd.getID(email)).getSysName());
+				} else {
+					request.setAttribute("profile_img","profile.png");	
+				}
+				request.getRequestDispatcher("inquired/detailviewst.jsp").forward(request, response);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			break;
+		case "/updateRequired.mp":
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			try {
+				request.setAttribute("inquired", idao.getDTO(seq));
+				request.getRequestDispatcher("inquired/updateInquired.jsp").forward(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
+		case "/insertUpdateInquired.mp": 
+			try {
+			InquireDTO temp_id = new InquireDTO();
+			temp_id.setSeq(Integer.parseInt(request.getParameter("seq")));
+			temp_id.setId(request.getParameter("id"));
+			temp_id.setMajor_category(request.getParameter("major_category"));
+			temp_id.setSub_category(request.getParameter("sub_category"));
+			temp_id.setContents(request.getParameter("inquire_contents"));
+			int result = idao.update(temp_id);
+			if(result>0) {
+				request.setAttribute("update_result",result);
+			}
+			request.setAttribute("seq",temp_id.getSeq());
+			request.getRequestDispatcher("inquired/updateResult.jsp").forward(request, response);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;	
+		case "/deleteInquired.mp":
+			try {
+				int result = idao.delete(Integer.parseInt(request.getParameter("seq")));
+				if(result>0) {
+					request.setAttribute("delete_result",result);
+				}
+				request.setAttribute("seq",Integer.parseInt(request.getParameter("seq")));
+				request.getRequestDispatcher("inquired/updateResult.jsp").forward(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			break;
 			}	

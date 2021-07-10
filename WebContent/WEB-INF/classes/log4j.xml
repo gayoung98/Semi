@@ -20,11 +20,15 @@
     </level>
     <appender-ref ref="rolling" />
     </logger>
-    
+      <logger name ="quartz">
+    <level value="warn">
+    </level>
+    <appender-ref ref="rolling" />
+    </logger>
     
     <logger name="dao">
     <level value="trace">
-    </level>
+    </level> <appender-ref ref="rolling" />
     </logger>
     
     

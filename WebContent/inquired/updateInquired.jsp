@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,21 +38,9 @@
 
 <script>
 	$(function(){
-		$("#submit_btn").on("click", function(){
-	/* 	    $.ajax({
-		        url:"insert.inquired",
-		        data:{"writer": $("#writer").val(), 
-		        	  "major_category":$("#major_category").val(), 
-		        	  "sub_category": $("#sub_category").val(), 
-		        	  "inquire_contents":$("#inquire_contents").val()},
-		        dataType:"TEXT"
-		    }).done(function(result){
-		    	parent.window.close();
-		    }) */
-		    
-		    
+		$("#delete_btn").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/deleteInquired.mp?seq="+$("#seq").val();
 		})
-	
 	    let limit = 200;
 	    $("#inquire_contents").on("keyup", function(){
 	        let text = $(this).val();
@@ -72,10 +61,10 @@
 <body>
 	 <div class = "container">
         <h2> 문의하기 </h2>
-        <form action= "${pageContext.request.contextPath}/inquired.main" method="post">
+        <form action= "${pageContext.request.contextPath}/insertUpdateInquired.mp" method="post">
             <div class="form-group">
             <label for="exampleFormControlInput1"><strong>작성자</strong></label>
-            <input type="email" class="form-control" id="writer" name="writer" value = "${login }" readonly>
+            <input type="email" class="form-control" id="writer" name="id" value = "${login }" readonly>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><strong>주제 분류</strong></label>
@@ -97,10 +86,12 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"><strong>내용</strong></label> <label id ="content">( <label id ="content_length">0</label>/ 200) </label>
-                <textarea class="form-control" id="inquire_contents" name ="inquire_contents"  rows="6"></textarea>
+                <textarea class="form-control" id="inquire_contents" name ="inquire_contents"  rows="6">${inquired.contents }</textarea>
                 </div>
                 <div class ="btn_container">
-                <button type="submit" class="btn btn-light" id="submit_btn" >Submit</button>
+                <input type =hidden id = seq name =seq value ="${inquired.seq}">
+                <button type="submit" class="btn btn-primary" id="update_btn">Update</button>
+                <button type="button" class="btn btn-danger" id="delete_btn">Delete</button>
                 <button type="button" class="btn btn-danger" id="close_popup">Cancel</button>
             </div>
         </form>

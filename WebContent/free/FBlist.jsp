@@ -114,7 +114,7 @@ $("#back").on("click",function(){
 		<ul class="nav justify-content-center branch_list">
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page"
-				href="${pageContext.request.contextPath}/list.fboard?cpage=1">전체</a>
+				href="${pageContext.request.contextPath}/list.fboard?cpage=1&category=&keyword=">전체</a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
 				href="${pageContext.request.contextPath}/list.fboard?branch=J&cpage=1&category=&keyword=">종로</a>
@@ -154,26 +154,22 @@ $("#back").on("click",function(){
 
 
 		<!--페이징 네비바-->
-		<div class="nav justify-content-center">
-			<c:forEach var="i" items="${navi}" varStatus="s">
-				<c:choose>
-					<c:when test="${i=='>'}">
-						
-						<a
-							href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
-						<!--s.index 10번인테 -1한 (배열 9번)요소: index 10+1=11번째!(배열로 10번요소) -->
-					</c:when>
-					<c:when test="${i=='<'}">
-						<a
-							href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
-						<!--s.index 10번인테 +1한 (배열 10번)요소;index 11-1= 10번째(배열의 9번요소)! -->
-					</c:when>
-					<c:otherwise>
-						<a
-							href="${pageContext.request.contextPath}/list.fboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+		<div class="nav justify-content-center">	
+				<c:forEach var="i" items="${navi}" varStatus="s">
+					<c:choose>
+						<c:when test="${i=='>'}">
+							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+							<!--s.index 10번인테 -1한 (배열 9번)요소: index 10+1=11번째!(배열로 10번요소) -->
+						</c:when>
+						<c:when test="${i=='<'}">
+							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+							<!--s.index 10번인테 +1한 (배열 10번)요소;index 11-1= 10번째(배열의 9번요소)! -->
+						</c:when>
+						<c:otherwise>
+							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 		</div>
 		<div class="text-right footer">
 			<button type="button" name="write" class="btn btn-primary writeBtn">글쓰기</button>
