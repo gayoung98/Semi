@@ -36,14 +36,15 @@ public class TypingController extends HttpServlet {
 
 		try {
 
-			if(url.contentEquals("write.typ")) {
-
+			if(url.contentEquals("/write.typ")) {
+				
+				System.out.println("write.typ");
 				int record = Integer.parseInt(request.getParameter("record"));
 				int accuracy = Integer.parseInt(request.getParameter("accuracy"));
 
-				String email = (String)request.getSession().getAttribute("login");
-				String writer = daoM.getAllInfo(email).getName();
-				String id = daoM.getAllInfo(email).getId();
+				String writer = (String)request.getSession().getAttribute("login");
+				String id = daoM.getAllInfo(writer).getId();
+
 
 				TypingDTO dto = new TypingDTO(0, writer, id, record, accuracy, null);
 				int result = daoT.insert(dto); 
@@ -53,19 +54,25 @@ public class TypingController extends HttpServlet {
 					System.out.println("타이핑 저장 안 됨.");
 				}
 
-				response.sendRedirect("typing.jsp");
+				response.sendRedirect("view.typ");
 
-			}else if(url.contentEquals("view.typ")) {
-				
+			}else if(url.contentEquals("/view.typ")) {
+				System.out.println("view.typ");
+
 				String email = (String)request.getSession().getAttribute("login");
 				String id = daoM.getAllInfo(email).getId();
+
 				List<TypingDTO> recentList = daoT.getRecentList(id);
-				
-				request.setAttribute("recentList", recentList);
-				
-				RequestDispatcher rd = request.getRequestDispatcher("typing.jsp");
-				rd.forward(request,response);
-				
+
+				if(recentList != null) {
+					request.setAttribute("recentList", recentList);
+
+					RequestDispatcher rd = request.getRequestDispatcher("/typing/typing.jsp");
+					rd.forward(request,response);
+				}else {
+					response.sendRedirect("/typing/typing.jsp");
+				}
+
 			}
 
 

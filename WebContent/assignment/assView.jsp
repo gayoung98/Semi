@@ -65,7 +65,7 @@ body {
 
 .comment {
 	padding: 1%;
-	border-bottom: 1px solid grey;
+
 	margin: 1%;
 }
 

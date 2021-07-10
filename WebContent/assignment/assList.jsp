@@ -107,7 +107,7 @@ a{
 			<div class="col-1">작성자</div>
 			<div class="col-3">작성일</div>
 			<div class="col-1">조회</div>
-			<div clss="col-1"></div>
+			<div class="col-1"></div>
 		</div>
 
 		<c:forEach var="item" items="${assList}">
@@ -116,7 +116,7 @@ a{
 				<div class="col-5">
 					<a href="view.ass?ass_seq=${item.seq}"><b>${item.title }</b></a>
 				</div>
-				<div class="col-1">${item.writer }</div>
+				<div class="col-1">${item.name }</div>
 				<div class="col-3">${item.write_date }</div>
 				<div class="col-1">${item.viewCount }</div>
 				<div class="col-1">

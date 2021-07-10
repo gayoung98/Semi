@@ -16,18 +16,36 @@
 <style>
 * {
 	box-sizing: border-box;
+	text-align: center;
 }
 
-div {
-	border: 1px solid black;
+body {
+	background-color: #D8E3E7;
+}
+
+.container {
+	margin-top: 80px;
 }
 
 .row {
 	text-align: center;
+	margin-bottom: 4%;
 }
-.rRecord{
+
+.chart {
+	background-color: white;
+	border: 2px solid grey;
+	box-shadow: 3px 3px 3px grey;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.bar {
 	display: inline-block;
-	width: 50%;
+	position: relative;
+	bottom: 0px;
+
+	background-color: cornflowerblue;
 }
 
 input {
@@ -35,51 +53,67 @@ input {
 	width: 100%;
 }
 
-button {
-	height: 100%;
+.record {
+	padding: 5px;
+	border: 2px solid grey;
+	margin-left: 15%;
+	margin-right: 15%;
+	box-shadow: 3px 3px 3px grey;
+}
+
+.navbar>.container-fluid {
+	padding: 0px;
+}
+
+.navbar-nav {
+	flex-grow: 1;
+	justify-content: space-around;
+}
+
+.slide {
+	position: absolute;
 	width: 100%;
-	color: cornflowerblue;
+	height: 50px;
+	top: 100%;
+	background-color: #55555550;
 }
 </style>
-<script>
-$(function(){
-	let record = $(".rRecord").attr("record");
-	
-	$(".rRecord").css("height":record);
-})
-</script>
+
 </head>
 <body>
-	<div class="container">
+	<jsp:include page="/navibar.jsp" />
+	<div class="container p-4 shadow bg-white rounded">
 		<div class="row header">
 			<h2>타자기록</h2>
 		</div>
 		<div class="row chart">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<c:forEach var="item" items="${recentList}">
-					<div class="row cRecord">
+
+				<div class="row cRecord">
+					<c:forEach var="item" items="${recentList}" varStatus="s">
 						<div class="col-1">
-						<div class="rRecord" record="${item.record}">${item.record}</div>
+							<div class=bar style="height:${item.record}px;">${item.record}</div>
 						</div>
-						
-					</div>
 
+					</c:forEach>
+				</div>
 
-					<div class="row cDate">
+				<div class="row cDate">
+					<c:forEach var="item" items="${recentList}">
 						<div class="col-1">${item.reg_date }</div>
+					</c:forEach>
+				</div>
 
-					</div>
-				</c:forEach>
 			</div>
 			<div class="col-2"></div>
 		</div>
 
 		<form action="write.typ" method="post">
 			<div class="row record" style="text-align: center;">
-				<div class="col-2"></div>
-				<div class="col-6 recbox">
-					<div class="row rec">
+				
+				<div class="col-8 recbox">
+					<div class="row rec" style="width:100%;height:90%;">
 
 						<div class="col-6">타자</div>
 						<div class="col-6">정확도</div>
@@ -94,10 +128,13 @@ $(function(){
 
 					</div>
 				</div>
-				<div class="col-2">
-					<button type="submit">제출</button>
+
+				<div class="col-4" >
+					<div class="row btn"  style="width:100%;height:100%;">
+						<button type="submit" class="btn btn-primary" style="width:100%;height:100%;">제출</button>
+					</div>
 				</div>
-				<div class="col-2"></div>
+				
 			</div>
 		</form>
 		<div class="row footer"></div>
