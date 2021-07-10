@@ -21,7 +21,7 @@
 $(function(){
 $("#back").on("click", function(){
 	
-	location.href ="popup.jsp";
+	location.href ="${pageContext.request.contextPath}/inquired/popup.jsp";
 })
 $("#cancel").on("click", function(){
 	parent.window.close(); 

@@ -52,8 +52,6 @@
 		    
 		})
 	
-	
-	
 	    let limit = 200;
 	    $("#inquire_contents").on("keyup", function(){
 	        let text = $(this).val();
