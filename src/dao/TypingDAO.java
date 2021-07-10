@@ -37,15 +37,15 @@ public class TypingDAO {
 		DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	
+
 	public int insert(TypingDTO dto) throws Exception {
-		
+
 		String sql = "insert into Typing values(typing_seq.nextval,?,?,?,?, sysdate)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			
+
 			pstat.setNString(1, dto.getWriter());
 			pstat.setNString(2, dto.getId());
 			pstat.setInt(3, dto.getRecord());
@@ -54,20 +54,20 @@ public class TypingDAO {
 			return result;
 		}			
 	}
-	
+
 	public List<TypingDTO> getRecentList(String id) throws Exception{
-		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, record, accurate, reg_date from typing where id=?) where rnum between 1 and 12";
+		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, record, accuracy, reg_date from typing where id=?) where rnum <= 12 order by seq";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			
+
 			pstat.setString(1, id);
 			ResultSet rs = pstat.executeQuery();
-			
+
 			List<TypingDTO> list = new ArrayList<>();
 			while(rs.next()) {
-				
+
 				int seq = rs.getInt("seq");
 				String writer = rs.getString("writer");
 				int record = rs.getInt("record");
@@ -75,15 +75,13 @@ public class TypingDAO {
 				Date reg_date = rs.getDate("reg_date");
 				TypingDTO dto = new TypingDTO(seq, writer, id, record, accuracy, reg_date);
 				list.add(dto);
-				
+
 			}
 			return list;
-			
 		}			
-	
-	
+
 	}
-	
-	
-	
+
+
+
 }

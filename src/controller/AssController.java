@@ -117,7 +117,7 @@ public class AssController extends HttpServlet {
 				String contents = multi.getParameter("contents");
 
 				String email = (String) request.getSession().getAttribute("login");
-				String writer = daoM.getAllInfo(email).getName();
+				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 				String khClass = daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();

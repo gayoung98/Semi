@@ -7,6 +7,7 @@ public class AssDTO {
 	private int seq;
 	private String writer;
 	private String id;
+	private String name;
 	private String title;
 	private String contents;
 	private String khClass;
@@ -22,6 +23,22 @@ public class AssDTO {
 		this.seq = seq;
 		this.writer = writer;
 		this.id = id;
+		this.title = title;
+		this.contents = contents;
+		this.khClass = khClass;
+		this.branch = branch;
+		this.write_date = write_date;
+		this.viewCount = viewCount;
+	}
+	
+
+	public AssDTO(int seq, String writer, String id, String name, String title, String contents, String khClass,
+			String branch, Date write_date, int viewCount) {
+		super();
+		this.seq = seq;
+		this.writer = writer;
+		this.id = id;
+		this.name = name;
 		this.title = title;
 		this.contents = contents;
 		this.khClass = khClass;
@@ -48,6 +65,14 @@ public class AssDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getTitle() {
 		return title;
 	}

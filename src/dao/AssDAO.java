@@ -127,30 +127,21 @@ public class AssDAO {
 			ResultSet rs = pstat.executeQuery();
 			AssDTO dto = null;
 			if(rs.next()) {
-
-
 				String writer = rs.getString("writer");
 				String id =rs.getString("id");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String title = rs.getString("title");
 				String contents= rs.getString("contents");
 				String khClass = rs.getString("khClass");
 				String branch = rs.getNString("branch");
 				Date write_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
-				dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, write_date, viewCount);
+				dto = new AssDTO(seq, writer, id, name, title, contents, khClass, branch, write_date, viewCount);
 			}
 			return dto;
 		}
 	}
-
-
-	//	public int search(String title) throws Exception {
-	//		
-	//	}
-	//	public int search(String contents) throws Exception {
-	//		
-	//	}
-
 
 
 	public int addViewCount(int seq, int viewCount) throws Exception{
@@ -189,13 +180,13 @@ public class AssDAO {
 					int seq = rs.getInt("seq");
 					String writer = rs.getString("writer");
 					String id =rs.getString("id");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String name = daoM.getAllInfo(writer).getName();
 					String title = rs.getString("title");
 					String contents= rs.getString("contents");
-					//String khClass = rs.getString("khClass");
-					//String branch = rs.getNString("branch");
 					Date write_date = rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
-					AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, write_date, viewCount);
+					AssDTO dto = new AssDTO(seq, writer, id, name, title, contents, khClass, branch, write_date, viewCount);
 					list.add(dto);
 				}
 				return list;
@@ -223,14 +214,14 @@ public class AssDAO {
 					int seq = rs.getInt("seq");
 					String writer = rs.getString("writer");
 					String id =rs.getString("id");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String name = daoM.getAllInfo(writer).getName();
 					String title = rs.getString("title");
 					String contents= rs.getString("contents");
-					//String khClass = rs.getString("khClass");
-					//String branch = rs.getNString("branch");
 					Date write_date = rs.getDate("write_date");
 					int viewCount = rs.getInt("viewCount");
 
-					AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, write_date, viewCount);
+					AssDTO dto = new AssDTO(seq, writer, id, name, title, contents, khClass, branch, write_date, viewCount);
 					list.add(dto);
 				}
 				return list;
@@ -260,13 +251,15 @@ public class AssDAO {
 				int seq = rs.getInt("seq");
 				String writer = rs.getString("writer");
 				String id =rs.getString("id");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String title = rs.getString("title");
 				String contents= rs.getString("contents");
 				//String khClass = rs.getString("khClass");
 				//String branch = rs.getNString("branch");
 				Date write_date = rs.getDate("write_date");
 				int viewCount = rs.getInt("viewCount");
-				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, write_date, viewCount);
+				AssDTO dto = new AssDTO(seq, writer, id, name, title, contents, khClass, branch, write_date, viewCount);
 				list.add(dto);
 			}
 			return list;
