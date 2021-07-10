@@ -17,8 +17,28 @@
 
 <style>
 .container{max-width:720px}
-
+ .btn_container{
+	    float: right;
+	    position: relative;
+	    right:5%;
+	}
 </style>
+
+<script>
+$(function(){
+	
+	$(document).on("click","#detailST",function(){
+		window.open("${pageContext.request.contextPath}/detailStudent.mp?email="+$(this).val(),"detail", 'width=1024px,height=568px,scrollbars=no,resizable=no');
+	})
+	
+	$("#close_popup").on("click", function(){
+	    parent.window.close();
+	})
+
+})
+
+
+</script>
 
 </head>
 <body>
@@ -55,12 +75,14 @@
       <td>${item.name}</td>
       <td>${item.phone}</td>
       <td>${item.email}</td>
-      <td><button class ="btn btn-link" id=${item.email }>상세보기</button></td>
+      <td><button class ="btn btn-link" id= detailST value =${item.email }>상세보기</button></td>
     </tr>
 	</c:forEach>
-  
   </tbody>
 </table>
+</div>
+<div class ="btn_container">
+       <button type="button" class="btn btn-danger" id="close_popup">Cancel</button>
 </div>
 </body>
 </html>

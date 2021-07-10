@@ -75,7 +75,9 @@ public class MypageController extends HttpServlet{
 					 
 				request.setAttribute("calander", cd.getMonth(cal.get(caltoGre.MONTH)+1, mpd.getMember(session).getBranch(), mpd.getMember(session).getKhClass()));
 				request.setAttribute("rest_calander", cd.rest_getMonth(mpd.getMember(session).getBranch(), mpd.getMember(session).getKhClass()));
+				request.setAttribute("period", cd.getCoursePeriod(md.getAllInfo((String)(request.getSession().getAttribute("login")))));
 				request.setAttribute("member",mpd.getMember(session));
+				request.setAttribute("teacher", mpd.getTeacher(mpd.getMember(session)));
 			    request.setAttribute("d_day",Util.dDay_to_Today());
 			    request.setAttribute("d_day_percent",Util.dDay_to_Total());
 				request.setAttribute("FreeBoard", mpd.getWrittenFreeBoard(session));
@@ -192,7 +194,24 @@ public class MypageController extends HttpServlet{
 			}
 			break;
 			
-			
+		case "/detailStudent.mp": 
+			String email = request.getParameter("email");
+			try {
+				request.setAttribute("member", md.getAllInfo(email));
+				request.setAttribute("email", email);
+				request.setAttribute("teacher", mpd.getTeacher(mpd.getMember(email)));
+				System.out.println(mpd.getID(email));
+				if(pfd.getFile(mpd.getID(email)).getSysName()!=null) {
+					request.setAttribute("profile_img",ctxPath+"/"+"profile"+"/"+email+"/"+pfd.getFile(mpd.getID(email)).getSysName());
+				} else {
+					request.setAttribute("profile_img","profile.png");	
+				}
+				request.getRequestDispatcher("inquired/detailviewst.jsp").forward(request, response);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			break;
 		case "/updateRequired.mp":
 			int seq = Integer.parseInt(request.getParameter("seq"));
 			try {

@@ -27,9 +27,10 @@ legend {
     color: #fff;
     text-align: center;
 }
-.graph{width: 100%; height: 250px; margin-top: 5%; border-bottom: 1px solid black; border-left: 1px solid black; overflow: hidden;}
-.figure{position: inherit; color: white; background-color: red;height: 50px; text-align: center; line-height: 50px;}
-.figure_BG{position:relative;width: 100%; height: 50px; background-color: rgba(255, 0, 0, 0.151); top:35%;}
+#graph{background-color: rgba(255, 255, 128, .5); color: black}
+.graph{width: 100%; height: 180px; position:relative; top: 15%; overflow: hidden;}
+.figure{position: inherit; color: white; background-color: red;height: 25px; text-align: center; line-height: 50px;}
+.figure_BG{position:relative;width: 99%; height: 25px; background-color: rgba(255,255,255,0.9); top:35%;}
 fieldset{border: 1px solid black;}
 .row{margin-bottom: 5%;}
 .profilebox{
@@ -41,9 +42,12 @@ fieldset{border: 1px solid black;}
     margin-left: 5%;
 }
 .updatebox{
-
 width:100%;
 
+}
+.btn{
+position:absolute;
+top:65%;
 }
 #profile{
     width: 100%;
@@ -101,7 +105,7 @@ let callPopUp = function(){
 }
 
 let studentinfo = function(){
-	window.open("${pageContext.request.contextPath}/studentinfo.mp","studentinfo","width=720px,height=1280px,scrollbars=no,resizable=no")
+	window.open("${pageContext.request.contextPath}/studentinfo.mp","studentinfo","width=720px,height=860px,scrollbars=no,resizable=no")
 	
 }
 
@@ -139,7 +143,7 @@ let studentinfo = function(){
                 <div class="card">
                 	<div class = row>
 	                	<div class = "col-6">
-			                <div class ="profilebox shadow bg-white" >
+			                <div class ="profilebox shadow bg-white" id= picture_modify>
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
 			                  			<img src="${pageContext.request.contextPath}/profile/${member.email }/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
@@ -148,25 +152,26 @@ let studentinfo = function(){
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:otherwise>
 		                   		</c:choose>
-		                   		
 		                   	</div>
 	                   	</div>
 	                   	<div class = "col-6">
-		                   	<div class = updatebox>
-			                   	 <button type= button class="btn btn-light" id= picture_modify>프로필바꾸기 </button>
-			                      <a href="${pageContext.request.contextPath}/modify.mp" class="btn btn-light">마이페이지<br> 수정</a>
-		                   	</div>	
+	                   	<br>
+	                   	<div class = info>
+		                   	  <c:choose>
+		                    	<c:when test="${member.position=='teacher' }">
+		                    		 <h5 class="card-title">${member.name} 강사님 </h5>
+		                    	</c:when>
+		                    	<c:otherwise>
+		                    		<h5 class="card-title">${member.name} 님 </h5>
+		                    	</c:otherwise>
+	                    	  </c:choose>
+			                  <i class="far fa-address-card"></i><a href="${pageContext.request.contextPath}/modify.mp" style="text-decoration:none; color:black"> 내 정보</a><br/>
+			                  <a href="${pageContext.request.contextPath}/signout.member"><button class ="btn btn-secondary rounded">LogOut</button></a>
+	                   	</div>
 	                   	</div>
                    	</div>
-                    <div class="card-body">
-                    <c:choose>
-                    	<c:when test="${member.position=='teacher' }">
-                    		 <h5 class="card-title">${member.name} 강사님 </h5>
-                    	</c:when>
-                    	<c:otherwise>
-                    		<h5 class="card-title">${member.name} </h5>
-                    	</c:otherwise>
-                    </c:choose>
+                   <%--  <div class="card-body">
+                
                       <p class="card-text">
                             <p>KH 
                             <c:choose>
@@ -184,15 +189,49 @@ let studentinfo = function(){
                             </p>
                             <p>디지털 컨버전스 자바 양성과정</p>
                       </p>
-                    </div>
+                    </div> --%>
+                  </div>
+                  <br/>
+                  <div class = card>
+                  	<div class = card-body style="font-size: 12px">
+                  		<p>[NCS]디지털컨버전스 융합 응용SW 개발자 양성과정</p>
+                  		  	<c:choose>
+               		<c:when test="${member.position=='teacher' }">
+               		<p> 총 수강인원: ${studentNumber} 명</p>
+               		</c:when>
+               		
+               		<c:otherwise>
+               		 <p> ${teacher.name } 강사님 | 최미교 취업 담당 </p> 
+               		</c:otherwise>
+               	</c:choose>
+                  	</div>
                   </div>
             </div>
-            <div class = "col-5">
-                <h2><span class="badge badge-secondary" id =Percent>${d_day_percent}% </span> <span id=Day>D-Day: -${d_day}일</span> </h2>
+            <div class = "col-5" id = graph>
+            <div class =row>
+            	<div class ="col-8" style ="text-align: left;"><h6>${period[0]}일 ~ ${period[1] }일</h6> </div>
+            	<div class = "col-4" style ="text-align: right;"><h6> -${d_day}일</h6></div>
+            </div>
+            <div class = row>
+               	<div class ="col-8"  style ="text-align: left">
+               	<c:choose>
+               		<c:when test="${member.position=='teacher' }">
+               		<h5> 전문 프로그래머로 성장 중! </h5>
+               		</c:when>
+               		
+               		<c:otherwise>
+               		<h5> 전문 프로그래머로 교육 중! </h5>
+               		</c:otherwise>
+               	</c:choose>
+               	</div>
+            	<div class = "col-4" style ="text-align: right"><h5>${d_day_percent}%</h5></div>
+            </div>
                 <div class = "graph">
                     <div class = "figure_BG">
                         <div class="figure" style ="width:${d_day_percent}%">
-                          ${d_day_percent} 진행중
+                        	<div class="figure_icon" style = "text-align: right; display:inline-block; position: relative; bottom: 110%; left:10%">
+                        		<img src ="figure_icon.png" style = "width:15%">
+                        	</div>
                         </div>
                     </div>
                 </div>
@@ -209,7 +248,7 @@ let studentinfo = function(){
                 </fieldset>
                 <hr>
                  <fieldset>
-                    <legend>전체 휴강일</legend>
+                    <legend>휴강일</legend>
                     <ul>
                     	<c:forEach var="item" items="${rest_calander }">
                     			<li>${item.event_date} ${item.contents}</li>

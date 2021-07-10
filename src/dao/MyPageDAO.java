@@ -79,6 +79,31 @@ public class MyPageDAO {
 		}
 	}
 	
+	public MemberDTO getTeacher(MemberDTO mb) throws Exception{
+		String sql = "select * from kh_member where khclass =? and branch =? and position = 'teacher'";
+		MemberDTO temp = null; 
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setString(1, mb.getKhClass());
+			psmt.setString(2, mb.getBranch());
+			try(ResultSet rs = psmt.executeQuery();){
+				if(rs.next()) {
+					temp = new  MemberDTO(rs.getInt(1),
+									  rs.getString(2),
+									  rs.getString(3),
+									  rs.getString(4),
+									  rs.getString(5),
+									  rs.getString(6),
+									  rs.getString(7),
+									  rs.getString(8),
+									  rs.getString(9),
+									  rs.getDate(10));
+				}
+				return temp;
+		}
+	}
+	}
+	
 	public List<FreeBoardDTO> getWrittenFreeBoard(String session) throws Exception{
 	String sql = "select * from (select row_number() over(order by seq desc) rnum, seq,branch,writer,title, contents, id,write_date, viewCount, policecount from freeboard where writer =?) where rnum between 1 and 4";
 	List<FreeBoardDTO> li =  new ArrayList<FreeBoardDTO>();
