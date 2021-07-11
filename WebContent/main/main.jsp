@@ -6,6 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
+<!--  <meta http-equiv="refresh" content="5">  -->
 <title>Main</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet"
