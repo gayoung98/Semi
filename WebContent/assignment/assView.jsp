@@ -133,7 +133,7 @@ body {
 		<div class="row files">
 			<div class="col-12">
 				<a
-					href="download.ass?seq=${assFiles.seq}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">
+					href="download.ass?writer=${assView.writer}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">
 					${assFiles.oriName } </a>
 			</div>
 		</div>
