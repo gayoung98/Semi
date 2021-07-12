@@ -124,7 +124,7 @@ body {
 		</div>
 		<div class="row titleContent"
 			style="padding-left: 5%; padding-right: 5%;">
-			<div class="col-3">${assView.writer}</div>
+			<div class="col-3">${assView.name}</div>
 			<div class="col-5">${assView.title}</div>
 			<div class="col-3">${assView.write_date}</div>
 			<div class="col-1">${assView.viewCount }</div>
@@ -161,7 +161,7 @@ body {
 		<c:forEach var="item" items="${assSubmit}">
 
 			<div class="row comments">
-				<div class="col-3">${item.writer}</div>
+				<div class="col-3">${item.name}</div>
 				<div class="col-7">
 					<a
 						href="download.assSubmit?seq=${item.seq}&sysName=${item.sysName}&oriName=${item.oriName}">${item.oriName}</a>

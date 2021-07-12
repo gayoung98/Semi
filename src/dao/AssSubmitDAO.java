@@ -93,10 +93,12 @@ public class AssSubmitDAO {
 				int seq = rs.getInt("seq");
 				String writer = rs.getString("writer");
 				String id = rs.getString("id");
+				MemberDAO daoM = MemberDAO.getInstance();
+				String name = daoM.getAllInfo(writer).getName();
 				String oriName = rs.getString("oriName");
 				String sysName = rs.getString("sysName");
 				Date reg_date = rs.getDate("reg_date");
-				AssSubmitDTO dto =new AssSubmitDTO(seq, writer, id, oriName, sysName, reg_date, parent);
+				AssSubmitDTO dto =new AssSubmitDTO(seq, writer, id, name, oriName, sysName, reg_date, parent);
 				list.add(dto);
 			}
 			return list;

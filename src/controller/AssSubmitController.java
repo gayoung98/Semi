@@ -38,8 +38,11 @@ public class AssSubmitController extends HttpServlet {
 
 		try {
 			if(url.contentEquals("/write.assSubmit")) {
+				
 				System.out.println("write.assSubmit");
-				String filesPath = request.getServletContext().getRealPath("assSubmit");
+				
+				String email = (String)request.getSession().getAttribute("login");
+				String filesPath = request.getServletContext().getRealPath("assSubmit/"+email);
 				File filesFolder = new File(filesPath); //java.io.file
 				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
 				int maxSize = 1024*1024 *10; //10메가
@@ -51,8 +54,8 @@ public class AssSubmitController extends HttpServlet {
 				MultipartRequest multi = new MultipartRequest(request, filesPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 				//파라미터: 멀티파트로 업그레이드할 인자, 저장 경로, 최대 사이즈 , 인코딩, 파일명명규칙(겹치는 이름있으면 뒤에 숫자붙임. 인터넷 검색 필요)
 
-				String email = (String)request.getSession().getAttribute("login");
-				String writer = daoM.getAllInfo(email).getName();
+				
+				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 
 				String oriName = multi.getOriginalFileName("assSubmit"); //오리지널 이름
@@ -91,9 +94,10 @@ public class AssSubmitController extends HttpServlet {
 			}else if(url.contentEquals("/download.assSubmit")) {
 
 				int seq = Integer.parseInt(request.getParameter("seq"));
+				String email =request.getParameter("writer");
 				String oriName = request.getParameter("oriName");
 				String sysName = request.getParameter("sysName");
-				String filesPath = request.getServletContext().getRealPath("assSubmit");
+				String filesPath = request.getServletContext().getRealPath("assSubmit/"+email);
 
 				File targetFile = new File(filesPath+"/"+sysName); //import io.File
 

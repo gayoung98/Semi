@@ -7,6 +7,7 @@ public class AssSubmitDTO {
 	private int seq;
 	private String writer;
 	private String id;
+	private String name;
 	private String oriName;
 	private String sysName;
 	private Date reg_date;
@@ -21,6 +22,19 @@ public class AssSubmitDTO {
 		this.seq = seq;
 		this.writer = writer;
 		this.id = id;
+		this.oriName = oriName;
+		this.sysName = sysName;
+		this.reg_date = reg_date;
+		this.parent = parent;
+	}
+	
+	public AssSubmitDTO(int seq, String writer, String id, String name, String oriName, String sysName, Date reg_date,
+			int parent) {
+		super();
+		this.seq = seq;
+		this.writer = writer;
+		this.id = id;
+		this.name = name;
 		this.oriName = oriName;
 		this.sysName = sysName;
 		this.reg_date = reg_date;
@@ -45,6 +59,15 @@ public class AssSubmitDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getOriName() {
 		return oriName;
 	}
