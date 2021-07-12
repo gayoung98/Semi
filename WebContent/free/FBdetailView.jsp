@@ -5,7 +5,7 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<title>${view.title}</title>
+			<title>자유게시판 - ${view.title}</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -124,7 +124,7 @@
 				.contents {
 					padding:0;
 					margin-left:20px;
-					height: 500px;
+					height: 700px;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
@@ -302,7 +302,7 @@
 					$(".deleteReply").on("click",function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
 						if (check) {
-							$("delReplyForm").submit();
+							$("#delReplyForm").submit();
 						} else {
 							return;
 						}
@@ -375,8 +375,7 @@
 						<legend>[첨부 파일 목록]</legend>
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
-							<a
-								href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
+							<a download href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
 							<br>
 						</c:forEach>
 					</fieldset>
