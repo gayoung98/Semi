@@ -75,6 +75,18 @@ public class AssSubmitDAO {
 
 		}
 	}
+	
+	public String getSysName(int seq) throws Exception {
+		String sql="select sysName from assSubmit where seq=?";
+		try(Connection con =this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				return rs.getNString("sysName");
+			}
+		}
+	}
 
 	public List<AssSubmitDTO> selectAll(int parent) throws Exception {
 

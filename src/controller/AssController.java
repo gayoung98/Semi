@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.core.util.FileUtils;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -57,15 +59,21 @@ public class AssController extends HttpServlet {
 				System.out.println("write.ass");
 				
 				String email = (String) request.getSession().getAttribute("login");
-
+				
+				String folderFilesPath = request.getServletContext().getRealPath("assFiles");
+				File folderfilesFolder = new File(folderFilesPath); //java.io.file
+				
+				if(!folderfilesFolder.exists()) {
+					folderfilesFolder.mkdir(); //make directory
+				}
+				
 				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
-				File filesFolder = new File(filesPath); //java.io.file
-				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
-				int maxSize = 1024*1024 *10; //10메가
-
+				File filesFolder = new File(filesPath); 
 				if(!filesFolder.exists()) {
 					filesFolder.mkdir(); //make directory
 				}
+				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
+				int maxSize = AssFileConfig.uploadMaxSize; //10메가
 
 				MultipartRequest multi = new MultipartRequest(request, filesPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 				//파라미터: 멀티파트로 업그레이드할 인자, 저장 경로, 최대 사이즈 , 인코딩, 파일명명규칙(겹치는 이름있으면 뒤에 숫자붙임. 인터넷 검색 필요)
@@ -195,8 +203,8 @@ public class AssController extends HttpServlet {
 				if(deleteAss>0) {
 					System.out.println("과제 삭제 완료");
 					System.out.println("지울 파일의 parent"+ delSeq);
-
-					String filesPath = request.getServletContext().getRealPath("files");
+					String email = dao.select(delSeq).getWriter();
+					String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 					String sysName = daoF.getSysName(delSeq);
 					File targetFile = new File(filesPath +"/" + sysName); 
 					boolean result = targetFile.delete();
@@ -231,16 +239,22 @@ public class AssController extends HttpServlet {
 				System.out.println("과제 게시판 수정 요청");
 				
 				String email = (String) request.getSession().getAttribute("login");
-
-				String filesPath = request.getServletContext().getRealPath(("assFiles/"+email));
-				File filesFolder = new File(filesPath); //java.io.file
-				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
-				int maxSize = 1024*1024 *10; //10메가
-
+				
+				String folderFilesPath = request.getServletContext().getRealPath("assFiles");
+				File folderfilesFolder = new File(folderFilesPath); //java.io.file
+				
+				if(!folderfilesFolder.exists()) {
+					folderfilesFolder.mkdir(); //make directory
+				}
+				
+				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
+				File filesFolder = new File(filesPath); 
 				if(!filesFolder.exists()) {
 					filesFolder.mkdir(); //make directory
 				}
-
+				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
+				int maxSize = AssFileConfig.uploadMaxSize; //10메가
+				
 				MultipartRequest multi = new MultipartRequest(request, filesPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 				//파라미터: 멀티파트로 업그레이드할 인자, 저장 경로, 최대 사이즈 , 인코딩, 파일명명규칙(겹치는 이름있으면 뒤에 숫자붙임. 인터넷 검색 필요)
 
