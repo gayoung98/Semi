@@ -52,54 +52,13 @@ public class AssController extends HttpServlet {
 
 		try {
 
-			if(url.contentEquals("/upload.ass")) {
-
-				System.out.println("upload.ass");
-				String filesPath =request.getServletContext().getRealPath("files");
-
-				File filesFolder = new File(filesPath);
-				System.out.println("프로젝트가 저장된 진짜 경로" + filesPath);
-
-				//files folder가 없다면 만들어줘라!!
-				if(!filesFolder.exists()) filesFolder.mkdir();
-				//파일 업로드 기능!
-				MultipartRequest multi = new MultipartRequest(request,filesPath,AssFileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
-
-				String oriName = multi.getOriginalFileName("file");
-				String sysName = multi.getFilesystemName("file");
-
-
-				if(oriName!=null) {  
-					daoF.insert(new AssFilesDTO(0,oriName,sysName,null,0));
-					System.out.println("파일명 \""+oriName+"\" 저장 완료");
-
-				}
-
-				//((List<String>)request.getSession().getAttribute("ingFilesList")).add(sysName);
-				String returnPath = "/files/"+sysName;
-				response.getWriter().append(returnPath);
-
-				//
-
-				//	            for(String fileName : fileNames) {
-				//	               System.out.println("파라미터 이름: "+ fileName);
-				//	               String oriName = multi.getOriginalFileName(fileName);
-				//	               String sysName = multi.getFilesystemName(fileName);
-				//	               
-				//	               int seq = bdao.getSeq();
-				//	            
-				//	               if(oriName!=null) {  
-				//	                  int fileUpload =fdao.insert(new BoardFileDTO(0,oriName,sysName,null,seq));
-				//	                  System.out.println(fileUpload);
-				//	               }
-				//	            }
-
-
-			}else if(url.contentEquals("/write.ass")) {
+			if(url.contentEquals("/write.ass")) {
 
 				System.out.println("write.ass");
+				
+				String email = (String) request.getSession().getAttribute("login");
 
-				String filesPath = request.getServletContext().getRealPath("files");
+				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 				File filesFolder = new File(filesPath); //java.io.file
 				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
 				int maxSize = 1024*1024 *10; //10메가
@@ -116,7 +75,7 @@ public class AssController extends HttpServlet {
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
 
-				String email = (String) request.getSession().getAttribute("login");
+				
 				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 				String khClass = daoM.getAllInfo(email).getKhClass();
@@ -270,8 +229,10 @@ public class AssController extends HttpServlet {
 			}else if(url.contentEquals("/modiProc.ass")) {
 
 				System.out.println("과제 게시판 수정 요청");
+				
+				String email = (String) request.getSession().getAttribute("login");
 
-				String filesPath = request.getServletContext().getRealPath("files");
+				String filesPath = request.getServletContext().getRealPath(("assFiles/"+email));
 				File filesFolder = new File(filesPath); //java.io.file
 				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
 				int maxSize = 1024*1024 *10; //10메가
@@ -288,8 +249,8 @@ public class AssController extends HttpServlet {
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
 				
-				String email = (String) request.getSession().getAttribute("login");
-				String writer = daoM.getAllInfo(email).getName();
+				
+				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 				String khClass = daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
@@ -338,9 +299,12 @@ public class AssController extends HttpServlet {
 
 			}else if(url.contentEquals("/download.ass")) {
 
+				
+				String email = request.getParameter("writer");
 				String oriName = request.getParameter("oriName");
 				String sysName = request.getParameter("sysName");
-				String filesPath = request.getServletContext().getRealPath("files");
+				
+				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 
 				File targetFile = new File(filesPath+"/"+sysName); //import io.File
 

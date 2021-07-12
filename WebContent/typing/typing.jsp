@@ -43,8 +43,6 @@ body {
 .bar {
 	display: inline-block;
 	position: relative;
-	bottom: 0px;
-
 	background-color: cornflowerblue;
 }
 
@@ -87,33 +85,20 @@ input {
 			<h2>타자기록</h2>
 		</div>
 		<div class="row chart">
-			<div class="col-2"></div>
-			<div class="col-8">
-
-				<div class="row cRecord">
-					<c:forEach var="item" items="${recentList}" varStatus="s">
-						<div class="col-1">
-							<div class=bar style="height:${item.record}px;">${item.record}</div>
-						</div>
-
-					</c:forEach>
+			<c:forEach var="item" items="${recentList}">
+				<div class=col-1 style="display: table-cell; vertical-align: bottom;">
+					<div class=row style="height: 300px;display: table-cell; vertical-align: bottom;"><div class=bar style="height:${item.record}px;">${item.record}</div></div>
+					<div class=row style="text-align: right;">${item.reg_date }</div>
 				</div>
+			</c:forEach>
 
-				<div class="row cDate">
-					<c:forEach var="item" items="${recentList}">
-						<div class="col-1">${item.reg_date }</div>
-					</c:forEach>
-				</div>
-
-			</div>
-			<div class="col-2"></div>
 		</div>
 
 		<form action="write.typ" method="post">
 			<div class="row record" style="text-align: center;">
-				
+
 				<div class="col-8 recbox">
-					<div class="row rec" style="width:100%;height:90%;">
+					<div class="row rec" style="width: 100%; height: 90%;">
 
 						<div class="col-6">타자</div>
 						<div class="col-6">정확도</div>
@@ -129,12 +114,13 @@ input {
 					</div>
 				</div>
 
-				<div class="col-4" >
-					<div class="row btn"  style="width:100%;height:100%;">
-						<button type="submit" class="btn btn-primary" style="width:100%;height:100%;">제출</button>
+				<div class="col-4">
+					<div class="row btn" style="width: 100%; height: 100%;">
+						<button type="submit" class="btn btn-primary"
+							style="width: 100%; height: 100%;">제출</button>
 					</div>
 				</div>
-				
+
 			</div>
 		</form>
 		<div class="row footer"></div>

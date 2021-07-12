@@ -56,7 +56,7 @@ public class TypingDAO {
 	}
 
 	public List<TypingDTO> getRecentList(String id) throws Exception{
-		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, record, accuracy, reg_date from typing where id=?) where rnum <= 12 order by seq";
+		String sql="select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, record, accuracy, to_char(reg_date, 'MM/DD') \"reg_date\" from typing where id=?) where rnum <= 12 order by seq";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class TypingDAO {
 				String writer = rs.getString("writer");
 				int record = rs.getInt("record");
 				int accuracy = rs.getInt("accuracy");
-				Date reg_date = rs.getDate("reg_date");
+				String reg_date = rs.getString("reg_date");
 				TypingDTO dto = new TypingDTO(seq, writer, id, record, accuracy, reg_date);
 				list.add(dto);
 
