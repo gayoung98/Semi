@@ -51,7 +51,7 @@
 width:100px;
 height:50px;}
   .container{
-  	margin-top:4%;
+  	margin-top:6%;
   }
   .card-body{
         height: 50px;
@@ -76,6 +76,16 @@ height:50px;}
             flex-grow: 1;
             justify-content: space-around;
         }
+        
+        .navbar{
+        height:56px;
+        }
+        
+        .dropdown-menu{
+        width:158px;
+        height:72px;
+          line-height: 22px;
+        }
 
         .slide {
             position: absolute;
@@ -84,6 +94,7 @@ height:50px;}
             top: 100%;
             background-color: #55555550;
         }
+        a{text-decoration:none;color: black;font-weight: bold;}
         body {background-color: #D8E3E7;}
 </style>
 </head>
