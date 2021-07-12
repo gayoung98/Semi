@@ -116,14 +116,14 @@
 				<!--첨부 파일리스트 삭제  -->
 				<div id="content">
 					<fieldset class="file_box">
-						<legend>[첨부 파일 리스트]</legend>
-						<c:forEach var="file" items="${filelist}">
-							<!--첨부파일 다운로드-->
-							<div>${file.oriName}<button type="button"
-									class="btn btn-dark delAttach" seq="${file.seq}">삭제</button>
-							</div>
-						</c:forEach>
-					</fieldset>
+                  <legend>[첨부 파일 목록]</legend>
+                  <c:forEach var="file" items="${filelist}">
+                     <!--첨부파일 다운로드-->
+                  <div class = "delfiles"><a download href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
+                     <button type="button" class="btn btn-dark delAttach" seq="${file.seq}">삭제</button>
+                                    </div><br>
+                  </c:forEach>
+               </fieldset>
 				</div>
 				<hr>
 				<!-- 파일 첨부 -->

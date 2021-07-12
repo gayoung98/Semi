@@ -176,10 +176,10 @@
 		        alert("내용을 입력해주세요.");
 		       contentsCheck.focus();
 				return false;
-		    }
-		    
+		    }else{
+		    alert("게시글 작성에 성공하셨습니다.");
        		$("#form").submit();
-
+		    }
 		});
     });
   </script>
