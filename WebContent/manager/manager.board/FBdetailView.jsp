@@ -34,7 +34,7 @@
 					color: cadetblue;
 				}
 
-				a {
+				div>a {
 					text-decoration: none;
 					cursor: pointer;
 					color: black;
@@ -47,7 +47,10 @@
 
 				/* 내용 */
 				.contents {
-					height: 200px;
+					padding:0;
+					margin-left:20px;
+					height: 700px;
+					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
@@ -182,8 +185,7 @@
 				<!-- 작성자 정보 -->
 				<div class="writerInfo">
 					<div class="profile_info">
-						<a href=""> <img src="title.jpg" alt="프로필 사진" width="30" height="30">
-						</a>
+						
 						<div class="name_box">
 							<a href="#" role="button" class="target"> ${view.writer} </a> <em
 								class="position">${view.branch}지점 </em> <!-- 게시글 작성자 -->

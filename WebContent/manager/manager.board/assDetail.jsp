@@ -52,17 +52,20 @@
 								<b>조회수</b>
 							</div>
 						</div>
-						<div class="row"></div>
-						<div class="row">
+						
+						<div class="row titleContent">
 
 							<div class="col-3">${assView.writer}</div>
 							<div class="col-5">${assView.title}</div>
 							<div class="col-3">${assView.write_date}</div>
 							<div class="col-1">${assView.viewCount }</div>
 						</div>
+						<div class ="row files">
+						
 						<div class="col-12">
 							<a
-								href="download.ass?seq=${assFiles.seq}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">${assFiles.oriName }</a>
+								href="${pageContext.request.contextPath}/download.ass?&writer=${assView.writer}&sysName=${assFiles.sysName}&oriName=${assFiles.oriName}">${assFiles.oriName }</a>
+						</div>
 						</div>
 						<div class="row content">
 							<div class="col-12" style="padding: 20px;">${assView.contents}
@@ -73,7 +76,7 @@
 								<div class="col-3">${item.writer}</div>
 								<div class="col-7">
 									<a
-										href="download.assSubmit?seq=${item.seq}&sysName=${item.sysName}&oriName=${item.oriName}">${item.oriName}</a>
+										href="${pageContext.request.contextPath}/download.assSubmit?writer=${item.writer}&sysName=${item.sysName}&oriName=${item.oriName}">${item.oriName}</a>
 								</div>
 								<div class="col-1"></div>
 							</div>
