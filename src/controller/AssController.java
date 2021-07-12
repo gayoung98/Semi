@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.core.util.FileUtils;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -198,12 +197,14 @@ public class AssController extends HttpServlet {
 			}else if(url.contentEquals("/delete.ass")) {
 
 				int delSeq = Integer.parseInt(request.getParameter("delSeq"));
-
+				String email = dao.select(delSeq).getWriter();
 				int deleteAss = dao.delete(delSeq);
+				
 				if(deleteAss>0) {
 					System.out.println("과제 삭제 완료");
-					System.out.println("지울 파일의 parent"+ delSeq);
-					String email = dao.select(delSeq).getWriter();
+					System.out.println("지울 파일의 parent: "+ delSeq);
+					
+					System.out.println("writer: "+email);
 					String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 					String sysName = daoF.getSysName(delSeq);
 					File targetFile = new File(filesPath +"/" + sysName); 
