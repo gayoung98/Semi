@@ -249,7 +249,6 @@
 			</style>
 			<script>
 				$(function () {
-				
 					$("#deleteBtn").on("click",function () { //게시글 삭제
 								let check = confirm("정말 게시글을 삭제하겠습니까?");
 								if (check) {
@@ -269,49 +268,49 @@
 									return;
 								}
 							});
-					
-					$("#replyBtn").on("click",function () { //글 작성 전 내용 입력여부 확인
-		    		    let replyContentsCheck=$(".comment_inbox_text");
-
-		    		 if (replyContentsCheck.val()=="") {
-		    		        alert("댓글 내용을 입력해주세요.");
-		    		        replyContentsCheck.focus();
-							return false;
-		    		    }
-		           		$("#writeReplyForm").submit();
-
-		    		});
-		 
-		    
-			
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
 						
-							$(".modify_option:eq(0)").attr("contenteditable", "true");
-							$(".modify_option:eq(0)").focus();
-
-							let complete = $("<button>");
+						
+						$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).attr("contenteditable", "true");
+						$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).focus();
+							let complete = $("<button type =button>");
 							complete.addClass("btn btn-dark complete")
 							complete.text("수정완료");
-							let cancel = $("<button>");
+							let cancel = $("<button type = button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
-							cancel.attr("onclick","self.close();");
 							$(".deleteReply").remove();
-
 							$(this).before(cancel);
 							$(this).before(complete);
 							$(this).remove();
 
 					});
 					
-					$("#modifyForm").on("submit", function () { //댓글 수정 폼
+					$(document).on("click",".cancel" ,function(){
+						location.href = "${pageContext.request.contextPath}/detailView.fboard?seq=${view.seq}";
+						
+					});
+				
+				/* 	$("#modifyForm").on("submit", function () { //댓글 수정 폼
+							console.log($(this).find($(".text_view")).text());
+							let inputcom = $("<input>");
+							inputcom.attr("type", "hidden");
+							inputcom.attr("name", "reply");
+							inputcom.val(temp.innerHTML);
+							$("#modifyForm").append(inputcom);
+					}); */
+					
+					$(document).on("click",".complete",function(){
 						let inputcom = $("<input>");
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
-						inputcom.val($("#com").text());
-						$("#modifyForm").append(inputcom);
-
+						inputcom.val($(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).text());
+						let sub = $(this).parents($("#modifyForm"));
+						$(sub).append(inputcom);
+						$(sub).submit();
+						
 					});
+					
 					
 					$(".deleteReply").on("click",function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
@@ -322,17 +321,6 @@
 						}
 						
 					});
-					
-					 $(".delAttach").on("click", function () { // 파일 삭제
-		                    let seq = ($(this).attr("seq"));
-		                    $(this).parent().remove();
-		                    let del = $("<input>");
-		                    del.attr("type", "hidden");
-		                    del.attr("name", "delete");
-		                    del.attr("value", seq);
-		                    $(".contents_box").after(del);
-
-		                });
 					
 				  //게시글 신고
 					  $("#report").on("click",function() {							
@@ -394,24 +382,16 @@
 					<p class="target">${view.contents}</p>
 				</div>
 				<hr>
-				
-				<!-- 로그인 유저와 글쓴이가 같다면? 파일 삭제 -->
 				<!--첨부 파일리스트 출력  -->
-			<div id="content">
-				
-				<c:choose>
-						<c:when test="${login== view.writer}">
+				<div id="content">
 					<fieldset class="file_box">
 						<legend>[첨부 파일 목록]</legend>
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
-						<div class = "delfiles"><a download href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
-							<button type="button" class="btn btn-dark delAttach" seq="${file.seq}">삭제</button>
-                                    </div><br>
+							<a download href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
+							<br>
 						</c:forEach>
 					</fieldset>
-					</c:when>
-					</c:choose>
 				</div>
 				<hr>
 				<!-- 댓글 작성 -->
@@ -446,36 +426,35 @@
 										<!-- 댓글 수정 controller -->
 										<div class="btn_wrap text-right" id="buttons">
 											<c:if test="${i.writer == login}">
-
 												<!-- 게시글 번호 -->
 												<input type="hidden" name="seq" value="${i.seq}">
 												<!--댓글 번호 -->
 												<input type="hidden" name="comments" value="${i.comments}">
 												<!--댓글 내용 -->
 												<input type="hidden" name="parent" value="${i.parent}">
-												<button type="submit" name="update_com" value="${i.seq}"
-													class="btn btn-dark modifyReply ">수정</button>
+												<button type="submit" name="update_com" value="${i.seq}" class="btn btn-dark modifyReply ">수정</button>
+											
 									</form>
-
 									<!-- 댓글 삭제 -->
 									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="delReplyForm">
 										<button type="submit" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 
 										<input type="hidden" name="parent" value="${i.parent}">
-										</c:if>
+										
 									</form>
+									</c:if>
 								</div>
 							</li>
 						</ul>
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="${pageContext.request.contextPath}/write.freecom" method="post" id="writeReplyForm">
+						<form action="${pageContext.request.contextPath}/write.freecom" method="post">
 							<strong>${dto.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
-							<input type="button" class="btn btn-dark" id="replyBtn" value="등록">
+							<input type="submit" class="btn btn-dark" id="replyBtn" value="등록">
 							<input type="hidden" name="parent" value="${view.seq}">
 						</form>
 					</div>
