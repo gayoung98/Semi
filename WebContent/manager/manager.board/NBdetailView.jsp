@@ -35,19 +35,18 @@ h2 {
 	border-bottom: 1px solid #ddd;
 }
 
-a {
+div>a {
 	text-decoration: none;
 	cursor: pointer;
+	color: black;
+	font-weight: bold;
 }
 
 .commentItem a:hover {
 	color: cadetblue;
 }
 
-a {
-	color: black;
-	font-weight: bold;
-}
+
 
 .title {
 	text-align: center;
@@ -55,11 +54,13 @@ a {
 
 /* 내용 */
 .contents {
-	height: 200px;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-}
-
+					padding:0;
+					margin-left:20px;
+					height: 100%;
+					width: 95%;
+					border: 1px solid #ddd;
+					border-radius: 10px;
+				}
 /* 작성자 정보 */
 .writer {
 	padding-left: 10px;

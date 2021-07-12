@@ -6,19 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>freeBoard modify</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/manager/css/manager.css">
 <style>
@@ -65,53 +60,7 @@
 		}
 	</style>
 
-<script>
-	$(function() {
 
-		$("#listBtn").on("click", function() {
-			location.href = "${pageContext.request.contextPath}/detailView.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq=${view.seq}";
-		});
-
-		$("#summernote").summernote(
-				{
-					height : 300, // 에디터 높이
-					focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-					lang : "ko-KR", // 한글 설정
-					placeholder : "내용을 입력하세요.", //placeholder 설정
-					toolbar : [
-							// [groupName, [list of button]]
-							[ 'fontname', [ 'fontname' ] ],
-							[ 'fontsize', [ 'fontsize' ] ],
-							[
-									'style',
-									[ 'bold', 'italic', 'underline',
-											'strikethrough', 'clear' ] ],
-							[ 'color', [ 'forecolor', 'color' ] ],
-							[ 'table', [ 'table' ] ],
-							[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
-							[ 'height', [ 'height' ] ],
-							[ 'insert', [ 'picture', 'link', 'video' ] ],
-							[ 'view', [ 'fullscreen', 'help' ] ] ],
-					fontNames : [ 'Arial', 'Arial Black', 'Comic Sans MS',
-							'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체',
-							'바탕체' ],
-					fontSizes : [ '8', '9', '10', '11', '12', '14', '16', '18',
-							'20', '22', '24', '28', '30', '36', '50', '72' ]
-				});
-
-		$(".delAttach").on("click", function() {
-			let seq = ($(this).attr("seq"));
-			$(this).parent().remove();
-			let del = $("<input>");
-			del.attr("type", "hidden");
-			del.attr("name", "delete");
-			del.attr("value", seq);
-			$(".contents_box").after(del);
-
-		});
-
-	});
-</script>
 </head>
 <body>
 <div class="wrap">
@@ -180,8 +129,8 @@
 				<!-- 파일 첨부 -->
 				<fieldset id="file_box">
 					<legend>
-						[파일첨부] <input type="file" name="file" multiple="multiple"> <input
-							type="file" name="file">
+						[파일첨부] <input type="file" name="file" multiple="multiple" class="btn btn-dark"> <input
+							type="file" name="file" class="btn btn-dark">
 					</legend>
 				</fieldset>
 				<div class="btn_wrap text-right">
@@ -196,5 +145,72 @@
 	</div>
 </div>
 </div>
+<script>
+	$(function() {
+
+		$("#listBtn").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/detailView.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq=${view.seq}";
+		});
+
+		$("#summernote").summernote(
+				{
+					height : 300, // 에디터 높이
+					focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+					lang : "ko-KR", // 한글 설정
+					placeholder : "내용을 입력하세요.", //placeholder 설정
+					toolbar : [
+							// [groupName, [list of button]]
+							[ 'fontname', [ 'fontname' ] ],
+							[ 'fontsize', [ 'fontsize' ] ],
+							[
+									'style',
+									[ 'bold', 'italic', 'underline',
+											'strikethrough', 'clear' ] ],
+							[ 'color', [ 'forecolor', 'color' ] ],
+							[ 'table', [ 'table' ] ],
+							[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+							[ 'height', [ 'height' ] ],
+							[ 'insert', [ 'picture', 'link', 'video' ] ],
+							[ 'view', [ 'fullscreen', 'help' ] ] ],
+					fontNames : [ 'Arial', 'Arial Black', 'Comic Sans MS',
+							'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체',
+							'바탕체' ],
+					fontSizes : [ '8', '9', '10', '11', '12', '14', '16', '18',
+							'20', '22', '24', '28', '30', '36', '50', '72' ],
+							 callbacks: {
+								    onImageUpload: function(imagefiles) {
+								    	let editor =this; //summernote 인스턴스의 주소를 editor 변수에 저장
+								    	let file = imagefiles[0];//업로드 해야 하는 파일 인스턴스
+								    	
+								    	let form = new FormData(); //html<form action="">
+								    	form.append("file",file);//input type=file name 속성
+								    	
+								     $.ajax({
+								    	data:form,
+								    	type:"post",
+								    	url:"${pageContext.request.contextPath}/upload.file",
+								    	contentType:false,
+								    	processData:false
+								     }).done(function(resp){
+								    	 $(editor).summernote('insertImage',"${pageContext.request.contextPath}" +resp);
+								    	 //editor 인스턴스의 Image 기능으로 이미지를 화면에 출력
+								     });
+							 }
+						  } 
+				});
+
+		$(".delAttach").on("click", function() {
+			let seq = ($(this).attr("seq"));
+			$(this).parent().remove();
+			let del = $("<input>");
+			del.attr("type", "hidden");
+			del.attr("name", "delete");
+			del.attr("value", seq);
+			$(".contents_box").after(del);
+
+		});
+
+	});
+</script>
 </body>
 </html>
