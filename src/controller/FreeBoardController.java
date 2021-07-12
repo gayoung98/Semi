@@ -131,7 +131,7 @@ public class FreeBoardController extends HttpServlet {
 			}else if(url.contentEquals("/write.fboard")) { 
 				System.out.println("작성 중");
 				String root =request.getServletContext().getRealPath("/");
-		        String pathName = root + "uploadDirectory";
+				String pathName = root + "uploadDirectory";
 
 
 				File filesFolder = new File(pathName);
@@ -160,27 +160,28 @@ public class FreeBoardController extends HttpServlet {
 
 				int result = fbdao.write(seq,branch,writer,title,contents,id);
 				System.out.println("게시글 입력 여부 : "+ result);
-				
-				
+
+
 				Set<String>fileNames = multi.getFileNameSet();
 				if(fileNames == null) {
-					
+
 				}else {
 					System.out.println("파일갯수 "+fileNames.size());
-				for(String fileName : fileNames) {
-					System.out.println("파라미터 이름: "+ fileName);
-					String oriName = multi.getOriginalFileName(fileName);
-					String sysName = multi.getFilesystemName(fileName);
+					for(String fileName : fileNames) {
+						if(!fileName.contentEquals("files")) {
+							System.out.println("파라미터 이름: "+ fileName);
+							String oriName = multi.getOriginalFileName(fileName);
+							String sysName = multi.getFilesystemName(fileName);
 
 
-					if(oriName!=null) {  
+							if(oriName!=null) {  
 
-						int fileUpload =ffdao.fileUpload(new FreeFilesDTO(0,oriName,sysName,null,seq));
-						System.out.println(fileUpload);
-					}	
-					
-				}
-				 request.getSession().removeAttribute("ingFiles");
+								int fileUpload =ffdao.fileUpload(new FreeFilesDTO(0,oriName,sysName,null,seq));
+								System.out.println(fileUpload);
+							}	
+						}
+					}
+					request.getSession().removeAttribute("ingFiles");
 				}
 				List<FreeBoardDTO> boardlist =fbdao.boardList();//목록 출력
 				request.setAttribute("boardlist", boardlist);
