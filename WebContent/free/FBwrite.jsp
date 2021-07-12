@@ -13,6 +13,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    
   <style>
   * {
 	margin: 0;
@@ -160,7 +161,7 @@ nav{padding:0;margin: 0;}
      				 }
      			  } 
               
-                 });
+                });
 
     	 $("#submit").on("click",function(){ //글 작성 전 제목 내용 입력여부 확인
     		    let titleCheck = $("#title_input");

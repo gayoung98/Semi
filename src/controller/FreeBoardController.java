@@ -61,7 +61,7 @@ public class FreeBoardController extends HttpServlet {
 
 
 
-			if(url.contentEquals("/list.fboard")) { //寃뚯떆湲� 紐⑸줉 
+			if(url.contentEquals("/list.fboard")) { //리스트 보기
 
 				//검색기능 추가
 				String category =request.getParameter("category"); //카테고리 
@@ -222,7 +222,7 @@ public class FreeBoardController extends HttpServlet {
 				request.setAttribute("reply", list); //댓글리스트를 request를 담는다.
 
 				request.getRequestDispatcher("free/FBdetailView.jsp").forward(request, response);
-
+				
 			}else if(url.contentEquals("/modify.fboard")){ //수정하기
 
 
@@ -239,16 +239,18 @@ public class FreeBoardController extends HttpServlet {
 				request.getRequestDispatcher("free/FBmodify.jsp").forward(request, response);
 
 			}else if(url.contentEquals("/modifyedit.fboard")) {	//글 수정하기
-				System.out.println("수정중");
-				String filesPath =request.getServletContext().getRealPath("files"); //파일 저장된 경로
-				System.out.println(filesPath);
-				//수정 페이지에서 파일첨부 추가
-				File filesFolder = new File(filesPath);
-				System.out.println("프로젝트가 저장 경로" + filesPath);
+				
+				String root =request.getServletContext().getRealPath("/");
+				String pathName = root + "uploadDirectory";
+
+
+				File filesFolder = new File(pathName);
+				System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
+
 
 				if(!filesFolder.exists()) {filesFolder.mkdir();}
 
-				MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
+				MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
 
 
 				int board_seq = Integer.parseInt(multi.getParameter("seq"));
@@ -266,7 +268,7 @@ public class FreeBoardController extends HttpServlet {
 						System.out.println("지울 파일 번호 "+ deleteFile);
 
 						String sysName = ffdao.getSysName(Integer.parseInt(deleteFile));
-						File targetFile = new File(filesPath +"/" + sysName); 
+						File targetFile = new File(pathName +"/" + sysName); 
 						boolean result = targetFile.delete();
 						System.out.println("파일 삭제 여부 :" + result);
 						if(result) {ffdao.fileDelete(Integer.parseInt(deleteFile));}

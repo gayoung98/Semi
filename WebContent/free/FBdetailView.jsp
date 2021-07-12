@@ -7,7 +7,7 @@
 			<meta charset="UTF-8">
 			<title>자유게시판 - ${view.title}</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		
 			
@@ -279,28 +279,19 @@
 							let cancel = $("<button type = button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
+							
 							$(".deleteReply").remove();
 							$(this).before(cancel);
 							$(this).before(complete);
 							$(this).remove();
-
 					});
 					
-					$(document).on("click",".cancel" ,function(){
+			
+					$(document).on("click",".cancel" ,function(){ //댓글 수정 폼의 취소
 						location.href = "${pageContext.request.contextPath}/detailView.fboard?seq=${view.seq}";
 						
 					});
-				
-				/* 	$("#modifyForm").on("submit", function () { //댓글 수정 폼
-							console.log($(this).find($(".text_view")).text());
-							let inputcom = $("<input>");
-							inputcom.attr("type", "hidden");
-							inputcom.attr("name", "reply");
-							inputcom.val(temp.innerHTML);
-							$("#modifyForm").append(inputcom);
-					}); */
-					
-					$(document).on("click",".complete",function(){
+					$(document).on("click",".complete",function(){//댓글 수정 폼의 수정완료
 						let inputcom = $("<input>");
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
@@ -432,12 +423,12 @@
 												<input type="hidden" name="comments" value="${i.comments}">
 												<!--댓글 내용 -->
 												<input type="hidden" name="parent" value="${i.parent}">
-												<button type="submit" name="update_com" value="${i.seq}" class="btn btn-dark modifyReply ">수정</button>
+												<button type="submit" name="update_com" value="${i.seq}" class="btn btn-dark modifyReply">수정</button>
 											
 									</form>
 									<!-- 댓글 삭제 -->
 									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="delReplyForm">
-										<button type="submit" value="${i.seq}"
+										<button type="button" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 
 										<input type="hidden" name="parent" value="${i.parent}">

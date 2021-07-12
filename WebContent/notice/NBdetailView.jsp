@@ -6,11 +6,8 @@
 		<head>
 			<meta charset="UTF-8">
 			<title>공지게시판 - ${view.title}</title>
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 			<style>
 			
@@ -255,47 +252,29 @@
 							});
 
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
-						let check = confirm("정말 댓글을 수정하겠습니까?");
-						if (check) {
 							$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).attr("contenteditable", "true");
 							$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).focus();
-
 
 							let complete = $("<button type =button>");
 							complete.addClass("btn btn-dark complete")
 							complete.text("수정완료");
-							let cancel = $("<button type = button>");
+							let cancel = $("<button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
 							$(".deleteReply").remove();
+							
 							$(this).before(cancel);
 							$(this).before(complete);
 							$(this).remove();
 
-		
-
-
-						} else {
-							return;
-						}
-
 					});
-				$(document).on("click",".cancel" ,function(){
-					location.href = "${pageContext.request.contextPath}/detailView.nboard?seq=${view.seq}";
 					
-				});
-
-
-				/* $("#modifyForm").on("submit", function () { //댓글 수정 폼
-						let inputcom = $("<input>");
-						inputcom.attr("type", "hidden");
-						inputcom.attr("name", "reply");
-						inputcom.val($("#com").text());
-
-						$("#modifyForm").append(inputcom);
-
-					});*/
-					$(document).on("click",".complete",function(){
+					$(document).on("click",".cancel" ,function(){ //댓글 수정 폼의 취소
+						location.href = "${pageContext.request.contextPath}/detailView.nboard?seq=${view.seq}";
+						
+					});
+									
+					$(document).on("click",".complete",function(){//댓글 수정 폼의 완료 버튼
 						let inputcom = $("<input>");
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
@@ -413,8 +392,8 @@
 									</form>
 
 									<!-- 댓글 삭제 -->
-									<form action="${pageContext.request.contextPath}/delete.noticom" method="post">
-										<button type="submit" value="${i.seq}"
+									<form action="${pageContext.request.contextPath}/delete.noticom" method="post" id="delReplyForm">
+										<button type="button" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 
 										<input type="hidden" name="parent" value="${i.parent}">
