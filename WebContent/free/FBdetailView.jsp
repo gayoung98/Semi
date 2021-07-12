@@ -269,7 +269,21 @@
 									return;
 								}
 							});
+					
+					$("#replyBtn").on("click",function () { //글 작성 전 내용 입력여부 확인
+		    		    let replyContentsCheck=$(".comment_inbox_text");
 
+		    		 if (replyContentsCheck.val()=="") {
+		    		        alert("댓글 내용을 입력해주세요.");
+		    		        replyContentsCheck.focus();
+							return false;
+		    		    }
+		           		$("#writeReplyForm").submit();
+
+		    		});
+		 
+		    
+			
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
 						
 							$(".modify_option:eq(0)").attr("contenteditable", "true");
@@ -308,6 +322,17 @@
 						}
 						
 					});
+					
+					 $(".delAttach").on("click", function () { // 파일 삭제
+		                    let seq = ($(this).attr("seq"));
+		                    $(this).parent().remove();
+		                    let del = $("<input>");
+		                    del.attr("type", "hidden");
+		                    del.attr("name", "delete");
+		                    del.attr("value", seq);
+		                    $(".contents_box").after(del);
+
+		                });
 					
 				  //게시글 신고
 					  $("#report").on("click",function() {							
@@ -369,16 +394,24 @@
 					<p class="target">${view.contents}</p>
 				</div>
 				<hr>
+				
+				<!-- 로그인 유저와 글쓴이가 같다면? 파일 삭제 -->
 				<!--첨부 파일리스트 출력  -->
-				<div id="content">
+			<div id="content">
+				
+				<c:choose>
+						<c:when test="${login== view.writer}">
 					<fieldset class="file_box">
 						<legend>[첨부 파일 목록]</legend>
 						<c:forEach var="file" items="${filelist}">
 							<!--첨부파일 다운로드-->
-							<a download href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
-							<br>
+						<div class = "delfiles"><a download href="download.file?seq=${file.seq}&sysname=${file.sysName}&oriname=${file.oriName}"class="files">${file.oriName}</a>
+							<button type="button" class="btn btn-dark delAttach" seq="${file.seq}">삭제</button>
+                                    </div><br>
 						</c:forEach>
 					</fieldset>
+					</c:when>
+					</c:choose>
 				</div>
 				<hr>
 				<!-- 댓글 작성 -->
@@ -438,11 +471,11 @@
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="${pageContext.request.contextPath}/write.freecom" method="post">
+						<form action="${pageContext.request.contextPath}/write.freecom" method="post" id="writeReplyForm">
 							<strong>${dto.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
-							<input type="submit" class="btn btn-dark" id="replyBtn" value="등록">
+							<input type="button" class="btn btn-dark" id="replyBtn" value="등록">
 							<input type="hidden" name="parent" value="${view.seq}">
 						</form>
 					</div>
