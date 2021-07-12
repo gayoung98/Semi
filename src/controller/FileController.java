@@ -60,17 +60,13 @@ public class FileController extends HttpServlet {
 	
 			String realpath = request.getServletContext().getRealPath("/uploadDirectory"); 		
 			
-			File path = new File(realpath);
-
-//				File targetFile = new File(filesPath +"/"+sysName);
-				
+			File path = new File(realpath);				
 			String FilePath = DownPath+File.separator+oriName;
-
+			
 			try(
-						FileInputStream fis = new FileInputStream(path); 
+						FileInputStream fis = new FileInputStream(FilePath); 
 						DataInputStream dis = new DataInputStream(fis);
 					DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
-					
 					
 					byte[]fileContents = new byte[(int)path.length()]; 
 
