@@ -254,30 +254,36 @@
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
 						let check = confirm("정말 댓글을 수정하겠습니까?");
 						if (check) {
-							$(".modify_option:eq(0)").attr("contenteditable", "true");
-							$(".modify_option:eq(0)").focus();
+							$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).attr("contenteditable", "true");
+							$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).focus();
 
-							let complete = $("<button>");
+
+							let complete = $("<button type =button>");
 							complete.addClass("btn btn-dark complete")
 							complete.text("수정완료");
-							let cancel = $("<button>");
+							let cancel = $("<button type = button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
-							cancel.attr("onclick","self.close();");
 							$(".deleteReply").remove();
-							
 							$(this).before(cancel);
 							$(this).before(complete);
-					
 							$(this).remove();
+
+		
+
 
 						} else {
 							return;
 						}
 
 					});
+				$(document).on("click",".cancel" ,function(){
+					location.href = "${pageContext.request.contextPath}/detailView.nboard?seq=${view.seq}";
+					
+				});
 
-					$("#modifyForm").on("submit", function () { //댓글 수정 폼
+
+				/* $("#modifyForm").on("submit", function () { //댓글 수정 폼
 						let inputcom = $("<input>");
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
@@ -285,7 +291,18 @@
 
 						$("#modifyForm").append(inputcom);
 
+					});*/
+					$(document).on("click",".complete",function(){
+						let inputcom = $("<input>");
+						inputcom.attr("type", "hidden");
+						inputcom.attr("name", "reply");
+						inputcom.val($(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).text());
+						let sub = $(this).parents($("#modifyForm"));
+						$(sub).append(inputcom);
+						$(sub).submit();
+						
 					});
+
 					
 					$(".deleteReply").on("click",function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
