@@ -5,7 +5,7 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<title>${view.title}</title>
+			<title>공지게시판 - ${view.title}</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
@@ -290,7 +290,7 @@
 					$(".deleteReply").on("click",function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
 						if (check) {
-							$("delReplyForm").submit();
+							$("#delReplyForm").submit();
 						} else {
 							return;
 						}
