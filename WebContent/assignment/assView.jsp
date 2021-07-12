@@ -191,7 +191,7 @@ body {
 
 		<div class="row buttons">
 			<div class="col-6" style="text-align: left;">
-				<button type="button" class="btn btn-secondary">back</button>
+				<button type="button" id="back" class="btn btn-secondary">back</button>
 			</div>
 			<div class="col-6" style="text-align: right;">
 				<c:choose>
@@ -206,9 +206,13 @@ body {
 				</c:choose>
 			</div>
 		</div>
-
-
 	</div>
+	
+	<script>
+	$("#back").on("click", function(){
+		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
+	})
+	</script>
 
 </body>
 </html>
