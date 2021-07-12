@@ -81,7 +81,7 @@ public class ManagerController extends HttpServlet {
 			NoticeFileDAO nfdao=NoticeFileDAO.getInstance();
 			FreeFilesDAO ffdao=FreeFilesDAO.getInstance();
 			FreeBoardDAO fbdao=FreeBoardDAO.getInstance();
-			
+			AssFilesDAO daoF = AssFilesDAO.getInstance();
 			FreeCommentDAO fcdao=FreeCommentDAO.getInstance();
 			AssDAO assDao=AssDAO.getInstance();
 			AssFilesDAO assFileDao=AssFilesDAO.getInstance();
@@ -414,9 +414,7 @@ public class ManagerController extends HttpServlet {
 	   }
 	   request.getSession().removeAttribute("ingFiles");
 	   
-	            List<NoticeBoardDTO> boardlist =nbdao.boardList();// 목록 받아오기
-	            request.setAttribute("boardlist", boardlist);
-	            	request.getRequestDispatcher("manager/manager.board/NBwriteView.jsp").forward(request, response);
+	   response.sendRedirect(ctxPath+"/noticeList.manager?currentPage=1&branch=all&category=&search=");
 	            
 	         }else if(url.contentEquals("/detailView.manager")) { //관리자페이지 상세보기
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
@@ -452,9 +450,9 @@ public class ManagerController extends HttpServlet {
 	            String category = request.getParameter("category");
 	            String search = request.getParameter("search");
 	            System.out.println(boardseq);
+
 	            NoticeBoardDTO bdto = nbdao.detailView(boardseq);
 	            request.setAttribute("view", bdto);
-
 	            List<NoticeFilesDTO> fileList = nfdao.selectAll(boardseq);
 	            System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
 	            System.out.println("파일 갯수: "+ fileList.size());
@@ -480,9 +478,9 @@ public class ManagerController extends HttpServlet {
 	            int boardSeq = Integer.parseInt(multi.getParameter("seq"));
 	         
 	            String uptitle = multi.getParameter("title");
-	            System.out.println("수정한 제목:" +uptitle);
+	         
 	            String upcontents = multi.getParameter("contents");
-	            System.out.println("수정한 내용: "+ upcontents);
+	         
 	         
 	            String[]del=multi.getParameterValues("delete");
 	            if(del== null) {
@@ -620,19 +618,28 @@ public class ManagerController extends HttpServlet {
 
 	         }else if(url.contentEquals("/assDelete.manager")) {
 	        	 	int delSeq = Integer.parseInt(request.getParameter("seq"));
+	        	 	String email = assDao.select(delSeq).getWriter();
 		            String branch = request.getParameter("branch");		
 					int currentPage =Integer.parseInt(request.getParameter("currentPage"));
 					String category = request.getParameter("category");
 					String search = request.getParameter("search");
-					managerDao.deleteAss(delSeq);
+					int results=managerDao.deleteAss(delSeq);
+					
+					if(results>0) {
 					l.trace(request.getRemoteAddr()+" 과제게시판 삭제");
-					  request.setAttribute("page", currentPage);
-						request.setAttribute("branch", branch);
-						request.setAttribute("category", category);
-						request.setAttribute("search", search);
-						 response.sendRedirect(ctxPath+"/assList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
-				        
-
+					String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
+					String sysName = daoF.getSysName(delSeq);
+					File targetFile = new File(filesPath +"/" + sysName); 
+					boolean result = targetFile.delete();
+					System.out.println("파일 삭제 여부: " + result);
+					if(result) {daoF.deleteAll(delSeq);}
+					  
+					}
+					request.setAttribute("page", currentPage);
+					request.setAttribute("branch", branch);
+					request.setAttribute("category", category);
+					request.setAttribute("search", search);
+					 response.sendRedirect(ctxPath+"/assList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
 					
 	         }
 		}catch(Exception e) {
