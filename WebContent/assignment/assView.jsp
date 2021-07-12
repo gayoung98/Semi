@@ -164,7 +164,7 @@ body {
 				<div class="col-3">${item.name}</div>
 				<div class="col-7">
 					<a
-						href="download.assSubmit?seq=${item.seq}&sysName=${item.sysName}&oriName=${item.oriName}">${item.oriName}</a>
+						href="download.assSubmit?writer=${item.writer}&sysName=${item.sysName}&oriName=${item.oriName}">${item.oriName}</a>
 				</div>
 				<div class="col-1">
 					<c:choose>
