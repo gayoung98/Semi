@@ -68,6 +68,13 @@ body {
 	overflow-y: auto;
 }
 </style>
+<script>
+	$(function(){
+		var myEditor = document.querySelector('#editor');
+		var html = myEditor.children[0].innerHTML;
+		$("#contents").html(html);
+	})
+</script>
 
 </head>
 <body>
@@ -122,7 +129,7 @@ body {
 
 			<div class="row buttons" style="margin-top: 58px;">
 				<div class="col-6" style="text-align: left;">
-					<button type="button" class="btn btn-secondary">이전</button>
+					<button type="button" id="back" class="btn btn-secondary">back</button>
 				</div>
 				<div class="col-6" style="text-align: right;">
 					<button type="submit" class="btn btn-primary">제출</button>
@@ -132,6 +139,10 @@ body {
 			<input type=hidden id=seq>
 		</form>
 	</div>
-
+	<script>
+	$("#back").on("click", function(){
+		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
+	})
+	</script>
 </body>
 </html>
