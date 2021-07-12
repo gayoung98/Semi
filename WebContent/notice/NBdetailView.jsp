@@ -6,8 +6,8 @@
 		<head>
 			<meta charset="UTF-8">
 			<title>공지게시판 - ${view.title}</title>
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 			<style>
 			
@@ -252,40 +252,39 @@
 							});
 
 					$(".modifyReply").on("click", function () { //댓글 수정 버튼
-						let check = confirm("정말 댓글을 수정하겠습니까?");
-						if (check) {
-							$(".modify_option:eq(0)").attr("contenteditable", "true");
-							$(".modify_option:eq(0)").focus();
+							$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).attr("contenteditable", "true");
+							$(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).focus();
 
-							let complete = $("<button>");
+							let complete = $("<button type =button>");
 							complete.addClass("btn btn-dark complete")
 							complete.text("수정완료");
 							let cancel = $("<button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
-							cancel.attr("onclick","self.close();");
 							$(".deleteReply").remove();
 							
 							$(this).before(cancel);
 							$(this).before(complete);
-					
 							$(this).remove();
 
-						} else {
-							return;
-						}
-
 					});
-
-					$("#modifyForm").on("submit", function () { //댓글 수정 폼
+					
+					$(document).on("click",".cancel" ,function(){ //댓글 수정 폼의 취소
+						location.href = "${pageContext.request.contextPath}/detailView.nboard?seq=${view.seq}";
+						
+					});
+									
+					$(document).on("click",".complete",function(){//댓글 수정 폼의 완료 버튼
 						let inputcom = $("<input>");
 						inputcom.attr("type", "hidden");
 						inputcom.attr("name", "reply");
-						inputcom.val($("#com").text());
-
-						$("#modifyForm").append(inputcom);
-
+						inputcom.val($(this).parent().siblings($(".comment_text")).children($(".text_view")).children($("#com")).text());
+						let sub = $(this).parents($("#modifyForm"));
+						$(sub).append(inputcom);
+						$(sub).submit();
+						
 					});
+
 					
 					$(".deleteReply").on("click",function () { //댓글 삭제
 						let check = confirm("정말 댓글을 삭제하겠습니까?");
@@ -393,8 +392,8 @@
 									</form>
 
 									<!-- 댓글 삭제 -->
-									<form action="${pageContext.request.contextPath}/delete.noticom" method="post">
-										<button type="submit" value="${i.seq}"
+									<form action="${pageContext.request.contextPath}/delete.noticom" method="post" id="delReplyForm">
+										<button type="button" value="${i.seq}"
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 
 										<input type="hidden" name="parent" value="${i.parent}">
