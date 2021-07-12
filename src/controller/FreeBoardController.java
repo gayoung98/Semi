@@ -61,11 +61,7 @@ public class FreeBoardController extends HttpServlet {
 
 
 
-<<<<<<< HEAD
          if(url.contentEquals("/list.fboard")) { //리스트 보기
-=======
-			if(url.contentEquals("/list.fboard")) { //리스트 보기
->>>>>>> 9106d0b196c1ef93bb223d3930b00a06461c8842
 
             //검색기능 추가
             String category =request.getParameter("category"); //카테고리 
@@ -225,16 +221,10 @@ public class FreeBoardController extends HttpServlet {
             List<FreeCommentDTO> list =fcdao.CommentsList(boardseq);//댓글리스트            
             request.setAttribute("reply", list); //댓글리스트를 request를 담는다.
 
-<<<<<<< HEAD
             request.getRequestDispatcher("free/FBdetailView.jsp").forward(request, response);
             
          }else if(url.contentEquals("/modify.fboard")){ //수정하기
 
-=======
-				request.getRequestDispatcher("free/FBdetailView.jsp").forward(request, response);
-				
-			}else if(url.contentEquals("/modify.fboard")){ //수정하기
->>>>>>> 9106d0b196c1ef93bb223d3930b00a06461c8842
 
             int boardseq = Integer.parseInt(request.getParameter("seq"));
             System.out.println(boardseq);
@@ -253,23 +243,10 @@ public class FreeBoardController extends HttpServlet {
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
 
-<<<<<<< HEAD
-=======
-			}else if(url.contentEquals("/modifyedit.fboard")) {	//글 수정하기
-				
-				String root =request.getServletContext().getRealPath("/");
-				String pathName = root + "uploadDirectory";
-
-
-				File filesFolder = new File(pathName);
-				System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
-
->>>>>>> 9106d0b196c1ef93bb223d3930b00a06461c8842
 
             File filesFolder = new File(pathName);
             System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
 
-<<<<<<< HEAD
 
             if(!filesFolder.exists()) {filesFolder.mkdir();}
 
@@ -364,96 +341,3 @@ public class FreeBoardController extends HttpServlet {
    }
 
 }
-=======
-				MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
-
-
-				int board_seq = Integer.parseInt(multi.getParameter("seq"));
-				System.out.println(board_seq);
-				String uptitle = multi.getParameter("title");
-				System.out.println("수정한 제목:" +uptitle);
-				String upcontents = multi.getParameter("contents");
-				System.out.println("수정한 내용: "+ upcontents);
-
-				String[]del=multi.getParameterValues("delete");
-
-				if(del== null) {
-				}else if(del!= null) {
-					for(String deleteFile : del) {
-						System.out.println("지울 파일 번호 "+ deleteFile);
-
-						String sysName = ffdao.getSysName(Integer.parseInt(deleteFile));
-						File targetFile = new File(pathName +"/" + sysName); 
-						boolean result = targetFile.delete();
-						System.out.println("파일 삭제 여부 :" + result);
-						if(result) {ffdao.fileDelete(Integer.parseInt(deleteFile));}
-					}
-
-					System.out.println(del.length);
-				}
-					int result = fbdao.modify(board_seq, uptitle, upcontents);
-					System.out.println("수정 결과"+ result);
-
-					Set<String>fileNames = multi.getFileNameSet();
-					System.out.println("파일갯수 "+fileNames.size());
-					for(String fileName : fileNames) {
-						if(!fileName.contentEquals("files")) {
-
-						System.out.println("파라미터 이름: "+ fileName);
-						String oriName = multi.getOriginalFileName(fileName);
-						String sysName = multi.getFilesystemName(fileName);
-
-						if(oriName!=null) {  
-							System.out.println("파일이름" + oriName + "DB에 저장됨.");
-
-						}
-					}
-				}
-
-				FreeBoardDTO dto = fbdao.detailView(board_seq);
-				List<FreeFilesDTO> flist = ffdao.selectAll(board_seq);
-				request.setAttribute("view", dto);
-				request.setAttribute("filelist", flist);
-				request.getRequestDispatcher("free/FBmodifyView.jsp").forward(request, response);
-					
-			}else if(url.contentEquals("/delete.fboard")){ //삭제하기
-				System.out.println("삭제중");				
-				int seq = Integer.parseInt(request.getParameter("seq"));
-				int result = fbdao.delete(seq);
-				response.sendRedirect("free/FBdeleteView.jsp");
-			
-
-			}else if(url.contentEquals("/reportForm.fboard")) { //신고하기 폼
-				System.out.println("seq 받아옴!!");
-				int board_seq = Integer.parseInt(request.getParameter("seq"));
-				FreeBoardDTO dto = fbdao.detailView(board_seq);
-				request.setAttribute("view", dto);
-				request.getRequestDispatcher("free/reportPop.jsp").forward(request, response);
-
-			}else if(url.contentEquals("/report.fboard")) { //신고처리
-				System.out.println("신고 처리중!!");
-
-				MemberDTO dto = mdao.getMainInfo(session);
-				String id = dto.getId();
-				String contents = request.getParameter("contents");
-				int parent = Integer.parseInt(request.getParameter("seq"));
-				int result = fpdao.report(id,contents,parent);
-				System.out.println("신고 처리 여부 : "+ result);
-
-				RequestDispatcher rd = request.getRequestDispatcher("free/reportResult.jsp"); //신고 결과화면
-				rd.forward(request, response);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			response.sendRedirect("error.jsp");
-		}
-	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		doGet(request, response);
-	}
-
-}
->>>>>>> 9106d0b196c1ef93bb223d3930b00a06461c8842
