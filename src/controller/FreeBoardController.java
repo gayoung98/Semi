@@ -273,17 +273,18 @@ public class FreeBoardController extends HttpServlet {
 					}
 
 					System.out.println(del.length);
-
+				}
 					int result = fbdao.modify(board_seq, uptitle, upcontents);
 					System.out.println("수정 결과"+ result);
 
 					Set<String>fileNames = multi.getFileNameSet();
 					System.out.println("파일갯수 "+fileNames.size());
 					for(String fileName : fileNames) {
+						if(!fileName.contentEquals("files")) {
+
 						System.out.println("파라미터 이름: "+ fileName);
 						String oriName = multi.getOriginalFileName(fileName);
 						String sysName = multi.getFilesystemName(fileName);
-
 
 						if(oriName!=null) {  
 							System.out.println("파일이름" + oriName + "DB에 저장됨.");
@@ -297,7 +298,7 @@ public class FreeBoardController extends HttpServlet {
 				request.setAttribute("view", dto);
 				request.setAttribute("filelist", flist);
 				request.getRequestDispatcher("free/FBmodifyView.jsp").forward(request, response);
-
+					
 			}else if(url.contentEquals("/delete.fboard")){ //삭제하기
 				System.out.println("삭제중");				
 				int seq = Integer.parseInt(request.getParameter("seq"));
