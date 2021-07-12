@@ -82,7 +82,7 @@ public class FileController extends HttpServlet {
 			}else if(url.contentEquals("/upload.file")) {
 				response.setCharacterEncoding("utf8");
 				response.setContentType("text/html;charset=utf8");
-				String filesPath =request.getServletContext().getRealPath("files");
+				String filesPath =request.getServletContext().getRealPath("imagefiles");
 
 				File filesFolder = new File(filesPath);
 				System.out.println("프로젝트가 저장된 진짜 경로 : " + filesPath);
@@ -104,7 +104,7 @@ public class FileController extends HttpServlet {
 						request.getSession().setAttribute("ingFiles", sysName);//파일이 한 개라는 전제,파일 업로드 하는 순간 파일 이름 저장
 						
 					}
-				String returnPath =  "/files/"+ sysName;
+				String returnPath =  "/imagefiles/"+ sysName;
 					response.getWriter().append(returnPath);
 					
 				}else if(url.contentEquals("/resolveFiles.file")) {
