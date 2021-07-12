@@ -45,6 +45,7 @@ body {
 	width: 100%;
 	height: 40px;
 }
+
 .navbar>.container-fluid {
 	padding: 0px;
 }
@@ -70,27 +71,30 @@ body {
 </style>
 <script>
 	$(function() {
+		
+		var myEditor = document.querySelector('#editor');
+		var html = myEditor.children[0].innerHTML;
+		$("#contents").html(html);
 
 		$("#fileDel").on("click", function() {
 			let seq = ($(this).attr("seq"));
 
-			let inputFile = $("<input>");
-			inputFile.attr("type", "file");
-			inputFile.attr("name", "file");
-
-			let inputBox = $("<div>");
-			inputBox.attr("class", "col-12");
-			inputBox.attr("style", "margin-top: 3%;");
-
-			inputBox.append(inputFile);
-			$("#files").append(inputBox);
-
+			
 			$(this).parent().remove();
 			let del = $("<input>");
 			del.attr("type", "hidden");
 			del.attr("name", "delete");
 			del.attr("value", seq);
 			$(".title").append(del);
+			
+			let newFile = $("<input>");
+			newFile.attr("type", "file");
+			newFile.attr("name", "file");
+			let newFileBox = $("<div>");
+			newFileBox.attr("class", "col-12");
+			newFileBox.attr("style", "text-align: center");
+			newFileBox.append(newFile);
+			$(".files").append(newFileBox);
 
 		});
 
@@ -160,16 +164,20 @@ body {
 
 			<div class="row buttons" style="margin-top: 58px;">
 				<div class="col-6" style="text-align: left;">
-					<button type="button" class="btn btn-secondary">이전</button>
+					<button type="button" id="back" class="btn btn-secondary">back</button>
 				</div>
 				<div class="col-6" style="text-align: right;">
-					<button type="submit" class="btn btn-primary">제출</button>
+					<button id="submit" type="submit" class="btn btn-primary">제출</button>
 				</div>
 			</div>
 		
 		
 	</form>
 	</div>
-
+	<script>
+	$("#back").on("click", function(){
+		location.href="view.ass?ass_seq="+${assView.seq};
+	})
+	</script>
 </body>
 </html>
