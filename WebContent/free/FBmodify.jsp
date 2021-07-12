@@ -188,9 +188,9 @@
                             fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18',
                                 '20', '22', '24', '28', '30', '36', '50', '72'],
                                 callbacks: {
-             					    onImageUpload: function(files) {
+             					    onImageUpload: function(imagefiles) {
              					    	let editor =this; //summernote 인스턴스의 주소를 editor 변수에 저장
-             					    	let file = files[0];//업로드 해야 하는 파일 인스턴스
+             					    	let file = imagefiles[0];//업로드 해야 하는 파일 인스턴스
              					    	
              					    	let form = new FormData();
              					    	form.append("file",file);//input type=file name 속성
