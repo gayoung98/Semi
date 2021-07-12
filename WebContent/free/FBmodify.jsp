@@ -186,7 +186,27 @@
                                 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체',
                                 '바탕체'],
                             fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18',
-                                '20', '22', '24', '28', '30', '36', '50', '72']
+                                '20', '22', '24', '28', '30', '36', '50', '72'],
+                                callbacks: {
+             					    onImageUpload: function(files) {
+             					    	let editor =this; //summernote 인스턴스의 주소를 editor 변수에 저장
+             					    	let file = files[0];//업로드 해야 하는 파일 인스턴스
+             					    	
+             					    	let form = new FormData();
+             					    	form.append("file",file);//input type=file name 속성
+             					    	
+             					     $.ajax({
+             					    	data:form,
+             					    	type:"post",
+             					    	url:"${pageContext.request.contextPath}/upload.file",
+             					    	contentType:false,
+             					    	processData:false
+             					     }).done(function(resp){
+             					    	 $(editor).summernote('insertImage',"${pageContext.request.contextPath}" +resp);
+             					    	 //editor 인스턴스의 Image 기능으로 이미지를 화면에 출력
+             					     });
+             					   }
+                   			  } 
                         });
 
                     $(".delAttach").on("click", function () {
