@@ -371,7 +371,8 @@ public class ManagerController extends HttpServlet {
 
 	                  File filesFolder = new File(pathName);
 	                  System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
-	                  
+	                  if(!filesFolder.exists()) {filesFolder.mkdir();}
+
 	            MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
 
 	            int seq = nbdao.getSeq();
