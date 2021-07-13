@@ -21,22 +21,7 @@
 
 		<script>
         $(function () {
-         /* $(document).on("click",".week",function(){
-            	console.log($(this).attr("id"))
-            	date = $(this).attr("id");
-            	/* location.href = "${pageContext.request.contextPath}/complete.seat?date="+date */
-           /* $.ajax({
-        		url: "${pageContext.request.contextPath}/complete.seat",
-        		dataType: "JSON"
-        	}).done(function(result){
-        		for(var i=0; i<result.length; i++){
-        			$("#"+result[i].seat_number).css("background-color","rgb(252, 255, 53)")
-        			$("#"+result[i].seat_number).attr("data-Ischoose","true")
-        			$("#"+result[i].seat_number).html(result[i].name)
-        	}
-        	})
-            }) */
-         	
+     
         	$.ajax({
         		url: "${pageContext.request.contextPath}/complete.seat",
         		dataType: "JSON"
@@ -96,10 +81,6 @@
                 $(".right").append(tr);
             } 
 			
-            /* $(document).on("click", ".seat", function () {
-            	//confirm("해당 좌석을 예약하시겠습니까?")
-                location.href="${pageContext.request.contextPath}/reserve.seat?seat_number=" + "11";
-            }) */
             $(".noselect").on("click",function(){
             	alert("선택할 수 없는 좌석입니다.")
             })
@@ -107,8 +88,6 @@
             
        
             $(document).on("click",".seat",function(){
-    //        	console.log($(this).attr("id"));
-      //      	console.log($(this).attr("data-Ischoose"));
             	if($(this).attr("data-Ischoose")==="false"){
             		if(confirm("해당 좌석을 예약하시겠습니까?")){
 	                $.ajax({
@@ -151,8 +130,6 @@
             	
             })
             
-        //console.log(date);
-            	
             })
             
         
