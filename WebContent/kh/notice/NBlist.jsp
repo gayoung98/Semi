@@ -93,6 +93,13 @@ $("#back").on("click",function(){
 	location.href="${pageContext.request.contextPath}/main.main"
 	});
 
+$(document).on('click', '#navbarDropdownMenuLink', function() {
+	   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+	 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+	   }else{
+	 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+	   }
+	})
 
 });
 </script>

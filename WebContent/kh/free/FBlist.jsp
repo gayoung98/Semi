@@ -7,8 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>FreeBoard List</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 		   
 <style>
 html{}
@@ -16,21 +21,22 @@ html{}
 
 /*navibar*/
 .navbar>.container-fluid {
-	padding: 0px;
-}
+            padding: 0px;
+        }
 
-.navbar-nav {
-	flex-grow: 1;
-	justify-content: space-around;
-}
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
 
-.slide {
-	position: absolute;
-	width: 100%;
-	height: 50px;
-	top: 100%;
-	background-color: #55555550;
-}
+        .slide {
+        	z-index:1;
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #00ff0000;
+        }
 /*전체*/
 .container {
 	margin-top: 50px;
@@ -103,12 +109,19 @@ $("#back").on("click",function(){
 	location.href="${pageContext.request.contextPath}/main.main"
 	});
 
+$(document).on('click', '#navbarDropdownMenuLink', function() {
+   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+ 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+   }else{
+ 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+   }
+})
 
 });
 </script>
 </head>
 <body>
-	<jsp:include page="/navibar.jsp"></jsp:include>
+	<jsp:include page="/navibar.jsp"/>
 
 	<div class="container shadow bg-white rounded">
 		<h2 class="text-center">자유게시판</h2>

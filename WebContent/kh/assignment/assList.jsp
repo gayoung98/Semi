@@ -77,7 +77,21 @@ a{
 			let delSeq = $(this).parent().siblings(".seq").text();
 			location.href = "delete.ass?delSeq=" + delSeq;
 		})
-	})
+		
+		
+		$(document).on('click', '#navbarDropdownMenuLink', function() {
+			   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+			 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+			   }else{
+			 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+			   }
+			})
+		
+})
+		
+
+	
+	
 </script>
 </head>
 <body>
