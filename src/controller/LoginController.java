@@ -106,7 +106,7 @@ public class LoginController extends HttpServlet {
 				String email = dao.findId(name, phone);
 				String firstEmail = email.split("@")[0];
 				String secondEmail = email.split("@")[1];
-				response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
+				//response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
 				//response.getWriter().append(email);
 				
 			}else if(url.contentEquals("/findPw.member")){

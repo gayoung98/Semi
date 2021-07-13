@@ -36,7 +36,7 @@
 
 <div class="containers">
 <div class="col-12 mb-5" id="title"><h2>관리자 페이지</h2></div>
-    <form action="${pageContext.request.contextPath}/login.manager" method="post">
+    <form action="${pageContext.request.contextPath}/login.managerLogin" method="post">
      <div class="row mb-5">
 				<div class="col-3 mb-3">아이디</div>
 				

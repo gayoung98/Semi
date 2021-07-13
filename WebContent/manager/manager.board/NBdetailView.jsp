@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/>
 <!DOCTYPE html>
 <html>
 
@@ -35,7 +36,7 @@ h2 {
 	border-bottom: 1px solid #ddd;
 }
 
-div>a {
+.com>a {
 	text-decoration: none;
 	cursor: pointer;
 	color: black;

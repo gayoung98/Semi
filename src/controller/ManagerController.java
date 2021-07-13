@@ -69,7 +69,7 @@ public class ManagerController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset =utf-8");
-		request.getRemoteAddr();
+
 		try {
 			
 			String requestURI = request.getRequestURI();
@@ -88,23 +88,7 @@ public class ManagerController extends HttpServlet {
 			AssSubmitDAO assSubmitDao=AssSubmitDAO.getInstance();
 			System.out.println(url);    // 접속 url 출력
 			
-			if(url.contentEquals("/login.manager")) {   // 로그인 요청
-			
-				String id = request.getParameter("id");
-				String pw = request.getParameter("pw");
-				
-				boolean login = managerDao.login(id, pw);
-				l.trace(request.getRemoteAddr()+ " 관리자로그인을 시도함");
-				if(login) {
-					l.trace(request.getRemoteAddr()+ " 관리자 로그인 완료");
-					request.getSession().setAttribute("login", id);
-					response.sendRedirect(ctxPath+"/index.manager");
-					
-				
-				}else {
-					response.sendRedirect("manager/login.jsp");
-				}
-			}else if(url.contentEquals("/index.manager")) {
+		if(url.contentEquals("/index.manager")) {
 				List<FreeBoardDTO> boardList = managerDao.indexBoard();
 				List<FreePoliceDTO> policeList = managerDao.indexPolice();
 				List<InquireDTO> inquireList = managerDao.indexInquire();
