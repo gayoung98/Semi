@@ -126,19 +126,19 @@ public class MainController extends HttpServlet {
 				request.setAttribute("day", day);
 				request.setAttribute("date", date);
 				request.setAttribute("today",todayDate);
-				request.getRequestDispatcher("calander/calan_der.jsp").forward(request, response);
+				request.getRequestDispatcher("kh/calander/calan_der.jsp").forward(request, response);
 			}else if(url.contentEquals("/inquired.main")) {
 				inquiredDAO iqD = inquiredDAO.getInstance();
-				String writer = request.getParameter("writer");
-				String major = request.getParameter("major_category");
-				String sub = request.getParameter("sub_category");
-				String contents = request.getParameter("inquire_contents");
+				String writer = XSSFilter(request.getParameter("writer"));
+				String major =XSSFilter(request.getParameter("major_category"));
+				String sub = XSSFilter(request.getParameter("sub_category"));
+				String contents = XSSFilter(request.getParameter("inquire_contents"));
 				try {
 					int result=iqD.insert(new InquireDTO(writer, major, sub, contents));
 					boolean insertResult = result >0 ? true : false;
 					System.out.println(String.valueOf(insertResult));
 					request.setAttribute("result", insertResult);
-					request.getRequestDispatcher("inquired/PopResult.jsp").forward(request, response);
+					request.getRequestDispatcher("kh/inquired/PopResult.jsp").forward(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

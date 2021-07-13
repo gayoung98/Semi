@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class NoticeCommentsDTO {
 	
@@ -11,13 +12,13 @@ public class NoticeCommentsDTO {
 
     private String comments;
 
-    private Date write_date;
+    private Timestamp write_date;
 
     private int parent;
     
 public NoticeCommentsDTO() {}
     
-    public NoticeCommentsDTO(int seq, String id, String writer, String comments, Date write_date, int parent) {
+    public NoticeCommentsDTO(int seq, String id, String writer, String comments, Timestamp write_date, int parent) {
 	this.seq = seq;
 	this.id = id;
 	this.writer = writer;
@@ -26,7 +27,7 @@ public NoticeCommentsDTO() {}
 	this.parent = parent;
     }
     
-    public NoticeCommentsDTO(int seq, String id, String name, String writer, String comments, Date write_date, int parent
+    public NoticeCommentsDTO(int seq, String id, String name, String writer, String comments, Timestamp write_date, int parent
 			) {
 		this.seq = seq;
 		this.id = id;
@@ -76,11 +77,11 @@ public NoticeCommentsDTO() {}
 		this.comments = comments;
 	}
 
-	public Date getWrite_date() {
+	public Timestamp getWrite_date() {
 		return write_date;
 	}
 
-	public void setWrite_date(Date write_date) {
+	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
 

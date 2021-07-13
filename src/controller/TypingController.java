@@ -67,10 +67,10 @@ public class TypingController extends HttpServlet {
 				if(recentList != null) {
 					request.setAttribute("recentList", recentList);
 
-					RequestDispatcher rd = request.getRequestDispatcher("/typing/typing.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("kh/typing/typing.jsp");
 					rd.forward(request,response);
 				}else {
-					response.sendRedirect("/typing/typing.jsp");
+					response.sendRedirect("kh/typing/typing.jsp");
 				}
 
 			}

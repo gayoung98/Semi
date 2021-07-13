@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class FreeBoardDTO {
 	
@@ -19,7 +20,8 @@ public class FreeBoardDTO {
 	    
 	    private String name;
 
-		private Date write_date;
+		
+		private Timestamp write_date;
 
 	    private int viewCount;
 
@@ -30,7 +32,7 @@ public class FreeBoardDTO {
 	    public FreeBoardDTO() {}
 
 		public FreeBoardDTO(int seq, String branch, String writer, String title, String contents, String id,
-				Date write_date, int viewCount, int policeCount) {
+				Timestamp write_date, int viewCount, int policeCount) {
 			super();
 			this.seq = seq;
 			this.branch = branch;
@@ -43,7 +45,7 @@ public class FreeBoardDTO {
 			this.policeCount = policeCount;
 		}
 
-		public FreeBoardDTO(int seq, String branch, String writer, String title, Date write_date) {
+		public FreeBoardDTO(int seq, String branch, String writer, String title, Timestamp write_date) {
 			super();
 			this.seq = seq;
 			this.branch = branch;
@@ -53,7 +55,7 @@ public class FreeBoardDTO {
 		}
 		
 		 public FreeBoardDTO(int seq, String branch, String writer, String title, String contents, String id,
-				String name, Date write_date, int viewCount, int policeCount) {
+				String name, Timestamp write_date, int viewCount, int policeCount) {
 			super();
 			this.seq = seq;
 			this.branch = branch;
@@ -128,14 +130,14 @@ public class FreeBoardDTO {
 			this.name = name;
 		}
 
-
-		public Date getWrite_date() {
-			return write_date;
-		}
-
-		public void setWrite_date(Date write_date) {
+		public void setWrite_date(Timestamp write_date) {
 			this.write_date = write_date;
 		}
+
+		public Timestamp getWrite_date() {
+			return write_date;
+		}
+	
 
 		public int getViewCount() {
 			return viewCount;

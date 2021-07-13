@@ -212,6 +212,9 @@ body {
 	$("#back").on("click", function(){
 		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
 	})
+	$("#delete").on("click", function(){
+		confirm("정말 삭제하시겠습니까?");
+	})
 	</script>
 
 </body>

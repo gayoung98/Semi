@@ -56,7 +56,7 @@ $(function(){
 
 		if(msg==msg1){
 			alert("인증완료되었습니다.")
-			location.href="updatePw.member?email="+$("#email").val();
+			location.href="${pageContext.request.contextPath}/updatePw.member?email="+$("#email").val();
 		}else{
 			alert("인증번호를 다시 확인해주세요")
 			$("#check").val("");
