@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
 				
 				MemberDTO dto = dao.getInfo(name, phone);
 				if(dto == null) {
-					response.sendRedirect(ctxPath+"/view/checkMember.jsp");
+					response.sendRedirect(ctxPath+"/kh/view/checkMember.jsp");
 					
 				}else {
 					String id = dto.getId();
@@ -68,12 +68,12 @@ public class LoginController extends HttpServlet {
 					boolean resultId = dao.checkId(id);
 					if(resultId == true) {
 						System.out.println(resultId);
-						response.sendRedirect(ctxPath+"/view/checkId.jsp");
+						response.sendRedirect(ctxPath+"/kh/view/checkId.jsp");
 					}else {
 						int result = dao.Join(new MemberDTO(email,pw,name,phone,id,khClass,branch,position,null));
 						
 						request.setAttribute("result", result);
-						request.getRequestDispatcher("/view/joinView.jsp").forward(request, response);
+						request.getRequestDispatcher("kh/view/joinView.jsp").forward(request, response);
 					}
 				}
 								
@@ -98,44 +98,44 @@ public class LoginController extends HttpServlet {
 				 response.sendRedirect("index.jsp");
 				 
 			}else if(url.contentEquals("/findId.member")) {
-				response.sendRedirect("member/findId.jsp");
+				response.sendRedirect(ctxPath+"/kh/member/findId.jsp");
 				
 			}else if(url.contentEquals("/find_id.member")) {
 				String name = request.getParameter("name");
 				String phone = request.getParameter("phone");
 				String email = dao.findId(name, phone);
-				//String firstEmail = email.split("@")[0];
-				//String secondEmail = email.split("@")[1];
-				//response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
+				String firstEmail = email.split("@")[0];
+				String secondEmail = email.split("@")[1];
+				response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
 				//response.getWriter().append(email);
 				
 			}else if(url.contentEquals("/findPw.member")){
-				response.sendRedirect("member/findPw.jsp");
+				response.sendRedirect(ctxPath+"/kh/member/findPw.jsp");
 								
-			}else if(url.contentEquals("/member/modify.member")) {
+			}else if(url.contentEquals("/modify.member")) {
 				String email = request.getParameter("email");
 				System.out.println(email);				
 				String pw = request.getParameter("pw");
 				
 				int result = dao.updatePw(email, pw);
 				request.setAttribute("result", result);
-				request.getRequestDispatcher("/view/modifyView.jsp").forward(request, response);
+				request.getRequestDispatcher("kh/view/modifyView.jsp").forward(request, response);
 				
-			}else if(url.contentEquals("/member/updatePw.member")) {
+			}else if(url.contentEquals("/updatePw.member")) {
 				l.trace(request.getRemoteAddr()+" 비밀번호 변경");
 				request.setAttribute("email", request.getParameter("email"));
-				request.getRequestDispatcher("updatePw.jsp").forward(request, response);
+				request.getRequestDispatcher("kh/member/updatePw.jsp").forward(request, response);
 				
-			}else if(url.contentEquals("/member/checkInfo.member")) {
+			}else if(url.contentEquals("/checkInfo.member")) {
 				String phone = request.getParameter("phone");
 				String name = request.getParameter("name");
 				String email = request.getParameter("email");
 				boolean result = dao.checkInfo(phone, name, email);
 				if(result == true) {
 					request.setAttribute("email", email);
-					request.getRequestDispatcher("/member/findPw.jsp").forward(request, response);
+					request.getRequestDispatcher("kh/member/findPw.jsp").forward(request, response);
 				}else {
-					response.sendRedirect(ctxPath+"/view/checkView.jsp");
+					response.sendRedirect(ctxPath+"kh/view/checkView.jsp");
 				}
 				
 			}else if(url.contentEquals("/regex.member")) {

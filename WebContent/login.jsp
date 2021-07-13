@@ -53,7 +53,7 @@
 				<div class ="col-2"></div>
 				<div class="col-8 text-center">
 					<a href="findId.member">아이디찾기&nbsp;</a>
-					<a href="member/checkInfo.jsp">비밀번호찾기</a>
+					<a href="${pageContext.request.contextPath}/kh/member/checkInfo.jsp">비밀번호찾기</a>
 				</div>
 				<div class ="col-2"></div>
 			</div>			
