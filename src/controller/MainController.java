@@ -70,7 +70,7 @@ public class MainController extends HttpServlet {
 				request.setAttribute("name",name);
 	            request.setAttribute("firstlist", dao.likeFacebook(10, 1, khclass, branch));
 	            request.setAttribute("list", dao.classList(khclass, branch).size());
-	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
+	            request.getRequestDispatcher("kh/main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
 				Gson g = new Gson();
 				String email = (String)request.getSession().getAttribute("login");
