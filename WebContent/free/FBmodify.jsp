@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <title>freeBoard modify</title>
-           <title>freeBoard Write</title>
+           
        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
@@ -290,7 +290,7 @@
                         <!--첨부 파일리스트 삭제  -->
                         <div id="content">
                             <fieldset class="file_box">
-                                <legend>[첨부 파일 리스트]</legend>
+                                <legend>[첨부 파일 목록]</legend>
                                 <c:forEach var="file" items="${filelist}">
                                     <!--첨부파일 다운로드-->
                                     <div class = "delfiles">${file.oriName}<button type="button" class="btn btn-dark delAttach"
