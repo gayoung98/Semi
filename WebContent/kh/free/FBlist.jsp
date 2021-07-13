@@ -99,7 +99,7 @@ location.href="${pageContext.request.contextPath}/towrite.fboard"
 });
 
 $("#back").on("click",function(){
-	location.href="${pageContext.request.contextPath}/index.jsp"
+	location.href="${pageContext.request.contextPath}/main.main"
 	});
 
 

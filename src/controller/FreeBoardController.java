@@ -122,11 +122,11 @@ public class FreeBoardController extends HttpServlet {
             request.setAttribute("branch", branch);
 
             request.setAttribute("count", fcdao); 
-            RequestDispatcher rd = request.getRequestDispatcher("free/FBlist.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBlist.jsp");
             rd.forward(request, response);
 
          }else if(url.contentEquals("/towrite.fboard")){
-            response.sendRedirect("free/FBwrite.jsp");
+            response.sendRedirect("kh/free/FBwrite.jsp");
 
          }else if(url.contentEquals("/write.fboard")) { 
             System.out.println("작성 중");
@@ -185,7 +185,7 @@ public class FreeBoardController extends HttpServlet {
             }
             List<FreeBoardDTO> boardlist =fbdao.boardList();//목록 출력
             request.setAttribute("boardlist", boardlist);
-            RequestDispatcher rd = request.getRequestDispatcher("free/FBwriteView.jsp"); //글쓰기 페이지로 이동
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBwriteView.jsp"); //글쓰기 페이지로 이동
             rd.forward(request, response);
 
          }else if(url.contentEquals("/detailView.fboard")) {  //상세보기
@@ -221,7 +221,7 @@ public class FreeBoardController extends HttpServlet {
             List<FreeCommentDTO> list =fcdao.CommentsList(boardseq);//댓글리스트            
             request.setAttribute("reply", list); //댓글리스트를 request를 담는다.
 
-            request.getRequestDispatcher("free/FBdetailView.jsp").forward(request, response);
+            request.getRequestDispatcher("kh/free/FBdetailView.jsp").forward(request, response);
             
          }else if(url.contentEquals("/modify.fboard")){ //수정하기
 
@@ -236,7 +236,7 @@ public class FreeBoardController extends HttpServlet {
             System.out.println("파일 갯수: "+ fileList.size());
             request.setAttribute("filelist", fileList);
 
-            request.getRequestDispatcher("free/FBmodify.jsp").forward(request, response);
+            request.getRequestDispatcher("kh/free/FBmodify.jsp").forward(request, response);
 
          }else if(url.contentEquals("/modifyedit.fboard")) {   //글 수정하기
             
@@ -299,13 +299,13 @@ public class FreeBoardController extends HttpServlet {
             List<FreeFilesDTO> flist = ffdao.selectAll(board_seq);
             request.setAttribute("view", dto);
             request.setAttribute("filelist", flist);
-            request.getRequestDispatcher("free/FBmodifyView.jsp").forward(request, response);
+            request.getRequestDispatcher("kh/free/FBmodifyView.jsp").forward(request, response);
                
          }else if(url.contentEquals("/delete.fboard")){ //삭제하기
             System.out.println("삭제중");            
             int seq = Integer.parseInt(request.getParameter("seq"));
             int result = fbdao.delete(seq);
-            response.sendRedirect("free/FBdeleteView.jsp");
+            response.sendRedirect("kh/free/FBdeleteView.jsp");
          
 
          }else if(url.contentEquals("/reportForm.fboard")) { //신고하기 폼
@@ -313,7 +313,7 @@ public class FreeBoardController extends HttpServlet {
             int board_seq = Integer.parseInt(request.getParameter("seq"));
             FreeBoardDTO dto = fbdao.detailView(board_seq);
             request.setAttribute("view", dto);
-            request.getRequestDispatcher("free/reportPop.jsp").forward(request, response);
+            request.getRequestDispatcher("kh/free/reportPop.jsp").forward(request, response);
 
          }else if(url.contentEquals("/report.fboard")) { //신고처리
             System.out.println("신고 처리중!!");
@@ -325,7 +325,7 @@ public class FreeBoardController extends HttpServlet {
             int result = fpdao.report(id,contents,parent);
             System.out.println("신고 처리 여부 : "+ result);
 
-            RequestDispatcher rd = request.getRequestDispatcher("free/reportResult.jsp"); //신고 결과화면
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/reportResult.jsp"); //신고 결과화면
             rd.forward(request, response);
          }
       }catch(Exception e) {
