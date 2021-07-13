@@ -110,6 +110,7 @@
     //        	console.log($(this).attr("id"));
       //      	console.log($(this).attr("data-Ischoose"));
             	if($(this).attr("data-Ischoose")==="false"){
+            		if(confirm("해당 좌석을 예약하시겠습니까?")){
 	                $.ajax({
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
 	                	data: {"seatNumber":$(this).attr("id")}
@@ -120,18 +121,17 @@
 	                	}else if(result == "corona"){
 	                		alert("해당 요일은 이미 14명이 신청하였습니다.")
 	                	}else{
-	                		if(confirm("해당 좌석을 예약하시겠습니까?")){
 	                		$("#"+result).css("background-color","rgb(255, 255, 166)");
 		                	$("#"+result).attr("data-Ischoose","true");
 		                	$("#"+result).html("예약완료")
 		                	alert("예약완료")
-	                		}else{
-	                			location.href = "${pageContext.request.contextPath}/confirmReserve.seat?seat_number="+result;
-	                		}
+	                		
 	                	}
 	                	
-	                })	
+	                })
+            		}
                 }else{
+                	if(confirm("예약을 취소하시겠습니까?")){
                 	$.ajax({
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
 	                	data: {"cancelSeat":$(this).attr("id")}
@@ -139,18 +139,15 @@
 	                	if(result == "notmyseat"){
 	                		alert("다른 사람이 먼저 예약한 자리입니다.")
 	                	}else{
-	                		if(confirm("예약을 취소하시겠습니까?")){
 	                			$("#"+result).css("background-color","white");
 			                	$("#"+result).attr("data-Ischoose","false");
 			                	$("#"+result).html("<i class=\"fas fa-desktop\">" + "<br>" + result)
 			                	alert("예약이 취소되었습니다.")
-	                		}else{
-	                			location.href = "${pageContext.request.contextPath}/confirmCancel.seat?seat_number="+result;
-	                		}
+	                		
 	                	}
 	                })
                 }
-            	
+                }
             	
             })
             
