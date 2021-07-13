@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class FreeCommentDAO {
 				MemberDAO daoM = MemberDAO.getInstance();
 				String name = daoM.getAllInfo(writer).getName();
 				String comments = rs.getNString("comments");
-				Date writer_date = rs.getDate("write_date");
+				Timestamp writer_date = rs.getTimestamp("write_date");
 				int parent_seq = rs.getInt("parent");
 
 				FreeCommentDTO result = new FreeCommentDTO(num,id,name,writer,comments,writer_date,parent_seq);
@@ -85,7 +86,7 @@ public class FreeCommentDAO {
 				MemberDAO daoM = MemberDAO.getInstance();
 				String name = daoM.getAllInfo(writer).getName();
 				String comments = rs.getNString("comments");
-				Date writer_date = rs.getDate("write_date");
+				Timestamp writer_date = rs.getTimestamp("write_date");
 				int parent_seq = rs.getInt("parent");
 
 				FreeCommentDTO dto = new FreeCommentDTO(num,id,name,writer,comments,writer_date,parent_seq);

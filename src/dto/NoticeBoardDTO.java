@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class NoticeBoardDTO {
 	
@@ -12,7 +13,7 @@ public class NoticeBoardDTO {
 
 	    private String contents;
 
-	    private Date write_date;
+	    private Timestamp write_date;
 
 	    private String khClass;
 
@@ -21,7 +22,7 @@ public class NoticeBoardDTO {
 	    
 	    public NoticeBoardDTO() {};
 
-	  	    public NoticeBoardDTO(int seq, String writer, String title, String contents, Date write_date, String khClass,
+	  	    public NoticeBoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, String khClass,
 				String branch,int viewCount) {
 			
 			this.seq = seq;
@@ -41,7 +42,7 @@ public class NoticeBoardDTO {
 
 
 		public NoticeBoardDTO(int seq, String branch, String khClass, String writer, String title,
-				String contents, Date write_date, int viewCount) {
+				String contents, Timestamp write_date, int viewCount) {
 			this.seq = seq;
 			this.writer = writer;
 			this.title = title;
@@ -86,11 +87,11 @@ public class NoticeBoardDTO {
 
 	
 
-	    public Date getWrite_date() {
+	    public Timestamp getWrite_date() {
 			return write_date;
 		}
 
-		public void setWrite_date(Date write_date) {
+		public void setWrite_date(Timestamp write_date) {
 			this.write_date = write_date;
 		}
 
