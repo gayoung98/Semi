@@ -52,8 +52,11 @@ public class AssController extends HttpServlet {
 		MemberDAO daoM = MemberDAO.getInstance();
 
 		try {
-
-			if(url.contentEquals("/write.ass")) {
+			if(url.contentEquals("/writeForm.ass")) {
+				
+				response.sendRedirect("kh/assignment/assWrite.jsp");
+				
+			}else if(url.contentEquals("/write.ass")) {
 
 				System.out.println("write.ass");
 				
