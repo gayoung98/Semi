@@ -76,7 +76,7 @@
 		<div class="content">
 					<div class="col">
 		<form action="${pageContext.request.contextPath}/noticeModifyView.manager" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" id="form">
 		<input type="hidden"  name="currentPage" value="${page }">
 		<input type="hidden"  name="branch" value="${branch}">
 		<input type="hidden"  name="search" value="${search}">
@@ -85,7 +85,7 @@
 				<div class="col-12 title_area">
 
 					<h2>
-						<input type="text" name="title" size="50" value="${view.title}">
+						<input type="text" id="titleName" name="title" size="50" value="${view.title}">
 					</h2>
 
 				</div>
@@ -134,7 +134,7 @@
 					</legend>
 				</fieldset>
 				<div class="btn_wrap text-right">
-					<input type="submit" class="btn btn-primary" value="수정 완료">
+					<input type="submit" class="btn btn-primary" id="submit" value="수정하기">
 					<input type=button class="btn btn-dark" value="취소" id="listBtn">
 
 				</div>
@@ -209,7 +209,24 @@
 			$(".contents_box").after(del);
 
 		});
+		$("#submit").on("click",function(){
+		    let titleCheck = $("#titleName");
+		    let contentsCheck=$("#summernote");
 
+		    if (titleCheck.val()=="") {
+		        alert("제목을 입력해주세요.");
+		        titleCheck.focus();
+		        return false;
+		    }
+		    else if (contentsCheck.val()=="") {
+		        alert("내용을 입력해주세요.");
+		       contentsCheck.focus();
+				return false;
+		    }else{
+		    alert("수정이 완료되었습니다.");
+       		$("#form").submit();
+		    }
+		});
 	});
 </script>
 </body>

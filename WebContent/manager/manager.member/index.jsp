@@ -43,8 +43,7 @@
 </style>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${login != null }">
+	
 			<div class="wrap">
 				<jsp:include page="../menu.jsp"></jsp:include>
 				<div>
@@ -159,14 +158,7 @@
 				</div>
 		</div>
 
-		</c:when>
-		<c:otherwise>
-			<div class="containers">
-				<h2>세션이 만료되었습니다. 다시 로그인 해주시길 바랍니다.</h2>
-				<button class="btn btn-secondary btn-lg" id="back">로그인 하러가기</button>
-			</div>
-		</c:otherwise>
-	</c:choose>
+		
 	<script>
 		$(function() {
 			$("#back").on("click", function() {

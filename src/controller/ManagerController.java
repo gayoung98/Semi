@@ -378,43 +378,44 @@ public class ManagerController extends HttpServlet {
 	            request.getRequestDispatcher("manager/manager.board/NBwrite.jsp").forward(request,response);
 	            
 	         }
-	         else if(url.contentEquals("/writeView.manager")) { //관리자페이지 공지사항 글쓰기
+			else if(url.contentEquals("/writeView.manager")) { //관리자페이지 공지사항 글쓰기
 	            l.trace(request.getRemoteAddr()+" 공지사항 작성");
-	         
-	            String filesPath =request.getServletContext().getRealPath("files");
 
-	            File filesFolder = new File(filesPath);
-	            
+	             String root =request.getServletContext().getRealPath("/");
+	                  String pathName = root + "uploadDirectory";
 
-	            if(!filesFolder.exists()) filesFolder.mkdir();
-	            MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
-	            
+
+	                  File filesFolder = new File(pathName);
+	                  System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
+	                  
+	            MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
+
 	            int seq = nbdao.getSeq();
 	            String title =multi.getParameter("title");
 	            String contents= multi.getParameter("contents");
-	            
+
 	            String branch = multi.getParameter("branch");
 	            String khClass = multi.getParameter("KhClass");
 
 	            nbdao.write(seq,title,contents,khClass,branch);
-	            
+
 
 	            Set<String>fileNames = multi.getFileNameSet();
-	         
+
 	            for(String fileName : fileNames) {
 	               if(!fileName.contentEquals("files")) {
-	               String oriName = multi.getOriginalFileName(fileName);
-	               String sysName = multi.getFilesystemName(fileName);
+	                  String oriName = multi.getOriginalFileName(fileName);
+	                  String sysName = multi.getFilesystemName(fileName);
 
-	               if(oriName!=null) {  
-	                  int fileUpload =nfdao.fileUpload(new NoticeFilesDTO(0,oriName,sysName,null,seq));
-	                  System.out.println(fileUpload);
+	                  if(oriName!=null) {  
+	                     int fileUpload =nfdao.fileUpload(new NoticeFilesDTO(0,oriName,sysName,null,seq));
+	                     System.out.println(fileUpload);
+	                  }
 	               }
 	            }
-	   }
-	   request.getSession().removeAttribute("ingFiles");
-	   
-	   response.sendRedirect(ctxPath+"/noticeList.manager?currentPage=1&branch=all&category=&search=");
+	            request.getSession().removeAttribute("ingFiles");
+
+	            response.sendRedirect(ctxPath+"/noticeList.manager?currentPage=1&branch=all&category=&search=");
 	            
 	         }else if(url.contentEquals("/detailView.manager")) { //관리자페이지 상세보기
 				int boardseq = Integer.parseInt(request.getParameter("seq"));
@@ -465,69 +466,65 @@ public class ManagerController extends HttpServlet {
 	            
 	            
 	         }else if(url.contentEquals("/noticeModifyView.manager")) { //관리자페이지 공지사항 글 수정 페이지
-	            l.trace(request.getRemoteAddr()+" 공지사항 수정");
-	          String root =request.getServletContext().getRealPath("/");
-	   String pathName = root + "uploadDirectory";
-	   File filesFolder = new File(pathName);
-	   System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
-	            if(!filesFolder.exists()) {filesFolder.mkdir();}
-	            
-	            MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
+	             l.trace(request.getRemoteAddr()+" 공지사항 수정");
+	             String root =request.getServletContext().getRealPath("/");
+	             String pathName = root + "uploadDirectory";
+	             File filesFolder = new File(pathName);
+	             System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
+	             if(!filesFolder.exists()) {filesFolder.mkdir();}
+
+	             MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
 
 
-	            int boardSeq = Integer.parseInt(multi.getParameter("seq"));
-	         
-	            String uptitle = multi.getParameter("title");
-	         
-	            String upcontents = multi.getParameter("contents");
-	         
-	         
-	            String[]del=multi.getParameterValues("delete");
-	            if(del== null) {
-	            
-	            }if(del!= null) {
-	               for(String deleteFile : del) {
-	                  System.out.println("지울 파일 번호 "+ deleteFile);
+	             int boardSeq = Integer.parseInt(multi.getParameter("seq"));
 
-	                  String sysName = nfdao.getSysName(Integer.parseInt(deleteFile));
-	                  File targetFile = new File(pathName +"/" + sysName); 
-	                  boolean result = targetFile.delete();
-	                  System.out.println("파일 삭제 여부 :" + result);
-	                  if(result) {nfdao.fileDelete(Integer.parseInt(deleteFile));}
-	               }
-	            }else {
-	            
-	            int result = nbdao.modify(boardSeq, uptitle, upcontents);
-	            System.out.println("수정 결과"+ result);
-	         
-	            Set<String>fileNames = multi.getFileNameSet();
-	            System.out.println("파일갯수 "+fileNames.size());
-	            for(String fileName : fileNames) {
-	               System.out.println("파라미터 이름: "+ fileName);
-	               String oriName = multi.getOriginalFileName(fileName);
-	               String sysName = multi.getFilesystemName(fileName);
+	             String uptitle = multi.getParameter("title");
 
-	               
-	               if(oriName!=null) {  
-	                  System.out.println("파일이름" + oriName + "DB에 저장됨.");
-	               
-	                  nfdao.fileUpload(new NoticeFilesDTO(0,oriName,sysName,null,boardSeq));         
-	               }
-	            }
-	            }
-	            String branch = multi.getParameter("branch");      
-	            int currentPage =Integer.parseInt(multi.getParameter("currentPage"));
-	            String category = multi.getParameter("category");
-	            String search = multi.getParameter("search");
-	            NoticeBoardDTO dto = nbdao.detailView(boardSeq);
-	               List<NoticeFilesDTO> flist = nfdao.selectAll(boardSeq);
-	               request.setAttribute("view", dto);
-	               request.setAttribute("filelist", flist);
-	               request.setAttribute("page", currentPage);
-	               request.setAttribute("branch", branch);
-	               request.setAttribute("category", category);
-	               request.setAttribute("search", search);
-	               request.getRequestDispatcher("manager/manager.board/NBmodifyView.jsp").forward(request, response);
+	             String upcontents = multi.getParameter("contents");
+
+
+	             String[]del=multi.getParameterValues("delete");
+	             if(del== null) {
+
+	             }else if(del!= null) {
+	                for(String deleteFile : del) {
+	                   System.out.println("지울 파일 번호 "+ deleteFile);
+
+	                   String sysName = nfdao.getSysName(Integer.parseInt(deleteFile));
+	                   File targetFile = new File(pathName +"/" + sysName); 
+	                   boolean result = targetFile.delete();
+	                   System.out.println("파일 삭제 여부 :" + result);
+	                   if(result) {nfdao.fileDelete(Integer.parseInt(deleteFile));}
+	                }
+	                      System.out.println(del.length);
+
+	             }   
+	                int result = nbdao.modify(boardSeq, uptitle, upcontents);
+	                System.out.println("수정 결과"+ result);
+
+	                Set<String>fileNames = multi.getFileNameSet();
+	                System.out.println("파일갯수 "+fileNames.size());
+	                for(String fileName : fileNames) {
+	                   if(!fileName.contentEquals("files")) {
+	                   System.out.println("파라미터 이름: "+ fileName);
+	                   String oriName = multi.getOriginalFileName(fileName);
+	                   String sysName = multi.getFilesystemName(fileName);
+
+
+	                   if(oriName!=null) {  
+	                      System.out.println("파일이름" + oriName + "DB에 저장됨.");
+
+	                      nfdao.fileUpload(new NoticeFilesDTO(0,oriName,sysName,null,boardSeq));         
+	                   }
+	                }
+	             }
+	             
+	             String branch = multi.getParameter("branch");      
+	             int currentPage =Integer.parseInt(multi.getParameter("currentPage"));
+	             String category = multi.getParameter("category");
+	             String search = multi.getParameter("search");
+	             
+	             response.sendRedirect(ctxPath+"/detailView.manager?currentPage="+currentPage+"&branch="+branch+"&category="+category+"&search="+search+"&seq="+boardSeq);
 			}else if(url.contentEquals("/noticeDelete.manager")) { //관리자페이지 공지사항 글쓰기 삭제
 			
 				int seq = Integer.parseInt(request.getParameter("seq"));
@@ -635,10 +632,7 @@ public class ManagerController extends HttpServlet {
 					if(result) {daoF.deleteAll(delSeq);}
 					  
 					}
-					request.setAttribute("page", currentPage);
-					request.setAttribute("branch", branch);
-					request.setAttribute("category", category);
-					request.setAttribute("search", search);
+					
 					 response.sendRedirect(ctxPath+"/assList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
 					
 	         }
