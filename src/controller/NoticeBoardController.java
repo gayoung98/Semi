@@ -113,7 +113,7 @@ public class NoticeBoardController extends HttpServlet {
 				request.setAttribute("branch", branch);
 
 				request.setAttribute("count", ncdao); //댓글 수 출력 
-				RequestDispatcher rd = request.getRequestDispatcher("notice/NBlist.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("kh/notice/NBlist.jsp");
 				rd.forward(request, response);
 
 			}else if(url.contentEquals("/detailView.nboard")) { //공지게시판 상세보기
@@ -138,7 +138,7 @@ public class NoticeBoardController extends HttpServlet {
 				List<NoticeCommentsDTO> list =ncdao.CommentsList(boardseq);//댓글리스트				
 				request.setAttribute("reply", list); //댓글리스트를 request를 담는다.
 				
-				request.getRequestDispatcher("notice/NBdetailView.jsp").forward(request, response);			
+				request.getRequestDispatcher("kh/notice/NBdetailView.jsp").forward(request, response);			
 
 
 			}

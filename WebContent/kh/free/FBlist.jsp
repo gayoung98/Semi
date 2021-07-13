@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>FreeBoard List</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		   
 <style>
 html{}
 	body {background-color: #D8E3E7;min-height:900px;}
@@ -99,7 +99,7 @@ location.href="${pageContext.request.contextPath}/towrite.fboard"
 });
 
 $("#back").on("click",function(){
-	location.href="${pageContext.request.contextPath}/index.jsp"
+	location.href="${pageContext.request.contextPath}/main.main"
 	});
 
 

@@ -28,6 +28,15 @@ import dto.MemberDTO;
 @WebServlet("*.main")
 public class MainController extends HttpServlet {
 
+	private String XSSFilter(String target) {
+		if(target != null) {
+			target = target.replaceAll("<", "&lt");
+			target = target.replaceAll(">", "&gt");
+			target = target.replaceAll("&", "&amp");
+		}
+		return target;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -44,6 +53,8 @@ public class MainController extends HttpServlet {
 				String contents = request.getParameter("writechat");
 				String writer = request.getParameter("writer");
 				System.out.println(writer);
+				
+				contents = XSSFilter(contents);
 				
 				MemberDTO dto = memdao.getMainInfo(writer);
 				String id = dto.getId();
@@ -70,7 +81,7 @@ public class MainController extends HttpServlet {
 				request.setAttribute("name",name);
 	            request.setAttribute("firstlist", dao.likeFacebook(10, 1, khclass, branch));
 	            request.setAttribute("list", dao.classList(khclass, branch).size());
-	            request.getRequestDispatcher("main/main.jsp").forward(request, response);
+	            request.getRequestDispatcher("kh/main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
 				Gson g = new Gson();
 				String email = (String)request.getSession().getAttribute("login");

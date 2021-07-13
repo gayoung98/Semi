@@ -31,7 +31,7 @@
           <a class="dropdown-item" href="${pageContext.request.contextPath}/view.typ">기록</a>
         </div>     
       <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/seat/seat.jsp">자리신청</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/kh/seat/seat.jsp">자리신청</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/calander.main">스케쥴</a>

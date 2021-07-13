@@ -35,19 +35,18 @@ h2 {
 	border-bottom: 1px solid #ddd;
 }
 
-a {
+div>a {
 	text-decoration: none;
 	cursor: pointer;
+	color: black;
+	font-weight: bold;
 }
 
 .commentItem a:hover {
 	color: cadetblue;
 }
 
-a {
-	color: black;
-	font-weight: bold;
-}
+
 
 .title {
 	text-align: center;
@@ -55,11 +54,13 @@ a {
 
 /* 내용 */
 .contents {
-	height: 200px;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-}
-
+					padding:0;
+					margin-left:20px;
+					height: 100%;
+					width: 95%;
+					border: 1px solid #ddd;
+					border-radius: 10px;
+				}
 /* 작성자 정보 */
 .writer {
 	padding-left: 10px;
@@ -186,13 +187,10 @@ textarea {
 							});
 
 					$("#modifyBtn").on("click",function () { //게시글 수정
-								let check = confirm("정말 게시글을 수정하겠습니까?");
-								if (check) {
+								
 									location.href = "${pageContext.request.contextPath}/noticeModify.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
 										+ $("#modifyBtn").val(); //게시글 수정 확인 팝업
-								} else {
-									return;
-								}
+								
 							});
 
 

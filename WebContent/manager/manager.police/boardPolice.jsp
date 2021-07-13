@@ -53,8 +53,8 @@
 								<tr>
 									<th scope="row">${i.seq}</th>
 									<td>${i.id}</td>
-									<td>${i.contents}</td>
-									<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=${branch }&currentPage=${page }&category=${category }&search=${search}&seq=${i.parent}">${i.parent}</a></td>
+									<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=${branch }&currentPage=${page }&category=${category }&search=${search}&seq=${i.parent}">${i.contents}</a></td>
+									<td>${i.parent}</td>
 									<td>${i.reg_date}</td>
 									
 								</tr>
