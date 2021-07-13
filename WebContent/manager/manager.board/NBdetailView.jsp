@@ -187,13 +187,10 @@ textarea {
 							});
 
 					$("#modifyBtn").on("click",function () { //게시글 수정
-								let check = confirm("정말 게시글을 수정하겠습니까?");
-								if (check) {
+								
 									location.href = "${pageContext.request.contextPath}/noticeModify.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
 										+ $("#modifyBtn").val(); //게시글 수정 확인 팝업
-								} else {
-									return;
-								}
+								
 							});
 
 
