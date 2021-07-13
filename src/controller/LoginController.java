@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
 					String snsresult = dao.snslogin(email);
 					if(snsresult != null || request.getSession().isNew()) {
 						request.getSession().setAttribute("login",snsresult);
-						response.sendRedirect("main.main");
+						response.sendRedirect(ctxPath+"main.main");
 					}
 				}else {
 					request.setAttribute("email", email);
