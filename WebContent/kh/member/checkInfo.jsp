@@ -33,7 +33,7 @@
 </head>
 <body>
 	<div class="container shadow bg-white rounded">
-	<form action="checkInfo.member" method="post">
+	<form action="${pageContext.request.contextPath}/checkInfo.member" method="post">
 		<h2 class="text-center">계정확인</h2>
     	<div>
         	<i class="fas fa-mobile-alt"></i>

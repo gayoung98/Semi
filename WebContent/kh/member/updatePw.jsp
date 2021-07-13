@@ -51,7 +51,7 @@ window.onload = function(){
 </head>
 <body>
 	<div class="container shadow bg-white rounded">
-		<form action="modify.member" method="post">
+		<form action="${pageContext.request.contextPath}/modify.member" method="post">
 			<h2 class="text-center">비밀번호 변경</h2>
     		<div>
         		<i class="fas fa-unlock"></i>
