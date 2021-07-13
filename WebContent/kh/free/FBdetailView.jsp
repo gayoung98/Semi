@@ -356,7 +356,7 @@
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date"><fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${view.write_date}"/></span> <span class="count">조회
+						<span class="date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${view.write_date}"/></span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
 						<!-- 댓글 수 및 신고버튼-->
