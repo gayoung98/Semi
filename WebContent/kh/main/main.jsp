@@ -13,14 +13,15 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/kh/main/main.css">
 
+<link rel="stylesheet" href="kh/main/main.css"  type="text/css" media="all">
 
-
+<style>
+	#mainName{
+	text-align:center;
+	margin-bottom:0px;
+}
+</style>
 <script>
 	/* sns */
 	let writechat = document.getElementById("wirtechat");
@@ -156,7 +157,6 @@
 <jsp:include page= "/navibar.jsp" />
 	<div class = "container">
 		<input type=hidden id=length value="${list}">
-		
 		<div class =row>
 		<div class="col-2"> 
 		<div class="card shadow bg-white rounded">
@@ -175,7 +175,8 @@
 			</div>
 		</div>
 		</div>
-		<div class = "col-8">
+		<div class = "col-8" id="col">
+		<div id="mainName">우리반 익명 톡방</div>
 		<div class="chat_wrap  shadow bg-white rounded">
 			<div class="writebox">
 				<form action="${pageContext.request.contextPath}/writechat.main"

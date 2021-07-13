@@ -92,6 +92,9 @@ public class SeatController extends HttpServlet {
 			}else if(url.contentEquals("/date.seat")) {
 				date = request.getParameter("date");
 				response.sendRedirect("kh/seat/seat.jsp");
+			}else if(url.contentEquals("/seat.seat")) {
+				System.out.println("컨트롤러 들렀다 감");
+				request.getRequestDispatcher("kh/seat/seat.jsp").forward(request, response);
 			}
 
 

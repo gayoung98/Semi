@@ -26,6 +26,13 @@ margin:0px;
 a{text-decoration:none;color: black;font-weight: bold;}
  
 
+#mainName{
+	text-align:center;
+	height:55px;
+	line-height:55px;
+	margin-bottom:0px;
+}
+
 .chat_wrap {
 	width: 100%;
 	left: 20%;
