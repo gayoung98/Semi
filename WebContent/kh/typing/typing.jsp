@@ -77,6 +77,21 @@ input {
 }
 </style>
 
+<script type="text/javascript">
+
+$(function(){
+	$(document).on('click', '#navbarDropdownMenuLink', function() {
+		   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+		 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+		   }else{
+		 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+		   }
+		})
+		
+})
+
+</script>
+
 </head>
 <body>
 	<jsp:include page="/navibar.jsp" />
