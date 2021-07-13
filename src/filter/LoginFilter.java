@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 				@WebFilter(urlPatterns= {"*.ass","*.assSubmit","*.fboard","*.freecom","*.main","*.mp","*.nboard","*.noticom","*.seat","*.typ"})
 public class LoginFilter implements Filter{
-
+				
 	@Override
 	public void destroy() {
 	
@@ -35,7 +35,7 @@ public class LoginFilter implements Filter{
 		if(login) {
 		chain.doFilter(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		}
 		
