@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,7 +133,7 @@ $("#back").on("click",function(){
                 <div class="col-12 col-md-2">${i.branch}/ ${i.khClass} </div>
                 <div class="col-12 col-md-3 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
-                <div class="col-2 col-md-2  d-md-block">${i.write_date}</div>
+                <div class="col-2 col-md-2  d-md-block"><fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/></div>
                 <div class="col-1 col-md-2  d-md-block">${i.viewCount}</div>
             </div>
         </c:forEach>
