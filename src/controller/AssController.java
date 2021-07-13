@@ -162,7 +162,7 @@ public class AssController extends HttpServlet {
 				request.setAttribute("category", category);
 				request.setAttribute("keyword", keyword);
 
-				RequestDispatcher rd = request.getRequestDispatcher("assignment/assList.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("kh/assignment/assList.jsp");
 				rd.forward(request,response);
 
 			}else if(url.contentEquals("/view.ass")) {
@@ -190,7 +190,7 @@ public class AssController extends HttpServlet {
 				request.setAttribute("assSubmit", assSubmit);
 
 
-				RequestDispatcher rd = request.getRequestDispatcher("assignment/assView.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("kh/assignment/assView.jsp");
 				rd.forward(request,response);
 
 
@@ -231,7 +231,7 @@ public class AssController extends HttpServlet {
 				request.setAttribute("assView", ass);
 				request.setAttribute("assFiles", assFiles);
 
-				RequestDispatcher rd = request.getRequestDispatcher("assignment/assModify.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("kh/assignment/assModify.jsp");
 				rd.forward(request,response);
 
 
