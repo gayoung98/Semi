@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<<<<<<< HEAD
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+=======
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+>>>>>>> cfdc467b013f5af4e217b451627855a56edaf92f
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/>
+ 
 		<!DOCTYPE html>
 		<html>
 
@@ -195,8 +199,10 @@
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date">${view.write_date}</span><br> <span class="count"><b>조회
-							${view.viewCount}</b></span> <input type="hidden" name="seq" value="${view.seq}">
+
+						<span class="date"> <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/></span> <span class="count">조회
+							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
+
 
 						<!-- 댓글 수 및 신고버튼-->
 						<div class="com">
