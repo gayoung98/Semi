@@ -112,7 +112,7 @@ public class MyPageDAO {
 		psmt.setString(1, session); 
 		try(ResultSet rs = psmt.executeQuery()){
 			while(rs.next()) {
-				li.add(new FreeBoardDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getDate(8),rs.getInt(9),rs.getInt(10))); 
+				li.add(new FreeBoardDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getTimestamp(8),rs.getInt(9),rs.getInt(10))); 
 			}
 			return li; 
 		}
