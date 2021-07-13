@@ -258,7 +258,7 @@
 							let complete = $("<button type =button>");
 							complete.addClass("btn btn-dark complete")
 							complete.text("수정완료");
-							let cancel = $("<button>");
+							let cancel = $("<button type = button>");
 							cancel.addClass("btn btn-dark cancel")
 							cancel.text("취소");
 							$(".deleteReply").remove();
@@ -366,9 +366,7 @@
 									<!--댓글 수정-->
 									<form action="${pageContext.request.contextPath}/modify.noticom" method="post" id="modifyForm">
 										<div class="comment_text">
-											
-											
-											<p class="text_view">
+												<p class="text_view">
 												<span class="modify_option" id="com">${i.comments}</span>
 											</p>
 										</div>
