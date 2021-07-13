@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class NoticeBoardDAO {
 				String writer =rs.getNString("writer");
 				String title = rs.getNString("title");
 				String contents = rs.getNString("contents");
-				Date write_date =rs.getDate("write_date");
+				Timestamp write_date =rs.getTimestamp("write_date");
 				String khClass = rs.getNString("khClass");
 				String branch = rs.getNString("branch");
 				String khBranch="";
@@ -110,7 +111,7 @@ public class NoticeBoardDAO {
 					int seq = rs.getInt("seq");
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					String khClass = rs.getNString("KhClass");
 					String branch = rs.getNString("branch");
 					String khBranch="";
@@ -158,7 +159,7 @@ public class NoticeBoardDAO {
 					int seq = rs.getInt("seq");
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					String khClass = rs.getNString("khClass");
 					String findBranch = rs.getNString("branch");
 					String khBranch="";
@@ -207,7 +208,7 @@ public class NoticeBoardDAO {
 					int seq = rs.getInt("seq");
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					String branch = rs.getNString("branch");
 					String khBranch="";
 					if(branch.contentEquals("J")) {
@@ -268,7 +269,7 @@ public class NoticeBoardDAO {
 					String khClass = rs.getNString("khClass");
 					String writer =rs.getNString("writer");
 					String title = rs.getNString("title");
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					int viewCount = rs.getInt("viewCount");
 					NoticeBoardDTO dto = new NoticeBoardDTO(seq,khBranch,khClass,writer,title,null,write_date,viewCount);        
 					list.add(dto);
@@ -315,7 +316,7 @@ public class NoticeBoardDAO {
 					khBranch+="전체";
 				}
 				String khClass = rs.getString("khClass");
-				Date write_date = rs.getDate("write_date");
+				Timestamp write_date = rs.getTimestamp("write_date");
 				int viewCount = rs.getInt("viewCount");
 				NoticeBoardDTO result = new NoticeBoardDTO(num,khBranch,khClass,writer,title,contents,write_date,viewCount);		
 				return result;
@@ -539,7 +540,7 @@ public class NoticeBoardDAO {
 			psmt.setString(1, branch);
 			try(ResultSet rs = psmt.executeQuery()){
 				while(rs.next()) {
-				li.add(new NoticeBoardDTO(rs.getInt(2),rs.getString(3),rs.getString(4), rs.getString(5),rs.getDate(6),rs.getString(7),rs.getString(8),rs.getInt(9)));
+				li.add(new NoticeBoardDTO(rs.getInt(2),rs.getString(3),rs.getString(4), rs.getString(5),rs.getTimestamp(6),rs.getString(7),rs.getString(8),rs.getInt(9)));
 			}
 			}
 			return li;

@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class FreeBoardDAO {
 				MemberDAO daoM = MemberDAO.getInstance();
 				String id = daoM.getAllInfo(writer).getId();
 				String name = daoM.getAllInfo(writer).getName();
-				Date write_date =rs.getDate("write_date");
+				Timestamp write_date =rs.getTimestamp("write_date");
 				int viewCount = rs.getInt("viewCount");
 
 				FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,contents, id, name, write_date,viewCount,0);
@@ -125,7 +126,7 @@ public class FreeBoardDAO {
 					MemberDAO daoM = MemberDAO.getInstance();
 					String id = daoM.getAllInfo(writer).getId();
 					String name = daoM.getAllInfo(writer).getName();
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					int viewCount = rs.getInt("viewCount");
 
 					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
@@ -173,7 +174,7 @@ public class FreeBoardDAO {
 					MemberDAO daoM = MemberDAO.getInstance();
 					String id = daoM.getAllInfo(writer).getId();
 					String name = daoM.getAllInfo(writer).getName();
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					int viewCount = rs.getInt("viewCount");
 
 					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
@@ -223,7 +224,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 					MemberDAO daoM = MemberDAO.getInstance();
 					String id = daoM.getAllInfo(writer).getId();
 					String name = daoM.getAllInfo(writer).getName();
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					int viewCount = rs.getInt("viewCount");
 
 					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
@@ -273,7 +274,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 					MemberDAO daoM = MemberDAO.getInstance();
 					String id = daoM.getAllInfo(writer).getId();
 					String name = daoM.getAllInfo(writer).getName();
-					Date write_date =rs.getDate("write_date");
+					Timestamp write_date =rs.getTimestamp("write_date");
 					int viewCount = rs.getInt("viewCount");
 
 					FreeBoardDTO dto = new FreeBoardDTO(seq,khBranch,writer,title,null,id,name,write_date,viewCount,0);		           
@@ -323,7 +324,7 @@ public List<FreeBoardDTO> searchAll(int startNum, int endNum,String category, St
 				MemberDAO daoM = MemberDAO.getInstance();
 				String id = daoM.getAllInfo(writer).getId();
 				String name = daoM.getAllInfo(writer).getName();
-				Date writer_date = rs.getDate("write_date");
+				Timestamp writer_date = rs.getTimestamp("write_date");
 				int viewCount = rs.getInt("viewCount");
 
 				FreeBoardDTO result = new FreeBoardDTO(num,khBranch,writer,title,contents,id,name,writer_date,viewCount,0);
