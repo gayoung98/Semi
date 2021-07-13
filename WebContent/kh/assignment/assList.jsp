@@ -71,7 +71,7 @@ a{
 <script>
 	$(function() {
 		$("#write").on("click", function() {
-			location.href = "assignment/assWrite.jsp";
+			location.href = "${pageContext.request.contextPath}/writeForm.ass";
 		})
 		$(".del").on("click", function() {
 			let delSeq = $(this).parent().siblings(".seq").text();
