@@ -109,20 +109,7 @@ $(document).on('click', '#navbarDropdownMenuLink', function() {
 
     <div class="container shadow bg-white rounded">        
 <h2 class ="text-center">공지 게시판</h2>
-    <ul class="nav justify-content-center branch_list">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/list.nboard?cpage=1&category=&keyword=">전체</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/list.nboard?branch=J&cpage=1&category=&keyword=">종로</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/list.nboard?branch=K&cpage=1&category=&keyword=">강남</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="${pageContext.request.contextPath}/list.nboard?branch=D&cpage=1&category=&keyword=">당산</a>
-        </li>
-      </ul>
+    
 		
         <div class="row first">
             <div class="col-12 col-md-1 d-none d-md-block">No</div>
@@ -140,7 +127,7 @@ $(document).on('click', '#navbarDropdownMenuLink', function() {
                 <div class="col-12 col-md-2">${i.branch}/ ${i.khClass} </div>
                 <div class="col-12 col-md-3 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
-                <div class="col-2 col-md-2  d-md-block"><fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/></div>
+                <div class="col-2 col-md-2  d-md-block"><fmt:formatDate pattern="yyyy-MM-dd" value="${i.write_date}"/></div>
                 <div class="col-1 col-md-2  d-md-block">${i.viewCount}</div>
             </div>
         </c:forEach>

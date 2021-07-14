@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 
 
+
 import java.io.IOException;
 
 
@@ -303,26 +304,31 @@ public class FreeBoardController extends HttpServlet {
             request.getRequestDispatcher("kh/free/FBmodifyView.jsp").forward(request, response);
                
          }else if(url.contentEquals("/delete.fboard")){ //삭제하기
-            System.out.println("삭제중");            
-            int delseq = Integer.parseInt(request.getParameter("seq"));
-            int delfree = fbdao.delete(delseq);
-            if(delfree>0) {
-            	System.out.println("첨부 파일 삭제");
-            	System.out.println("지울 파일의 parent:"+delseq);
-				String filesPath =request.getServletContext().getRealPath("uploadDirectory");
-				System.out.println("프로젝트가 저장된 진짜 경로 : " + filesPath);
+            System.out.println("게시글 삭제중");
+            
+            String delseq = request.getParameter("seq");
+            
+            List<FreeFilesDTO>fileList = ffdao.selectAll(Integer.parseInt(delseq)); 
+			System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
+			if(fileList.isEmpty()) {//파일 비워져 있다면? 바로 게시글만 삭제 
 				
-			String sysName = ffdao.getSysName(delseq);
+			}else {	//아니라면? 실제 첨부 파일도 삭제 
+            System.out.println("지울 파일의 게시물 번호:"+delseq);//실체 첨부파일 삭제
+			String filesPath =request.getServletContext().getRealPath("uploadDirectory");
+			System.out.println("프로젝트가 저장된 진짜 경로 : " + filesPath);
+			
+        	    String sysName = ffdao.getSysNameByparent(Integer.parseInt(delseq));
+        	    System.out.println(sysName + "파일 이름");
                 File targetFile = new File(filesPath +"/" + sysName); 
-               boolean result = targetFile.delete();
-                System.out.println("이미지 삭제 여부 :" + result);
-               if(result) {ffdao.fileDelete(delseq);}
-                response.sendRedirect("kh/free/FBdeleteView.jsp");
+                boolean result = targetFile.delete();
+                System.out.println("첨부파일 삭제 여부 :" + result);
+                if(result) {ffdao.fileDeleteByparent(Integer.parseInt(delseq));}  
+            
+			}
+            int delfree = fbdao.delete(Integer.parseInt(delseq)); ;//게시글 삭제 + 외래키로 첨부파일도 삭제 
+            response.sendRedirect("kh/free/FBdeleteView.jsp");
 
-             }else {
-            	 System.out.println("이미지 삭제 실패");
-             }
-
+                
          }else if(url.contentEquals("/reportForm.fboard")) { //신고하기 폼
             System.out.println("seq 받아옴!!");
             int board_seq = Integer.parseInt(request.getParameter("seq"));

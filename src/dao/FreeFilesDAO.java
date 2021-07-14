@@ -47,7 +47,18 @@ import dto.FreeFilesDTO;
 			}
 		}
 
-		
+		public String getSysNameByparent(int delseq) throws Exception {
+			String sql="select sysName from freefiles where parent=?";
+			try(Connection con =this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql)){
+				pstat.setInt(1, delseq);
+				try(ResultSet rs = pstat.executeQuery()){
+					rs.next();
+					return rs.getNString("sysname");
+				}
+			}
+		}
+
 		public int fileUpload(FreeFilesDTO dto) throws Exception {
 			String sql="insert into freefiles values(freefiles_seq.nextval,?,?,sysdate,?)";
 			try(Connection con =this.getConnection();
@@ -97,7 +108,16 @@ import dto.FreeFilesDTO;
 			}
 		}
 		
-		
+		public int fileDeleteByparent(int seq) throws SQLException, Exception {
+			String sql="delete from freeFiles where parent=?";
+			try(Connection con =this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql)){
+				pstat.setInt(1, seq);
+				int result = pstat.executeUpdate();
+				return result;
+
+			}
+		}
 		
 	}
 

@@ -64,18 +64,21 @@ public class NoticeBoardController extends HttpServlet {
 				System.out.println("검색어: "+ keyWord);
 				System.out.println("지점: "+ branch);
 
-
-
 				int endNum= cpage* BoardConfig.Recode_Count_Per_Page;
 				int startNum =endNum-(BoardConfig.Navi_Count_Per_Page-1);
 
+				String email = (String)request.getSession().getAttribute("login");
+				MemberDTO dto = mdao.getMainInfo(email);
+				String mykhclass = dto.getKhClass();
+				String myBranch = dto.getBranch();
+				
 				List<NoticeBoardDTO> boardlist;
 				List<String>pageNavi;//페이지 네비게이션 리스트
 
 				if(keyWord==null || keyWord.contentEquals("")){ //keyword가 없거나, keyword의 input 박스가 비워 있을 경우
 					if(branch==null || branch.contentEquals("")&  category.contentEquals("") & keyWord.contentEquals("")) {
 						System.out.println("전체");
-						boardlist =nbdao.getPageList(startNum,endNum);
+//						boardlist =nbdao.getPageList(startNum,endNum,mykhclass,myBranch);
 						 pageNavi =nbdao.getPageNavi(cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
 
 						
@@ -103,8 +106,8 @@ public class NoticeBoardController extends HttpServlet {
 					}
 				}
 				
-				System.out.println(boardlist);
-				request.setAttribute("boardlist", boardlist);
+//				System.out.println(boardlist);
+//				request.setAttribute("boardlist", boardlist);
 				request.setAttribute("navi", pageNavi);
 
 				//카테고리, 키워드 request에 담아라!
