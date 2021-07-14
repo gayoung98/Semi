@@ -125,7 +125,7 @@
 				.contents {
 					padding:0;
 					margin-left:20px;
-					height: 700px;
+					mid-height: 100%;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
