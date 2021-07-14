@@ -139,10 +139,10 @@ input {
 
 
 						<div class="col-6">
-							<input type="text" name="record" id="record" pattern="^[1-1000]+$">
+							<input type="text" name="record" id="record" pattern="^\d{1-1000}$">
 						</div>
 						<div class="col-6">
-							<input type="text" name="accuracy" id="record" pattern="^[1-100]+$">
+							<input type="text" name="accuracy" id="record" pattern="^\d{1-100}$">
 						</div>
 
 					</div>
