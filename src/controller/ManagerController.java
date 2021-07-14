@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Manager;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -29,11 +26,9 @@ import dao.FreeBoardDAO;
 import dao.FreeCommentDAO;
 import dao.FreeFilesDAO;
 import dao.ManagerDAO;
-import dao.MyPageDAO;
 import dao.NoticeBoardDAO;
 import dao.NoticeCommentDAO;
 import dao.NoticeFileDAO;
-import dao.ProfileFileDAO;
 import dto.AssDTO;
 import dto.AssFilesDTO;
 import dto.AssSubmitDTO;
@@ -371,10 +366,13 @@ public class ManagerController extends HttpServlet {
 
 	                  File filesFolder = new File(pathName);
 	                  System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
+
 	                  if(!filesFolder.exists()) {filesFolder.mkdir();}
 
-	            MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
 
+	            MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy());
+	            
+	            
 	            int seq = nbdao.getSeq();
 	            String title =multi.getParameter("title");
 	            String contents= multi.getParameter("contents");
