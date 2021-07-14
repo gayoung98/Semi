@@ -312,6 +312,7 @@
 		</head>
 
 		<body>
+		<jsp:include page= "/header.jsp" />
 			<jsp:include page="/navibar.jsp"></jsp:include>
 			<div class="container shadow bg-white rounded">
 				<!-- 게시물 제목 -->
