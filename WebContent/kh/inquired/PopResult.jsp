@@ -45,8 +45,8 @@ $("#cancel").on("click", function(){
   <small class="text-muted">소중한 의견 감사합니다!</small>
 </h3>
 	 <div class ="btn_container">
-                <button type="button" class="btn btn-light" id="back" >Back</button>
-                <button type="button" class="btn btn-danger" id="cancel">Cancel</button>
+	 			<button type="button" class="btn btn-danger" id="cancel">확인</button>
+                <button type="button" class="btn btn-light" id="back" >뒤로가기</button>
      </div>
 </center>
 </body>

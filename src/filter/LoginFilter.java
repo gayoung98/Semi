@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-				@WebFilter(urlPatterns= {"*.ass","*.assSubmit","*.fboard","*.freecom","*.main","*.mp","*.nboard","*.noticom","*.seat","*.typ"})
+	@WebFilter(urlPatterns= {"*.ass","*.assSubmit","*.fboard","*.freecom","*.main","*.mp","*.nboard","*.noticom","*.seat","*.typ"})
 public class LoginFilter implements Filter{
 				
 	@Override

@@ -185,7 +185,10 @@ textarea {
 				$(".answer").css("display","none");
 				$("#modiform").css("display","block");
 			})
-				
+			$("#modicancel").on("click",function(){
+				$("#modiform").css("display","none");
+				$(".answer").css("display","inline-block");
+			})	
 		})
 	</script>
 </body>

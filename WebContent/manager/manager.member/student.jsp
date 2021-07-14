@@ -124,9 +124,9 @@
 	<script>
 	$(function(){
 		$(".btn_delete").on("click",function(){
-			let check=confirm("강사의 모든 정보가 삭제됩니다. 강사 정보를 삭제하시겠습니까?");
+			let check=confirm("학생의 모든 정보가 삭제됩니다. 강사 정보를 삭제하시겠습니까?");
 			if(check){
-			let doubleCheck=confirm("정말로 강사 정보를 삭제하시겠습니까?");
+			let doubleCheck=confirm("정말로 학생 정보를 삭제하시겠습니까?");
 			
 			if(doubleCheck){
 				let delId=$(this).parent().siblings(".deleteid").text();
