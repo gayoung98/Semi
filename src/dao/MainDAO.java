@@ -60,7 +60,7 @@ public class MainDAO {
 		}
 	}
 	public List<MainDTO> likeFacebook(int viewcount,int index, String khclass, String branch) throws Exception{
-		String sql = "select seq, writer, id, contents, class, write_date from (select row_number() over(order by c.seq desc) rnum, c.seq, c.writer, c.id, c.contents, c.class, c.write_date, m.branch from chatboard c,kh_member m where c.contents is not null and m.email =c.writer and m.branch =? and c.class =? ) where rnum between ? and ?";
+		String sql = "select seq, writer, id, contents, class, write_date from (select row_number() over(order by c.seq desc) rnum, c.seq, c.writer, c.id, c.contents, c.class, c.write_date, m.branch from chatboard c,kh_member m where c.contents is not null and m.email =c.writer and ((m.branch =? and c.class =?) or m.id = 'manager')) where rnum between ? and ?";
 		List<MainDTO> li = new ArrayList();
 		try(Connection conn = this.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql)){
@@ -93,7 +93,7 @@ public class MainDAO {
 
 	}
 	public List<MainDTO> classList(String khclass, String branch) throws Exception{
-		String sql = "select chatboard.seq, chatboard.writer, chatboard.id, chatboard.contents, chatboard.class, chatboard.write_date from CHATBOARD join kh_member on chatboard.writer = kh_member.email where khclass = ? and branch = ?";
+		String sql = "select chatboard.seq, chatboard.writer, chatboard.id, chatboard.contents, chatboard.class, chatboard.write_date from CHATBOARD join kh_member on chatboard.writer = kh_member.email where (khclass = ? and branch = ?) or khclass = 'manager'";
 		List<MainDTO> list = new ArrayList<>();
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
