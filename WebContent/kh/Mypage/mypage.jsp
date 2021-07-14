@@ -27,10 +27,10 @@ legend {
     color: #fff;
     text-align: center;
 }
-#graph{background-color: rgba(255, 255, 128, .5); color: black}
+#graph{color: black; border: 1px solid black}
 .graph{width: 100%; height: 180px; position:relative; top: 15%; overflow: hidden;}
 .figure{position: inherit; color: white; background-color: red;height: 25px; text-align: center; line-height: 50px;}
-.figure_BG{position:relative;width: 99%; height: 25px; background-color: rgba(255,255,255,0.9); top:35%;}
+.figure_BG{position:relative;width: 99%; height: 25px; background-color: rgba(255,0,0,0.1); top:35%;}
 fieldset{border: 1px solid black;}
 .row{margin-bottom: 5%;}
 .profilebox{
@@ -303,12 +303,19 @@ let studentinfo = function(){
 								<div class = "col-12">
 									 <div class="card">
 				                        <div class="card-header">
-				                          <h2>Board Written</h2><a href ="${pageContext.request.contextPath}/list.fboard?category=writer&cpage=1&keyword=${login}">더보기(More)</a>
+				                          <h2>Board Written</h2><a href ="${pageContext.request.contextPath}/list.fboard?cpage=1">더보기(More)</a>
 				                        </div>
 				                        <div class="card-body">
-				                        <c:forEach var="item" items="${FreeBoard}">
-				                          <h5 class="card-title" name = freeboard id =${item.seq }><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a></h5>
-				                        </c:forEach>
+				                        <c:choose>
+					                       	<c:when test="${FreeBoard.size() != 0}">
+						                        <c:forEach var="item" items="${FreeBoard}">
+						                          <h5 class="card-title" id =${item.seq }><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a></h5>
+						                        </c:forEach>
+					                        </c:when>
+					                        <c:otherwise>
+					                     		<h5 class="card-title">등록한 글이 없습니다!</h5>
+					                        </c:otherwise>
+				                        </c:choose>
 				                        </div>
 				                      </div>
 								</div>
@@ -321,9 +328,16 @@ let studentinfo = function(){
                           <h2>Q&A</h2><a href ="javascript:InquiredList();">더보기(More)</a>
                         </div>
                         <div class="card-body">
-                         <c:forEach var="item" items="${Inquired }">
-                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.contents}</a></h5>
-                         </c:forEach>
+                         <c:choose>
+                        	<c:when test="${Inquired.size() != 0  }">
+		                         <c:forEach var="item" items="${Inquired }">
+		                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.contents}</a></h5>
+		                         </c:forEach>
+                         	</c:when>
+                         	<c:otherwise>
+                         		등록된 문의가 없습니다!
+                         	</c:otherwise>
+                         </c:choose>
                         </div>
                       </div>
 								</div>
@@ -342,37 +356,51 @@ let studentinfo = function(){
                       <h2>Noctice</h2><a href ="${pageContext.request.contextPath}/list.nboard?cpage=1">더보기(More)</a>
                     </div>
                     <div class="card-body">
-                    <c:forEach var="item" items="${Notice }">
-                      <h5 class="card-title" name ="notice" id="${item.seq}" >
-                      <c:choose>
-                      	<c:when test="${item.branch =='all'}">
-                      		<span class="badge badge-danger">전체</span>
-                      	</c:when>
-                      	<c:when test="${item.branch =='J'}">
-                      		<span class="badge badge-info">종로</span>
-                      	</c:when>
-                      		<c:when test="${item.branch =='G'}">
-                      		<span class="badge badge-info">강남</span>
-                      	</c:when>
-                      		<c:when test="${item.branch =='D'}">
-                      		<span class="badge badge-info">당산</span>
-                      	</c:when>
-                      </c:choose>
-                      <a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a>
-                      </h5>
-                    </c:forEach>
+                    <c:choose>
+                    	<c:when test="${Notice.size() !=0 }">
+		                    <c:forEach var="item" items="${Notice }">
+		                      <h5 class="card-title" name ="notice" id="${item.seq}" >
+		                      <c:choose>
+		                      	<c:when test="${item.branch =='all'}">
+		                      		<span class="badge badge-danger">전체</span>
+		                      	</c:when>
+		                      	<c:when test="${item.branch =='J'}">
+		                      		<span class="badge badge-info">종로</span>
+		                      	</c:when>
+		                      		<c:when test="${item.branch =='G'}">
+		                      		<span class="badge badge-info">강남</span>
+		                      	</c:when>
+		                      		<c:when test="${item.branch =='D'}">
+		                      		<span class="badge badge-info">당산</span>
+		                      	</c:when>
+		                      </c:choose>
+		                      <a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a>
+		                      </h5>
+		                    </c:forEach>
+                    	</c:when>
+                    	<c:otherwise>
+                    		등록된 공지사항이 없습니다!
+                    	</c:otherwise>
+                    </c:choose>
                     </div>
                   </div>
                 </div>
                 <div class="col-6">
                     <div class="card">
                         <div class="card-header">
-                          <h2>Board Written</h2><a href ="${pageContext.request.contextPath}/list.fboard?category=writer&cpage=1&keyword=${login}">더보기(More)</a>
+                          <h2>Board Written</h2><a href ="${pageContext.request.contextPath}/list.fboard?cpage=1">더보기(More)</a>
                         </div>
                         <div class="card-body">
-                        <c:forEach var="item" items="${FreeBoard}">
-                          <h5 class="card-title" name = freeboard id =${item.seq }><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a></h5>
-                        </c:forEach>
+                        <c:choose>
+                        <c:when test="${FreeBoard.size() != 0}">
+	                        <c:forEach var="item" items="${FreeBoard}">
+	                          <h5 class="card-title" name = freeboard id =${item.seq }><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a></h5>
+	                        </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                        	<h5 class="card-title" name = freeboard>등록한 글이 없습니다!</h5>
+                        </c:otherwise>
+                        </c:choose>
                         </div>
                       </div>
                     </div>
@@ -388,7 +416,6 @@ let studentinfo = function(){
                       <h5 class="card-title"><a href="#">내가 낸 과제1</a></h5>
                       <h5 class="card-title"><a href="#">내가 낸 과제2</a></h5>
                       <h5 class="card-title"><a href="#">내가 낸 과제3</a></h5>
-                      <h5 class="card-title"><a href="#">내가 낸 과제4</a></h5>
                     </div>
                   </div>
                 </div>
@@ -398,9 +425,16 @@ let studentinfo = function(){
                           <h2>Q&A</h2><a href ="javascript:InquiredList();">더보기(More)</a>
                         </div>
                         <div class="card-body">
-                         <c:forEach var="item" items="${Inquired }">
-                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.contents}</a></h5>
-                         </c:forEach>
+                        <c:choose>
+                        	<c:when test="${Inquired.size() != 0  }">
+		                         <c:forEach var="item" items="${Inquired }">
+		                          	<h5 class="card-title" name= inquired id="${item.seq }"><a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.contents}</a></h5>
+		                         </c:forEach>
+                         	</c:when>
+                         	<c:otherwise>
+                         		등록된 문의가 없습니다!
+                         	</c:otherwise>
+                         </c:choose>
                         </div>
                       </div>
                     </div>
