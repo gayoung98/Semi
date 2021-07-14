@@ -276,6 +276,7 @@ margin :0px;
     </script>
 </head>
 <body>
+<jsp:include page= "/header.jsp" />
 <jsp:include page= "/navibar.jsp" />
 <input type=hidden id=length value="${list}">
 <input type = "hidden" id="writer" value = "${login }">
