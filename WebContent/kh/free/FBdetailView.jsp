@@ -38,7 +38,7 @@
         		/* 상단: 제목 */
 				.container {
 					max-width: 900px;
-					margin-top: 50px;
+					margin-top: 100px;
 					width: 100%;
 					margin-bottom:20px;
 				}

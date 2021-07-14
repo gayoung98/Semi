@@ -47,7 +47,7 @@ nav{padding:0;margin: 0;}
   	.container {
 			max-width: 900px;
 			margin: 30px auto;
-			margin-top:50px;
+			margin-top:100px;
 
 		}
 
