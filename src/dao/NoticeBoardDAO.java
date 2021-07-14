@@ -52,11 +52,13 @@ public class NoticeBoardDAO {
 
 	}
 
-	public List<NoticeBoardDTO> boardList() throws Exception { //게시글 리스트 출력
-		String sql = "select * from noticeBoard order by 1 desc";
+	public List<NoticeBoardDTO> boardList(String mykhclass,String myBranch) throws Exception { //게시글 리스트 출력
+		String sql = "select * from noticeBoard order by 1 desc where khclass =? and branch=?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
+			pstat.setString(2, mykhclass);
+			pstat.setString(3, myBranch);
 			ResultSet rs = pstat.executeQuery();
 			List<NoticeBoardDTO> list = new ArrayList<>();
 			while(rs.next()) {
@@ -66,13 +68,13 @@ public class NoticeBoardDAO {
 				String contents = rs.getNString("contents");
 				Timestamp write_date =rs.getTimestamp("write_date");
 				String khClass = rs.getNString("khClass");
-				String branch = rs.getNString("branch");
+				String findbranch = rs.getNString("branch");
 				String khBranch="";
-				if(branch.contentEquals("J")) {
+				if(findbranch.contentEquals("J")) {
 					khBranch+="종로";
-				}else if(branch.contentEquals("D")) {
+				}else if(findbranch.contentEquals("D")) {
 					khBranch+="당산";
-				}else if(branch.contentEquals("K")) {
+				}else if(findbranch.contentEquals("K")) {
 					khBranch+="강남";
 				}else{
 					khBranch+="전체";
@@ -86,7 +88,7 @@ public class NoticeBoardDAO {
 		}	
 	}
 
-	public List<NoticeBoardDTO> getPageList(int startNum, int endNum) throws Exception{ //게시글 범위 출력 
+	public List<NoticeBoardDTO> getPageList(String khclass, String branch, int startNum, int endNum) throws Exception{ //게시글 범위 출력 
 		String sql = "select * from "
 				+ "(select "
 				+ "    row_number() over(order by seq desc) rnum, "
@@ -97,14 +99,15 @@ public class NoticeBoardDAO {
 				+ "    KhClass,"
 				+ "    branch,"
 				+ "    viewCount"
-				+ "    from noticeBoard)"
+				+ "    from noticeBoard where khclass =? and branch =?)"
 				+ "where rnum between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-
-			pstat.setInt(1,startNum); //사작 번호
-			pstat.setInt(2,endNum); //끝 번호
+			pstat.setString(1, khclass);
+			pstat.setString(2, branch);
+			pstat.setInt(3,startNum); //사작 번호
+			pstat.setInt(4,endNum); //끝 번호
 			try(ResultSet rs = pstat.executeQuery();){
 				List<NoticeBoardDTO> list = new ArrayList<>();
 				while(rs.next()) {
@@ -113,13 +116,13 @@ public class NoticeBoardDAO {
 					String title = rs.getNString("title");
 					Timestamp write_date =rs.getTimestamp("write_date");
 					String khClass = rs.getNString("KhClass");
-					String branch = rs.getNString("branch");
+					String findbranch = rs.getNString("branch");
 					String khBranch="";
-					if(branch.contentEquals("J")) {
+					if(findbranch.contentEquals("J")) {
 						khBranch+="종로";
-					}else if(branch.contentEquals("D")) {
+					}else if(findbranch.contentEquals("D")) {
 						khBranch+="당산";
-					}else if(branch.contentEquals("K")) {
+					}else if(findbranch.contentEquals("K")) {
 						khBranch+="강남";
 					}else{
 						khBranch+="전체";

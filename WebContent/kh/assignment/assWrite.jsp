@@ -68,20 +68,14 @@ body {
 	overflow-y: auto;
 }
 </style>
-<script>
-	$(function(){
-		var myEditor = document.querySelector('#editor');
-		var html = myEditor.children[0].innerHTML;
-		$("#contents").html(html);
-	})
-</script>
+
 
 </head>
 <body>
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
 		<form action="${pageContext.request.contextPath}/write.ass"
-			method="post" enctype="multipart/form-data">
+			method="post" enctype="multipart/form-data" id="writeForm">
 
 			<div class="row header">
 				<div class="col-12">
@@ -132,7 +126,7 @@ body {
 					<button type="button" id="back" class="btn btn-secondary">back</button>
 				</div>
 				<div class="col-6" style="text-align: right;">
-					<button type="submit" class="btn btn-primary">제출</button>
+					<button type="submit" id="submit" class="btn btn-primary">제출</button>
 				</div>
 			</div>
 
@@ -140,9 +134,30 @@ body {
 		</form>
 	</div>
 	<script>
-	$("#back").on("click", function(){
-		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
-	})
+		$("#back")
+				.on(
+						"click",
+						function() {
+							location.href = "${pageContext.request.contextPath}/list.ass?currentPage=1";
+						})
+		$("#submit").on("click", function() {
+			if ($("#title").val() == "") {
+				alert("제목을 입력하세요.");
+				$("#title").focus();
+				return false;
+			} else if ($("#contents").val() == "") {
+				alert("내용을 입력하세요.");
+				$(".ql-editor").focus();
+				return false;
+			} else {
+				let check = confirm("과제를 정말 제출하시겠습니까?");
+				if (check) {
+					$("#writeForm").submit();
+				}else{
+					return false;
+				}
+			}
+		})
 	</script>
 </body>
 </html>

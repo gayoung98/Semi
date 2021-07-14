@@ -53,22 +53,22 @@ public class AssController extends HttpServlet {
 
 		try {
 			if(url.contentEquals("/writeForm.ass")) {
-				
+
 				response.sendRedirect("kh/assignment/assWrite.jsp");
-				
+
 			}else if(url.contentEquals("/write.ass")) {
 
 				System.out.println("write.ass");
-				
+
 				String email = (String) request.getSession().getAttribute("login");
-				
+
 				String folderFilesPath = request.getServletContext().getRealPath("assFiles");
 				File folderfilesFolder = new File(folderFilesPath); //java.io.file
-				
+
 				if(!folderfilesFolder.exists()) {
 					folderfilesFolder.mkdir(); //make directory
 				}
-				
+
 				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 				File filesFolder = new File(filesPath); 
 				if(!filesFolder.exists()) {
@@ -85,7 +85,7 @@ public class AssController extends HttpServlet {
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
 
-				
+
 				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 				String khClass = daoM.getAllInfo(email).getKhClass();
@@ -125,12 +125,12 @@ public class AssController extends HttpServlet {
 			}else if(url.contentEquals("/list.ass")) {
 
 				String email = (String)request.getSession().getAttribute("login");
-				
+
 				String id = daoM.getAllInfo(email).getId();
 				String khClass= daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
 				String position = daoM.getAllInfo(email).getPosition();
-				
+
 
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
@@ -151,7 +151,7 @@ public class AssController extends HttpServlet {
 					assList = dao.getPageList(khClass, branch, startNum, endNum, category, keyword);
 					pageNavi = dao.getPageNavi(khClass, branch, currentPage,category,keyword);
 				}else {
-					assList = dao.getPageList(khClass, branch, startNum, endNum);
+					assList = dao.getPageList(khClass, branch, startNum, endNum, null, null);
 					pageNavi = dao.getPageNavi(khClass, branch, currentPage,null,null);
 				}
 
@@ -198,27 +198,38 @@ public class AssController extends HttpServlet {
 
 
 			}else if(url.contentEquals("/delete.ass")) {
+				
+				System.out.println("과제 게시물 삭제 요청");
 
 				int delSeq = Integer.parseInt(request.getParameter("delSeq"));
 				String email = dao.select(delSeq).getWriter();
-				int deleteAss = dao.delete(delSeq);
 				
-				if(deleteAss>0) {
-					System.out.println("과제 삭제 완료");
-					System.out.println("지울 파일의 parent: "+ delSeq);
-					
-					System.out.println("writer: "+email);
-					String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
-					String sysName = daoF.getSysName(delSeq);
-					File targetFile = new File(filesPath +"/" + sysName); 
-					boolean result = targetFile.delete();
-					System.out.println("파일 삭제 여부: " + result);
-					if(result) {daoF.deleteAll(delSeq);}
-					response.sendRedirect("list.ass?currentPage=1");
-
-				}else {
-					System.out.println("과제 삭제 실패");
+				System.out.println("지울 과제 seq: "+delSeq);
+				System.out.println("지울 파일의 parent: "+ delSeq);
+				System.out.println("writer: "+email);
+				
+				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
+				String sysName = daoF.getSysName(delSeq);
+				
+				if(sysName!=null) {
+				File targetFile = new File(filesPath +"/" + sysName); 
+				
+				boolean result = targetFile.delete();
+				System.out.println("파일 삭제 여부: " + result);
+				
+				daoF.deleteAll(delSeq);
 				}
+				
+				
+				int deleteAss = dao.delete(delSeq);
+				if(deleteAss>0) {
+					System.out.println("과제 게시물 삭제 성공!");
+				}else {
+					System.out.println("과제 게시물 삭제 실패");
+				}
+				response.sendRedirect("list.ass?currentPage=1");
+
+
 
 
 
@@ -240,17 +251,17 @@ public class AssController extends HttpServlet {
 
 			}else if(url.contentEquals("/modiProc.ass")) {
 
-				System.out.println("과제 게시판 수정 요청");
-				
+				System.out.println("과제 수정 요청");
+
 				String email = (String) request.getSession().getAttribute("login");
-				
+
 				String folderFilesPath = request.getServletContext().getRealPath("assFiles");
 				File folderfilesFolder = new File(folderFilesPath); //java.io.file
-				
+
 				if(!folderfilesFolder.exists()) {
 					folderfilesFolder.mkdir(); //make directory
 				}
-				
+
 				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 				File filesFolder = new File(filesPath); 
 				if(!filesFolder.exists()) {
@@ -258,7 +269,7 @@ public class AssController extends HttpServlet {
 				}
 				System.out.println("프로젝트가 저장된 진짜 경로: " + filesPath);
 				int maxSize = AssFileConfig.uploadMaxSize; //10메가
-				
+
 				MultipartRequest multi = new MultipartRequest(request, filesPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 				//파라미터: 멀티파트로 업그레이드할 인자, 저장 경로, 최대 사이즈 , 인코딩, 파일명명규칙(겹치는 이름있으면 뒤에 숫자붙임. 인터넷 검색 필요)
 
@@ -266,15 +277,15 @@ public class AssController extends HttpServlet {
 				System.out.println("ass_seq: "+seq);
 				String title = multi.getParameter("title");
 				String contents = multi.getParameter("contents");
-				
-				
+
+
 				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 				String khClass = daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
-							
 
-				
+
+
 				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, null, 0);
 
 				int insert = dao.update(dto);
@@ -317,11 +328,11 @@ public class AssController extends HttpServlet {
 
 			}else if(url.contentEquals("/download.ass")) {
 
-				
+
 				String email = request.getParameter("writer");
 				String oriName = request.getParameter("oriName");
 				String sysName = request.getParameter("sysName");
-				
+
 				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 
 				File targetFile = new File(filesPath+"/"+sysName); //import io.File
