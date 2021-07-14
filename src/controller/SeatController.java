@@ -83,7 +83,7 @@ public class SeatController extends HttpServlet {
 				String khclass = dto.getKhClass();
 				String branch = dto.getBranch();
 				for(SeatDTO sd:dao.classList(date, khclass, branch) ) {
-					System.out.println(sd.getName());
+					System.out.println(sd.getEmail());
 				}
 				if(dao.classList(date, khclass, branch).size() == 0) {
 					System.out.println("아무도 신청 안함");

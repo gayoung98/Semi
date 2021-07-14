@@ -79,7 +79,7 @@ public class MainController extends HttpServlet {
 					request.setAttribute("defalut_profile_img","profile.png");
 				}
 				request.setAttribute("name",name);
-	            request.setAttribute("firstlist", dao.likeFacebook(10, 1, khclass, branch));
+	            request.setAttribute("firstlist", dao.likeFacebook(20, 1, khclass, branch));
 	            request.setAttribute("list", dao.classList(khclass, branch).size());
 	            request.getRequestDispatcher("kh/main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
