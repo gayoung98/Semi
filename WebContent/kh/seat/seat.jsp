@@ -251,6 +251,10 @@ margin :0px;
             		}
                 }else{
                 	if(confirm("예약을 취소하시겠습니까?")){
+                		console.log($(this).html())
+                		if($(this).html() == "예약대기"){
+                			alert("새로고침 후 취소해주세요")
+                		}else{
                 	$.ajax({
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
 	                	data: {"cancelSeat":$(this).attr("id")}
@@ -265,7 +269,8 @@ margin :0px;
 	                		
 	                	}
 	                })
-                }
+                		}
+                	}
                 }
             	
             })
