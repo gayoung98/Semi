@@ -53,6 +53,12 @@ body {
             top: 100%;
             background-color: #00ff0000;
         }
+        .dropdown-menu{
+padding:0px;
+margin :0px;
+	width:160px;
+	height:68px;
+}        
 a{text-decoration:none;color: black;font-weight: bold;}
 
         

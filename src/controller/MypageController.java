@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -35,6 +37,8 @@ import utils.*;
 
 @WebServlet("*.mp")
 public class MypageController extends HttpServlet{
+	
+	Logger l = Logger.getLogger(MypageController.class);
 	
 	private String XSSFilter(String target) {
 		if(target != null) {
@@ -243,6 +247,7 @@ public class MypageController extends HttpServlet{
 			int result = idao.update(temp_id);
 			if(result>0) {
 				request.setAttribute("update_result",result);
+				l.trace(request.getRemoteAddr()+ " 마이페이지 정보수정");
 			}
 			request.setAttribute("seq",temp_id.getSeq());
 			request.getRequestDispatcher("kh/inquired/updateResult.jsp").forward(request, response);

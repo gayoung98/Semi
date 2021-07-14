@@ -78,21 +78,21 @@ input {
 </style>
 
 <script type="text/javascript">
-	$(function() {
-		$(document)
-				.on(
-						'click',
-						'#navbarDropdownMenuLink',
-						function() {
-							if ($(this).siblings($(".dropdown-menu")).css(
-									"display") == "none") {
-								$(this).siblings($(".dropdown-menu")).css(
-										"display", 'block')
-							} else {
-								$(this).siblings($(".dropdown-menu")).css(
-										"display", 'none')
-							}
-						})
+	$(function() {		
+						
+				$(document).on('click', '#navbarDropdownMenuLink', function() {
+							   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+							 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+							 	  for(let i =0; i<$(".dropdown-menu").length; i++){
+							 		 if(($($(".dropdown-menu")[i]).text() !== $(this).siblings($(".dropdown-menu")).text())){
+							 			$($(".dropdown-menu")[i]).css("display","none");
+							 		}
+							 	  }
+							   }else{
+							 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+							   }
+							})					
+						
 
 	})
 </script>
