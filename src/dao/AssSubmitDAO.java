@@ -70,20 +70,34 @@ public class AssSubmitDAO {
 
 			pstat.setInt(1, seq);
 			int result = pstat.executeUpdate();
-			
+
 			return result;
 
 		}
 	}
-	
-	public String getSysName(int seq) throws Exception {
-		String sql="select sysName from assSubmit where seq=?";
+
+
+	public AssSubmitDTO select(int seq) throws Exception{
+		String sql="select * from assSubmit where seq=?";
 		try(Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
+			
 			try(ResultSet rs = pstat.executeQuery()){
-				rs.next();
-				return rs.getNString("sysName");
+				AssSubmitDTO dto = null;
+				if(rs.next()){
+					
+					String writer = rs.getString("writer");
+					String id = rs.getString("id");
+					MemberDAO daoM = MemberDAO.getInstance();
+					String name = daoM.getAllInfo(writer).getName();
+					String oriName = rs.getString("oriName");
+					String sysName = rs.getString("sysName");
+					Date reg_date = rs.getDate("reg_date");
+					int parent = rs.getInt("parent");
+					dto = new AssSubmitDTO(seq, writer, id, name, oriName, sysName, reg_date, parent);
+					return dto;
+				}else {return dto;}
 			}
 		}
 	}
