@@ -35,7 +35,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
 .card {
 	float: left;
 	top: 50px;
-	left: 8%;
+	left: 6%;
 	width: 70%;
 	text-align: center;
 }
@@ -77,11 +77,12 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	border: 1px solid #888;
 	padding: 10px;
 	border-radius: 5px;
-	background-color: #FFE194;
+	background-color: #86c4dae7;
 	color: #555;
 	text-align: right;
 	font-size: 18px;
 	word-break: break-all;
+	font-weight:bold;
 }
 
 #message>div>.msg2 {
@@ -96,6 +97,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	color: #555;
 	text-align: left;
 	font-size: 18px;
+	font-weight:bold;
 }
 
 .input-div {
@@ -168,7 +170,9 @@ body {
 	display: block;
 }
 
-
+#top{
+	font-family: 'Uchen', serif;
+}
 
 #mypage,#logout{text-decoration:none;color : black;}
 	
