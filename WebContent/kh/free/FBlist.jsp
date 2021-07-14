@@ -120,6 +120,7 @@ $(function(){
 </script>
 </head>
 <body>
+	<jsp:include page= "/header.jsp" />
 	<jsp:include page="/navibar.jsp"/>
 	<div class="container shadow bg-white rounded">
 		<h2 class="text-center">자유게시판</h2>
