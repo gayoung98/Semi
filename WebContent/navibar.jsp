@@ -27,7 +27,7 @@
           타자
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="https://typing.malangmalang.com/typing-practice/exercising-sentence-typing">검증</a>
+          <a class="dropdown-item" target="_blank" href="https://typing.malangmalang.com/typing-practice/exercising-sentence-typing">검증</a>
           <a class="dropdown-item" href="${pageContext.request.contextPath}/view.typ">기록</a>
         </div>     
       <li class="nav-item">

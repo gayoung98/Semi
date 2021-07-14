@@ -171,7 +171,7 @@ body {
 						<c:when test="${item.id==loginId}">
 							<form id="replyFrm"
 								action="${pageContext.request.contextPath}/delete.assSubmit"
-								method="post">
+								method="post" id="delForm">
 
 								<button id="delete" type="submit" class="btn btn-dark">X</button>
 								<input id="assSubmitseq" name="assSubmitSeq" type="hidden"
@@ -213,7 +213,10 @@ body {
 		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
 	})
 	$("#delete").on("click", function(){
-		confirm("정말 삭제하시겠습니까?");
+		let check = confirm("정말 삭제하시겠습니까?");
+		if (check) {
+			$("#delForm").submit();
+		}
 	})
 	</script>
 
