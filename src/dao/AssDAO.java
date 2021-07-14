@@ -269,7 +269,7 @@ public class AssDAO {
 	private int getRecordCount(String khClass, String branch, String category, String keyword) throws Exception {
 		String sql = "select count(*) from ass where khClass=? and branch=?";
 		if(!StringUtils.isBlank(category) && !StringUtils.isBlank(keyword)) {
-			sql+=" where "+category+" like '%"+keyword+"%'";
+			sql+=" and "+category+" like '%"+keyword+"%'";
 		}
 		try(
 				Connection con = this.getConnection();
