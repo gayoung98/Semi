@@ -45,7 +45,19 @@ public class NoticeFileDAO {
 			}
 		}
 	}
-
+	
+	
+	public String getSysNameByparent(int seq) throws Exception { //게시글 번호로 실제 파일 sysname 받아오기
+		String sql="select sysName from noticefiles where parent=?";
+		try(Connection con =this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				return rs.getNString("sysname");
+			}
+		}
+	}
 	public int fileUpload(NoticeFilesDTO dto) throws Exception {
 		String sql="insert into noticefiles values(noticefiles_seq.nextval,?,?,sysdate,?)";
 		try(Connection con =this.getConnection();
@@ -82,6 +94,17 @@ public class NoticeFileDAO {
 
 	public int fileDelete(int seq) throws SQLException, Exception {
 		String sql="delete from noticeFiles where seq=?";
+		try(Connection con =this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			return result;
+
+		}
+	}
+	
+	public int fileDeleteByparent(int seq) throws SQLException, Exception {
+		String sql="delete from noticeFiles where parent=?";
 		try(Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, seq);

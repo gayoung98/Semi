@@ -79,7 +79,7 @@ public class MainController extends HttpServlet {
 					request.setAttribute("defalut_profile_img","profile.png");
 				}
 				request.setAttribute("name",name);
-	            request.setAttribute("firstlist", dao.likeFacebook(10, 1, khclass, branch));
+	            request.setAttribute("firstlist", dao.likeFacebook(20, 1, khclass, branch));
 	            request.setAttribute("list", dao.classList(khclass, branch).size());
 	            request.getRequestDispatcher("kh/main/main.jsp").forward(request, response);
 			}else if(url.contentEquals("/listchat.main")) {
@@ -93,6 +93,7 @@ public class MainController extends HttpServlet {
 				String result = g.toJson(list);
 				response.getWriter().append(result);
 			} else if(url.contentEquals("/calander.main")) {
+				String email = (String)request.getSession().getAttribute("login");
 				CalanderDAO cd = CalanderDAO.getInstance();
 				Calendar cal = Calendar.getInstance();
 				Calendar caltoGre = new GregorianCalendar();
@@ -109,16 +110,10 @@ public class MainController extends HttpServlet {
 					day.add(cal.get(caltoGre.DAY_OF_WEEK));
 					date.add(i);
 				}
-				try {
-					System.out.println(cal.get(caltoGre.MONTH)+1);
-					System.out.println(cd.getSchedual("E","J",cal.get(caltoGre.MONTH)+1).size());
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				request.setAttribute("month",(cal.get(caltoGre.MONTH)+1));
 				try {
-					request.setAttribute("list", cd.getSchedual("C","J",cal.get(caltoGre.MONTH)+1));
+					request.setAttribute("list", cd.getSchedual("C","J",cal.get(caltoGre.MONTH)+1)); // 시연을 위해 J반 C클래스로 임시 지정.
+					//request.setAttribute("list", cd.getSchedual(memdao.getAllInfo(email).getKhClass(),memdao.getAllInfo(email).getBranch(),cal.get(caltoGre.MONTH)+1)); // 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

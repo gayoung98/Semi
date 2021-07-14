@@ -26,10 +26,40 @@
         		url: "${pageContext.request.contextPath}/complete.seat",
         		dataType: "JSON"
         	}).done(function(result){
+        		if(result == "mo"){
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "tu"){
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "we"){
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "th"){
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "fr"){
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else{
         		for(var i=0; i<result.length; i++){
+        			if(result[i].email == $("#writer").val()){
+        				$("#"+result[i].seat_number).css("background-color","#ffb1a7")
+        			}else{
         			$("#"+result[i].seat_number).css("background-color","rgb(255, 255, 166)")
+        			}
         			$("#"+result[i].seat_number).attr("data-Ischoose","true")
         			$("#"+result[i].seat_number).html(result[i].name)
+        			$("#"+result[i].seat_day).css("font-size","40px")
+        			$("#"+result[i].seat_day).css("background-color","#D8E3E7")
+        			$("#"+result[i].seat_day).css("border-radius","49%")
+        			
+        		}
         	}
         	})
         	
@@ -100,7 +130,7 @@
 	                	}else if(result == "corona"){
 	                		alert("해당 요일은 이미 14명이 신청하였습니다.")
 	                	}else{
-	                		$("#"+result).css("background-color","rgb(255, 255, 166)");
+	                		$("#"+result).css("background-color","#ffb1a7");
 		                	$("#"+result).attr("data-Ischoose","true");
 		                	$("#"+result).html("예약완료")
 		                	alert("예약완료")
