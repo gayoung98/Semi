@@ -24,6 +24,8 @@ body {
 
 .container {
 	margin-top: 80px;
+	padding: 5%;
+	max-width: 1000px;
 }
 
 .header {
@@ -32,14 +34,19 @@ body {
 
 .search {
 	margin: 3%;
+
 }
 
 .columns {
-	margin: 2%;
+	padding: 1%;
+	border-bottom: 3px solid black;
+	margin-left:10px;
+	margin-right:10px;
 }
 
 .list {
 	margin: 1%;
+	border-bottom: 1px solid black;
 }
 
 .footer {
