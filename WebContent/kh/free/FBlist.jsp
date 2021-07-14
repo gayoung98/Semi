@@ -8,14 +8,12 @@
 <meta charset="UTF-8">
 <title>FreeBoard List</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 		    
 		   
 <style>
-html{}
+
 	body {background-color: #D8E3E7;min-height:900px;}
 
 /*navibar*/
@@ -29,7 +27,7 @@ html{}
         }
 
         .slide {
-        	z-index:1;
+        	z-index:2;
             position: absolute;
             width: 100%;
             height: 50px;
@@ -109,12 +107,17 @@ $("#back").on("click",function(){
 	});
 
 $(document).on('click', '#navbarDropdownMenuLink', function() {
-   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
- 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
-   }else{
- 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
-   }
-})
+	   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+	 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+	 	  for(let i =0; i<$(".dropdown-menu").length; i++){
+	 		 if(($($(".dropdown-menu")[i]).text() !== $(this).siblings($(".dropdown-menu")).text())){
+	 			$($(".dropdown-menu")[i]).css("display","none"));
+	 		}
+	 	  }
+	   }else{
+	 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+	   }
+	})
 
 });
 </script>

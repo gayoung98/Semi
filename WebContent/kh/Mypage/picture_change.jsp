@@ -90,7 +90,7 @@ $(function(){
 	    })
 	    $(window).bind("beforeunload", function (e){
 	    	opener.location.reload();
-	    	});
+	    });
 
 	 /*    $("#submit_btn").on("click", function(event){
 	    	event.preventDefault();
