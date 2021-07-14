@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
 			
 			if(url.contentEquals("/joinForm.member")) {
 				
-				request.getRequestDispatcher("/member/join.jsp").forward(request, response);
+				request.getRequestDispatcher("kh/member/join.jsp").forward(request, response);
 				
 			}else if(url.contentEquals("/sns.member")){
 				String email = request.getParameter("email");

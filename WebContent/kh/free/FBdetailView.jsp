@@ -38,7 +38,7 @@
         		/* 상단: 제목 */
 				.container {
 					max-width: 900px;
-					margin-top: 50px;
+					margin-top: 100px;
 					width: 100%;
 					margin-bottom:20px;
 				}
@@ -319,6 +319,19 @@
 					let parent ="${view.seq}";
 						  window.open("${pageContext.request.contextPath}/reportForm.fboard?seq="+parent,"게시글 신고","width=450,height=450");           
 					    });   
+				  
+					  $(document).on('click', '#navbarDropdownMenuLink', function() {
+					      if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+					         $(this).siblings($(".dropdown-menu")).css("display",'block')
+					         for(let i =0; i<$(".dropdown-menu").length; i++){
+					           if(($($(".dropdown-menu")[i]).text() !== $(this).siblings($(".dropdown-menu")).text())){
+					             $($(".dropdown-menu")[i]).css("display","none");
+					          }
+					         }
+					      }else{
+					         $(this).siblings($(".dropdown-menu")).css("display",'none')
+					      }
+					   })
 					
 						});
 			</script>

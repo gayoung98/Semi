@@ -32,7 +32,7 @@
             background-color: #55555550;
         }
 .container {
-    margin-top: 50px;
+    margin-top: 100px;
     width: 900px;
 }
 .first {
@@ -62,6 +62,10 @@ padding-bottom:40px;
 li a:hover{
 color: cadetblue;
 
+}
+.container a{
+	color: black;
+	font-weight: bold;
 }
 
 .title{
