@@ -149,9 +149,9 @@ a{text-decoration:none;color: black;font-weight: bold;}
         		}else{
         		for(var i=0; i<result.length; i++){
         			if(result[i].email == $("#writer").val()){
-        				$("#"+result[i].seat_number).css("background-color","#86c3da")
+        				$("#"+result[i].seat_number).css("background-color","#86c4dae7")
         			}else{
-        			$("#"+result[i].seat_number).css("background-color","#504f4f")
+        			$("#"+result[i].seat_number).css("background-color","#707070")
         			}
         			$("#"+result[i].seat_number).attr("data-Ischoose","true")
         			$("#"+result[i].seat_number).html(result[i].name)
@@ -231,7 +231,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	                	}else if(result == "corona"){
 	                		alert("해당 요일은 이미 14명이 신청하였습니다.")
 	                	}else{
-	                		$("#"+result).css("background-color","#86c3da");
+	                		$("#"+result).css("background-color","#86c4dae7");
 		                	$("#"+result).attr("data-Ischoose","true");
 		                	$("#"+result).html("예약완료")
 		                	alert("예약완료")
