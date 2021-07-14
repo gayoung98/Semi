@@ -69,17 +69,18 @@ public class AssSubmitController extends HttpServlet {
 				String id = daoM.getAllInfo(email).getId();
 				String oriName = multi.getOriginalFileName("assSubmit"); //오리지널 이름
 				String sysName = multi.getFilesystemName("assSubmit"); //서버에 저장된 이름
-				System.out.println(oriName);
-				System.out.println(sysName);
 				int parent = Integer.parseInt(multi.getParameter("parent"));
 
 				AssSubmitDTO dto = new AssSubmitDTO(0, writer, id, oriName, sysName, null, parent);
+				
+				
 				int result = daoS.insert(dto);
 				if(result>0) {
 					System.out.println("과제 제출 완료");
 				}else {
 					System.out.println("과제 제출 안 됨.");
 				}
+				
 
 
 				response.sendRedirect("view.ass?ass_seq="+parent);
