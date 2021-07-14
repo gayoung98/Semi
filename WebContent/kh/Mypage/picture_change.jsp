@@ -51,6 +51,7 @@
 $(function(){
 	$("#fileUpload").on('change', function () {
 		let before = $("#profile").attr("src");
+		const extension = ["png","jpg","jpeg","gif"];
         if (typeof (FileReader) != "undefined") {
             var image_holder = $(".profilebox");
             image_holder.empty();
@@ -63,6 +64,12 @@ $(function(){
                     "name" : "profile"
                 }).appendTo(image_holder);
             }
+            let upload_extension = $(this)[0].files[0].name.split('.').pop().toLowerCase();
+			console.log(upload_extension);
+			if(extension.indexOf(upload_extension) === -1){
+				alert("사진/이미지만 업로드 해주세요!(.png, .jpg, .jpeg .gif만 가능합니다.)");
+	            $("#fileUpload").val("");
+			}
             if(!($(this)[0].files[0].size >= (1024*1024*5))){
             	image_holder.show();
                 reader.readAsDataURL($(this)[0].files[0]);
@@ -81,7 +88,10 @@ $(function(){
 		   opener.location.reload();
 	       parent.window.close();
 	    })
-	    
+	    $(window).bind("beforeunload", function (e){
+	    	opener.location.reload();
+	    	});
+
 	 /*    $("#submit_btn").on("click", function(event){
 	    	event.preventDefault();
 	    	$.ajax({
