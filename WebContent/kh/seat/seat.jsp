@@ -107,7 +107,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
         }
         .week:hover a{
         	cursor: pointer;
-        	
+        	color:#8b8686;
         }
         .seat:hover {
         	cursor : pointer;
