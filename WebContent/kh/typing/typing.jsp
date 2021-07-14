@@ -138,7 +138,20 @@ $(function(){
 
 			</div>
 		</form>
-		<div class="row footer"></div>
+		<div class="row footer">
+		
+			<div class="col-6" style="text-align: left;">
+				<button type="button" id="back" class="btn btn-secondary">back</button>
+			</div>
+			<div class="col-6"></div>
+		
+		</div>
 	</div>
+	
+<!--  	<script>
+	$("#back").on("click", function(){
+		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
+	})
+	</script> -->
 </body>
 </html>
