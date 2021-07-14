@@ -154,7 +154,7 @@
 		<div class="talkname">우리반 익명 Talk</div>
 		<div class =row>
 		<div class="col-2"> 
-		<div class="card shadow bg-white rounded" style='width:80%'>
+		<div class="card shadow bg-white rounded" style='width:85%'>
 			<c:choose>
 				<c:when test="${profile_img != null }">
 					<img src="${pageContext.request.contextPath}/profile/${login }/${profile_img.sysName}" class="card-img-top" alt="...">
@@ -211,7 +211,7 @@
 		</div>
 		</div>
     	<div id="up">
-    		<a href="#" id="top"><img src="up.png"></a>	
+    		<a href="#" id="top">Top</a>	
     	</div>		
 		<div id="inquire">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png"/>

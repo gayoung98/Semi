@@ -138,30 +138,20 @@ a{text-decoration:none;color: black;font-weight: bold;}
         	}).done(function(result){
         		if(result == "mo"){
         			$("#"+result).css("font-size","40px")
-        			$("#"+result).css("background-color","#D8E3E7")
-        			$("#"+result).css("border-radius","49%")
         		}else if(result == "tu"){
         			$("#"+result).css("font-size","40px")
-        			$("#"+result).css("background-color","#D8E3E7")
-        			$("#"+result).css("border-radius","49%")
         		}else if(result == "we"){
         			$("#"+result).css("font-size","40px")
-        			$("#"+result).css("background-color","#D8E3E7")
-        			$("#"+result).css("border-radius","49%")
         		}else if(result == "th"){
         			$("#"+result).css("font-size","40px")
-        			$("#"+result).css("background-color","#D8E3E7")
-        			$("#"+result).css("border-radius","49%")
         		}else if(result == "fr"){
         			$("#"+result).css("font-size","40px")
-        			$("#"+result).css("background-color","#D8E3E7")
-        			$("#"+result).css("border-radius","49%")
         		}else{
         		for(var i=0; i<result.length; i++){
         			if(result[i].email == $("#writer").val()){
-        				$("#"+result[i].seat_number).css("background-color","#ffb1a7")
+        				$("#"+result[i].seat_number).css("background-color","#86c3da")
         			}else{
-        			$("#"+result[i].seat_number).css("background-color","rgb(255, 255, 166)")
+        			$("#"+result[i].seat_number).css("background-color","#504f4f")
         			}
         			$("#"+result[i].seat_number).attr("data-Ischoose","true")
         			$("#"+result[i].seat_number).html(result[i].name)
@@ -241,7 +231,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	                	}else if(result == "corona"){
 	                		alert("해당 요일은 이미 14명이 신청하였습니다.")
 	                	}else{
-	                		$("#"+result).css("background-color","#ffb1a7");
+	                		$("#"+result).css("background-color","#86c3da");
 		                	$("#"+result).attr("data-Ischoose","true");
 		                	$("#"+result).html("예약완료")
 		                	alert("예약완료")
