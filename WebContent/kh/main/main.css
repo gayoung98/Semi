@@ -1,4 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Varela+Round);
+@import url('https://fonts.googleapis.com/css2?family=Uchen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Otomanopee+One&family=Uchen&display=swap');
+
 	* {
 	margin: 0;
 	padding: 0;
@@ -77,7 +80,7 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	border: 1px solid #888;
 	padding: 10px;
 	border-radius: 5px;
-	background-color: #86c4dae7;
+	background-color: #87cae2c5;
 	color: #555;
 	text-align: right;
 	font-size: 18px;
@@ -132,12 +135,16 @@ a{text-decoration:none;color: black;font-weight: bold;}
 }
 #top {
 	position: fixed;
-	bottom: 17%;
+	bottom: 18%;
 	right: 16%;
 	width: 35px;
 	display: none;
 	text-decoration:none;
-	color : black
+	color : rgb(47, 47, 47);
+	font-family: 'Otomanopee One', sans-serif;
+	font-weight:600;
+	letter-spacing: 0.05em;
+	font-size: 22px;
 }
 .talkname{
             text-align: center;
@@ -168,10 +175,6 @@ body {
 
 .msg2:hover .fas {
 	display: block;
-}
-
-#top{
-	font-family: 'Uchen', serif;
 }
 
 #mypage,#logout{text-decoration:none;color : black;}
