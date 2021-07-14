@@ -97,6 +97,8 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("Inquired", mpd.getWrittenInquired(session));
 				request.setAttribute("Notice", nbd.getMypageNotice(md.getAllInfo(session).getBranch()));
 				request.setAttribute("studentNumber", mpd.getStudentList(md.getAllInfo((String)request.getSession().getAttribute("login"))).size());
+				request.setAttribute("subject", mpd.getSubjectList(md.getAllInfo((String)request.getSession().getAttribute("login"))));
+				request.setAttribute("submitted", mpd.submitlist(session));
 				request.getRequestDispatcher("kh/Mypage/mypage.jsp").forward(request, response);
 				
 			} catch (Exception e) {

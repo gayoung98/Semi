@@ -82,6 +82,10 @@ body {background-color: #D8E3E7;}
         }
         
         h2{display:inline;}
+.card-header> a{
+float: right;
+margin-top: 2%;
+}        
 </style>
 
 <script>
@@ -98,7 +102,9 @@ let callPopUp = function(){
 		case "freeboard":
 			location.href="${pageContext.request.contextPath}/detailView.fboard?seq="+$(this).attr("id");
 			break;
-		case value:break;
+		case "subject":
+			location.href="${pageContext.request.contextPath}/view.ass?ass_seq="+$(this).attr("id");
+			break;
 		}
 		
 	})	
@@ -130,6 +136,7 @@ let studentinfo = function(){
 </c:if>
 </head>
 <body>
+<jsp:include page= "/header.jsp" />
 <jsp:include page="/navibar.jsp"></jsp:include>
     <div class = "container shadow bg-white rounded">
         <div class = "row header">
@@ -410,12 +417,29 @@ let studentinfo = function(){
                 <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                      <h2>Subject</h2> <a href ="#">더보기(More)</a>
+                      <h2>Subject</h2> <a href ="${pageContext.request.contextPath}/list.ass?currentPage=1">더보기(More)</a>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title"><a href="#">내가 낸 과제1</a></h5>
-                      <h5 class="card-title"><a href="#">내가 낸 과제2</a></h5>
-                      <h5 class="card-title"><a href="#">내가 낸 과제3</a></h5>
+                      <c:choose>
+                        	<c:when test="${subject.size() != 0  }">
+			                      <c:forEach var="item" items="${subject }">  	 
+			                       	 <h5 class="card-title" name = subject id =${item.seq }>
+			                       	 	<c:choose>
+			                       	 		<c:when test="${submitted.indexOf(item.seq) != -1}">
+			                       	 			<span class="badge badge-success">제출완료 </span>
+			                       	 		</c:when>
+			                       	 		<c:otherwise>
+			                       	 			<span class="badge badge-warning">미제출 </span>
+			                       	 		</c:otherwise>
+			                       	 	</c:choose>
+			                       	 		<a href="javascript:void(0)" onclick ="javascript:callPopUp();" return false;>${item.title }</a>
+			                       	 </h5>
+			                      </c:forEach>
+                     		 </c:when>
+		                     <c:otherwise>
+		                     	새로 등록된 과제는 없습니다!
+		                     </c:otherwise>
+                      </c:choose>
                     </div>
                   </div>
                 </div>

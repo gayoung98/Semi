@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import dto.AssDTO;
 import dto.FreeBoardDTO;
 import dto.InquireDTO;
 import dto.MemberDTO;
@@ -152,5 +154,35 @@ public class MyPageDAO {
 		}
 		
 		}
-
+	public List<AssDTO> getSubjectList(MemberDTO temp) throws Exception{
+		String sql = "select * from (select row_number() over(order by seq desc) rnum,seq,writer,id,title, contents,khclass,branch,write_date,viewcount from ass where khclass=? and branch=?) where rnum between 1 and 4";
+		List<AssDTO> li = new ArrayList<AssDTO>();
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setString(1, temp.getKhClass());
+			psmt.setString(2, temp.getBranch());
+			try(ResultSet rs = psmt.executeQuery()){
+				while(rs.next()) {
+					li.add(new AssDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getDate(9), rs.getInt(10)));
+				}
+				return li;
+			}
+		}
+	}
+	
+	public List<Integer> submitlist(String session)throws Exception{
+		String sql = "select parent from asssubmit where writer =?";
+		List<Integer> li = new ArrayList<Integer>();
+		try(Connection conn = this.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql);){
+			psmt.setString(1, session);
+			try(ResultSet rs = psmt.executeQuery()){
+				while(rs.next()) {
+					li.add(rs.getInt(1));
+				}
+				return li;
+			}
+		}
+		}
+	
 }

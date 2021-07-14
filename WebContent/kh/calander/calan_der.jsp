@@ -98,6 +98,7 @@ height:50px;}
 </style>
 </head>
 <body>
+<jsp:include page= "/header.jsp" />
 <jsp:include page="/navibar.jsp"></jsp:include>
   <div class="container table-responsive shadow bg-white rounded">
   		<div class =row>
