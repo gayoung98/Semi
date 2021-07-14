@@ -144,14 +144,19 @@ margin :0px;
         	}).done(function(result){
         		if(result == "mo"){
         			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
         		}else if(result == "tu"){
         			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
         		}else if(result == "we"){
         			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
         		}else if(result == "th"){
         			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
         		}else if(result == "fr"){
         			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
         		}else{
         		for(var i=0; i<result.length; i++){
         			if(result[i].email == $("#writer").val()){
@@ -163,8 +168,6 @@ margin :0px;
         			$("#"+result[i].seat_number).html(result[i].name)
         			$("#"+result[i].seat_day).css("font-size","40px")
         			$("#"+result[i].seat_day).css("background-color","#D8E3E7")
-        			$("#"+result[i].seat_day).css("border-radius","49%")
-        			$("#"+result[i].seat_day).css("border-radius","49%")
         			
         		}
         	}
