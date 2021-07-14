@@ -508,20 +508,39 @@ public class ManagerController extends HttpServlet {
 	             String search = multi.getParameter("search");
 	             
 	             response.sendRedirect(ctxPath+"/detailView.manager?currentPage="+currentPage+"&branch="+branch+"&category="+category+"&search="+search+"&seq="+boardSeq);
-			}else if(url.contentEquals("/noticeDelete.manager")) { //관리자페이지 공지사항 글쓰기 삭제
-			
-				int seq = Integer.parseInt(request.getParameter("seq"));
-				String branch = request.getParameter("branch");		
-				int currentPage =Integer.parseInt(request.getParameter("currentPage"));
-				String category = request.getParameter("category");
-				String search = request.getParameter("search");
-				nbdao.delete(seq);
-				request.setAttribute("page", currentPage);
-				request.setAttribute("branch", branch);
-				request.setAttribute("category", category);
-				request.setAttribute("search", search);
-				request.getRequestDispatcher("manager/manager.board/NBdeleteView.jsp").forward(request, response);
-				//관리자페이지 공지사항 댓글 삭제!!!
+	         }else if(url.contentEquals("/noticeDelete.manager")) { //관리자페이지 공지사항 글쓰기 삭제
+	             
+	             String seq = (request.getParameter("seq"));
+	             String branch = request.getParameter("branch");      
+	             int currentPage =Integer.parseInt(request.getParameter("currentPage"));
+	             String category = request.getParameter("category");
+	             String search = request.getParameter("search");
+	             
+	             List<NoticeFilesDTO>fileList = nfdao.selectAll(Integer.parseInt(seq)); 
+	             System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
+	             if(fileList.isEmpty()) {//파일 비워져 있다면? 바로 게시글만 삭제 
+	                
+	             }else { //아니라면? 실제 첨부 파일도 삭제 
+	             System.out.println("지울 파일의 게시물 번호:"+seq);//실체 첨부파일 삭제 
+	             String filesPath =request.getServletContext().getRealPath("uploadDirectory");
+	             System.out.println("프로젝트가 저장된 진짜 경로 : " + filesPath);
+	             
+	                   String sysName = nfdao.getSysNameByparent(Integer.parseInt(seq));
+	                 
+	                   System.out.println(sysName + "파일 이름");
+	                       File targetFile = new File(filesPath +"/" + sysName); 
+	                       boolean result = targetFile.delete();
+	                       System.out.println("첨부파일 삭제 여부 :" + result);
+	                       if(result) {nfdao.fileDeleteByparent(Integer.parseInt(seq));}  
+	              }
+	             nbdao.delete(Integer.parseInt(seq));//게시글 삭제 + 외래키로 첨부파일도 삭제 
+	             
+	             request.setAttribute("page", currentPage);
+	             request.setAttribute("branch", branch);
+	             request.setAttribute("category", category);
+	             request.setAttribute("search", search);
+	             request.getRequestDispatcher("manager/manager.board/NBdeleteView.jsp").forward(request, response);
+	             
 			}else if(url.contentEquals("/deleteCom.manager")) { //관리자페이지 공지사항 글쓰기 삭제
 				l.trace(request.getRemoteAddr()+" 공지사항 삭제");
 				int comment_seq = Integer.parseInt(request.getParameter("seq"));
@@ -603,18 +622,21 @@ public class ManagerController extends HttpServlet {
 					int currentPage =Integer.parseInt(request.getParameter("currentPage"));
 					String category = request.getParameter("category");
 					String search = request.getParameter("search");
-					int results=managerDao.deleteAss(delSeq);
 					
-					if(results>0) {
-					l.trace(request.getRemoteAddr()+" 과제게시판 삭제");
+					
 					String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 					String sysName = daoF.getSysName(delSeq);
+					
+					if(sysName!=null) {
 					File targetFile = new File(filesPath +"/" + sysName); 
 					boolean result = targetFile.delete();
 					System.out.println("파일 삭제 여부: " + result);
-					if(result) {daoF.deleteAll(delSeq);}
-					  
+					daoF.deleteAll(delSeq);
 					}
+					managerDao.deleteAss(delSeq);
+					  
+					l.trace(request.getRemoteAddr()+" 과제게시판 삭제");
+					
 					
 					 response.sendRedirect(ctxPath+"/assList.manager?currentPage="+currentPage+"&category="+category+"&search="+search+"&branch="+branch);
 					
