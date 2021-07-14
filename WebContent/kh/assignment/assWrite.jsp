@@ -72,6 +72,7 @@ body {
 
 </head>
 <body>
+	<jsp:include page="/header.jsp" />
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
 		<form action="${pageContext.request.contextPath}/write.ass"

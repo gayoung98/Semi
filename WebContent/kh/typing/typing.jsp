@@ -99,6 +99,7 @@ input {
 
 </head>
 <body>
+	<jsp:include page="/header.jsp" />
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
 		<div class="row header">

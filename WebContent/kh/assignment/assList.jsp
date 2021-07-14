@@ -31,6 +31,10 @@ body {
 	max-width: 1000px;
 }
 
+.row{
+	text-align: center;
+}
+
 .header {
 	margin: 3%;
 }
@@ -107,13 +111,13 @@ a{
 	<jsp:include page="/header.jsp" />
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
-		<div class="row header" style="text-align: center;">
-			<h2><b>과제</b></h2>
+		<div class="row header">
+			<h2 style="width: 100%;"><b>과제</b></h2>
 		</div>
 
 		<div class="row search" style="text-align: center;">
 
-			<form action="list.ass">
+			<form action="list.ass" style="width:100%; text-align: center;">
 				<input type="hidden" name="currentPage" value="${currentPage}">
 				<select name="category">
 					<option value="title">제목</option>
