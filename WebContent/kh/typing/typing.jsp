@@ -102,7 +102,7 @@ input {
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
 		<div class="row header">
-			<h2>타자기록</h2>
+			<h2><b>타자기록</b></h2>
 		</div>
 
 		<c:choose>
