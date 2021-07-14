@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -34,6 +35,7 @@ import dto.AssSubmitDTO;
 @WebServlet("*.ass")
 public class AssController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Logger l = Logger.getLogger(AssController.class); //import org.apache.log4j.Logger
 
 
 
@@ -119,6 +121,7 @@ public class AssController extends HttpServlet {
 						System.out.println("파일 업로드 안 됨.");
 					}
 				}
+				l.trace(request.getRemoteAddr()+" 과제게시판 작성");
 
 				response.sendRedirect("list.ass?currentPage=1");
 
@@ -227,6 +230,8 @@ public class AssController extends HttpServlet {
 				}else {
 					System.out.println("과제 게시물 삭제 실패");
 				}
+				
+				l.trace(request.getRemoteAddr()+" 과제게시판 삭제");
 				response.sendRedirect("list.ass?currentPage=1");
 
 
@@ -323,6 +328,7 @@ public class AssController extends HttpServlet {
 					System.out.println("파일 업로드 안 됨.");
 				}
 
+				l.trace(request.getRemoteAddr()+" 과제게시판 수정");
 				response.sendRedirect("view.ass?ass_seq="+seq);
 
 
