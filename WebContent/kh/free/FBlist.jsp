@@ -72,7 +72,7 @@ li a:hover {
 	color: cadetblue;
 }
 
-a {
+.container> a {
 	color: black;
 	font-weight: bold;
 }

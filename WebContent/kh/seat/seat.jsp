@@ -59,7 +59,7 @@ margin :0px;
 	width:160px;
 	height:68px;
 }        
-a{text-decoration:none;color: black;font-weight: bold;}
+.week>a {text-decoration:none;color: black;font-weight: bold;}
 
         
         body{
