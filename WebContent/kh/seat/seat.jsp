@@ -242,8 +242,8 @@ margin :0px;
 	                	}else{
 	                		$("#"+result).css("background-color","#87cae2c5");
 		                	$("#"+result).attr("data-Ischoose","true");
-		                	$("#"+result).html("예약완료")
-		                	alert("예약완료")
+		                	$("#"+result).html("예약대기")
+		                	alert("새로고침을 통해 예약 결과를 확인해주세요")
 	                		
 	                	}
 	                	
