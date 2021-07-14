@@ -16,8 +16,118 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/kh/seat/seat.css">
-    
+
+    <style>
+    	@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.container{
+	margin-top :5%;
+	background-color:white;
+}
+
+body {
+	min-height: 500px;
+	background-color: #D8E3E7;
+}
+
+
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+.navbar>.container-fluid {
+            padding: 0px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+
+        .slide {
+        	z-index:1;
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #00ff0000;
+        }
+a{text-decoration:none;color: black;font-weight: bold;}
+
+        
+        body{
+        	text-align:center;
+        }
+		
+		.day{
+			margin-top : 7%;	
+			margin-bottom : 3%;
+			padding-top : 5%;
+		}
+        .day>div{
+            display: inline-block;
+            width: 10%;
+            font-size : 35px;
+            margin-left : 2%;
+            margin-right : 2%;
+        }
+        .fas {
+            font-size: 150%;
+            text-align: center;
+        }
+        .seat {
+            background-color: white;
+            font : 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+        }
+
+        div {
+            width: 700px;
+            font-size: 50px bold;
+        }
+        table{
+        	margin-top : 2%;
+        }
+        .noselect{
+        	background-color:rgb(47, 47, 47);
+        	color: #fff;
+  			font-family: 'Roboto', Gmarket Sans, sans-serif;
+  			font-size: 2em;
+  			font-weight: bold;
+  			text-align: center;
+ 			width: 40px;
+ 			height: 40px;
+        }
+        
+        .week>a{
+        	list-style-type: none;
+        	font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+        	letter-spacing: 0.1px;
+        	font-weight: 800;
+        }
+        .week:hover a{
+        	cursor: pointer;
+        	
+        }
+        .seat:hover {
+        	cursor : pointer;
+        }
+        .tbcenter{
+        	font-weight: 700;
+            letter-spacing: 0.03em;
+            font-family: 'Roboto', Gmarket Sans, sans-serif;
+            font-size:18px;
+        }
+        .letter{
+        	font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-family: "Varela Round", sans-serif;
+        }
+        #choose_seat{
+        	height : 60px;
+        }
+    </style>
 
 		<script>
         $(function () {
@@ -57,6 +167,7 @@
         			$("#"+result[i].seat_number).html(result[i].name)
         			$("#"+result[i].seat_day).css("font-size","40px")
         			$("#"+result[i].seat_day).css("background-color","#D8E3E7")
+        			$("#"+result[i].seat_day).css("border-radius","49%")
         			$("#"+result[i].seat_day).css("border-radius","49%")
         			
         		}
@@ -172,11 +283,11 @@
 	<div class="container shadow bg-white rounded">
     <center>
         <div class="day">
-            <div class="week" id="mo"><a href = "${pageContext.request.contextPath}/date.seat?date=mo">월</a></div>
-            <div class="week" id="tu"><a href ="${pageContext.request.contextPath}/date.seat?date=tu">화</a></div>
-            <div class="week" id="we"><a href ="${pageContext.request.contextPath}/date.seat?date=we">수</a></div>
-            <div class="week" id="th"><a href ="${pageContext.request.contextPath}/date.seat?date=th">목</a></div>
-            <div class="week" id="fr"><a href ="${pageContext.request.contextPath}/date.seat?date=fr">금</a></div>
+            <div class="week shadow bg-#D8E3E7 rounded" id="mo"><a href = "${pageContext.request.contextPath}/date.seat?date=mo">월</a></div>
+            <div class="week shadow bg-#D8E3E7 rounded" id="tu"><a href ="${pageContext.request.contextPath}/date.seat?date=tu">화</a></div>
+            <div class="week shadow bg-#D8E3E7 rounded" id="we"><a href ="${pageContext.request.contextPath}/date.seat?date=we">수</a></div>
+            <div class="week shadow bg-#D8E3E7 rounded" id="th"><a href ="${pageContext.request.contextPath}/date.seat?date=th">목</a></div>
+            <div class="week shadow bg-#D8E3E7 rounded" id="fr"><a href ="${pageContext.request.contextPath}/date.seat?date=fr">금</a></div>
         </div>
         <div class="letter">
         [우리반 좌석 예약]
