@@ -99,17 +99,15 @@ public class NoticeBoardDAO {
 				+ "    KhClass,"
 				+ "    branch,"
 				+ "    viewCount"
-				+ "    from noticeBoard where (khclass = ? or khclass =?) and (branch =? or branch =?)"
+				+ "    from noticeBoard where (khclass='전체' or khclass =?) and (branch ='all' or branch =?))"
 				+ "where rnum between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setString(1, "전체");
-			pstat.setString(2, mykhclass);
-			pstat.setString(3, "all");
-			pstat.setString(4, mybranch);
-			pstat.setInt(5,startNum); //사작 번호
-			pstat.setInt(6,endNum); //끝 번호
+			pstat.setString(1, mykhclass);
+			pstat.setString(2, mybranch);
+			pstat.setInt(3,startNum); //사작 번호
+			pstat.setInt(4,endNum); //끝 번호
 			try(ResultSet rs = pstat.executeQuery();){
 				List<NoticeBoardDTO> list = new ArrayList<>();
 				while(rs.next()) {
@@ -199,7 +197,7 @@ public class NoticeBoardDAO {
 				+ "    KhClass,"
 				+ "    branch,"
 				+ "    viewCount"
-				+ "    from noticeBoard where khclass=? and branch=? and "+category+" like ? )"
+				+ "    from noticeBoard where (khclass='전체' or khclass =?) and (branch ='all' or branch =?) and "+category+" like ? )"
 				+ "where rnum between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
