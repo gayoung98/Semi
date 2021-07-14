@@ -146,15 +146,15 @@ body {
 		</div>
 
 		<form action="write.assSubmit" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" id="assSubmitForm">
 			<div class="row comment">
 				<div class="col-3">과제 제출</div>
 				<div class="col-7" style="padding: 0px;">
-					<input type="file" name="assSubmit">
+					<input type="file" name="assSubmit" id="assSubmitInput">
 				</div>
 
 				<div class="col-2">
-					<button type="submit" class="btn btn-info">업로드</button>
+					<button type="submit" class="btn btn-info" id="assSubmitUp">업로드</button>
 				</div>
 				<input type="hidden" name="parent" value="${assView.seq}">
 			</div>
@@ -213,6 +213,20 @@ body {
 	<script>
 	$("#back").on("click", function(){
 		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
+	})
+	$("#assSubmitUp").on("click", function(){
+		if ($("#assSubmitInput").val() == "") {
+			alert("파일을 선택하세요.");
+			$("#assSubmitInput").focus();
+			return false;
+		}else{
+			let check = confirm("과제를 정말 제출하시겠습니까?");
+			if (check) {
+				$("#assSubmitForm").submit();
+			}else{
+				return false;
+			}
+		}
 	})
 	$("#delete").on("click", function(){
 		let check = confirm("정말 삭제하시겠습니까?");
