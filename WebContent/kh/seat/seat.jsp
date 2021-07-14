@@ -26,29 +26,23 @@
         		url: "${pageContext.request.contextPath}/complete.seat",
         		dataType: "JSON"
         	}).done(function(result){
-        		console.log(result)
         		if(result == "mo"){
-        			console.log("경로 확인")
         			$("#"+result).css("font-size","40px")
         			$("#"+result).css("background-color","#D8E3E7")
         			$("#"+result).css("border-radius","49%")
         		}else if(result == "tu"){
-        			console.log("경로 확인")
         			$("#"+result).css("font-size","40px")
         			$("#"+result).css("background-color","#D8E3E7")
         			$("#"+result).css("border-radius","49%")
         		}else if(result == "we"){
-        			console.log("경로 확인")
         			$("#"+result).css("font-size","40px")
         			$("#"+result).css("background-color","#D8E3E7")
         			$("#"+result).css("border-radius","49%")
         		}else if(result == "th"){
-        			console.log("경로 확인")
         			$("#"+result).css("font-size","40px")
         			$("#"+result).css("background-color","#D8E3E7")
         			$("#"+result).css("border-radius","49%")
         		}else if(result == "fr"){
-        			console.log("경로 확인")
         			$("#"+result).css("font-size","40px")
         			$("#"+result).css("background-color","#D8E3E7")
         			$("#"+result).css("border-radius","49%")
