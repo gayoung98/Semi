@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/>
 <!DOCTYPE html>
@@ -47,7 +48,7 @@ h2 {
 	color: cadetblue;
 }
 
-
+.replycount{margin-right:50px;}
 
 .title {
 	text-align: center;
@@ -173,41 +174,7 @@ textarea {
 	margin-left: 5px;
 }
 </style>
-<script>
-				$(function () {
-				
-					$("#deleteBtn").on("click",
-							function () { //게시글 삭제
-								let check = confirm("정말 게시글을 삭제하겠습니까?");
-								if (check) {
-									location.href = "${pageContext.request.contextPath}/noticeDelete.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
-										+ $("#deleteBtn").val(); //게시글 삭제 확인 팝업
-								} else {
-									return;
-								}
-							});
 
-					$("#modifyBtn").on("click",function () { //게시글 수정
-								
-									location.href = "${pageContext.request.contextPath}/noticeModify.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
-										+ $("#modifyBtn").val(); //게시글 수정 확인 팝업
-								
-							});
-
-
-					$(".deleteReply").on("click", function () { //댓글 삭제
-						let check = confirm("정말 댓글을 삭제하겠습니까?");
-						if (check) {
-							$("#replyForm").attr("action", "deleteCom.manager");
-							$(this).next().attr("name", "seq");
-							$(this).next().next().attr("name", "parent");
-							$("#replyForm").submit();
-						} else {
-							return;
-						}
-					});
-				});
-			</script>
 </head>
 
 <body>
@@ -232,19 +199,17 @@ textarea {
 						<div class="writerInfo">
 							<div class="profile_info">
 
-								<h3 class="writer">${view.writer}</h3>
+								<p><b>${view.writer}</b></p>
 							</div>
 							<!-- 작성일자,조회수 -->
 							<div class="articleInfo">
-								<span class="date">${view.write_date}</span> <span class="count">조회
-									${view.viewCount}</span> <input type="hidden" name="seq"
+								<span class="date">${view.write_date}</span><br> <span class="count"><b>조회
+									${view.viewCount}</b></span> <input type="hidden" name="seq"
 									value="${view.seq}">
 
 								<!-- 댓글 수 -->
 								<div class="com">
-									<a href="#" role="button" class="button_comment"> <strong
-										class="num"> 댓글 ${count.replyCount(view.seq)}</strong>
-									</a>
+									 <p class ="replycount"><b>댓글 ${count.replyCount(view.seq)}</b></p>
 								</div>
 							</div>
 
@@ -279,9 +244,7 @@ textarea {
 										<div class="col-12 d-md-block comment_box">
 
 											<div class="comment_writerInfo">
-												<a id="" href="#" role="button" aria-haspopup="true"
-													aria-expanded="false" class="comment_nickname">
-													${i.writer} </a>
+													<p	class="comment_nickname"><b>${i.writer}</b></p>
 											</div>
 
 											<div class="comment_text">
@@ -319,6 +282,41 @@ textarea {
 			</div>
 		</div>
 	</div>
+	<script>
+				$(function () {
+				
+					$("#deleteBtn").on("click",
+							function () { //게시글 삭제
+								let check = confirm("정말 게시글을 삭제하겠습니까?");
+								if (check) {
+									location.href = "${pageContext.request.contextPath}/noticeDelete.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
+										+ $("#deleteBtn").val(); //게시글 삭제 확인 팝업
+								} else {
+									return;
+								}
+							});
+
+					$("#modifyBtn").on("click",function () { //게시글 수정
+								
+									location.href = "${pageContext.request.contextPath}/noticeModify.manager?currentPage=${page}&branch=${branch}&category=${category}&search=${search}&seq="
+										+ $("#modifyBtn").val(); //게시글 수정 확인 팝업
+								
+							});
+
+
+					$(".deleteReply").on("click", function () { //댓글 삭제
+						let check = confirm("정말 댓글을 삭제하겠습니까?");
+						if (check) {
+							$("#replyForm").attr("action", "deleteCom.manager");
+							$(this).next().attr("name", "seq");
+							$(this).next().next().attr("name", "parent");
+							$("#replyForm").submit();
+						} else {
+							return;
+						}
+					});
+				});
+			</script>
 </body>
 
 </html>

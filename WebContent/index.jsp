@@ -80,7 +80,7 @@
 						var naverLogin = new naver.LoginWithNaverId(
 							{
 								clientId: "kOdPDaEhTlerLjUpxZcV",
-								callbackUrl: "http://localhost:8887/Semi/view/naverCallback.jsp",
+								callbackUrl: "http://59.6.184.31:8090/Semi/kh/view/naverCallback.jsp",
 								isPopup: false, /* 팝업을 통한 연동처리 여부 */
 								loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
 							}

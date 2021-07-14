@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/>
 		<!DOCTYPE html>
 		<html>
@@ -30,12 +32,12 @@
 					border-bottom: 1px solid #ddd;
 				}
 
-
+				.replycount{margin-right:50px;}
 				.commentItem a:hover {
 					color: cadetblue;
 				}
 
-				div>a {
+				.button_comment {
 					text-decoration: none;
 					cursor: pointer;
 					color: black;
@@ -188,20 +190,21 @@
 					<div class="profile_info">
 						
 						<div class="name_box">
-							<a href="#" role="button" class="target"> ${view.writer} </a> <em
-								class="position">${view.branch}지점 </em> <!-- 게시글 작성자 -->
+							<div class="target"> ${view.writer} </div> <em
+								class="position"><b>${view.branch}</b> </em> <!-- 게시글 작성자 -->
 						</div>
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date">${view.write_date}</span> <span class="count">조회
+
+						<span class="date"> <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/></span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
+
 
 						<!-- 댓글 수 및 신고버튼-->
 						<div class="com">
-							<a href="#" role="button" class="button_comment"> <strong class="num"> 댓글
-									${count.replyCount(view.seq)}</strong>
-							</a>
+							 <p class ="replycount"><b>댓글 ${count.replyCount(view.seq)}</b></p>
+							
 							
 						</div>
 					</div>
@@ -238,15 +241,18 @@
 								<div class="col-12 d-md-block comment_box">
 
 									<div class="comment_writerInfo">
-										<a id="" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-											class="comment_nickname"> ${i.writer}
-										</a>
+										
+								<p	class="comment_nickname"><b>${i.writer}</b></p>
+										
 									</div>
 							<div class="comment_text">
 											<p class="text_view">
 												<span class="modify_option" id="com">${i.comments}</span>
 											</p>
 										</div>
+										<div class="commentInfo">
+												<span>${i.write_date}</span>
+											</div>
 								</div>
 							</li>
 						</ul>
