@@ -74,8 +74,14 @@ a{
 			location.href = "${pageContext.request.contextPath}/writeForm.ass";
 		})
 		$(".del").on("click", function() {
-			let delSeq = $(this).parent().siblings(".seq").text();
-			location.href = "delete.ass?delSeq=" + delSeq;
+			let check = confirm("정말 삭제하시겠습니까?");
+			if(check){
+				let delSeq = $(this).parent().siblings(".seq").text();
+				location.href = "delete.ass?delSeq=" + delSeq;
+			}else{
+				return false;
+			}
+			
 		})
 		
 		

@@ -125,7 +125,7 @@ body {
 			</div>
 
 			<div class="row files">
-				<div class="col-12">
+				<div class="col-12" id="fileBox">
 					${assFiles.oriName}
 
 					<button type="button" id="fileDel" seq="${assFiles.seq}">삭제</button>
