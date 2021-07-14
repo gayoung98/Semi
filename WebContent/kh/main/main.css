@@ -39,6 +39,13 @@ a{text-decoration:none;color: black;font-weight: bold;}
 	width: 70%;
 	text-align: center;
 }
+.card-text{
+	margin-top:7%;
+	margin-bottom:0px;
+	font-weight: 400;
+	letter-spacing: 0.03em;
+	font-family: "Varela Round", sans-serif;
+}
 #writechat{text-align:center;}
 #writechat:focus{outline:none;}
 
