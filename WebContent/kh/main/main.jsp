@@ -14,14 +14,177 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<link rel="stylesheet" href="kh/main/main.css"  type="text/css" media="all">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/kh/main/main.css"  type="text/css" media="all">
 <style>
-	#mainName{
-	text-align:center;
-	margin-bottom:0px;
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+	* {
+	margin: 0;
+	padding: 0;
 }
+div[class*=col]{
+padding: 0px;
+margin:0px;
+}
+ .navbar>.container-fluid {
+            padding: 0px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: space-around;
+        }
+
+        .slide {
+        	z-index:1;
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 100%;
+            background-color: #00ff0000;
+        }
+a{text-decoration:none;color: black;font-weight: bold;}
+ 
+
+.chat_wrap {
+	width: 100%;
+	left: 20%;
+}
+
+.card {
+	float: left;
+	top: 50px;
+	left: 8%;
+	width: 70%;
+	text-align: center;
+}
+#writechat{text-align:center;}
+#writechat:focus{outline:none;}
+
+.writebox {
+	float: left;
+	width: 100%;
+	text-align: center;
+}
+
+/* sns */
+.chat_wrap .chat ul {
+	list-style: none;
+}
+
+#message>div {
+	display: block;
+	word-break: break-all;
+	margin: 5px 20px;
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 18px;
+}
+
+#message>div>.msg1 {
+	display: inline-block;
+	word-break: break-all;
+	margin: 5px 20px;
+	max-width: 75%;
+	border: 1px solid #888;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #FFE194;
+	color: #555;
+	text-align: right;
+	font-size: 18px;
+	word-break: break-all;
+}
+
+#message>div>.msg2 {
+	display: inline-block;
+	word-break: break-all;
+	margin: 5px 20px;
+	max-width: 75%;
+	border: 1px solid #888;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #FCFCFC;
+	color: #555;
+	text-align: left;
+	font-size: 18px;
+}
+
+.input-div {
+	top: 55px;
+	width: 100%;
+	background-color: #FFF;
+	text-align: center;
+	border-bottom: 1px solid #F18C7E;
+}
+
+.input-div>input {
+	width: 100%;
+	height: 80px;
+	border: none;
+
+}
+
+.wrapper {
+	margin-top: 50px;
+}
+
+.format {
+	display: none;
+}
+
+#inquire {
+	position: fixed;
+	bottom: 10%;
+	right: 15%;
+	width: 50px;
+	cursor:pointer;
+}
+#top {
+	position: fixed;
+	bottom: 17%;
+	right: 16%;
+	width: 35px;
+	display: none;
+	text-decoration:none;
+	color : black
+}
+.talkname{
+            text-align: center;
+            margin-top: 5%;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-family: "Varela Round", sans-serif;
+            color: white;
+            text-shadow: 2px 2px 2px gray;
+        }
+
+/*div{border: 1px solid black}*/
+img {
+	width: 100%;
+}
+
+body {
+	min-height: 500px;
+	background-color: #D8E3E7;
+}
+
+.fas {
+	display: none
+}
+
+.msg2:hover .fas {
+	display: block;
+}
+
+
+
+#mypage,#logout{text-decoration:none;color : black;}
+	
 </style>
+
 <script>
 	/* sns */
 	let writechat = document.getElementById("wirtechat");
@@ -157,6 +320,7 @@
 <jsp:include page= "/navibar.jsp" />
 	<div class = "container">
 		<input type=hidden id=length value="${list}">
+		<div class="talkname">우리반 익명 Talk</div>
 		<div class =row>
 		<div class="col-2"> 
 		<div class="card shadow bg-white rounded">
@@ -176,9 +340,8 @@
 		</div>
 		</div>
 		<div class = "col-8" id="col">
-		<div id="mainName">우리반 익명 톡방</div>
-		<div class="chat_wrap  shadow bg-white rounded">
-			<div class="writebox">
+			<div class="chat_wrap  shadow bg-white rounded">
+				<div class="writebox">
 				<form action="${pageContext.request.contextPath}/writechat.main"
 					method="post" id="submit">
 					<div class="input-div">
@@ -222,22 +385,7 @@
 		<div id="inquire">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png"/>
 		</div>
-		<div class="footer">
-			<div class="sk-circle" id="hiddenDivLoading">
-				<div class="sk-circle1 sk-child"></div>
-				<div class="sk-circle2 sk-child"></div>
-				<div class="sk-circle3 sk-child"></div>
-				<div class="sk-circle4 sk-child"></div>
-				<div class="sk-circle5 sk-child"></div>
-				<div class="sk-circle6 sk-child"></div>
-				<div class="sk-circle7 sk-child"></div>
-				<div class="sk-circle8 sk-child"></div>
-				<div class="sk-circle9 sk-child"></div>
-				<div class="sk-circle10 sk-child"></div>
-				<div class="sk-circle11 sk-child"></div>
-				<div class="sk-circle12 sk-child"></div>
-			</div>
-		</div>
+		
 </body>
 
 </html>
