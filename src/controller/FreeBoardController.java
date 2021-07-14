@@ -40,6 +40,17 @@ import config.BoardConfig;
 @WebServlet("*.fboard")
 public class FreeBoardController extends HttpServlet {
 	Logger l = Logger.getLogger(LoginController.class);
+	
+	
+private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+if(target!=null) {
+	target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+	target =target.replaceAll(">", "&gt;");
+	target =target.replaceAll("&", "&amp;");
+	}
+return target;
+}
+
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       request.setCharacterEncoding("utf-8");
@@ -67,6 +78,8 @@ public class FreeBoardController extends HttpServlet {
             //寃��깋湲곕뒫 異붽�
             String category =request.getParameter("category"); //移댄뀒怨좊━ 
             String keyWord =request.getParameter("keyword"); //寃��깋�뼱 �엯�젰
+            keyWord= XSSFilter(keyWord);
+
             String branch = request.getParameter("branch");//branch �엯�젰
 
             int cpage =Integer.parseInt(request.getParameter("cpage"));
@@ -143,8 +156,12 @@ public class FreeBoardController extends HttpServlet {
 
             MultipartRequest multi = new MultipartRequest(request,pathName,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
 
+
             String title =multi.getParameter("title");
+            title= XSSFilter(title);
             String contents= multi.getParameter("contents");
+			contents = XSSFilter(contents);
+
             System.out.println("�젣紐� :" + title);
             System.out.println("�궡�슜 :" + contents);
 
