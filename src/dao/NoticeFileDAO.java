@@ -47,7 +47,7 @@ public class NoticeFileDAO {
 	}
 
 	public int fileUpload(NoticeFilesDTO dto) throws Exception {
-		String sql="insert into noticefiles values(freefiles_seq.nextval,?,?,sysdate,?)";
+		String sql="insert into noticefiles values(noticefiles_seq.nextval,?,?,sysdate,?)";
 		try(Connection con =this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setNString(1, dto.getOriName());

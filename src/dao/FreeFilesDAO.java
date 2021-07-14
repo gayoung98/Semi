@@ -1,6 +1,8 @@
 	package dao;
 
 	import java.sql.Connection;
+
+
 	import java.sql.Date;
 	import java.sql.PreparedStatement;
 	import java.sql.ResultSet;
@@ -13,7 +15,6 @@
 	import javax.sql.DataSource;
 
 import dto.FreeFilesDTO;
-
 
 	public class FreeFilesDAO {
 		private static FreeFilesDAO instance;
@@ -46,6 +47,7 @@ import dto.FreeFilesDTO;
 			}
 		}
 
+		
 		public int fileUpload(FreeFilesDTO dto) throws Exception {
 			String sql="insert into freefiles values(freefiles_seq.nextval,?,?,sysdate,?)";
 			try(Connection con =this.getConnection();
@@ -59,7 +61,9 @@ import dto.FreeFilesDTO;
 
 			}
 		}
-
+		
+		
+		
 		public List<FreeFilesDTO>selectAll(int parent) throws Exception{
 			String sql="select *from freefiles where parent=?";
 			try(Connection con =this.getConnection();
@@ -92,6 +96,9 @@ import dto.FreeFilesDTO;
 
 			}
 		}
+		
+		
+		
 	}
 
 
