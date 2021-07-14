@@ -2,6 +2,7 @@ package controller;
 
 import java.io.BufferedInputStream;
 
+
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -23,6 +24,7 @@ import config.FileConfig;
 import dao.FreeBoardDAO;
 import dao.FreeFilesDAO;
 import dto.FreeFilesDTO;
+
 
 
 @WebServlet("*.file")
@@ -93,14 +95,13 @@ public class FileController extends HttpServlet {
 				MultipartRequest multi = new MultipartRequest(request,filesPath,FileConfig.uploadMaxSize,"utf8",new DefaultFileRenamePolicy()); 
 
 					String oriName = multi.getOriginalFileName("file");
-					String sysName = multi.getFilesystemName("file");
-					
-					
-					
+					String sysName = multi.getFilesystemName("file");					
+
 					if(oriName!=null) { 
 						System.out.println("파일 이름: " +oriName +" DB에 저장됨.");
-						int fileUpload =ffdao.fileUpload(new FreeFilesDTO(0,oriName,sysName,null,0));// summernote애 이미지 붙여놓는것이라 parent 값 필요없음!!
 					//submit하는 순간 parent 
+//						int fileUpload =ffdao.fileUpload(new FreeFilesDTO(0,oriName,sysName,null,0));// summernote애 이미지 붙여놓는것이라 parent 값 필요없음!!
+
 						request.getSession().setAttribute("ingFiles", sysName);//파일이 한 개라는 전제,파일 업로드 하는 순간 파일 이름 저장
 						
 					}
