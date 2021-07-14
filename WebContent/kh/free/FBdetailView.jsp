@@ -361,7 +361,7 @@
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
 				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.sysName}" class="card-img-top" alt="profile_picture" id = profile>
+			                  			<img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.getFile(mm.getID(view.writer)).sysName}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>

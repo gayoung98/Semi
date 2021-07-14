@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/kh/main/main.css"  type="text/css" media="all">
-
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <script>
 	/* sns */
 	let writechat = document.getElementById("wirtechat");
@@ -165,8 +165,8 @@
 			</c:choose>
 			<p class="card-text">${name } 님</p>
 			<div class="card-body">
-				<a href="${pageContext.request.contextPath}/mypage.mp" id="mypage" class="card-link">마이페이지</a> 
-				<a href="${pageContext.request.contextPath}/signout.member"id="logout" class="card-link">로그아웃</a>
+				<a href="${pageContext.request.contextPath}/mypage.mp" id="mypage" class="card-link" style = "font-weight: bold;">My Page</a>	
+				<a href="${pageContext.request.contextPath}/signout.member"id="logout" class="card-link" style ="font-size: 25px" title = "로그아웃"><i class="fas fa-sign-out-alt"></i></a>
 			</div>
 		</div>
 		</div>
