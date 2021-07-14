@@ -71,7 +71,7 @@ body {
 </style>
 <script>
 	$(function() {
-		
+
 		var myEditor = document.querySelector('#editor');
 		var html = myEditor.children[0].innerHTML;
 		$("#contents").html(html);
@@ -79,14 +79,13 @@ body {
 		$("#fileDel").on("click", function() {
 			let seq = ($(this).attr("seq"));
 
-			
 			$(this).parent().remove();
 			let del = $("<input>");
 			del.attr("type", "hidden");
 			del.attr("name", "delete");
 			del.attr("value", seq);
 			$(".title").append(del);
-			
+
 			let newFile = $("<input>");
 			newFile.attr("type", "file");
 			newFile.attr("name", "file");
@@ -105,10 +104,10 @@ body {
 <body>
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
-	<form
-		action="${pageContext.request.contextPath}/modiProc.ass?ass_seq=${assView.seq}"
-		method="post" enctype="multipart/form-data">
-		
+		<form
+			action="${pageContext.request.contextPath}/modiProc.ass?ass_seq=${assView.seq}"
+			method="post" enctype="multipart/form-data">
+
 			<div class="row header">
 				<div class="col-12">
 					<h2>과제</h2>
@@ -117,7 +116,9 @@ body {
 			</div>
 			<div class="row title">
 				<div class="col-2"></div>
-				<div class="col-1" style="line-height: 40px;"><b>제목</b></div>
+				<div class="col-1" style="line-height: 40px;">
+					<b>제목</b>
+				</div>
 				<div class="col-7">
 					<input type="text" name="title" id="title" value="${assView.title}">
 				</div>
@@ -126,9 +127,15 @@ body {
 
 			<div class="row files">
 				<div class="col-12" id="fileBox">
-					${assFiles.oriName}
-
-					<button type="button" id="fileDel" seq="${assFiles.seq}">삭제</button>
+					<c:choose>
+						<c:when test="${assFiles.oriName!=null}">
+							${assFiles.oriName}
+							<button type="button" id="fileDel" seq="${assFiles.seq}">삭제</button>
+						</c:when>
+						<c:otherwise>
+							<input type="file" name="file"></input>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -170,14 +177,18 @@ body {
 					<button id="submit" type="submit" class="btn btn-primary">제출</button>
 				</div>
 			</div>
-		
-		
-	</form>
+
+
+		</form>
 	</div>
 	<script>
-	$("#back").on("click", function(){
-		location.href="view.ass?ass_seq="+${assView.seq};
-	})
+		$("#back").on("click", function() {
+			location.href = "view.ass?ass_seq=" + $
+			{
+				assView.seq
+			}
+			;
+		})
 	</script>
 </body>
 </html>

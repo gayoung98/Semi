@@ -78,18 +78,23 @@ input {
 </style>
 
 <script type="text/javascript">
+	$(function() {
+		$(document)
+				.on(
+						'click',
+						'#navbarDropdownMenuLink',
+						function() {
+							if ($(this).siblings($(".dropdown-menu")).css(
+									"display") == "none") {
+								$(this).siblings($(".dropdown-menu")).css(
+										"display", 'block')
+							} else {
+								$(this).siblings($(".dropdown-menu")).css(
+										"display", 'none')
+							}
+						})
 
-$(function(){
-	$(document).on('click', '#navbarDropdownMenuLink', function() {
-		   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
-		 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
-		   }else{
-		 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
-		   }
-		})
-		
-})
-
+	})
 </script>
 
 </head>
@@ -99,15 +104,28 @@ $(function(){
 		<div class="row header">
 			<h2>타자기록</h2>
 		</div>
-		<div class="row chart">
-			<c:forEach var="item" items="${recentList}">
-				<div class=col-1 style="display: table-cell; vertical-align: bottom;">
-					<div class=row style="height: 300px;display: table-cell; vertical-align: bottom;"><div class=bar style="height:${item.record}px;">${item.record}</div></div>
-					<div class=row style="text-align: right;">${item.reg_date }</div>
-				</div>
-			</c:forEach>
 
-		</div>
+		<c:choose>
+			<c:when test="${recentList!=null}">
+				<div class="row chart">
+
+					<c:forEach var="item" items="${recentList}">
+						<div class=col-1
+							style="display: table-cell; vertical-align: bottom;">
+							<div class=row
+								style="height: 300px; display: table-cell; vertical-align: bottom;">
+								<div class=bar style="height:${item.record}px;">${item.record}</div>
+							</div>
+							<div class=row style="text-align: right;">${item.reg_date }</div>
+						</div>
+					</c:forEach>
+
+
+				</div>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
 
 		<form action="write.typ" method="post">
 			<div class="row record" style="text-align: center;">
@@ -138,20 +156,9 @@ $(function(){
 
 			</div>
 		</form>
-		<div class="row footer">
-		
-			<div class="col-6" style="text-align: left;">
-				<button type="button" id="back" class="btn btn-secondary">back</button>
-			</div>
-			<div class="col-6"></div>
-		
-		</div>
+		<div class="row footer"></div>
 	</div>
-	
-<!--  	<script>
-	$("#back").on("click", function(){
-		location.href="${pageContext.request.contextPath}/list.ass?currentPage=1";
-	})
-	</script> -->
+
+
 </body>
 </html>
