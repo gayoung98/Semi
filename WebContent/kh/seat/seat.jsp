@@ -243,7 +243,7 @@ margin :0px;
 	                		$("#"+result).css("background-color","#87cae2c5");
 		                	$("#"+result).attr("data-Ischoose","true");
 		                	//$("#"+result).html("예약완료")
-		                	alert("예약완료")
+		                	//alert("예약완료")
 	                		
 	                	}
 	                	
