@@ -853,7 +853,15 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 			return result;
 		}
 	}
-	
+	public int resetChatMessage() throws Exception{
+		String sql="insert into chatboard values(CHATBOARD_SEQ.NEXTVAL,'manager','manager','매주 금요일 채팅 내용이 리셋됩니다.','manager',sysdate)";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+		
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 }
 					
 					
