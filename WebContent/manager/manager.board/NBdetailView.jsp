@@ -59,7 +59,7 @@ h2 {
 					padding:0;
 					margin-left:20px;
 					height: 100%;
-					width: 95%;
+					width: 100%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
