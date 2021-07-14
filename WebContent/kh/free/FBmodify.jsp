@@ -40,7 +40,7 @@
                     max-width: 900px;
                     margin-left: 10px;
                     margin: 30px auto;
-                    margin-top:50px;
+                    margin-top:100px;
                     margin-bottom:20px;
                     
                 }

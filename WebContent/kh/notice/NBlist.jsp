@@ -32,7 +32,7 @@
             background-color: #55555550;
         }
 .container {
-    margin-top: 50px;
+    margin-top: 100px;
     width: 900px;
 }
 .first {
