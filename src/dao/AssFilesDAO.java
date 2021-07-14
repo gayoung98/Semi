@@ -123,8 +123,11 @@ public class AssFilesDAO {
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			try(ResultSet rs = pstat.executeQuery()){
-				rs.next();
+				if(rs.next()) {
 				return rs.getNString("sysName");
+				}else {
+					return null;
+				}
 			}
 		}
 	}

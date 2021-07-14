@@ -229,42 +229,42 @@ public class AssDAO {
 		}
 	}
 
-	public List<AssDTO> getPageList(String khClass, String branch, int startNum, int endNum) throws Exception{
-
-
-		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khClass, branch, write_date, viewCount from ass where khClass=? and branch=?) where rnum between ? and ?";
-		try(
-				Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-
-				){
-			
-			pstat.setString(1, khClass);
-			pstat.setNString(2,  branch);
-			pstat.setInt(3,  startNum);
-			pstat.setInt(4,  endNum);
-			ResultSet rs = pstat.executeQuery();
-			List<AssDTO> list = new ArrayList<>();
-
-			while(rs.next()) {
-
-				int seq = rs.getInt("seq");
-				String writer = rs.getString("writer");
-				String id =rs.getString("id");
-				MemberDAO daoM = MemberDAO.getInstance();
-				String name = daoM.getAllInfo(writer).getName();
-				String title = rs.getString("title");
-				String contents= rs.getString("contents");
-				//String khClass = rs.getString("khClass");
-				//String branch = rs.getNString("branch");
-				Date write_date = rs.getDate("write_date");
-				int viewCount = rs.getInt("viewCount");
-				AssDTO dto = new AssDTO(seq, writer, id, name, title, contents, khClass, branch, write_date, viewCount);
-				list.add(dto);
-			}
-			return list;
-		}
-	}
+	//	public List<AssDTO> getPageList(String khClass, String branch, int startNum, int endNum) throws Exception{
+	//
+	//
+	//		String sql = "select * from (select row_number() over(order by seq desc) rnum, seq, writer, id, title, contents, khClass, branch, write_date, viewCount from ass where khClass=? and branch=?) where rnum between ? and ?";
+	//		try(
+	//				Connection con = this.getConnection();
+	//				PreparedStatement pstat = con.prepareStatement(sql);
+	//
+	//				){
+	//			
+	//			pstat.setString(1, khClass);
+	//			pstat.setNString(2,  branch);
+	//			pstat.setInt(3,  startNum);
+	//			pstat.setInt(4,  endNum);
+	//			ResultSet rs = pstat.executeQuery();
+	//			List<AssDTO> list = new ArrayList<>();
+	//
+	//			while(rs.next()) {
+	//
+	//				int seq = rs.getInt("seq");
+	//				String writer = rs.getString("writer");
+	//				String id =rs.getString("id");
+	//				MemberDAO daoM = MemberDAO.getInstance();
+	//				String name = daoM.getAllInfo(writer).getName();
+	//				String title = rs.getString("title");
+	//				String contents= rs.getString("contents");
+	//				//String khClass = rs.getString("khClass");
+	//				//String branch = rs.getNString("branch");
+	//				Date write_date = rs.getDate("write_date");
+	//				int viewCount = rs.getInt("viewCount");
+	//				AssDTO dto = new AssDTO(seq, writer, id, name, title, contents, khClass, branch, write_date, viewCount);
+	//				list.add(dto);
+	//			}
+	//			return list;
+	//		}
+	//	}
 
 	private int getRecordCount(String khClass, String branch, String category, String keyword) throws Exception {
 		String sql = "select count(*) from ass where khClass=? and branch=?";
@@ -274,15 +274,16 @@ public class AssDAO {
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-				
+
 				){
-			
+
 			pstat.setString(1, khClass);
 			pstat.setString(2, branch);
-			ResultSet rs = pstat.executeQuery();
-			rs.next();
-			return rs.getInt(1);
-
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					return rs.getInt(1);
+				}else {return 0;}
+			}
 		}
 	}
 
