@@ -307,6 +307,14 @@
 						 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
 						   }
 						})
+						
+						 $(document).on("click", function(e){
+           if($(e.target).attr("id")!="navbarDropdownMenuLink"){
+        	   for(let i =0; i<$(".dropdown-menu").length; i++){
+        			$($(".dropdown-menu")[i]).css("display","none");
+        	   }
+           }
+        })
 				});
 			</script>
 		</head>
