@@ -65,6 +65,20 @@ public class SeatDAO {
 			}
 		}
 	}
+	public boolean conflict(String date) throws Exception{
+		String sql = "select * from seat where seat_day = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, date);
+			try(ResultSet rs = pstat.executeQuery()){
+				if(rs.next()) {
+					return true;
+				}else {
+					return false;
+				}
+			}
+		}
+	}
 	public List<SeatDTO> reservedList() throws Exception{
 		List <SeatDTO> li = new ArrayList<SeatDTO>();
 		String sql = "select * from seat";

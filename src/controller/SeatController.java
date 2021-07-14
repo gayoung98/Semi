@@ -47,8 +47,9 @@ public class SeatController extends HttpServlet {
 				if(request.getParameter("seatNumber")!=null) {
 					String seat_number = (String)request.getParameter("seatNumber");
 					boolean mySeat = dao.mySeat(email, seat_number, date);
+					boolean conflict = dao.conflict(seat_number);
 					if(count < 14) {
-						if(already == false) {
+						if(already == false && conflict == false) {
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
 							response.getWriter().append(request.getParameter("seatNumber"));
 						}else {
