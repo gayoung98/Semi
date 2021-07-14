@@ -453,9 +453,8 @@
 											class="btn btn-dark deleteReply">삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 
 										<input type="hidden" name="parent" value="${i.parent}">
-										
+										</c:if>
 									</form>
-									</c:if>
 								</div>
 							</li>
 						</ul>
