@@ -20,13 +20,16 @@ public class ResetJob implements Job {
 		int result2 = managerDao.deleteSeat();
 		if(result1>0 && result2>0) {
 			l.warn("자리신청, 채팅 데이터 삭제 성공");
+			managerDao.resetChatMessage();
 		}else if(result1>0 && result2<1) {
 			l.warn("채팅 데이터 삭제 성공");
+			managerDao.resetChatMessage();
 		}else if(result1<1 && result2>0) {
 			l.warn("자리신청 데이터 삭제 성공");
 		}else {
 			l.warn("데이터 삭제 실패");
 		}
+		
 		}catch(Exception e) {
 			
 		}
