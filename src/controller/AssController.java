@@ -37,6 +37,15 @@ public class AssController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Logger l = Logger.getLogger(AssController.class); //import org.apache.log4j.Logger
 
+	private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+		if(target!=null) {
+			target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+			target =target.replaceAll(">", "&gt;");
+			target =target.replaceAll("&", "&amp;");
+		}
+		return target;
+	}
+
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -85,15 +94,17 @@ public class AssController extends HttpServlet {
 				int seq = dao.getSeq();
 				System.out.println("board_seq: "+seq);
 				String title = multi.getParameter("title");
-				String contents = multi.getParameter("contents");
+				title = XSSFilter(title);
 
+				String contents = multi.getParameter("contents");
+				contents = XSSFilter(contents);
 
 				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
 				String khClass = daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
 				int viewCount = 0;
-			
+
 
 
 				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, null, viewCount);
@@ -198,36 +209,36 @@ public class AssController extends HttpServlet {
 
 
 			}else if(url.contentEquals("/delete.ass")) {
-				
+
 				System.out.println("과제 게시물 삭제 요청");
 
 				int delSeq = Integer.parseInt(request.getParameter("delSeq"));
 				String email = dao.select(delSeq).getWriter();
-				
+
 				System.out.println("지울 과제 seq: "+delSeq);
 				System.out.println("지울 파일의 parent: "+ delSeq);
 				System.out.println("writer: "+email);
-				
+
 				String filesPath = request.getServletContext().getRealPath("assFiles/"+email);
 				String sysName = daoF.getSysName(delSeq);
-				
+
 				if(sysName!=null) {
-				File targetFile = new File(filesPath +"/" + sysName); 
-				
-				boolean result = targetFile.delete();
-				System.out.println("파일 삭제 여부: " + result);
-				
-				daoF.deleteAll(delSeq);
+					File targetFile = new File(filesPath +"/" + sysName); 
+
+					boolean result = targetFile.delete();
+					System.out.println("파일 삭제 여부: " + result);
+
+					daoF.deleteAll(delSeq);
 				}
-				
-				
+
+
 				int deleteAss = dao.delete(delSeq);
 				if(deleteAss>0) {
 					System.out.println("과제 게시물 삭제 성공!");
 				}else {
 					System.out.println("과제 게시물 삭제 실패");
 				}
-				
+
 				l.trace(request.getRemoteAddr()+" 과제게시판 삭제");
 				response.sendRedirect("list.ass?currentPage=1");
 
@@ -278,7 +289,9 @@ public class AssController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("ass_seq"));
 				System.out.println("ass_seq: "+seq);
 				String title = multi.getParameter("title");
+				title = XSSFilter(title);
 				String contents = multi.getParameter("contents");
+				contents = XSSFilter(contents);
 
 
 				String writer = email;
