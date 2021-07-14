@@ -211,7 +211,7 @@
 		</div>
 		</div>
     	<div id="up">
-    		<a href="#" id="top">Top</a>	
+    		<a href="#" id="top">TOP</a>	
     	</div>		
 		<div id="inquire">
 			<img src="https://image.flaticon.com/icons/png/512/1370/1370958.png"/>

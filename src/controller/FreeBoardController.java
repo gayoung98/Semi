@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import org.apache.log4j.Logger;
 
 
 
@@ -36,16 +37,14 @@ import config.FileConfig;
 import config.BoardConfig;
 
 
-
-
 @WebServlet("*.fboard")
 public class FreeBoardController extends HttpServlet {
+	Logger l = Logger.getLogger(LoginController.class);
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       request.setCharacterEncoding("utf-8");
       response.setContentType("text/html; charset =utf-8");
-
-      String requestURI = request.getRequestURI();
+       String requestURI = request.getRequestURI();
       String ctxPath = request.getContextPath();
 
       String url = requestURI.substring(ctxPath.length());
@@ -131,6 +130,7 @@ public class FreeBoardController extends HttpServlet {
             response.sendRedirect("kh/free/FBwrite.jsp");
 
          }else if(url.contentEquals("/write.fboard")) { 
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 작성");
             System.out.println("작성 중");
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
@@ -226,8 +226,7 @@ public class FreeBoardController extends HttpServlet {
             request.getRequestDispatcher("kh/free/FBdetailView.jsp").forward(request, response);
             
          }else if(url.contentEquals("/modify.fboard")){ //수정하기
-
-
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 수정");     
             int boardseq = Integer.parseInt(request.getParameter("seq"));
             System.out.println(boardseq);
             FreeBoardDTO bdto = fbdao.detailView(boardseq);
@@ -304,7 +303,8 @@ public class FreeBoardController extends HttpServlet {
             request.getRequestDispatcher("kh/free/FBmodifyView.jsp").forward(request, response);
                
          }else if(url.contentEquals("/delete.fboard")){ //삭제하기
-            System.out.println("게시글 삭제중");
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 삭제");
+        	 System.out.println("게시글 삭제중");
             
             String delseq = request.getParameter("seq");
             
@@ -337,8 +337,8 @@ public class FreeBoardController extends HttpServlet {
             request.getRequestDispatcher("kh/free/reportPop.jsp").forward(request, response);
 
          }else if(url.contentEquals("/report.fboard")) { //신고처리
-            System.out.println("신고 처리중!!");
-
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 신고");
+        	 System.out.println("신고 처리중!!");
             MemberDTO dto = mdao.getMainInfo(session);
             String id = dto.getId();
             String contents = request.getParameter("contents");

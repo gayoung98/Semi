@@ -94,7 +94,6 @@ height:50px;}
             top: 100%;
             background-color: #55555550;
         }
-        a{text-decoration:none;color: black;font-weight: bold;}
         body {background-color: #D8E3E7;}
 </style>
 </head>
