@@ -43,11 +43,11 @@ public class LoginController extends HttpServlet {
 					String snsresult = dao.snslogin(email);
 					if(snsresult != null || request.getSession().isNew()) {
 						request.getSession().setAttribute("login",snsresult);
-						response.sendRedirect(ctxPath+"main.main");
+						response.sendRedirect(ctxPath+"/main.main");
 					}
 				}else {
 					request.setAttribute("email", email);
-					request.getRequestDispatcher("/member/join.jsp").forward(request, response);
+					request.getRequestDispatcher("kh/member/join.jsp").forward(request, response);
 				}
 				
 			}else if(url.contentEquals("/join.member")) {
@@ -104,10 +104,16 @@ public class LoginController extends HttpServlet {
 				String name = request.getParameter("name");
 				String phone = request.getParameter("phone");
 				String email = dao.findId(name, phone);
+				String star = "";
 				String firstEmail = email.split("@")[0];
 				String secondEmail = email.split("@")[1];
-				response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
+				for(int i=0; i<firstEmail.length(); i++) {
+					if(i > firstEmail.length()/2) star += "*";
+					else star += firstEmail.charAt(i);
+				}
+				//response.getWriter().append("*".repeat(firstEmail.length()/2)+firstEmail.substring(firstEmail.length()/2)+"@"+secondEmail);
 				//response.getWriter().append(email);
+				response.getWriter().append(star+"@"+secondEmail);
 				
 			}else if(url.contentEquals("/findPw.member")){
 				response.sendRedirect(ctxPath+"/kh/member/findPw.jsp");

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -210,7 +211,7 @@ public class ManagerDAO {
 					String title = rs.getString("title");
 					String contents = rs.getString("contents");
 					String id= rs.getString("id");
-					Date write_date = rs.getDate("write_date");
+					Timestamp write_date = rs.getTimestamp("write_date");
 					int viewCount = rs.getInt("viewCount");
 					int policeCount = rs.getInt("policecount");
 					list.add(new FreeBoardDTO(seq,kBranch,writer,title,contents,id,write_date,viewCount,policeCount));
@@ -305,7 +306,7 @@ public class ManagerDAO {
 					String writer=rs.getString("writer");
 					String title = rs.getString("title");
 					String contents = rs.getString("contents");
-					Date write_date = rs.getDate("write_date");
+					Timestamp write_date = rs.getTimestamp("write_date");
 					String khClass =rs.getString("khClass");
 					String branch = rs.getString("branch");
 					String kBranch="";
@@ -702,7 +703,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 				
 				String writer = rs.getString("writer");
 				String title = rs.getString("title");
-				Date write_date = rs.getDate("write_date");
+				Timestamp write_date = rs.getTimestamp("write_date");
 				list.add(new FreeBoardDTO(seq, kBranch,writer,title,write_date));
 			}
 			return list;
