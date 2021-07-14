@@ -63,6 +63,10 @@ li a:hover{
 color: cadetblue;
 
 }
+.container a{
+	color: black;
+	font-weight: bold;
+}
 
 .title{
 text-align: center;

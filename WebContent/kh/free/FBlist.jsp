@@ -27,7 +27,7 @@
         }
 
         .slide {
-        	z-index:2;
+        	z-index:1;
             position: absolute;
             width: 100%;
             height: 50px;
@@ -72,7 +72,7 @@ li a:hover {
 	color: cadetblue;
 }
 
-.container> a {
+.container a{
 	color: black;
 	font-weight: bold;
 }
@@ -98,33 +98,29 @@ li a:hover {
 
 <script>
 $(function(){
-$(".writeBtn").on("click",function(){
-location.href="${pageContext.request.contextPath}/towrite.fboard"
-});
-
-$("#back").on("click",function(){
-	location.href="${pageContext.request.contextPath}/main.main"
+	$("#writeBtn").on("click",function(){
+	location.href="${pageContext.request.contextPath}/towrite.fboard"
 	});
-
-$(document).on('click', '#navbarDropdownMenuLink', function() {
-	   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+	
+	$("#back").on("click",function(){
+		location.href="${pageContext.request.contextPath}/main.main"
+		});
+	
+/* 	$("#navbarDropdownMenuLink").on('click', function() {
+		console.log("ek skrkwnj.");
+	   if($(this).siblings($(".dropdown-menu")).css("display") === 'none'){
 	 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
-	 	  for(let i =0; i<$(".dropdown-menu").length; i++){
-	 		 if(($($(".dropdown-menu")[i]).text() !== $(this).siblings($(".dropdown-menu")).text())){
-	 			$($(".dropdown-menu")[i]).css("display","none"));
-	 		}
-	 	  }
 	   }else{
 	 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
 	   }
-	})
-
+	})     */
+	
 });
+
 </script>
 </head>
 <body>
 	<jsp:include page="/navibar.jsp"/>
-
 	<div class="container shadow bg-white rounded">
 		<h2 class="text-center">자유게시판</h2>
 		<ul class="nav justify-content-center branch_list">
@@ -188,7 +184,7 @@ $(document).on('click', '#navbarDropdownMenuLink', function() {
 				</c:forEach>
 		</div>
 		<div class="text-right footer">
-			<button type="button" name="write" class="btn btn-primary writeBtn">글쓰기</button>
+			<button type="button" name="write" class="btn btn-primary writeBtn" id="writeBtn">글쓰기</button>
 			<input type=button class="btn btn-secondary" value="메인으로" id="back">
 		
 		<div class="search">

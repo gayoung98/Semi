@@ -62,7 +62,7 @@
 					
 				}
 
-				a {
+				.container a{
 					text-decoration: none;
 					cursor: pointer;
 					font-weight: bold;
@@ -73,10 +73,6 @@
 					color: cadetblue;
 				}
 
-				a {
-					color: black;
-					font-weight: bold;
-				}
 
 				.title {
 					text-align: center;
@@ -297,7 +293,20 @@
 						}
 						
 					});
-
+					
+					
+					$(document).on('click', '#navbarDropdownMenuLink', function() {
+						   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
+						 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
+						 	  for(let i =0; i<$(".dropdown-menu").length; i++){
+						 		 if(($($(".dropdown-menu")[i]).text() !== $(this).siblings($(".dropdown-menu")).text())){
+						 			$($(".dropdown-menu")[i]).css("display","none");
+						 		}
+						 	  }
+						   }else{
+						 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
+						   }
+						})
 				});
 			</script>
 		</head>
@@ -324,9 +333,9 @@
 
 						<!-- 댓글 수 -->
 						<div class="com">
-							<a href="#" role="button" class="button_comment"> <strong class="num"> 댓글
+							<p class="button_comment"> <strong class="num"> 댓글
 									${count.replyCount(view.seq)}</strong>
-							</a>
+							</p>
 						</div>
 					</div>
 
