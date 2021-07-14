@@ -16,7 +16,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import config.AssFileConfig;
-import dao.AssDAO;
+
 import dao.AssSubmitDAO;
 import dao.MemberDAO;
 import dto.AssSubmitDTO;
@@ -36,7 +36,6 @@ public class AssSubmitController extends HttpServlet {
 		String ctxPath = request.getContextPath();
 		String url = requestURI.substring(ctxPath.length());
 		AssSubmitDAO daoS = AssSubmitDAO.getInstance();
-		AssDAO dao = AssDAO.getInstance();
 		MemberDAO daoM = MemberDAO.getInstance();
 
 		try {
@@ -92,16 +91,30 @@ public class AssSubmitController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("assSubmitSeq"));
 
 
-				System.out.println("지울 파일의 parent: " +parent);
+				System.out.println("지울 파일의 seq: " +seq);
 
-				String email = dao.select(parent).getWriter();
+				String email = daoS.select(seq).getWriter();
 				String filesPath = request.getServletContext().getRealPath("assSubmit/"+email);
-				String sysName = daoS.getSysName(seq);
+				String sysName = daoS.select(seq).getSysName();
+				
+				if(sysName!=null) {
+					
+				System.out.println("지울 파일 sysName: "+sysName);
+				System.out.println(filesPath+"/"+sysName);
 				File targetFile = new File(filesPath +"/" + sysName); 
+				
 				boolean fileResult = targetFile.delete();
 				System.out.println("파일 삭제 여부: " + fileResult);
+								
+				}
+				int delResult = daoS.delete(seq);
+				if(delResult>0) {
+					System.out.println("과제 삭제 성공");
+				}else {
+					System.out.println("과제 삭제 실패");
+				}
 				
-				if(fileResult) {daoS.delete(seq);}
+				
 
 				response.sendRedirect("view.ass?ass_seq="+parent);
 

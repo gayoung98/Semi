@@ -93,10 +93,7 @@ public class AssController extends HttpServlet {
 				String khClass = daoM.getAllInfo(email).getKhClass();
 				String branch = daoM.getAllInfo(email).getBranch();
 				int viewCount = 0;
-				//String writer = "teacher";
-				//String id ="t001JA";
-				//String khClass = "JA";
-				//String branch = "J";				
+			
 
 
 				AssDTO dto = new AssDTO(seq, writer, id, title, contents, khClass, branch, null, viewCount);
