@@ -98,8 +98,8 @@
 				<!-- 파일 첨부 -->
 			<fieldset id="file_box">
 					<legend>파일첨부
-					<input type ="file" name="file" multiple= "multiple" class="btn btn-dark">
-					<input type ="file" name="file" class="btn btn-dark">
+					<input type ="file" name="file" multiple= "multiple" >
+					<input type ="file" name="file" >
 					</legend> 
 					</fieldset>
 					

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/css/manager.css">
 <div class="navi">
 	<div class="navbar-content scroll-div">
 		<div class="admin">
-			<a href="${pageContext.request.contextPath}/logout.manager">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/logout.manager" >로그아웃</a>
 		</div>
 		<div class="logo">
 			<a
