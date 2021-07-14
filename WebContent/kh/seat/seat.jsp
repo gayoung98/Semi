@@ -26,10 +26,41 @@
         		url: "${pageContext.request.contextPath}/complete.seat",
         		dataType: "JSON"
         	}).done(function(result){
+        		console.log(result)
+        		if(result == "mo"){
+        			console.log("경로 확인")
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "tu"){
+        			console.log("경로 확인")
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "we"){
+        			console.log("경로 확인")
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "th"){
+        			console.log("경로 확인")
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else if(result == "fr"){
+        			console.log("경로 확인")
+        			$("#"+result).css("font-size","40px")
+        			$("#"+result).css("background-color","#D8E3E7")
+        			$("#"+result).css("border-radius","49%")
+        		}else{
         		for(var i=0; i<result.length; i++){
         			$("#"+result[i].seat_number).css("background-color","rgb(255, 255, 166)")
         			$("#"+result[i].seat_number).attr("data-Ischoose","true")
         			$("#"+result[i].seat_number).html(result[i].name)
+        			$("#"+result[i].seat_day).css("font-size","40px")
+        			$("#"+result[i].seat_day).css("background-color","#D8E3E7")
+        			$("#"+result[i].seat_day).css("border-radius","49%")
+        		}
         	}
         	})
         	

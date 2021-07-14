@@ -85,13 +85,17 @@ public class SeatController extends HttpServlet {
 				for(SeatDTO sd:dao.classList(date, khclass, branch) ) {
 					System.out.println(sd.getName());
 				}
-
+				if(dao.classList(date, khclass, branch).size() == 0) {
+					System.out.println("아무도 신청 안함");
+					response.getWriter().append(gs.toJson(date));
+				}else {
 				response.getWriter().append(gs.toJson(dao.classList(date, khclass, branch)));
 				/* request.getRequestDispatcher("seat/seat.jsp").forward(request, response); */
-			
+				}
 			}else if(url.contentEquals("/date.seat")) {
 				date = request.getParameter("date");
-				response.sendRedirect("kh/seat/seat.jsp");
+				request.getRequestDispatcher("kh/seat/seat.jsp").forward(request, response);
+			
 			}else if(url.contentEquals("/seat.seat")) {
 				System.out.println("컨트롤러 들렀다 감");
 				request.getRequestDispatcher("kh/seat/seat.jsp").forward(request, response);
