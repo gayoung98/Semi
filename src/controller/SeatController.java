@@ -72,7 +72,7 @@ public class SeatController extends HttpServlet {
 					String seat_number = (String)request.getParameter("cancelSeat");
 					boolean mySeat = dao.mySeat(email, seat_number, date);
 					if(mySeat == true) {
-						dao.delete(new SeatDTO(email, request.getParameter("cancelSeat")));
+						dao.delete(email, request.getParameter("cancelSeat"));
 						response.getWriter().append(request.getParameter("cancelSeat"));
 					}else {
 						//다른 사람이 신청한 좌석 누를때

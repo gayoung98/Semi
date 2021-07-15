@@ -41,12 +41,12 @@ public class SeatDAO {
 			return result;
 		}
 	}
-	public int delete(SeatDTO dto) throws Exception{
+	public int delete(String email, String seat_number) throws Exception{
 		String sql = "delete from seat where email = ? and seat_number = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, dto.getEmail());
-			pstat.setString(1, dto.getSeat_number());
+			pstat.setString(1, email);
+			pstat.setString(2, seat_number);
 			int result = pstat.executeUpdate();
 			return result;
 		}

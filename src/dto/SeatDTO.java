@@ -9,6 +9,7 @@ public class SeatDTO {
 	private String name;
 	private String seat_number;
 	private Date apply_date;
+	private String eamil;
 	
 	public SeatDTO() {}
 	public SeatDTO(int seq, String seat_day, String email, String name, String seat_number, Date apply_date) {
@@ -26,6 +27,7 @@ public class SeatDTO {
 		this.seat_day = seat_day;
 		this.seat_number = seat_number;
 	}
+	
 	public int getSeq() {
 		return seq;
 	}
