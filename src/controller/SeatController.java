@@ -19,7 +19,6 @@ import dto.SeatDTO;
 
 @WebServlet("*.seat")
 public class SeatController extends HttpServlet {
-	static String date = "mo";
 	private final ReentrantLock re = new ReentrantLock();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +27,7 @@ public class SeatController extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset= utf-8");
 		try {
-			System.out.println(date);
+		
 			String requestURI = request.getRequestURI();
 			String ctxPath = request.getContextPath();
 			String url = requestURI.substring(ctxPath.length());
@@ -37,6 +36,7 @@ public class SeatController extends HttpServlet {
 			System.out.println(url);
 			if(url.contentEquals("/reserve2.seat")){
 				re.lock();
+				String date  = request.getParameter("date");
 				System.out.println((String)request.getParameter("seatNumber"));
 				System.out.println((String)request.getParameter("cancelSeat"));
 				String email = (String) request.getSession().getAttribute("login");
@@ -55,22 +55,16 @@ public class SeatController extends HttpServlet {
 					if(count < 14) {
 						if(already == false && conflict == false) {
 							int deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
-							System.out.println(deleteSame);
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
-							
-							
-							
-							Thread.sleep((long)Math.random()*1000+1);
 	                        deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
-	                        System.out.println(deleteSame);
 	                        response.getWriter().append(request.getParameter("seatNumber"));
 	                     }
 						}else {
-							//이미 선택했는데 다른 좌석 누를때
+							//�씠誘� �꽑�깮�뻽�뒗�뜲 �떎瑜� 醫뚯꽍 �늻瑜쇰븣
 							response.getWriter().append("already");
 						}
 					}else {
-						//14명 신청했을때
+						//14紐� �떊泥��뻽�쓣�븣
 						response.getWriter().append("corona");
 					}
 			
@@ -82,14 +76,14 @@ public class SeatController extends HttpServlet {
 						dao.delete(email, request.getParameter("cancelSeat"));
 						response.getWriter().append(request.getParameter("cancelSeat"));
 					}else {
-						//다른 사람이 신청한 좌석 누를때
+						//�떎瑜� �궗�엺�씠 �떊泥��븳 醫뚯꽍 �늻瑜쇰븣
 						response.getWriter().append("notmyseat");
 					}
 				}
 				re.unlock();
 			} else if(url.contentEquals("/complete.seat")) {
 				Gson gs =new Gson(); 
-				
+				String date  = request.getParameter("date");
 //				date = request.getParameter("date");
 //				System.out.println("date: " + date);
 				
@@ -100,24 +94,23 @@ public class SeatController extends HttpServlet {
 				String name = dto.getName();
 				
 				String mySeatNumber = dao.mySeatNumber(date, name);
-				int deleteSame = dao.deleteSame(dao.min(name, mySeatNumber), name, mySeatNumber);
-				
+				if(mySeatNumber != null ) dao.deleteSame(dao.min(name, mySeatNumber), name, mySeatNumber);
 				for(SeatDTO sd:dao.classList(date, khclass, branch) ) {
 					System.out.println(sd.getEmail());
 				}
 				if(dao.classList(date, khclass, branch).size() == 0) {
-					System.out.println("아무도 신청 안함");
 					response.getWriter().append(gs.toJson(date));
 				}else {
 				response.getWriter().append(gs.toJson(dao.classList(date, khclass, branch)));
 				/* request.getRequestDispatcher("seat/seat.jsp").forward(request, response); */
 				}
 			}else if(url.contentEquals("/date.seat")) {
-				date = request.getParameter("date");
+				String date  = request.getParameter("date");
+				request.setAttribute("date", date);
 				request.getRequestDispatcher("kh/seat/seat.jsp").forward(request, response);
 			
 			}else if(url.contentEquals("/seat.seat")) {
-				System.out.println("컨트롤러 들렀다 감");
+				String date  = request.getParameter("date");
 				request.getRequestDispatcher("kh/seat/seat.jsp").forward(request, response);
 			}
 

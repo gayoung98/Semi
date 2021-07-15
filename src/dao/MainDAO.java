@@ -46,6 +46,7 @@ public class MainDAO {
 		}
 
 	}
+	
 	public List<MainDTO> getAllList() throws Exception{
 		String sql = "select * from chatBoard";
 		List<MainDTO> list = new ArrayList<>();
@@ -59,6 +60,7 @@ public class MainDAO {
 			return list;
 		}
 	}
+	
 	public List<MainDTO> likeFacebook(int viewcount,int index, String khclass, String branch) throws Exception{
 		String sql = "select seq, writer, id, contents, class, write_date from (select row_number() over(order by c.seq desc) rnum, c.seq, c.writer, c.id, c.contents, c.class, c.write_date, m.branch from chatboard c,kh_member m where c.contents is not null and m.email =c.writer and ((m.branch =? and c.class =?) or m.id = 'manager')) where rnum between ? and ?";
 		List<MainDTO> li = new ArrayList();

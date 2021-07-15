@@ -140,6 +140,7 @@ margin :0px;
      
         	$.ajax({
         		url: "${pageContext.request.contextPath}/complete.seat",
+        		data: {"date" : $("#date").val()},
         		dataType: "JSON"
         	}).done(function(result){
         		if(result == "mo"){
@@ -232,7 +233,7 @@ margin :0px;
             		if(confirm("해당 좌석을 예약하시겠습니까?")){
 	                $.ajax({
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
-	                	data: {"seatNumber":$(this).attr("id")}
+	                	data: {"seatNumber":$(this).attr("id") , "date" : $("#date").val()}
 	                }).done(function(result){
 	                	console.log(result)
 	                	if(result == "already"){
@@ -257,7 +258,7 @@ margin :0px;
                 		}else{
                 	$.ajax({
 	                	url: "${pageContext.request.contextPath}/reserve2.seat",
-	                	data: {"cancelSeat":$(this).attr("id")}
+	                	data: {"cancelSeat":$(this).attr("id"), "date" : $("#date").val()}
 	                }).done(function(result){
 	                	if(result == "notmyseat"){
 	                		alert("다른 사람이 먼저 예약한 자리입니다.")
@@ -294,6 +295,7 @@ margin :0px;
             <div class="week shadow bg-#D8E3E7 rounded" id="th"><a href ="${pageContext.request.contextPath}/date.seat?date=th">목</a></div>
             <div class="week shadow bg-#D8E3E7 rounded" id="fr"><a href ="${pageContext.request.contextPath}/date.seat?date=fr">금</a></div>
         </div>
+        <input type ="hidden" id =date value = "${date }">
         <div class="letter">
         [우리반 좌석 예약]
         </div>

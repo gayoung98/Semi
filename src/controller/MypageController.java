@@ -57,7 +57,7 @@ public class MypageController extends HttpServlet{
 		response.setContentType("html/text; charset=utf-8");
 		
 		String session = (String) request.getSession().getAttribute("login");
-		int maxSize = 1024*1024*5; //占쎈／�뜝占� �뜝�럥�뵜�슖�돦裕녻キ占� �뜝�럥�냱�뜝�럩逾� �뜝�럡苡욜뼨�먯삕 5mb
+		int maxSize = 1024*1024*5; //�뜝�럥竊륅옙�쐻�뜝占� 占쎈쐻占쎈윥占쎈턀占쎌뒙占쎈룱獒뺣끇�궘�뜝占� 占쎈쐻占쎈윥占쎈꺊占쎈쐻占쎈윪�억옙 占쎈쐻占쎈윞�떋�슌堉⑨옙癒��굲 5mb
  		String uri = request.getRequestURI();
 		String ctxPath = request.getContextPath();
 		String url = uri.substring(ctxPath.length());
@@ -249,7 +249,7 @@ public class MypageController extends HttpServlet{
 			int result = idao.update(temp_id);
 			if(result>0) {
 				request.setAttribute("update_result",result);
-				l.trace(request.getRemoteAddr()+ " 마이페이지 정보수정");
+				l.trace(request.getRemoteAddr()+ " 留덉씠�럹�씠吏� �젙蹂댁닔�젙");
 			}
 			request.setAttribute("seq",temp_id.getSeq());
 			request.getRequestDispatcher("kh/inquired/updateResult.jsp").forward(request, response);
@@ -267,7 +267,6 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("seq",Integer.parseInt(request.getParameter("seq")));
 				request.getRequestDispatcher("kh/inquired/updateResult.jsp").forward(request, response);
 			} catch (Exception e) {
-				e.printStackTrace();
 				response.sendRedirect("error.jsp");				
 			}
 			break;
