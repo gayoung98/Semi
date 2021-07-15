@@ -157,22 +157,15 @@ $(document).on('click', '#navbarDropdownMenuLink', function() {
         
         <!--페이징 네비바-->
 			<div class="nav justify-content-center pagingBar">
-			<c:forEach var="i" items="${navi}" varStatus="s">
-					<c:choose>
-						<c:when test="${i=='>'}">
-							<a href="${pageContext.request.contextPath}/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}">${i}</a>
-							<!--s.index 10번인테 -1한 (배열 9번)요소: index 10+1=11번째!(배열로 10번요소) -->
-						</c:when>
-						<c:when test="${i=='<'}">
-							<a href="${pageContext.request.contextPath}/list.nboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}">${i}</a>
-							<!--s.index 10번인테 +1한 (배열 10번)요소;index 11-1= 10번째(배열의 9번요소)! -->
-						</c:when>
-						<c:otherwise>
-							<a href="${pageContext.request.contextPath}/list.nboard?cpage=${i}&category=${category}&keyword=${keyword}">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</div>	
+				<ul class="pagination">	
+					 <li class="page-item"><a href="${pageContext.request.contextPath}/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}" class="page-link"> &laquo; </a>
+						<c:forEach var="i" items="${navi}" varStatus="s">
+							<li class="page-item"><a href="${pageContext.request.contextPath}/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}" class="page-link" id="${i}">${i}</a>
+						</c:forEach>
+					 <li class="page-item"><a href="${pageContext.request.contextPath}/list.nboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}" class="page-link"> &raquo; </a>
+				</ul>
+			</div>
+			<input type = hidden id = cpage value = ${cpage }>	
         <div class="text-right footer">
          <input type=button class="btn btn-secondary" value="메인으로" id="back">
         
