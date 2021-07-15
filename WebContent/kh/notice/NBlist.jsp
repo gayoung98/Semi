@@ -37,10 +37,13 @@
     width: 900px;
 }
 .first {
+	padding-top:20px;
 	border-bottom: 3px solid black;
 	margin-left:10px;
 	margin-right:10px;
 	text-align:center;
+	font-weight: bold; 
+	font-size: larger;
 }
 
 .second {
@@ -48,6 +51,7 @@
 	margin-left:10px;
 	margin-right:10px;
 	text-align:center;
+	font-size: large;
 }
 
 h2{margin-left: 20px;
@@ -60,6 +64,8 @@ padding-bottom:10px;}
 padding-bottom:40px;
 }
 
+.pagingBar a{font-weight: bold; font-size: larger; 
+			 }
 li a:hover{
 color: cadetblue;
 
@@ -82,7 +88,7 @@ float: right;
 }
 
 
-.footer{padding-top:10px; padding-bottom:30px;}
+.footer{padding-top:20px; padding-bottom:30px;}
 
 </style>
 
@@ -150,7 +156,7 @@ $(document).on('click', '#navbarDropdownMenuLink', function() {
         
         
         <!--페이징 네비바-->
-			<div class="nav justify-content-center">
+			<div class="nav justify-content-center pagingBar">
 			<c:forEach var="i" items="${navi}" varStatus="s">
 					<c:choose>
 						<c:when test="${i=='>'}">

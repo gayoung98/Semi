@@ -88,7 +88,7 @@
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
-				.target{margin-left:20px; margin-top:10px;}
+				p{margin-left:20px; margin-top:10px;}
 
 				
 				/* 작성자 정보 */
@@ -350,7 +350,7 @@
 					</div>
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
-						<span class="date"><fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${view.write_date}"/></span> <span class="count">조회
+						<span class="date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${view.write_date}"/></span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
 						<!-- 댓글 수 -->
@@ -405,7 +405,7 @@
 										</div>
 
 										<div class="commentInfo">
-											<span><fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/></span>
+											<span><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${i.write_date}"/></span>
 										</div>
 
 										<!-- 댓글 수정 controller -->

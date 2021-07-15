@@ -59,7 +59,7 @@ return target;
       String ctxPath = request.getContextPath();
 
       String url = requestURI.substring(ctxPath.length());
-      System.out.println("占쎌뒄筌ｏ옙 筌뤿굝議� :" + url);
+      System.out.println("요청 명령 :" + url);
 
       try {
          FreeCommentDAO fcdao = FreeCommentDAO.getInstance();   
@@ -83,10 +83,10 @@ return target;
             String branch = request.getParameter("branch");//branch 占쎌뿯占쎌젾
 
             int cpage =Integer.parseInt(request.getParameter("cpage"));
-            System.out.println("占쎌겱占쎌삺占쎈읂占쎌뵠筌욑옙: "+ cpage);
-            System.out.println("燁삳똾�믤�⑥쥓�봺: "+ category);
-            System.out.println("野껓옙占쎄퉳占쎈선: "+ keyWord);
-            System.out.println("筌욑옙占쎌젎: "+ branch);
+            System.out.println("현재페이지: "+ cpage);
+            System.out.println("카테고리: "+ category);
+            System.out.println("검색어: "+ keyWord);
+            System.out.println("지점: "+ branch);
 
             int endNum= cpage* BoardConfig.Recode_Count_Per_Page;
             int startNum =endNum-(BoardConfig.Navi_Count_Per_Page-1);
@@ -94,28 +94,28 @@ return target;
             List<FreeBoardDTO> boardlist;
             List<String>pageNavi;
 
-            if(keyWord==null || keyWord.contentEquals("")){ //keyword揶쏉옙 占쎈씨椰꾧퀡援�, keyword占쎌벥 input 獄쏅벡�뮞揶쏉옙 �뜮袁⑹뜖 占쎌뿳占쎌뱽 野껋럩�뒭
+            if(keyWord==null || keyWord.contentEquals("")){ 
                if(branch==null || branch.contentEquals("")&  category.contentEquals("") & keyWord.contentEquals("")) {
-                  System.out.println("占쎌읈筌ｏ옙");
+                  System.out.println("전체");
                   boardlist =fbdao.getPageList(startNum,endNum);
-                  pageNavi =fbdao.getPageNavi(cpage,category,keyWord);//占쎈읂占쎌뵠筌욑옙 占쎄퐬�뜮袁㏃쓺占쎌뵠占쎈�∽옙肉� capge,category, keyword 占쎌뵥占쎌쁽 揶쏅�れ뱽 獄쏆룇�벉
+                  pageNavi =fbdao.getPageNavi(cpage,category,keyWord);
 
                }else {
-                  System.out.println("揶쏉옙 筌욑옙占쎌젎");
-                  boardlist =fbdao.getEachBranch(startNum,endNum,branch);// 占쎈읂占쎌뵠筌욑옙 �뵳�딅뮞占쎈뱜 占쎈뻻占쎌삂 甕곕뜇�깈, 占쎄국甕곕뜇�깈 parameter嚥∽옙 獄쏆룇�벉
+                  System.out.println("각 지점");
+                  boardlist =fbdao.getEachBranch(startNum,endNum,branch);
                   pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
 
 
                }
             }else {
                if(branch==null){
-                  System.out.println("keyword + 占쎌읈筌ｏ옙");
+                  System.out.println("keyword + 전체");
                   boardlist =fbdao.searchAll(startNum,endNum,category,keyWord);
                   pageNavi =fbdao.getPageNavi(cpage,category,keyWord);
 
 
                }else {
-                  System.out.println("keyword + 揶쏉옙 筌욑옙占쎌젎");
+                  System.out.println("keyword + 각 지점");
                   boardlist =fbdao.searchBranch(branch,category,keyWord,startNum,endNum); 
                   pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);               
                }
@@ -144,13 +144,13 @@ return target;
 
          }else if(url.contentEquals("/write.fboard")) { 
         	 l.trace(request.getRemoteAddr()+" 자유게시판 작성");
-            System.out.println("占쎌삂占쎄쉐 餓ο옙");
+            System.out.println("자유게시판 작성중");
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
 
 
             File filesFolder = new File(pathName);
-            System.out.println("占쎈늄嚥≪뮇�젰占쎈뱜揶쏉옙 占쏙옙占쎌삢占쎈쭆 筌욊쑴彛� 野껋럥以� : " + pathName);
+            System.out.println("파일경로 : " + pathName);
 
             if(!filesFolder.exists()) filesFolder.mkdir();
 
@@ -161,33 +161,33 @@ return target;
             title= XSSFilter(title);
             String contents= multi.getParameter("contents");
 
-            System.out.println("占쎌젫筌륅옙 :" + title);
-            System.out.println("占쎄땀占쎌뒠 :" + contents);
+            System.out.println("제목 :" + title);
+            System.out.println("내용 :" + contents);
 
             MemberDTO dto = mdao.getMainInfo(session);
 
             int seq = fbdao.getSeq();            
             String branch =dto.getBranch();
-            System.out.println("筌욑옙占쎌젎: "+ branch);
+            System.out.println("지점: "+ branch);
             String writer = session;
-            System.out.println("占쎌삂占쎄쉐占쎌쁽: "+ writer);
+            System.out.println("작성자: "+ writer);
 
             String id = dto.getId();
-            System.out.println("占쎈린甕곤옙: "+ id);
+            System.out.println("학원 학번: "+ id);
 
 
             int result = fbdao.write(seq,branch,writer,title,contents,id);
-            System.out.println("野껊슣�뻻疫뀐옙 占쎌뿯占쎌젾 占쎈연�겫占� : "+ result);
+            System.out.println("글 작성 결과 : "+ result);
 
 
             Set<String>fileNames = multi.getFileNameSet();
             if(fileNames == null) {
 
             }else {
-               System.out.println("占쎈솁占쎌뵬揶쏉옙占쎈땾 "+fileNames.size());
+               System.out.println("파일갯수 "+fileNames.size());
                for(String fileName : fileNames) {
                   if(!fileName.contentEquals("files")) {//筌ｂ뫀占쏙옙�솁占쎌뵬筌랃옙
-                     System.out.println("占쎈솁占쎌뵬沃섎챸苑� 占쎌뵠�뵳占�: "+ fileName);
+                     System.out.println("파라미터 이름: "+ fileName);
                      String oriName = multi.getOriginalFileName(fileName);
                      String sysName = multi.getFilesystemName(fileName);
 
@@ -201,21 +201,21 @@ return target;
                }
                request.getSession().removeAttribute("ingFiles");
             }
-            List<FreeBoardDTO> boardlist =fbdao.boardList();//筌뤴뫖以� �빊�뮆�젾
+            List<FreeBoardDTO> boardlist =fbdao.boardList();//목록 출력
             request.setAttribute("boardlist", boardlist);
             RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBwriteView.jsp"); //疫뀐옙占쎈쾺疫뀐옙 占쎈읂占쎌뵠筌욑옙嚥∽옙 占쎌뵠占쎈짗
             rd.forward(request, response);
 
-         }else if(url.contentEquals("/detailView.fboard")) {  //占쎄맒占쎄쉭癰귣떯由�
+         }else if(url.contentEquals("/detailView.fboard")) {  //글 상세보기
 
             MemberDTO dto = mdao.getMainInfo(session);
             request.setAttribute("dto", dto);
 
             int boardseq = Integer.parseInt(request.getParameter("seq"));
 
-            fbdao.viewCountPlus(boardseq);//鈺곌퀬�돳占쎈땾 +1
+            fbdao.viewCountPlus(boardseq);//조회수 +1
             FreeBoardDTO bdto = fbdao.detailView(boardseq); 
-            //占쎈늄嚥≪뮉釉� 占쎄텢筌욑옙 �빊�뮆�젾
+            //프로필 사진
             if(pfdao.selectBySeq(bdto.getId()).size()==0){
                String filesPath = request.getServletContext().getRealPath("profile/"+session);      
                File filesFolder = new File(filesPath);
@@ -231,17 +231,17 @@ return target;
             System.out.println("野껊슣�뻻疫뀐옙 甕곕뜇�깈 :"+boardseq);
             request.setAttribute("view", bdto);
 
-            List<FreeFilesDTO>fileList = ffdao.selectAll(boardseq); //筌ｂ뫀占쏙옙�솁占쎌뵬 筌뤴뫖以� �빊�뮆�젾   
-            System.out.println("占쎈솁占쎌뵬占쎌뵠 �뜮袁⑸선 占쎌뿳占쎄돌占쎌뒄? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
-            request.setAttribute("filelist", fileList);//占쎈솁占쎌뵬�뵳�딅뮞占쎈뱜�몴占� request占쎈퓠 占쎈뼖占쎈뮉占쎈뼄.
+            List<FreeFilesDTO>fileList = ffdao.selectAll(boardseq); //첨부파일 목록 출력   
+            System.out.println("파일이 비어 있나요?? "+fileList.isEmpty());//파일이 있나요?
+            request.setAttribute("filelist", fileList);//파일리스트를 request애 담는다.
 
-            request.setAttribute("count", fcdao); //占쎈솊疫뀐옙 占쎈땾 �빊�뮆�젾 
-            List<FreeCommentDTO> list =fcdao.CommentsList(boardseq);//占쎈솊疫뀐옙�뵳�딅뮞占쎈뱜            
-            request.setAttribute("reply", list); //占쎈솊疫뀐옙�뵳�딅뮞占쎈뱜�몴占� request�몴占� 占쎈뼖占쎈뮉占쎈뼄.
+            request.setAttribute("count", fcdao); //파일리스트를 request애 담는다. 
+            List<FreeCommentDTO> list =fcdao.CommentsList(boardseq);//댓글리스트            
+            request.setAttribute("reply", list);//댓글리스트를 request를 담는다.
 
             request.getRequestDispatcher("kh/free/FBdetailView.jsp").forward(request, response);
             
-         }else if(url.contentEquals("/modify.fboard")){ //占쎈땾占쎌젟占쎈릭疫뀐옙
+         }else if(url.contentEquals("/modify.fboard")){ //수정하기
         	 l.trace(request.getRemoteAddr()+" 자유게시판 수정");     
             int boardseq = Integer.parseInt(request.getParameter("seq"));
             System.out.println(boardseq);
@@ -249,8 +249,8 @@ return target;
             request.setAttribute("view", bdto);
 
             List<FreeFilesDTO> fileList = ffdao.selectAll(boardseq);
-            System.out.println("占쎈솁占쎌뵬占쎌뵠 �뜮袁⑸선 占쎌뿳占쎄돌占쎌뒄? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
-            System.out.println("占쎈솁占쎌뵬 揶쏉옙占쎈땾: "+ fileList.size());
+            System.out.println("프로젝트가 저장된 진짜 경로? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
+            System.out.println("파일 갯수?: "+ fileList.size());
             request.setAttribute("filelist", fileList);
 
             request.getRequestDispatcher("kh/free/FBmodify.jsp").forward(request, response);
@@ -262,7 +262,7 @@ return target;
 
 
             File filesFolder = new File(pathName);
-            System.out.println("占쎈늄嚥≪뮇�젰占쎈뱜揶쏉옙 占쏙옙占쎌삢占쎈쭆 筌욊쑴彛� 野껋럥以� : " + pathName);
+            System.out.println("프로젝트가 저장된 진짜 경로 : " + pathName);
 
 
             if(!filesFolder.exists()) {filesFolder.mkdir();}
@@ -273,40 +273,40 @@ return target;
             int board_seq = Integer.parseInt(multi.getParameter("seq"));
             System.out.println(board_seq);
             String uptitle = multi.getParameter("title");
-            System.out.println("占쎈땾占쎌젟占쎈립 占쎌젫筌륅옙:" +uptitle);
+            System.out.println("수정한 제목:" +uptitle);
             String upcontents = multi.getParameter("contents");
-            System.out.println("占쎈땾占쎌젟占쎈립 占쎄땀占쎌뒠: "+ upcontents);
+            System.out.println("수정한 내용: "+ upcontents);
 
             String[]del=multi.getParameterValues("delete");
 
             if(del== null) {
-            }else if(del!= null) {
+            }else if(del!= null) {//삭제할 항목이 null 아닐때, 
                for(String deleteFile : del) {
-                  System.out.println("筌욑옙占쎌뒻 占쎈솁占쎌뵬 甕곕뜇�깈 "+ deleteFile);
+                  System.out.println("지울 파일 번호"+ deleteFile);
 
                   String sysName = ffdao.getSysName(Integer.parseInt(deleteFile));
                   File targetFile = new File(pathName +"/" + sysName); 
                   boolean result = targetFile.delete();
-                  System.out.println("占쎈솁占쎌뵬 占쎄텣占쎌젫 占쎈연�겫占� :" + result);
+                  System.out.println("파일 삭제 여부:" + result);
                   if(result) {ffdao.fileDelete(Integer.parseInt(deleteFile));}
                }
 
                System.out.println(del.length);
             }
                int result = fbdao.modify(board_seq, uptitle, upcontents);
-               System.out.println("占쎈땾占쎌젟 野껉퀗�궢"+ result);
+               System.out.println("수정 결과"+ result);
 
                Set<String>fileNames = multi.getFileNameSet();
-               System.out.println("占쎈솁占쎌뵬揶쏉옙占쎈땾 "+fileNames.size());
+               System.out.println("파일갯수 "+fileNames.size());
                for(String fileName : fileNames) {
                   if(!fileName.contentEquals("files")) {
 
-                  System.out.println("占쎈솁占쎌뵬沃섎챸苑� 占쎌뵠�뵳占�: "+ fileName);
+                  System.out.println("파라미터 이름 "+ fileName);
                   String oriName = multi.getOriginalFileName(fileName);
                   String sysName = multi.getFilesystemName(fileName);
 
                   if(oriName!=null) {  
-                     System.out.println("占쎈솁占쎌뵬占쎌뵠�뵳占�" + oriName + "DB占쎈퓠 占쏙옙占쎌삢占쎈쭡.");
+                     System.out.println("파일이름" + oriName + "DB에 저장됨.");
 
                   }
                }
@@ -318,26 +318,26 @@ return target;
             request.setAttribute("filelist", flist);
             request.getRequestDispatcher("kh/free/FBmodifyView.jsp").forward(request, response);
                
-         }else if(url.contentEquals("/delete.fboard")){ //占쎄텣占쎌젫占쎈릭疫뀐옙
+         }else if(url.contentEquals("/delete.fboard")){ //삭제
         	 l.trace(request.getRemoteAddr()+" 자유게시판 삭제");
-        	 System.out.println("野껊슣�뻻疫뀐옙 占쎄텣占쎌젫餓ο옙");
+        	 System.out.println("삭제중");
             
             String delseq = request.getParameter("seq");
             
             List<FreeFilesDTO>fileList = ffdao.selectAll(Integer.parseInt(delseq)); 
-			System.out.println("占쎈솁占쎌뵬占쎌뵠 �뜮袁⑸선 占쎌뿳占쎄돌占쎌뒄? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
-			if(fileList.isEmpty()) {//占쎈솁占쎌뵬 �뜮袁⑹뜖占쎌죬 占쎌뿳占쎈뼄筌롳옙? 獄쏅뗀以� 野껊슣�뻻疫뀐옙筌랃옙 占쎄텣占쎌젫 
+			System.out.println("파일이 비워져 있나요? "+fileList.isEmpty());;//파일이 있나요?
+			if(fileList.isEmpty()) {//파일 비워져 있다면? 바로 게시글만 삭제
 				
-			}else {	//占쎈툡占쎈빍占쎌뵬筌롳옙? 占쎈뼄占쎌젫 筌ｂ뫀占� 占쎈솁占쎌뵬占쎈즲 占쎄텣占쎌젫 
-            System.out.println("筌욑옙占쎌뒻 占쎈솁占쎌뵬占쎌벥 野껊슣�뻻�눧占� 甕곕뜇�깈:"+delseq);//占쎈뼄筌ｏ옙 筌ｂ뫀占쏙옙�솁占쎌뵬 占쎄텣占쎌젫
+			}else {	//아니라면? 실제 첨부 파일도 삭제 
+            System.out.println("지울 파일의 게시물 번호:"+delseq);//실체 첨부파일 삭제
 			String filesPath =request.getServletContext().getRealPath("uploadDirectory");
-			System.out.println("占쎈늄嚥≪뮇�젰占쎈뱜揶쏉옙 占쏙옙占쎌삢占쎈쭆 筌욊쑴彛� 野껋럥以� : " + filesPath);
+			System.out.println("프로젝트가 저장된 진짜 경로 : " + filesPath);
 			
         	    String sysName = ffdao.getSysNameByparent(Integer.parseInt(delseq));
-        	    System.out.println(sysName + "占쎈솁占쎌뵬 占쎌뵠�뵳占�");
+        	    System.out.println(sysName + "파일 이름");
                 File targetFile = new File(filesPath +"/" + sysName); 
                 boolean result = targetFile.delete();
-                System.out.println("筌ｂ뫀占쏙옙�솁占쎌뵬 占쎄텣占쎌젫 占쎈연�겫占� :" + result);
+                System.out.println("첨부파일 삭제 여부" + result);
                 if(result) {ffdao.fileDeleteByparent(Integer.parseInt(delseq));}  
             
 			}
@@ -346,7 +346,7 @@ return target;
 
                 
          }else if(url.contentEquals("/reportForm.fboard")) { //占쎈뻿�⑥쥚釉�疫뀐옙 占쎈쨲
-            System.out.println("seq 獄쏆룇釉섓옙�긾!!");
+            System.out.println("seq 신고 접수!!");
             int board_seq = Integer.parseInt(request.getParameter("seq"));
             FreeBoardDTO dto = fbdao.detailView(board_seq);
             request.setAttribute("view", dto);
@@ -354,13 +354,13 @@ return target;
 
          }else if(url.contentEquals("/report.fboard")) { //占쎈뻿�⑥쥙荑귞뵳占�
         	 l.trace(request.getRemoteAddr()+" 자유게시판 신고");
-        	 System.out.println("占쎈뻿�⑨옙 筌ｌ꼶�봺餓ο옙!!");
+        	 System.out.println("신고 처리중 !!");
             MemberDTO dto = mdao.getMainInfo(session);
             String id = dto.getId();
             String contents = request.getParameter("contents");
             int parent = Integer.parseInt(request.getParameter("seq"));
             int result = fpdao.report(id,contents,parent);
-            System.out.println("占쎈뻿�⑨옙 筌ｌ꼶�봺 占쎈연�겫占� : "+ result);
+            System.out.println("신고 결과 화면 : "+ result);
 
             RequestDispatcher rd = request.getRequestDispatcher("kh/free/reportResult.jsp"); //占쎈뻿�⑨옙 野껉퀗�궢占쎌넅筌롳옙
             rd.forward(request, response);
