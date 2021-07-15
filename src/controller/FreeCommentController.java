@@ -97,7 +97,7 @@ public class FreeCommentController extends HttpServlet {
 			}
 			}catch(Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
 			}
 	}
 

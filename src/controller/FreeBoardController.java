@@ -42,9 +42,9 @@ public class FreeBoardController extends HttpServlet {
 	Logger l = Logger.getLogger(LoginController.class);
 	
 	
-private String XSSFilter(String target) { //XSS 怨듦꺽 諛⑹뼱�븯�뒗 諛⑸쾿
+private String XSSFilter(String target) { 
 if(target!=null) {
-	target =target.replaceAll("<", "&lt;"); //<瑜� %lt(less than)�쑝濡� 諛붽씀寃좊떎.<script> 湲곕뒫�쓣 �옉�룞�쓣 �븞�븳�떎.=> %ltscript>�씠�젃寃� �굹���깂!!
+	target =target.replaceAll("<", "&lt;"); 
 	target =target.replaceAll(">", "&gt;");
 	target =target.replaceAll("&", "&amp;");
 	}
@@ -73,14 +73,14 @@ return target;
 
 
 
-         if(url.contentEquals("/list.fboard")) { //�뵳�딅뮞占쎈뱜 癰귣떯由�
+         if(url.contentEquals("/list.fboard")) { //리스트 보기
 
-            //野껓옙占쎄퉳疫꿸퀡�뮟 �빊遺쏙옙
-            String category =request.getParameter("category"); //燁삳똾�믤�⑥쥓�봺 
-            String keyWord =request.getParameter("keyword"); //野껓옙占쎄퉳占쎈선 占쎌뿯占쎌젾
+            
+            String category =request.getParameter("category"); 
+            String keyWord =request.getParameter("keyword"); 
             keyWord= XSSFilter(keyWord);
 
-            String branch = request.getParameter("branch");//branch 占쎌뿯占쎌젾
+            String branch = request.getParameter("branch");
 
             int cpage =Integer.parseInt(request.getParameter("cpage"));
             System.out.println("현재페이지: "+ cpage);
@@ -186,7 +186,7 @@ return target;
             }else {
                System.out.println("파일갯수 "+fileNames.size());
                for(String fileName : fileNames) {
-                  if(!fileName.contentEquals("files")) {//筌ｂ뫀占쏙옙�솁占쎌뵬筌랃옙
+                  if(!fileName.contentEquals("files")) {
                      System.out.println("파라미터 이름: "+ fileName);
                      String oriName = multi.getOriginalFileName(fileName);
                      String sysName = multi.getFilesystemName(fileName);
@@ -203,7 +203,7 @@ return target;
             }
             List<FreeBoardDTO> boardlist =fbdao.boardList();//목록 출력
             request.setAttribute("boardlist", boardlist);
-            RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBwriteView.jsp"); //疫뀐옙占쎈쾺疫뀐옙 占쎈읂占쎌뵠筌욑옙嚥∽옙 占쎌뵠占쎈짗
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBwriteView.jsp"); 
             rd.forward(request, response);
 
          }else if(url.contentEquals("/detailView.fboard")) {  //글 상세보기
@@ -249,13 +249,14 @@ return target;
             request.setAttribute("view", bdto);
 
             List<FreeFilesDTO> fileList = ffdao.selectAll(boardseq);
-            System.out.println("프로젝트가 저장된 진짜 경로? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
+            System.out.println("프로젝트가 저장된 진짜 경로? "+fileList.isEmpty());//파일이 비워져 있나요?
+            
             System.out.println("파일 갯수?: "+ fileList.size());
             request.setAttribute("filelist", fileList);
 
             request.getRequestDispatcher("kh/free/FBmodify.jsp").forward(request, response);
 
-         }else if(url.contentEquals("/modifyedit.fboard")) {   //疫뀐옙 占쎈땾占쎌젟占쎈릭疫뀐옙
+         }else if(url.contentEquals("/modifyedit.fboard")) {   //수정하기
             
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
@@ -341,18 +342,18 @@ return target;
                 if(result) {ffdao.fileDeleteByparent(Integer.parseInt(delseq));}  
             
 			}
-            int delfree = fbdao.delete(Integer.parseInt(delseq)); ;//野껊슣�뻻疫뀐옙 占쎄텣占쎌젫 + 占쎌뇚占쎌삋占쎄텕嚥∽옙 筌ｂ뫀占쏙옙�솁占쎌뵬占쎈즲 占쎄텣占쎌젫 
+            int delfree = fbdao.delete(Integer.parseInt(delseq)); ;//삭제할 게시글 
             response.sendRedirect("kh/free/FBdeleteView.jsp");
 
                 
-         }else if(url.contentEquals("/reportForm.fboard")) { //占쎈뻿�⑥쥚釉�疫뀐옙 占쎈쨲
+         }else if(url.contentEquals("/reportForm.fboard")) { //신고하기 폼
             System.out.println("seq 신고 접수!!");
             int board_seq = Integer.parseInt(request.getParameter("seq"));
             FreeBoardDTO dto = fbdao.detailView(board_seq);
             request.setAttribute("view", dto);
             request.getRequestDispatcher("kh/free/reportPop.jsp").forward(request, response);
 
-         }else if(url.contentEquals("/report.fboard")) { //占쎈뻿�⑥쥙荑귞뵳占�
+         }else if(url.contentEquals("/report.fboard")) { //신고하기 
         	 l.trace(request.getRemoteAddr()+" 자유게시판 신고");
         	 System.out.println("신고 처리중 !!");
             MemberDTO dto = mdao.getMainInfo(session);
@@ -362,12 +363,12 @@ return target;
             int result = fpdao.report(id,contents,parent);
             System.out.println("신고 결과 화면 : "+ result);
 
-            RequestDispatcher rd = request.getRequestDispatcher("kh/free/reportResult.jsp"); //占쎈뻿�⑨옙 野껉퀗�궢占쎌넅筌롳옙
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/reportResult.jsp"); //신고 결과화면
             rd.forward(request, response);
          }
       }catch(Exception e) {
          e.printStackTrace();
-         response.sendRedirect("error.jsp");
+         response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
       }
    }
 
