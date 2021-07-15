@@ -10,6 +10,7 @@
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
 		
 			
 			<style>
@@ -319,7 +320,18 @@
 						$($(".target").siblings("p").children("img")).css("max-heigth","1280px");
 					})
 				
-					
+					 $("#replyBtn").on("click",function(){ //글 작성 전 댓글 내용 입력여부 확인
+    		    let contentsCheck=$(".comment_inbox_text");
+
+    		    if (contentsCheck.val()=="") {
+    		        alert("댓글을 입력해주세요.");
+    		        contentsCheck.focus();
+    		        return false;
+    		    }
+    		   
+           		$("#writeForm").submit();
+
+    		});
 				  //게시글 신고
 					  $("#report").on("click",function() {							
 					let parent ="${view.seq}";
@@ -456,9 +468,9 @@
 											
 									</form>
 									<!-- 댓글 삭제 -->
-									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="delReplyForm">
+									<form action="${pageContext.request.contextPath}/delete.freecom" method="post" id="delReplyForm" >
 										<button type="button" value="${i.seq}"
-											class="btn btn-dark deleteReply">삭제</button>
+											class="btn btn-dark deleteReply" >삭제</button>
 										<input type="hidden" name="seq" value="${i.seq}"> 
 										<input type="hidden" name="parent" value="${i.parent}">
 										</c:if>
@@ -469,11 +481,11 @@
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="${pageContext.request.contextPath}/write.freecom" method="post">
+						<form action="${pageContext.request.contextPath}/write.freecom" method="post" id="writeForm">
 							<strong>${dto.name}</strong>
-							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
+							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text" required></textarea>
 
-							<input type="submit" class="btn btn-dark" id="replyBtn" value="등록">
+							<input type="button" class="btn btn-dark" id="replyBtn" value="등록">
 							<input type="hidden" name="parent" value="${view.seq}">
 						</form>
 					</div>

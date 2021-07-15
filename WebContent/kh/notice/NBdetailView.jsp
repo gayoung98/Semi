@@ -10,6 +10,7 @@
 			<title>공지게시판 - ${view.title}</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
 
 			<style>
 			
@@ -294,6 +295,18 @@
 						
 					});
 					
+					 $("#replyBtn").on("click",function(){ //글 작성 전 댓글 내용 입력여부 확인
+			    		    let contentsCheck=$(".comment_inbox_text");
+
+			    		    if (contentsCheck.val()=="") {
+			    		        alert("댓글을 입력해주세요.");
+			    		        contentsCheck.focus();
+			    		        return false;
+			    		    }
+			    		   
+			           		$("#writeForm").submit();
+
+			    		});
 					
 					$(document).on('click', '#navbarDropdownMenuLink', function() {
 						   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
@@ -423,11 +436,11 @@
 					</c:forEach>
 					<hr>
 					<div class="col-12 mb-5 comment_writer">
-						<form action="${pageContext.request.contextPath}/write.noticom" method="post">
+						<form action="${pageContext.request.contextPath}/write.noticom" method="post" id="writeForm">
 							<strong>${dto.name}</strong>
 							<textarea placeholder="댓글을 남겨보세요" name="comments" class="comment_inbox_text"></textarea>
 
-							<input type="submit" class="btn btn-dark" id="replyBtn" value="등록">
+							<input type="button" class="btn btn-dark" id="replyBtn" value="등록">
 							<input type="hidden" name="parent" value="${view.seq}">
 						</form>
 					</div>
