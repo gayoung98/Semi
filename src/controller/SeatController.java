@@ -51,12 +51,14 @@ public class SeatController extends HttpServlet {
 					boolean conflict = dao.conflict(seat_number);
 					if(count < 14) {
 						if(already == false && conflict == false) {
-							//List<Integer> min = dao.min(date, seat_number);
-							//System.out.println("min : " + min);
-							//int deleteSame = dao.deleteSame(min, name, seat_number);
+							int deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
+							System.out.println(deleteSame);
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
-							//deleteSame = dao.deleteSame(min, name, seat_number);
-							response.getWriter().append(request.getParameter("seatNumber"));
+							Thread.sleep((long)Math.random()*1000+1);
+	                        deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
+	                        System.out.println(deleteSame);
+	                        response.getWriter().append(request.getParameter("seatNumber"));
+	                     }
 						}else {
 							//이미 선택했는데 다른 좌석 누를때
 							response.getWriter().append("already");
@@ -65,12 +67,12 @@ public class SeatController extends HttpServlet {
 						//14명 신청했을때
 						response.getWriter().append("corona");
 					}
-				}
+				
 				if(request.getParameter("cancelSeat")!=null) {
 					String seat_number = (String)request.getParameter("cancelSeat");
 					boolean mySeat = dao.mySeat(email, seat_number, date);
 					if(mySeat == true) {
-						dao.delete(new SeatDTO(request.getParameter("cancelSeat")));
+						dao.delete(new SeatDTO(email, request.getParameter("cancelSeat")));
 						response.getWriter().append(request.getParameter("cancelSeat"));
 					}else {
 						//다른 사람이 신청한 좌석 누를때

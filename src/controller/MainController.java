@@ -89,7 +89,7 @@ public class MainController extends HttpServlet {
 				MemberDTO dto = memdao.getMainInfo(email);
 				String khclass = dto.getKhClass();
 				String branch = dto.getBranch();
-				List<MainDTO> list = dao.likeFacebook(10, Integer.parseInt(request.getParameter("count")), khclass, branch);
+				List<MainDTO> list = dao.likeFacebook(20, Integer.parseInt(request.getParameter("count")), khclass, branch);
 				String result = g.toJson(list);
 				response.getWriter().append(result);
 			} else if(url.contentEquals("/calander.main")) {
@@ -112,7 +112,7 @@ public class MainController extends HttpServlet {
 				}
 				request.setAttribute("month",(cal.get(caltoGre.MONTH)+1));
 				try {
-					request.setAttribute("list", cd.getSchedual("C","J",cal.get(caltoGre.MONTH)+1)); // ½Ã¿¬À» À§ÇØ J¹Ý CÅ¬·¡½º·Î ÀÓ½Ã ÁöÁ¤.
+					request.setAttribute("list", cd.getSchedual("C","J",cal.get(caltoGre.MONTH)+1)); // ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Jï¿½ï¿½ CÅ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					//request.setAttribute("list", cd.getSchedual(memdao.getAllInfo(email).getKhClass(),memdao.getAllInfo(email).getBranch(),cal.get(caltoGre.MONTH)+1)); // 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

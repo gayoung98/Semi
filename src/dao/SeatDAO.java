@@ -42,9 +42,10 @@ public class SeatDAO {
 		}
 	}
 	public int delete(SeatDTO dto) throws Exception{
-		String sql = "delete from seat where seat_number = ?";
+		String sql = "delete from seat where email = ? and seat_number = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, dto.getEmail());
 			pstat.setString(1, dto.getSeat_number());
 			int result = pstat.executeUpdate();
 			return result;
@@ -146,23 +147,21 @@ public class SeatDAO {
 		}
 	}
 
-	public List <Integer> min(String date, String seat_number) throws Exception{
-		List <Integer> li = new ArrayList<Integer>();
-		String sql = "select min(seq) from seat where seat_day = ? and seat_number = ?";
-		int count = 0;
-		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, date);
-			pstat.setString(2, seat_number);
-			try(ResultSet rs = pstat.executeQuery()){
-				while(rs.next()) {
-					li.add(rs.getInt(1));
-				}
-				return li;
-			}
-		}
-
-	}
+	public int min(String date, String seat_number) throws Exception{
+        String sql = "select min(seq) from seat where seat_day = ? and seat_number = ?";
+        try(Connection con = this.getConnection();
+              PreparedStatement pstat = con.prepareStatement(sql)){
+           pstat.setString(1, date);
+           pstat.setString(2, seat_number);
+           try(ResultSet rs = pstat.executeQuery()){
+              if(rs.next())
+              {
+                   return rs.getInt(1);
+              }
+           }
+         return 0;
+           }
+        }     
 	public int deleteSame(int min, String date, String seat_number) throws Exception{
 		String sql = "delete from seat where seq > ? and seat_day = ? and seat_number = ?";
 		try(Connection con = this.getConnection();
