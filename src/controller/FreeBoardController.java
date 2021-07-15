@@ -42,9 +42,9 @@ public class FreeBoardController extends HttpServlet {
 	Logger l = Logger.getLogger(LoginController.class);
 	
 	
-private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+private String XSSFilter(String target) { //XSS 怨듦꺽 諛⑹뼱�븯�뒗 諛⑸쾿
 if(target!=null) {
-	target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+	target =target.replaceAll("<", "&lt;"); //<瑜� %lt(less than)�쑝濡� 諛붽씀寃좊떎.<script> 湲곕뒫�쓣 �옉�룞�쓣 �븞�븳�떎.=> %ltscript>�씠�젃寃� �굹���깂!!
 	target =target.replaceAll(">", "&gt;");
 	target =target.replaceAll("&", "&amp;");
 	}
@@ -59,7 +59,7 @@ return target;
       String ctxPath = request.getContextPath();
 
       String url = requestURI.substring(ctxPath.length());
-      System.out.println("�슂泥� 紐낅졊 :" + url);
+      System.out.println("占쎌뒄筌ｏ옙 筌뤿굝議� :" + url);
 
       try {
          FreeCommentDAO fcdao = FreeCommentDAO.getInstance();   
@@ -73,20 +73,20 @@ return target;
 
 
 
-         if(url.contentEquals("/list.fboard")) { //由ъ뒪�듃 蹂닿린
+         if(url.contentEquals("/list.fboard")) { //�뵳�딅뮞占쎈뱜 癰귣떯由�
 
-            //寃��깋湲곕뒫 異붽�
-            String category =request.getParameter("category"); //移댄뀒怨좊━ 
-            String keyWord =request.getParameter("keyword"); //寃��깋�뼱 �엯�젰
+            //野껓옙占쎄퉳疫꿸퀡�뮟 �빊遺쏙옙
+            String category =request.getParameter("category"); //燁삳똾�믤�⑥쥓�봺 
+            String keyWord =request.getParameter("keyword"); //野껓옙占쎄퉳占쎈선 占쎌뿯占쎌젾
             keyWord= XSSFilter(keyWord);
 
-            String branch = request.getParameter("branch");//branch �엯�젰
+            String branch = request.getParameter("branch");//branch 占쎌뿯占쎌젾
 
             int cpage =Integer.parseInt(request.getParameter("cpage"));
-            System.out.println("�쁽�옱�럹�씠吏�: "+ cpage);
-            System.out.println("移댄뀒怨좊━: "+ category);
-            System.out.println("寃��깋�뼱: "+ keyWord);
-            System.out.println("吏��젏: "+ branch);
+            System.out.println("占쎌겱占쎌삺占쎈읂占쎌뵠筌욑옙: "+ cpage);
+            System.out.println("燁삳똾�믤�⑥쥓�봺: "+ category);
+            System.out.println("野껓옙占쎄퉳占쎈선: "+ keyWord);
+            System.out.println("筌욑옙占쎌젎: "+ branch);
 
             int endNum= cpage* BoardConfig.Recode_Count_Per_Page;
             int startNum =endNum-(BoardConfig.Navi_Count_Per_Page-1);
@@ -94,28 +94,28 @@ return target;
             List<FreeBoardDTO> boardlist;
             List<String>pageNavi;
 
-            if(keyWord==null || keyWord.contentEquals("")){ //keyword媛� �뾾嫄곕굹, keyword�쓽 input 諛뺤뒪媛� 鍮꾩썙 �엳�쓣 寃쎌슦
+            if(keyWord==null || keyWord.contentEquals("")){ //keyword揶쏉옙 占쎈씨椰꾧퀡援�, keyword占쎌벥 input 獄쏅벡�뮞揶쏉옙 �뜮袁⑹뜖 占쎌뿳占쎌뱽 野껋럩�뒭
                if(branch==null || branch.contentEquals("")&  category.contentEquals("") & keyWord.contentEquals("")) {
-                  System.out.println("�쟾泥�");
+                  System.out.println("占쎌읈筌ｏ옙");
                   boardlist =fbdao.getPageList(startNum,endNum);
-                  pageNavi =fbdao.getPageNavi(cpage,category,keyWord);//�럹�씠吏� �꽕鍮꾧쾶�씠�뀡�뿉 capge,category, keyword �씤�옄 媛믪쓣 諛쏆쓬
+                  pageNavi =fbdao.getPageNavi(cpage,category,keyWord);//占쎈읂占쎌뵠筌욑옙 占쎄퐬�뜮袁㏃쓺占쎌뵠占쎈�∽옙肉� capge,category, keyword 占쎌뵥占쎌쁽 揶쏅�れ뱽 獄쏆룇�벉
 
                }else {
-                  System.out.println("媛� 吏��젏");
-                  boardlist =fbdao.getEachBranch(startNum,endNum,branch);// �럹�씠吏� 由ъ뒪�듃 �떆�옉 踰덊샇, �걹踰덊샇 parameter濡� 諛쏆쓬
+                  System.out.println("揶쏉옙 筌욑옙占쎌젎");
+                  boardlist =fbdao.getEachBranch(startNum,endNum,branch);// 占쎈읂占쎌뵠筌욑옙 �뵳�딅뮞占쎈뱜 占쎈뻻占쎌삂 甕곕뜇�깈, 占쎄국甕곕뜇�깈 parameter嚥∽옙 獄쏆룇�벉
                   pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);
 
 
                }
             }else {
                if(branch==null){
-                  System.out.println("keyword + �쟾泥�");
+                  System.out.println("keyword + 占쎌읈筌ｏ옙");
                   boardlist =fbdao.searchAll(startNum,endNum,category,keyWord);
                   pageNavi =fbdao.getPageNavi(cpage,category,keyWord);
 
 
                }else {
-                  System.out.println("keyword + 媛� 吏��젏");
+                  System.out.println("keyword + 揶쏉옙 筌욑옙占쎌젎");
                   boardlist =fbdao.searchBranch(branch,category,keyWord,startNum,endNum); 
                   pageNavi =fbdao.getPageNavi(cpage,category,keyWord,branch);               
                }
@@ -143,14 +143,14 @@ return target;
             response.sendRedirect("kh/free/FBwrite.jsp");
 
          }else if(url.contentEquals("/write.fboard")) { 
-        	 l.trace(request.getRemoteAddr()+" �옄�쑀寃뚯떆�뙋 �옉�꽦");
-            System.out.println("�옉�꽦 以�");
+        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎌삂占쎄쉐");
+            System.out.println("占쎌삂占쎄쉐 餓ο옙");
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
 
 
             File filesFolder = new File(pathName);
-            System.out.println("�봽濡쒖젥�듃媛� ���옣�맂 吏꾩쭨 寃쎈줈 : " + pathName);
+            System.out.println("占쎈늄嚥≪뮇�젰占쎈뱜揶쏉옙 占쏙옙占쎌삢占쎈쭆 筌욊쑴彛� 野껋럥以� : " + pathName);
 
             if(!filesFolder.exists()) filesFolder.mkdir();
 
@@ -160,35 +160,34 @@ return target;
             String title =multi.getParameter("title");
             title= XSSFilter(title);
             String contents= multi.getParameter("contents");
-			contents = XSSFilter(contents);
 
-            System.out.println("�젣紐� :" + title);
-            System.out.println("�궡�슜 :" + contents);
+            System.out.println("占쎌젫筌륅옙 :" + title);
+            System.out.println("占쎄땀占쎌뒠 :" + contents);
 
             MemberDTO dto = mdao.getMainInfo(session);
 
             int seq = fbdao.getSeq();            
             String branch =dto.getBranch();
-            System.out.println("吏��젏: "+ branch);
+            System.out.println("筌욑옙占쎌젎: "+ branch);
             String writer = session;
-            System.out.println("�옉�꽦�옄: "+ writer);
+            System.out.println("占쎌삂占쎄쉐占쎌쁽: "+ writer);
 
             String id = dto.getId();
-            System.out.println("�븰踰�: "+ id);
+            System.out.println("占쎈린甕곤옙: "+ id);
 
 
             int result = fbdao.write(seq,branch,writer,title,contents,id);
-            System.out.println("寃뚯떆湲� �엯�젰 �뿬遺� : "+ result);
+            System.out.println("野껊슣�뻻疫뀐옙 占쎌뿯占쎌젾 占쎈연�겫占� : "+ result);
 
 
             Set<String>fileNames = multi.getFileNameSet();
             if(fileNames == null) {
 
             }else {
-               System.out.println("�뙆�씪媛��닔 "+fileNames.size());
+               System.out.println("占쎈솁占쎌뵬揶쏉옙占쎈땾 "+fileNames.size());
                for(String fileName : fileNames) {
-                  if(!fileName.contentEquals("files")) {//泥⑤��뙆�씪留�
-                     System.out.println("�뙆�씪誘명꽣 �씠由�: "+ fileName);
+                  if(!fileName.contentEquals("files")) {//筌ｂ뫀占쏙옙�솁占쎌뵬筌랃옙
+                     System.out.println("占쎈솁占쎌뵬沃섎챸苑� 占쎌뵠�뵳占�: "+ fileName);
                      String oriName = multi.getOriginalFileName(fileName);
                      String sysName = multi.getFilesystemName(fileName);
 
@@ -202,69 +201,68 @@ return target;
                }
                request.getSession().removeAttribute("ingFiles");
             }
-            List<FreeBoardDTO> boardlist =fbdao.boardList();//紐⑸줉 異쒕젰
+            List<FreeBoardDTO> boardlist =fbdao.boardList();//筌뤴뫖以� �빊�뮆�젾
             request.setAttribute("boardlist", boardlist);
-            RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBwriteView.jsp"); //湲��벐湲� �럹�씠吏�濡� �씠�룞
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBwriteView.jsp"); //疫뀐옙占쎈쾺疫뀐옙 占쎈읂占쎌뵠筌욑옙嚥∽옙 占쎌뵠占쎈짗
             rd.forward(request, response);
 
-         }else if(url.contentEquals("/detailView.fboard")) {  //�긽�꽭蹂닿린
+         }else if(url.contentEquals("/detailView.fboard")) {  //占쎄맒占쎄쉭癰귣떯由�
 
             MemberDTO dto = mdao.getMainInfo(session);
             request.setAttribute("dto", dto);
 
             int boardseq = Integer.parseInt(request.getParameter("seq"));
 
-            fbdao.viewCountPlus(boardseq);//議고쉶�닔 +1
-
-            //�봽濡쒗븘 �궗吏� 異쒕젰
-            if(pfdao.selectBySeq(mpdao.getID(session)).size()==0){
+            fbdao.viewCountPlus(boardseq);//鈺곌퀬�돳占쎈땾 +1
+            FreeBoardDTO bdto = fbdao.detailView(boardseq); 
+            //占쎈늄嚥≪뮉釉� 占쎄텢筌욑옙 �빊�뮆�젾
+            if(pfdao.selectBySeq(bdto.getId()).size()==0){
                String filesPath = request.getServletContext().getRealPath("profile/"+session);      
                File filesFolder = new File(filesPath);
                if(!filesFolder.exists()) filesFolder.mkdirs();
                request.setAttribute("defalut_profile_img","profile.png");
             } else { 
                request.setAttribute("mm", mpdao);
-               request.setAttribute("profile_img",pfdao);
+               request.setAttribute("profile_img",pfdao.getSysName(bdto.getId()));
             }
 
             request.setAttribute("member",mpdao.getMember(session));
 
-            FreeBoardDTO bdto = fbdao.detailView(boardseq); //�긽�꽭 蹂닿린
-            System.out.println("寃뚯떆湲� 踰덊샇 :"+boardseq);
+            System.out.println("野껊슣�뻻疫뀐옙 甕곕뜇�깈 :"+boardseq);
             request.setAttribute("view", bdto);
 
-            List<FreeFilesDTO>fileList = ffdao.selectAll(boardseq); //泥⑤��뙆�씪 紐⑸줉 異쒕젰   
-            System.out.println("�뙆�씪�씠 鍮꾩뼱 �엳�굹�슂? "+fileList.isEmpty());//�뙆�씪�씠 �엳�굹�슂?
-            request.setAttribute("filelist", fileList);//�뙆�씪由ъ뒪�듃瑜� request�뿉 �떞�뒗�떎.
+            List<FreeFilesDTO>fileList = ffdao.selectAll(boardseq); //筌ｂ뫀占쏙옙�솁占쎌뵬 筌뤴뫖以� �빊�뮆�젾   
+            System.out.println("占쎈솁占쎌뵬占쎌뵠 �뜮袁⑸선 占쎌뿳占쎄돌占쎌뒄? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
+            request.setAttribute("filelist", fileList);//占쎈솁占쎌뵬�뵳�딅뮞占쎈뱜�몴占� request占쎈퓠 占쎈뼖占쎈뮉占쎈뼄.
 
-            request.setAttribute("count", fcdao); //�뙎湲� �닔 異쒕젰 
-            List<FreeCommentDTO> list =fcdao.CommentsList(boardseq);//�뙎湲�由ъ뒪�듃            
-            request.setAttribute("reply", list); //�뙎湲�由ъ뒪�듃瑜� request瑜� �떞�뒗�떎.
+            request.setAttribute("count", fcdao); //占쎈솊疫뀐옙 占쎈땾 �빊�뮆�젾 
+            List<FreeCommentDTO> list =fcdao.CommentsList(boardseq);//占쎈솊疫뀐옙�뵳�딅뮞占쎈뱜            
+            request.setAttribute("reply", list); //占쎈솊疫뀐옙�뵳�딅뮞占쎈뱜�몴占� request�몴占� 占쎈뼖占쎈뮉占쎈뼄.
 
             request.getRequestDispatcher("kh/free/FBdetailView.jsp").forward(request, response);
             
-         }else if(url.contentEquals("/modify.fboard")){ //�닔�젙�븯湲�
-        	 l.trace(request.getRemoteAddr()+" �옄�쑀寃뚯떆�뙋 �닔�젙");     
+         }else if(url.contentEquals("/modify.fboard")){ //占쎈땾占쎌젟占쎈릭疫뀐옙
+        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎈땾占쎌젟");     
             int boardseq = Integer.parseInt(request.getParameter("seq"));
             System.out.println(boardseq);
             FreeBoardDTO bdto = fbdao.detailView(boardseq);
             request.setAttribute("view", bdto);
 
             List<FreeFilesDTO> fileList = ffdao.selectAll(boardseq);
-            System.out.println("�뙆�씪�씠 鍮꾩뼱 �엳�굹�슂? "+fileList.isEmpty());//�뙆�씪�씠 �엳�굹�슂?
-            System.out.println("�뙆�씪 媛��닔: "+ fileList.size());
+            System.out.println("占쎈솁占쎌뵬占쎌뵠 �뜮袁⑸선 占쎌뿳占쎄돌占쎌뒄? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
+            System.out.println("占쎈솁占쎌뵬 揶쏉옙占쎈땾: "+ fileList.size());
             request.setAttribute("filelist", fileList);
 
             request.getRequestDispatcher("kh/free/FBmodify.jsp").forward(request, response);
 
-         }else if(url.contentEquals("/modifyedit.fboard")) {   //湲� �닔�젙�븯湲�
+         }else if(url.contentEquals("/modifyedit.fboard")) {   //疫뀐옙 占쎈땾占쎌젟占쎈릭疫뀐옙
             
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
 
 
             File filesFolder = new File(pathName);
-            System.out.println("�봽濡쒖젥�듃媛� ���옣�맂 吏꾩쭨 寃쎈줈 : " + pathName);
+            System.out.println("占쎈늄嚥≪뮇�젰占쎈뱜揶쏉옙 占쏙옙占쎌삢占쎈쭆 筌욊쑴彛� 野껋럥以� : " + pathName);
 
 
             if(!filesFolder.exists()) {filesFolder.mkdir();}
@@ -275,40 +273,40 @@ return target;
             int board_seq = Integer.parseInt(multi.getParameter("seq"));
             System.out.println(board_seq);
             String uptitle = multi.getParameter("title");
-            System.out.println("�닔�젙�븳 �젣紐�:" +uptitle);
+            System.out.println("占쎈땾占쎌젟占쎈립 占쎌젫筌륅옙:" +uptitle);
             String upcontents = multi.getParameter("contents");
-            System.out.println("�닔�젙�븳 �궡�슜: "+ upcontents);
+            System.out.println("占쎈땾占쎌젟占쎈립 占쎄땀占쎌뒠: "+ upcontents);
 
             String[]del=multi.getParameterValues("delete");
 
             if(del== null) {
             }else if(del!= null) {
                for(String deleteFile : del) {
-                  System.out.println("吏��슱 �뙆�씪 踰덊샇 "+ deleteFile);
+                  System.out.println("筌욑옙占쎌뒻 占쎈솁占쎌뵬 甕곕뜇�깈 "+ deleteFile);
 
                   String sysName = ffdao.getSysName(Integer.parseInt(deleteFile));
                   File targetFile = new File(pathName +"/" + sysName); 
                   boolean result = targetFile.delete();
-                  System.out.println("�뙆�씪 �궘�젣 �뿬遺� :" + result);
+                  System.out.println("占쎈솁占쎌뵬 占쎄텣占쎌젫 占쎈연�겫占� :" + result);
                   if(result) {ffdao.fileDelete(Integer.parseInt(deleteFile));}
                }
 
                System.out.println(del.length);
             }
                int result = fbdao.modify(board_seq, uptitle, upcontents);
-               System.out.println("�닔�젙 寃곌낵"+ result);
+               System.out.println("占쎈땾占쎌젟 野껉퀗�궢"+ result);
 
                Set<String>fileNames = multi.getFileNameSet();
-               System.out.println("�뙆�씪媛��닔 "+fileNames.size());
+               System.out.println("占쎈솁占쎌뵬揶쏉옙占쎈땾 "+fileNames.size());
                for(String fileName : fileNames) {
                   if(!fileName.contentEquals("files")) {
 
-                  System.out.println("�뙆�씪誘명꽣 �씠由�: "+ fileName);
+                  System.out.println("占쎈솁占쎌뵬沃섎챸苑� 占쎌뵠�뵳占�: "+ fileName);
                   String oriName = multi.getOriginalFileName(fileName);
                   String sysName = multi.getFilesystemName(fileName);
 
                   if(oriName!=null) {  
-                     System.out.println("�뙆�씪�씠由�" + oriName + "DB�뿉 ���옣�맖.");
+                     System.out.println("占쎈솁占쎌뵬占쎌뵠�뵳占�" + oriName + "DB占쎈퓠 占쏙옙占쎌삢占쎈쭡.");
 
                   }
                }
@@ -320,51 +318,51 @@ return target;
             request.setAttribute("filelist", flist);
             request.getRequestDispatcher("kh/free/FBmodifyView.jsp").forward(request, response);
                
-         }else if(url.contentEquals("/delete.fboard")){ //�궘�젣�븯湲�
-        	 l.trace(request.getRemoteAddr()+" �옄�쑀寃뚯떆�뙋 �궘�젣");
-        	 System.out.println("寃뚯떆湲� �궘�젣以�");
+         }else if(url.contentEquals("/delete.fboard")){ //占쎄텣占쎌젫占쎈릭疫뀐옙
+        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎄텣占쎌젫");
+        	 System.out.println("野껊슣�뻻疫뀐옙 占쎄텣占쎌젫餓ο옙");
             
             String delseq = request.getParameter("seq");
             
             List<FreeFilesDTO>fileList = ffdao.selectAll(Integer.parseInt(delseq)); 
-			System.out.println("�뙆�씪�씠 鍮꾩뼱 �엳�굹�슂? "+fileList.isEmpty());//�뙆�씪�씠 �엳�굹�슂?
-			if(fileList.isEmpty()) {//�뙆�씪 鍮꾩썙�졇 �엳�떎硫�? 諛붾줈 寃뚯떆湲�留� �궘�젣 
+			System.out.println("占쎈솁占쎌뵬占쎌뵠 �뜮袁⑸선 占쎌뿳占쎄돌占쎌뒄? "+fileList.isEmpty());//占쎈솁占쎌뵬占쎌뵠 占쎌뿳占쎄돌占쎌뒄?
+			if(fileList.isEmpty()) {//占쎈솁占쎌뵬 �뜮袁⑹뜖占쎌죬 占쎌뿳占쎈뼄筌롳옙? 獄쏅뗀以� 野껊슣�뻻疫뀐옙筌랃옙 占쎄텣占쎌젫 
 				
-			}else {	//�븘�땲�씪硫�? �떎�젣 泥⑤� �뙆�씪�룄 �궘�젣 
-            System.out.println("吏��슱 �뙆�씪�쓽 寃뚯떆臾� 踰덊샇:"+delseq);//�떎泥� 泥⑤��뙆�씪 �궘�젣
+			}else {	//占쎈툡占쎈빍占쎌뵬筌롳옙? 占쎈뼄占쎌젫 筌ｂ뫀占� 占쎈솁占쎌뵬占쎈즲 占쎄텣占쎌젫 
+            System.out.println("筌욑옙占쎌뒻 占쎈솁占쎌뵬占쎌벥 野껊슣�뻻�눧占� 甕곕뜇�깈:"+delseq);//占쎈뼄筌ｏ옙 筌ｂ뫀占쏙옙�솁占쎌뵬 占쎄텣占쎌젫
 			String filesPath =request.getServletContext().getRealPath("uploadDirectory");
-			System.out.println("�봽濡쒖젥�듃媛� ���옣�맂 吏꾩쭨 寃쎈줈 : " + filesPath);
+			System.out.println("占쎈늄嚥≪뮇�젰占쎈뱜揶쏉옙 占쏙옙占쎌삢占쎈쭆 筌욊쑴彛� 野껋럥以� : " + filesPath);
 			
         	    String sysName = ffdao.getSysNameByparent(Integer.parseInt(delseq));
-        	    System.out.println(sysName + "�뙆�씪 �씠由�");
+        	    System.out.println(sysName + "占쎈솁占쎌뵬 占쎌뵠�뵳占�");
                 File targetFile = new File(filesPath +"/" + sysName); 
                 boolean result = targetFile.delete();
-                System.out.println("泥⑤��뙆�씪 �궘�젣 �뿬遺� :" + result);
+                System.out.println("筌ｂ뫀占쏙옙�솁占쎌뵬 占쎄텣占쎌젫 占쎈연�겫占� :" + result);
                 if(result) {ffdao.fileDeleteByparent(Integer.parseInt(delseq));}  
             
 			}
-            int delfree = fbdao.delete(Integer.parseInt(delseq)); ;//寃뚯떆湲� �궘�젣 + �쇅�옒�궎濡� 泥⑤��뙆�씪�룄 �궘�젣 
+            int delfree = fbdao.delete(Integer.parseInt(delseq)); ;//野껊슣�뻻疫뀐옙 占쎄텣占쎌젫 + 占쎌뇚占쎌삋占쎄텕嚥∽옙 筌ｂ뫀占쏙옙�솁占쎌뵬占쎈즲 占쎄텣占쎌젫 
             response.sendRedirect("kh/free/FBdeleteView.jsp");
 
                 
-         }else if(url.contentEquals("/reportForm.fboard")) { //�떊怨좏븯湲� �뤌
-            System.out.println("seq 諛쏆븘�샂!!");
+         }else if(url.contentEquals("/reportForm.fboard")) { //占쎈뻿�⑥쥚釉�疫뀐옙 占쎈쨲
+            System.out.println("seq 獄쏆룇釉섓옙�긾!!");
             int board_seq = Integer.parseInt(request.getParameter("seq"));
             FreeBoardDTO dto = fbdao.detailView(board_seq);
             request.setAttribute("view", dto);
             request.getRequestDispatcher("kh/free/reportPop.jsp").forward(request, response);
 
-         }else if(url.contentEquals("/report.fboard")) { //�떊怨좎쿂由�
-        	 l.trace(request.getRemoteAddr()+" �옄�쑀寃뚯떆�뙋 �떊怨�");
-        	 System.out.println("�떊怨� 泥섎━以�!!");
+         }else if(url.contentEquals("/report.fboard")) { //占쎈뻿�⑥쥙荑귞뵳占�
+        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎈뻿�⑨옙");
+        	 System.out.println("占쎈뻿�⑨옙 筌ｌ꼶�봺餓ο옙!!");
             MemberDTO dto = mdao.getMainInfo(session);
             String id = dto.getId();
             String contents = request.getParameter("contents");
             int parent = Integer.parseInt(request.getParameter("seq"));
             int result = fpdao.report(id,contents,parent);
-            System.out.println("�떊怨� 泥섎━ �뿬遺� : "+ result);
+            System.out.println("占쎈뻿�⑨옙 筌ｌ꼶�봺 占쎈연�겫占� : "+ result);
 
-            RequestDispatcher rd = request.getRequestDispatcher("kh/free/reportResult.jsp"); //�떊怨� 寃곌낵�솕硫�
+            RequestDispatcher rd = request.getRequestDispatcher("kh/free/reportResult.jsp"); //占쎈뻿�⑨옙 野껉퀗�궢占쎌넅筌롳옙
             rd.forward(request, response);
          }
       }catch(Exception e) {
