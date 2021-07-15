@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import dto.SeatDTO;
 @WebServlet("*.seat")
 public class SeatController extends HttpServlet {
 	static String date = "mo";
+	private final ReentrantLock re = new ReentrantLock();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -34,6 +36,7 @@ public class SeatController extends HttpServlet {
 			MemberDAO memdao = MemberDAO.getInstance();
 			System.out.println(url);
 			if(url.contentEquals("/reserve2.seat")){
+				re.lock();
 				System.out.println((String)request.getParameter("seatNumber"));
 				System.out.println((String)request.getParameter("cancelSeat"));
 				String email = (String) request.getSession().getAttribute("login");
@@ -54,6 +57,9 @@ public class SeatController extends HttpServlet {
 							int deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
 							System.out.println(deleteSame);
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
+							
+							re.unlock();
+							
 							Thread.sleep((long)Math.random()*1000+1);
 	                        deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
 	                        System.out.println(deleteSame);
@@ -67,8 +73,9 @@ public class SeatController extends HttpServlet {
 						//14명 신청했을때
 						response.getWriter().append("corona");
 					}
-				
+			
 				if(request.getParameter("cancelSeat")!=null) {
+					
 					String seat_number = (String)request.getParameter("cancelSeat");
 					boolean mySeat = dao.mySeat(email, seat_number, date);
 					if(mySeat == true) {
