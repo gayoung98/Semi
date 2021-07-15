@@ -33,6 +33,14 @@ import config.FileConfig;
 
 @WebServlet("*.nboard")
 public class NoticeBoardController extends HttpServlet {
+	private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+	if(target!=null) {
+		target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+		target =target.replaceAll(">", "&gt;");
+		target =target.replaceAll("&", "&amp;");
+		}
+	return target;
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -57,6 +65,7 @@ public class NoticeBoardController extends HttpServlet {
 				//검색기능 추가
 				String category =request.getParameter("category"); //카테고리 
 				String keyWord =request.getParameter("keyword"); //검색어 입력
+	            keyWord= XSSFilter(keyWord);
 
 				int cpage =Integer.parseInt(request.getParameter("cpage"));
 				System.out.println("현재페이지: "+ cpage);

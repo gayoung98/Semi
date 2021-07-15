@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 
 <!DOCTYPE html>
@@ -73,8 +75,8 @@
 
 													<td>${i.branch }</td>
 													<td><a href="${pageContext.request.contextPath}/freeBoardDetail.manager?branch=all&currentPage=1&category=&search=&seq=${i.seq}">${i.title }</a></td>
-													<td>${i.writer }</td>
-													<td>${i.write_date}</td>
+													<td>${i.writer}</td>
+													<td><fmt:formatDate pattern="yyyy-MM-dd" value="${i.write_date}"/></td>
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +64,7 @@
 									<td>${i.khClass}</td>
 									<td><a href="${pageContext.request.contextPath}/detailView.manager?seq=${i.seq}&currentPage=${page}&branch=${branch}&category=${category}&search=${search}">${i.title}</a></td>
 									<td>${i.viewCount}</td>
-									<td>${i.write_date}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${i.write_date}"/></td>
 								</tr>
 									</c:forEach>
 							</tbody>

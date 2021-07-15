@@ -83,8 +83,8 @@
 				}
 
 				.profilebox{
-  			  width: 90px;
-   			 height: 50px; 
+  			  width: 100px;
+   			 height: 100px; 
     		overflow: hidden;
     
 			}
@@ -125,13 +125,13 @@
 				.contents {
 					padding:0;
 					margin-left:20px;
-					height: 700px;
+					mid-height: 100%;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
 				p {margin-left:20px; margin-top:10px;}
-	
+				.contents > p:nth-child(2) > img{width:800px;}
 				legend{
 				margin-left:20px;
 				padding:0;
@@ -314,6 +314,12 @@
 						
 					});
 					
+					$(document).ready(function(){
+						$($(".target").siblings("p").children("img")).css("max-width","800px");
+						$($(".target").siblings("p").children("img")).css("max-heigth","1280px");
+					})
+				
+					
 				  //게시글 신고
 					  $("#report").on("click",function() {							
 					let parent ="${view.seq}";
@@ -360,8 +366,10 @@
 					
 					<div class ="profilebox shadow bg-white" >
 			                	<c:choose>
-				                	<c:when test="${profile_img != null}">
-			                  			<img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.getFile(mm.getID(view.writer)).sysName}" class="card-img-top" alt="profile_picture" id = profile>
+				                	<%-- <c:when test="${profile_img.getFile(mm.getID(view.writer)).sysName != null}"> --%>
+			                  			<%-- <img src="${pageContext.request.contextPath}/profile/${view.writer}/${profile_img.getFile(mm.getID(view.writer)).sysName}" class="card-img-top" alt="profile_picture" id = profile> --%>
+			                   		<c:when test ="${profile_img != null}">
+			                   				<img src= " ${pageContext.request.contextPath}/profile/${view.writer}/${profile_img}" class="card-img-top" alt="profile_picture" id = profile>
 			                   		</c:when>
 			                   		<c:otherwise>
 			                   			<img src="${defalut_profile_img}" class="card-img-top" alt="profile_picture" id = profile>

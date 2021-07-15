@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/>
+
 		<!DOCTYPE html>
 		<html>
 
@@ -197,7 +197,7 @@
 					<!-- 작성일자,조회수 -->
 					<div class="articleInfo">
 
-						<span class="date"> <fmt:formatDate pattern="yyyy-MM-dd:hh:mm" value="${i.write_date}"/></span> <span class="count">조회
+						<span class="date"> <fmt:formatDate pattern="yyyy-MM-dd" value="${view.write_date}"/></span> <span class="count">조회
 							${view.viewCount}</span> <input type="hidden" name="seq" value="${view.seq}">
 
 
@@ -251,7 +251,7 @@
 											</p>
 										</div>
 										<div class="commentInfo">
-												<span>${i.write_date}</span>
+												<span><fmt:formatDate pattern="yyyy-MM-dd" value="${i.write_date}"/></span>
 											</div>
 								</div>
 							</li>

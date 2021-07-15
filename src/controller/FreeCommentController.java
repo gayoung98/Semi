@@ -19,7 +19,14 @@ import dto.MemberDTO;
 
 @WebServlet("*.freecom")
 public class FreeCommentController extends HttpServlet {
-	
+	private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+	if(target!=null) {
+		target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+		target =target.replaceAll(">", "&gt;");
+		target =target.replaceAll("&", "&amp;");
+		}
+	return target;
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset =utf-8");
@@ -47,6 +54,8 @@ public class FreeCommentController extends HttpServlet {
 				String writer = email;
 				System.out.println(writer);
 				String comments = request.getParameter("comments");
+				comments= XSSFilter(comments);
+			
 				System.out.println(comments);
 				int parent = Integer.parseInt(request.getParameter("parent"));//댓글이 달린 게시글				
 				System.out.println(parent +" 번 글의 댓글 작성 " +comments);
@@ -76,6 +85,8 @@ public class FreeCommentController extends HttpServlet {
 
 				System.out.println("댓글 번호: "+comment_seq);
 				String comments = request.getParameter("reply");
+				comments= XSSFilter(comments);
+
 				System.out.println("수정된 댓글 내용 :" +comments);
 				int result = fcdao.modifyReply(comment_seq, comments); //댓글 수정 dao
 				System.out.println("댓글 수정 여부: " + result);
