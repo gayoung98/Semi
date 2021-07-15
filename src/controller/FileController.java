@@ -59,10 +59,8 @@ public class FileController extends HttpServlet {
 				String DownPath = context.getRealPath(savePath);
 				System.out.println("다운로드 위치: "+ DownPath);
 				
-	
-			String realpath = request.getServletContext().getRealPath("/uploadDirectory"); 		
-			
-			File path = new File(realpath);				
+
+			File path = new File(DownPath);				
 			String FilePath = DownPath+File.separator+oriName;
 			
 			try(
