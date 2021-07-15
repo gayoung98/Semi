@@ -78,21 +78,50 @@ input {
 </style>
 
 <script type="text/javascript">
-	$(function() {		
-						
-				$(document).on('click', '#navbarDropdownMenuLink', function() {
-							   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
-							 	  $(this).siblings($(".dropdown-menu")).css("display",'block')
-							 	  for(let i =0; i<$(".dropdown-menu").length; i++){
-							 		 if(($($(".dropdown-menu")[i]).text() !== $(this).siblings($(".dropdown-menu")).text())){
-							 			$($(".dropdown-menu")[i]).css("display","none");
-							 		}
-							 	  }
-							   }else{
-							 	  $(this).siblings($(".dropdown-menu")).css("display",'none')
-							   }
-							})					
-						
+	$(function() {
+
+		$(document)
+				.on(
+						'click',
+						'#navbarDropdownMenuLink',
+						function() {
+							if ($(this).siblings($(".dropdown-menu")).css(
+									"display") == "none") {
+								$(this).siblings($(".dropdown-menu")).css(
+										"display", 'block')
+								for (let i = 0; i < $(".dropdown-menu").length; i++) {
+									if (($($(".dropdown-menu")[i]).text() !== $(
+											this).siblings($(".dropdown-menu"))
+											.text())) {
+										$($(".dropdown-menu")[i]).css(
+												"display", "none");
+									}
+								}
+							} else {
+								$(this).siblings($(".dropdown-menu")).css(
+										"display", 'none')
+							}
+						})
+
+		$("#submitbtn").on("click", function() {
+			var speed = $("#record").val();
+			var accuracy = $("#accuracy").val();
+			let speedReg = /^\d{0,4}$/;
+			let accuracyReg = /^\d{0,3}$/;
+			let resultspeed = speedReg.test(speed);
+			let resultaccuracy = accuracyReg.test(accuracy);
+			if (resultspeed && resultaccuracy) {
+				if (speed > 1000 || accuracy > 100) {
+					alert("입력하신 정보를 다시 확인해주시기 바랍니다.");
+				} else {
+					$("#typingform").submit();
+					return false;
+				}
+			} else {
+				alert("입력하신 정보를 다시 확인해주시기 바랍니다.");
+				return false;
+			}
+		})
 
 	})
 </script>
@@ -103,7 +132,9 @@ input {
 	<jsp:include page="/navibar.jsp" />
 	<div class="container p-4 shadow bg-white rounded">
 		<div class="row header">
-			<h2><b>타자기록</b></h2>
+			<h2>
+				<b>타자기록</b>
+			</h2>
 		</div>
 
 		<c:choose>
@@ -128,7 +159,7 @@ input {
 			</c:otherwise>
 		</c:choose>
 
-		<form action="write.typ" method="post">
+		<form action="write.typ" method="post" id="typingform">
 			<div class="row record" style="text-align: center;">
 
 				<div class="col-8 recbox">
@@ -139,10 +170,10 @@ input {
 
 
 						<div class="col-6">
-							<input type="text" name="record" id="record" pattern="^\d{0,4}">
+							<input type="text" name="record" id="record">
 						</div>
 						<div class="col-6">
-							<input type="text" name="accuracy" id="record" pattern="^\d{0,3}|100">
+							<input type="text" name="accuracy" id="accuracy">
 						</div>
 
 					</div>
@@ -150,7 +181,7 @@ input {
 
 				<div class="col-4">
 					<div class="row btn" style="width: 100%; height: 100%;">
-						<button type="submit" class="btn btn-primary"
+						<button type="button" class="btn btn-primary" id="submitbtn"
 							style="width: 100%; height: 100%;">제출</button>
 					</div>
 				</div>
