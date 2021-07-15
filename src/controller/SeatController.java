@@ -58,7 +58,7 @@ public class SeatController extends HttpServlet {
 							System.out.println(deleteSame);
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
 							
-							re.unlock();
+							
 							
 							Thread.sleep((long)Math.random()*1000+1);
 	                        deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
@@ -86,7 +86,7 @@ public class SeatController extends HttpServlet {
 						response.getWriter().append("notmyseat");
 					}
 				}
-
+				re.unlock();
 			} else if(url.contentEquals("/complete.seat")) {
 				Gson gs =new Gson(); 
 				
@@ -119,7 +119,7 @@ public class SeatController extends HttpServlet {
 
 		}catch(Exception e) {
 			e.printStackTrace();
-			 response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
+			response.sendRedirect("error.jsp");
 		}
 	}
 

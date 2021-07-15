@@ -96,7 +96,7 @@ public class NoticeCommentController extends HttpServlet {
 
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
+			response.sendRedirect("error.jsp");
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

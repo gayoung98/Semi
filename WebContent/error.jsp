@@ -20,6 +20,7 @@
 	.container{width=100%;text-align:center;}
 	header{margin-top:10vh;}
 	.errorMessage{margin-top:3vh; margin-bottom:5vh;}
+	button{margin-right:30px}
 	</style>
 </head>
 <body>
