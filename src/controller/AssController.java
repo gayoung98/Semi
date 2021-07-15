@@ -86,8 +86,6 @@ public class AssController extends HttpServlet {
 				int seq = dao.getSeq();
 				System.out.println("board_seq: "+seq);
 				String title = multi.getParameter("title");
-				
-
 				String contents = multi.getParameter("contents");
 				
 
@@ -281,7 +279,6 @@ public class AssController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("ass_seq"));
 				System.out.println("ass_seq: "+seq);
 				String title = multi.getParameter("title");
-				
 				String contents = multi.getParameter("contents");
 				
 
@@ -374,6 +371,7 @@ public class AssController extends HttpServlet {
 
 		}catch(Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
 		}
 	}
 

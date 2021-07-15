@@ -13,6 +13,11 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+
 <style>
 * {
 	box-sizing: border-box;
@@ -78,52 +83,52 @@ input {
 </style>
 
 <script type="text/javascript">
-	$(function() {
+   $(function() {
 
-		$(document)
-				.on(
-						'click',
-						'#navbarDropdownMenuLink',
-						function() {
-							if ($(this).siblings($(".dropdown-menu")).css(
-									"display") == "none") {
-								$(this).siblings($(".dropdown-menu")).css(
-										"display", 'block')
-								for (let i = 0; i < $(".dropdown-menu").length; i++) {
-									if (($($(".dropdown-menu")[i]).text() !== $(
-											this).siblings($(".dropdown-menu"))
-											.text())) {
-										$($(".dropdown-menu")[i]).css(
-												"display", "none");
-									}
-								}
-							} else {
-								$(this).siblings($(".dropdown-menu")).css(
-										"display", 'none')
-							}
-						})
+      $(document)
+            .on(
+                  'click',
+                  '#navbarDropdownMenuLink',
+                  function() {
+                     if ($(this).siblings($(".dropdown-menu")).css(
+                           "display") == "none") {
+                        $(this).siblings($(".dropdown-menu")).css(
+                              "display", 'block')
+                        for (let i = 0; i < $(".dropdown-menu").length; i++) {
+                           if (($($(".dropdown-menu")[i]).text() !== $(
+                                 this).siblings($(".dropdown-menu"))
+                                 .text())) {
+                              $($(".dropdown-menu")[i]).css(
+                                    "display", "none");
+                           }
+                        }
+                     } else {
+                        $(this).siblings($(".dropdown-menu")).css(
+                              "display", 'none')
+                     }
+                  })
 
-		$("#submitbtn").on("click", function() {
-			var speed = $("#record").val();
-			var accuracy = $("#accuracy").val();
-			let speedReg = /^\d{0,4}$/;
-			let accuracyReg = /^\d{0,3}$/;
-			let resultspeed = speedReg.test(speed);
-			let resultaccuracy = accuracyReg.test(accuracy);
-			if (resultspeed && resultaccuracy) {
-				if (speed > 1000 || accuracy > 100) {
-					alert("입력하신 정보를 다시 확인해주시기 바랍니다.");
-				} else {
-					$("#typingform").submit();
-					return false;
-				}
-			} else {
-				alert("입력하신 정보를 다시 확인해주시기 바랍니다.");
-				return false;
-			}
-		})
+      $("#submitbtn").on("click", function() {
+         var speed = $("#record").val();
+         var accuracy = $("#accuracy").val();
+         let speedReg = /^\d{0,4}$/;
+         let accuracyReg = /^\d{0,3}$/;
+         let resultspeed = speedReg.test(speed);
+         let resultaccuracy = accuracyReg.test(accuracy);
+         if (resultspeed && resultaccuracy) {
+            if (speed > 1000 || accuracy > 100) {
+               alert("입력하신 정보를 다시 확인해주시기 바랍니다.");
+            } else {
+               $("#typingform").submit();
+               return false;
+            }
+         } else {
+            alert("입력하신 정보를 다시 확인해주시기 바랍니다.");
+            return false;
+         }
+      })
 
-	})
+   })
 </script>
 
 </head>
@@ -145,13 +150,19 @@ input {
 						<div class=col-1
 							style="display: table-cell; vertical-align: bottom;">
 							<div class=row
-								style="height: 300px; display: table-cell; vertical-align: bottom;">
-								<div class=bar style="height:${item.record}px;">${item.record}</div>
+								style="height: 350px; display: table-cell; vertical-align: bottom;">
+								<c:choose>
+									<c:when test="${item.record<350}">
+										<div class=bar style="height:${item.record}px;">${item.record}</div>
+									</c:when>
+									<c:otherwise>
+										<div class=bar style="height: 350px;">${item.record}</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class=row style="text-align: right;">${item.reg_date }</div>
 						</div>
 					</c:forEach>
-
 
 				</div>
 			</c:when>

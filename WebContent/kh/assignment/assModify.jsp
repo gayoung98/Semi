@@ -20,6 +20,7 @@
 
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style>
 * {
 	box-sizing: border-box;
@@ -181,11 +182,7 @@ body {
 	</div>
 	<script>
 		$("#back").on("click", function() {
-			location.href = "view.ass?ass_seq=" + $
-			{
-				assView.seq
-			}
-			;
+			location.href = "view.ass?ass_seq=" + ${assView.seq};
 		})
 	</script>
 </body>

@@ -16,7 +16,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style>
 * {
 	box-sizing: border-box;
@@ -111,25 +111,25 @@ body {
 		</div>
 		<div class="row title" style="padding-left: 5%; padding-right: 5%;">
 
-			<div class="col-3">
+			<div class="col-md-2 d-none d-md-block">
 				<b>작성자</b>
 			</div>
-			<div class="col-5">
+			<div class="col-12 col-md-6">
 				<b>제목</b>
 			</div>
-			<div class="col-3">
+			<div class="col-md-3 d-none d-md-block">
 				<b>등록일</b>
 			</div>
-			<div class="col-1">
+			<div class="col-md-1 d-none d-md-block">
 				<b>조회</b>
 			</div>
 		</div>
 		<div class="row titleContent"
 			style="padding-left: 5%; padding-right: 5%;">
-			<div class="col-3">${assView.name}</div>
-			<div class="col-5">${assView.title}</div>
-			<div class="col-3">${assView.write_date}</div>
-			<div class="col-1">${assView.viewCount }</div>
+			<div class="col-md-2 d-none d-md-block">${assView.name}</div>
+			<div class="col-12 col-md-6"><b>${assView.title}</b></div>
+			<div class="col-md-3 d-none d-md-block">${assView.write_date}</div>
+			<div class="col-md-1 d-none d-md-block">${assView.viewCount }</div>
 		</div>
 
 		<div class="row files">
