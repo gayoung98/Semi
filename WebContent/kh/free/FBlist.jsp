@@ -131,7 +131,6 @@ $(function(){
 	$("#back").on("click",function(){
 		location.href="${pageContext.request.contextPath}/main.main"
 		});
-	
 /* 	$("#navbarDropdownMenuLink").on('click', function() {
 		console.log("ek skrkwnj.");
 	   if($(this).siblings($(".dropdown-menu")).css("display") === 'none'){
@@ -141,6 +140,13 @@ $(function(){
 	   }
 	})     */
 	
+	console.log($("#cpage").val());
+	
+	for(let i=0; i< $(".page-link").length; i++){
+		if($($(".page-link")[i]).attr("id") === $("#cpage").val()){
+			$($(".page-link")[i]).css("background-color","#dee2e6");
+		}
+	}
 });
 
 </script>
@@ -193,21 +199,14 @@ $(function(){
 
 		<!--페이징 네비바-->
 		<div class="nav justify-content-center pagingBar">	
+				<ul class="pagination">	
+			 <li class="page-item"><a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}" class="page-link"> &laquo; </a>
 				<c:forEach var="i" items="${navi}" varStatus="s">
-					<c:choose>
-						<c:when test="${i=='>'}">
-							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}">${i} class=""</a>
-							<!--s.index 10번인테 -1한 (배열 9번)요소: index 10+1=11번째!(배열로 10번요소) -->
-						</c:when>
-						<c:when test="${i=='<'}">
-							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
-							<!--s.index 10번인테 +1한 (배열 10번)요소;index 11-1= 10번째(배열의 9번요소)! -->
-						</c:when>
-						<c:otherwise>
-							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
-						</c:otherwise>
-					</c:choose>
+				<li class="page-item"><a href="${pageContext.request.contextPath}/list.fboard?cpage=${i}&category=${category}&keyword=${keyword}&branch=${branch}" class="page-link" id="${i}">${i}</a>
 				</c:forEach>
+			 <li class="page-item"><a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index+1]-1}&category=${category}&keyword=${keyword}&branch=${branch}" class="page-link"> &raquo; </a>
+			</ul>
+			<input type = hidden id = cpage value = ${cpage }>
 		</div>
 		<div class="text-right footer">
 			<button type="button" name="write" class="btn btn-primary writeBtn" id="writeBtn">글쓰기</button>
