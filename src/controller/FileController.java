@@ -108,7 +108,7 @@ public class FileController extends HttpServlet {
 				}
 		}catch(Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
+				response.sendRedirect("error.jsp");
 			}
 
 	}

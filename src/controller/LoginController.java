@@ -167,7 +167,7 @@ public class LoginController extends HttpServlet {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect(ctxPath+"error.jsp");
+			response.sendRedirect("error.jsp");
 		}
 		
 	}

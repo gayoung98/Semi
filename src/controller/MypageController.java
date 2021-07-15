@@ -267,8 +267,8 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("seq",Integer.parseInt(request.getParameter("seq")));
 				request.getRequestDispatcher("kh/inquired/updateResult.jsp").forward(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				response.sendRedirect("error.jsp");				
 			}
 			break;
 			}	
