@@ -25,6 +25,14 @@ import dto.AssSubmitDTO;
 @WebServlet("*.assSubmit")
 public class AssSubmitController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+		if(target!=null) {
+			target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+			target =target.replaceAll(">", "&gt;");
+			target =target.replaceAll("&", "&amp;");
+		}
+		return target;
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
