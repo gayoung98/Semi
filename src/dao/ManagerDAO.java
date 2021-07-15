@@ -862,6 +862,15 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 			return result;
 		}
 	}
+	public int deleteFreePolice ()throws Exception{
+		String sql="delete from freePolice";
+		try(Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);){
+		
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 }
 					
 					
