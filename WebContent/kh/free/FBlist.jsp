@@ -47,6 +47,8 @@
 	margin-left:10px;
 	margin-right:10px;
 	text-align:center;
+	font-weight: bold; 
+	font-size: larger;
 }
 
 .second {
@@ -54,6 +56,7 @@
 	margin-left:10px;
 	margin-right:10px;
 	text-align:center;
+	font-size: large;
 }
 
 h2 {	
@@ -66,16 +69,38 @@ h2 {
 .branch_list {
 	padding-top: 10px;
 	padding-bottom: 40px;
+	font-weight: bold; 
+	font-size: larger;
 }
 
-li a:hover {
-	color: cadetblue;
-}
 
-.container a{
+.pagingBar a{font-weight: bold; font-size: larger; 
+			 }
+li { 
+  transition:all .3s ease; 
+  color:#43c4a4;
+  
+}
+ .container a{
 	color: black;
 	font-weight: bold;
+} 
+.branch_list li a:hover {
+	color:#43c4a4;
 }
+
+
+.branch_list li a:after {
+  display:block;
+  content: '';
+  border-bottom: solid 3px #39d9c8;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+.branch_list li a:hover:after { transform: scaleX(1); }
+.branch_list li a.fromRight:after{ transform-origin:100% 50%; }
+.branch_list li a.fromLeft:after{  transform-origin:  0% 50%; }
+
 
 .title {
 	text-align: center;
@@ -94,6 +119,7 @@ li a:hover {
 	padding-top: 10px;
 	padding-bottom: 30px;
 }
+
 </style>
 
 <script>
@@ -125,23 +151,22 @@ $(function(){
 	<div class="container shadow bg-white rounded">
 		<h2 class="text-center">자유게시판</h2>
 		<ul class="nav justify-content-center branch_list">
-			<li class="nav-item"><a class="nav-link active"
-				aria-current="page"
-				href="${pageContext.request.contextPath}/list.fboard?cpage=1&category=&keyword=">전체</a>
+			<li class="nav-item"><a class="nav-link active"aria-current="page"
+				href="${pageContext.request.contextPath}/list.fboard?cpage=1&category=&keyword="><span>전체</span></a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=J&cpage=1&category=&keyword=">종로</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=J&cpage=1&category=&keyword="><span>종로</span></a>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/list.fboard?branch=K&cpage=1&category=&keyword=">강남</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=K&cpage=1&category=&keyword="><span>강남</span></a>
 			</li>
 			<li class="nav-item"><a class="nav-link "
-				href="${pageContext.request.contextPath}/list.fboard?branch=D&cpage=1&category=&keyword=">당산</a>
+				href="${pageContext.request.contextPath}/list.fboard?branch=D&cpage=1&category=&keyword="><span>당산</span></a>
 			</li>
 		</ul>
 
 
-		<div class="row first">
+		<div class="row first title_option">
 			<div class="col-12 col-md-1 d-none d-md-block">No</div>
 			<div class="col-12 col-md-1" >지점</div>
 			<div class="col-12 col-md-4 title">제목</div>
@@ -151,7 +176,7 @@ $(function(){
 		</div>
 
 		<c:forEach var="i" items="${boardlist}">
-			<div class="row second">
+			<div class="row second list_contents">
 
 				<div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
 				<div class="col-12 col-md-1">${i.branch}</div>
@@ -167,11 +192,11 @@ $(function(){
 
 
 		<!--페이징 네비바-->
-		<div class="nav justify-content-center">	
+		<div class="nav justify-content-center pagingBar">	
 				<c:forEach var="i" items="${navi}" varStatus="s">
 					<c:choose>
 						<c:when test="${i=='>'}">
-							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}">${i}</a>
+							<a href="${pageContext.request.contextPath}/list.fboard?cpage=${navi[s.index-1]+1}&category=${category}&keyword=${keyword}&branch=${branch}">${i} class=""</a>
 							<!--s.index 10번인테 -1한 (배열 9번)요소: index 10+1=11번째!(배열로 10번요소) -->
 						</c:when>
 						<c:when test="${i=='<'}">
