@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,7 +51,11 @@ public class SeatController extends HttpServlet {
 					boolean conflict = dao.conflict(seat_number);
 					if(count < 14) {
 						if(already == false && conflict == false) {
+							//List<Integer> min = dao.min(date, seat_number);
+							//System.out.println("min : " + min);
+							//int deleteSame = dao.deleteSame(min, name, seat_number);
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
+							//deleteSame = dao.deleteSame(min, name, seat_number);
 							response.getWriter().append(request.getParameter("seatNumber"));
 						}else {
 							//이미 선택했는데 다른 좌석 누를때

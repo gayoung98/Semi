@@ -98,12 +98,12 @@ public class SeatDAO {
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, date);
-				try(ResultSet rs = pstat.executeQuery()){
-			while(rs.next()) {
-				count++;
-			}
-			return count;
+			try(ResultSet rs = pstat.executeQuery()){
+				while(rs.next()) {
+					count++;
 				}
+				return count;
+			}
 		}
 	}
 	public boolean mySeat(String email, String seat_number, String date) throws Exception{
@@ -145,7 +145,35 @@ public class SeatDAO {
 			}
 		}
 	}
-}
 
+	public List <Integer> min(String date, String seat_number) throws Exception{
+		List <Integer> li = new ArrayList<Integer>();
+		String sql = "select min(seq) from seat where seat_day = ? and seat_number = ?";
+		int count = 0;
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, date);
+			pstat.setString(2, seat_number);
+			try(ResultSet rs = pstat.executeQuery()){
+				while(rs.next()) {
+					li.add(rs.getInt(1));
+				}
+				return li;
+			}
+		}
+
+	}
+	public int deleteSame(int min, String date, String seat_number) throws Exception{
+		String sql = "delete from seat where seq > ? and seat_day = ? and seat_number = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, min);
+			pstat.setString(2, date);
+			pstat.setString(3, seat_number);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+}
 
 
