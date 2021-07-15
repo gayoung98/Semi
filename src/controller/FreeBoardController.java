@@ -143,7 +143,7 @@ return target;
             response.sendRedirect("kh/free/FBwrite.jsp");
 
          }else if(url.contentEquals("/write.fboard")) { 
-        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎌삂占쎄쉐");
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 작성");
             System.out.println("占쎌삂占쎄쉐 餓ο옙");
             String root =request.getServletContext().getRealPath("/");
             String pathName = root + "uploadDirectory";
@@ -242,7 +242,7 @@ return target;
             request.getRequestDispatcher("kh/free/FBdetailView.jsp").forward(request, response);
             
          }else if(url.contentEquals("/modify.fboard")){ //占쎈땾占쎌젟占쎈릭疫뀐옙
-        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎈땾占쎌젟");     
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 수정");     
             int boardseq = Integer.parseInt(request.getParameter("seq"));
             System.out.println(boardseq);
             FreeBoardDTO bdto = fbdao.detailView(boardseq);
@@ -319,7 +319,7 @@ return target;
             request.getRequestDispatcher("kh/free/FBmodifyView.jsp").forward(request, response);
                
          }else if(url.contentEquals("/delete.fboard")){ //占쎄텣占쎌젫占쎈릭疫뀐옙
-        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎄텣占쎌젫");
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 삭제");
         	 System.out.println("野껊슣�뻻疫뀐옙 占쎄텣占쎌젫餓ο옙");
             
             String delseq = request.getParameter("seq");
@@ -353,7 +353,7 @@ return target;
             request.getRequestDispatcher("kh/free/reportPop.jsp").forward(request, response);
 
          }else if(url.contentEquals("/report.fboard")) { //占쎈뻿�⑥쥙荑귞뵳占�
-        	 l.trace(request.getRemoteAddr()+" 占쎌쁽占쎌�野껊슣�뻻占쎈솇 占쎈뻿�⑨옙");
+        	 l.trace(request.getRemoteAddr()+" 자유게시판 신고");
         	 System.out.println("占쎈뻿�⑨옙 筌ｌ꼶�봺餓ο옙!!");
             MemberDTO dto = mdao.getMainInfo(session);
             String id = dto.getId();
