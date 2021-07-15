@@ -307,6 +307,11 @@
 			           		$("#writeForm").submit();
 
 			    		});
+					 
+					 $(document).ready(function(){
+							$($(".target").siblings("p").children("img")).css("max-width","800px");
+							$($(".target").siblings("p").children("img")).css("max-heigth","1280px");
+						})
 					
 					$(document).on('click', '#navbarDropdownMenuLink', function() {
 						   if($(this).siblings($(".dropdown-menu")).css("display") == "none"){
