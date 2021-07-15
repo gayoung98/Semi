@@ -9,6 +9,7 @@
 <title>noticeBoard List</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 		    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
 
 
 <style>
