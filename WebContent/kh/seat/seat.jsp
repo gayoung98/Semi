@@ -304,7 +304,7 @@ margin :0px;
         <table border="1" width=700 id=table2>
             <tr>
                 <td colspan="3" align="left">
-                    <i class="fas fa-door-open" style="font-size: 200%;"></i>출구
+                    <i class="fas fa-door-open" style="font-size: 200%;">출구</i>
                 </td>
                 <td></td>
                 <td colspan="2" align="">
