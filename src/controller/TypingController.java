@@ -80,6 +80,7 @@ public class TypingController extends HttpServlet {
 
 		}catch(Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
 		}
 	}
 
