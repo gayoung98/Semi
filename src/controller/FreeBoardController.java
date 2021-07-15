@@ -134,7 +134,7 @@ return target;
             request.setAttribute("category", category);
             request.setAttribute("keyword", keyWord);
             request.setAttribute("branch", branch);
-
+            request.setAttribute("cpage", cpage);
             request.setAttribute("count", fcdao); 
             RequestDispatcher rd = request.getRequestDispatcher("kh/free/FBlist.jsp");
             rd.forward(request, response);
