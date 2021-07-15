@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <style>
-.container{height: 1200px; margin-top: 3%;}
+.container{height: 1200px; margin-top: 6%;}
 .card-img-top{width: 150px; text-align: center; margin: auto;}
 .btn-primary{width: 49%; font-size: 16px;}
 .div[class *=col]{margin: 5px; padding: 0px}
