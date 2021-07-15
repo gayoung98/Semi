@@ -112,6 +112,7 @@ public class SeatController extends HttpServlet {
 
 		}catch(Exception e) {
 			e.printStackTrace();
+			 response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
 		}
 	}
 

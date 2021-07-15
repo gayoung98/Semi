@@ -75,7 +75,7 @@
 	 */
 	$(function() {
 
-		var count = 2;
+		var count = 3;
 		var isScroll = true;
 
 		let loadNewPage = $(window).on("scroll",(function() {
