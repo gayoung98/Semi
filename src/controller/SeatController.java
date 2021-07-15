@@ -97,6 +97,11 @@ public class SeatController extends HttpServlet {
 				MemberDTO dto = memdao.getMainInfo(email);
 				String khclass = dto.getKhClass();
 				String branch = dto.getBranch();
+				String name = dto.getName();
+				
+				String mySeatNumber = dao.mySeatNumber(date, name);
+				int deleteSame = dao.deleteSame(dao.min(name, mySeatNumber), name, mySeatNumber);
+				
 				for(SeatDTO sd:dao.classList(date, khclass, branch) ) {
 					System.out.println(sd.getEmail());
 				}

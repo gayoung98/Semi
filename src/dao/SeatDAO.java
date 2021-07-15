@@ -173,6 +173,22 @@ public class SeatDAO {
 			return result;
 		}
 	}
+	
+	public String mySeatNumber(String date, String name) throws Exception{
+        String sql = "select seat_number from seat where seat_day = ? and name = ?";
+        try(Connection con = this.getConnection();
+              PreparedStatement pstat = con.prepareStatement(sql)){
+           pstat.setString(1, date);
+           pstat.setString(2, name);
+           try(ResultSet rs = pstat.executeQuery()){
+              if(rs.next())
+              {
+                   return rs.getString(1);
+              }
+           }
+         return null;
+           }
+        }   
 }
 
 
