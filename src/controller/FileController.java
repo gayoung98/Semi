@@ -53,23 +53,20 @@ public class FileController extends HttpServlet {
 				String sysName = request.getParameter("sysname");
 				String oriName = request.getParameter("oriname");
 				
-				String savePath ="uploadDirectory";
-				ServletContext context = getServletContext();
 				
-				String DownPath = context.getRealPath(savePath);
-				System.out.println("다운로드 위치: "+ DownPath);
+				String filesPath =request.getServletContext().getRealPath("/uploadDirectory");
+		
+				System.out.println("다운로드 위치: "+ filesPath);
 				
-
-			File path = new File(DownPath);				
-			String FilePath = DownPath+File.separator+oriName;
+				File targetFile = new File(filesPath+"/"+sysName); //import io.File
 			
 			try(
-						FileInputStream fis = new FileInputStream(FilePath); 
+						FileInputStream fis = new FileInputStream(targetFile); 
 						DataInputStream dis = new DataInputStream(fis);
 					DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
 					
-					byte[]fileContents = new byte[(int)path.length()]; 
-
+					byte[]fileContents = new byte[(int)targetFile.length()]; 
+					dis.readFully(fileContents);
 					oriName = new String(oriName.getBytes("utf-8"),"iso-8859-1"); 
 					
 					response.reset();
