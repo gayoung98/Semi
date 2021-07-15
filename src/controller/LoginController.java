@@ -89,7 +89,7 @@ public class LoginController extends HttpServlet {
 					l.trace(request.getRemoteAddr()+" 로그인 완료");
 					response.sendRedirect("main.main");
 				}else {
-					response.sendRedirect(ctxPath+"/view/loginView.jsp");
+					response.sendRedirect(ctxPath+"/kh/view/loginView.jsp");
 				}	
 								
 			}else if(url.contentEquals("/signout.member")) {
