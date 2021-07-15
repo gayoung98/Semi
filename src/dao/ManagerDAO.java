@@ -854,7 +854,7 @@ public List<InquireDTO> getInquirePageList( int startNum, int endNum ,String cat
 		}
 	}
 	public int resetChatMessage() throws Exception{
-		String sql="insert into chatboard values(CHATBOARD_SEQ.NEXTVAL,'manager','manager','매주 금요일 채팅 내용이 리셋됩니다.','manager',sysdate)";
+		String sql="insert into chatboard values(CHATBOARD_SEQ.NEXTVAL,'manager','manager','매주 금요일 23시 59분에 채팅 내용이 리셋됩니다.','manager',sysdate)";
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql);){
 		
