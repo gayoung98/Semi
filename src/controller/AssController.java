@@ -37,14 +37,6 @@ public class AssController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Logger l = Logger.getLogger(AssController.class); //import org.apache.log4j.Logger
 
-	private String XSSFilter(String target) { //XSS 공격 방어하는 방법
-		if(target!=null) {
-			target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
-			target =target.replaceAll(">", "&gt;");
-			target =target.replaceAll("&", "&amp;");
-		}
-		return target;
-	}
 
 
 
@@ -94,10 +86,10 @@ public class AssController extends HttpServlet {
 				int seq = dao.getSeq();
 				System.out.println("board_seq: "+seq);
 				String title = multi.getParameter("title");
-				title = XSSFilter(title);
+				
 
 				String contents = multi.getParameter("contents");
-				contents = XSSFilter(contents);
+				
 
 				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
@@ -289,10 +281,9 @@ public class AssController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("ass_seq"));
 				System.out.println("ass_seq: "+seq);
 				String title = multi.getParameter("title");
-				title = XSSFilter(title);
+				
 				String contents = multi.getParameter("contents");
-				contents = XSSFilter(contents);
-
+				
 
 				String writer = email;
 				String id = daoM.getAllInfo(email).getId();
