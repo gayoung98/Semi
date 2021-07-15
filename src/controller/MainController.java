@@ -89,7 +89,7 @@ public class MainController extends HttpServlet {
 				MemberDTO dto = memdao.getMainInfo(email);
 				String khclass = dto.getKhClass();
 				String branch = dto.getBranch();
-				List<MainDTO> list = dao.likeFacebook(20, Integer.parseInt(request.getParameter("count")), khclass, branch);
+				List<MainDTO> list = dao.likeFacebook(10, Integer.parseInt(request.getParameter("count")), khclass, branch);
 				String result = g.toJson(list);
 				response.getWriter().append(result);
 			} else if(url.contentEquals("/calander.main")) {
@@ -140,6 +140,7 @@ public class MainController extends HttpServlet {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+			 response.sendRedirect("${pageContext.request.contextPath}/error.jsp");
 		}
 	}
 
