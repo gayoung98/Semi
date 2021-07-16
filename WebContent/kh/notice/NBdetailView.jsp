@@ -83,13 +83,13 @@
 				.contents {
 					padding:0;
 					margin-left:20px;
-					height: 500px;
+					mid-height: 100%;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
 				}
 				p{margin-left:20px; margin-top:10px;}
-
+				.contents > p:nth-child(2) > img{width:800px;}
 				
 				/* 작성자 정보 */
 				.profile_info{

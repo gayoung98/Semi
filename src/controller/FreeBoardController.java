@@ -228,7 +228,7 @@ return target;
 
             request.setAttribute("member",mpdao.getMember(session));
 
-            System.out.println("野껊슣�뻻疫뀐옙 甕곕뜇�깈 :"+boardseq);
+            System.out.println("게시글 번호 :"+boardseq);
             request.setAttribute("view", bdto);
 
             List<FreeFilesDTO>fileList = ffdao.selectAll(boardseq); //첨부파일 목록 출력   

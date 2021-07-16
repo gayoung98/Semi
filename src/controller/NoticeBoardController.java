@@ -33,9 +33,9 @@ import config.FileConfig;
 
 @WebServlet("*.nboard")
 public class NoticeBoardController extends HttpServlet {
-	private String XSSFilter(String target) { //XSS 공격 방어하는 방법
+	private String XSSFilter(String target) { 
 	if(target!=null) {
-		target =target.replaceAll("<", "&lt;"); //<를 %lt(less than)으로 바꾸겠다.<script> 기능을 작동을 안한다.=> %ltscript>이렇게 나타냄!!
+		target =target.replaceAll("<", "&lt;"); 
 		target =target.replaceAll(">", "&gt;");
 		target =target.replaceAll("&", "&amp;");
 		}
@@ -61,16 +61,16 @@ public class NoticeBoardController extends HttpServlet {
 			MemberDTO dto = mdao.getMainInfo(email);
 			
 
-			if(url.contentEquals("/list.nboard")) { //공지게시판 리스트 출력
-				//검색기능 추가
-				String category =request.getParameter("category"); //카테고리 
-				String keyWord =request.getParameter("keyword"); //검색어 입력
+			if(url.contentEquals("/list.nboard")) { //리스트 출력
+			
+				String category =request.getParameter("category");
+				String keyWord =request.getParameter("keyword"); 
 	            keyWord= XSSFilter(keyWord);
 
 				int cpage =Integer.parseInt(request.getParameter("cpage"));
 				System.out.println("현재페이지: "+ cpage);
-				System.out.println("카테고리: "+ category);
-				System.out.println("검색어: "+ keyWord);
+	            System.out.println("카테고리: "+ category);
+	            System.out.println("검색어: "+ keyWord);
 
 				int endNum= cpage* BoardConfig.Recode_Count_Per_Page;
 				int startNum =endNum-(BoardConfig.Navi_Count_Per_Page-1);
@@ -80,7 +80,7 @@ public class NoticeBoardController extends HttpServlet {
 				String myBranch = dto.getBranch();
 				
 				List<NoticeBoardDTO> boardlist;
-				List<String>pageNavi;//페이지 네비게이션 리스트
+				List<String>pageNavi;
 				
 					if(((category==null)&(keyWord==null))||(category.contentEquals("") & keyWord.contentEquals(""))) {
 						System.out.println("my class/my branch");
@@ -97,36 +97,35 @@ public class NoticeBoardController extends HttpServlet {
 				System.out.println(boardlist);
 				request.setAttribute("boardlist", boardlist);
 				
-				pageNavi =nbdao.getPageNavi(mykhclass,myBranch,cpage,category,keyWord);//페이지 네비게이션에 capge,category, keyword 인자 값을 받음
+				pageNavi =nbdao.getPageNavi(mykhclass,myBranch,cpage,category,keyWord);//�럹�씠吏� �꽕鍮꾧쾶�씠�뀡�뿉 capge,category, keyword �씤�옄 媛믪쓣 諛쏆쓬
 				request.setAttribute("navi", pageNavi);
 
-				//카테고리, 키워드 request에 담아라!
 				request.setAttribute("category", category);
 				request.setAttribute("keyword", keyWord);
-				
-				request.setAttribute("count", ncdao); //댓글 수 출력 
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("count", ncdao); 
 				RequestDispatcher rd = request.getRequestDispatcher("kh/notice/NBlist.jsp");
 				rd.forward(request, response);
 				
-			}else if(url.contentEquals("/detailView.nboard")) { //공지게시판 상세보기
+			}else if(url.contentEquals("/detailView.nboard")) { //상세보기
 			
 				request.setAttribute("dto", dto);
 				
 				int boardseq = Integer.parseInt(request.getParameter("seq"));			
 				nbdao.viewCountPlus(boardseq);//조회수
 
-				NoticeBoardDTO nbdto = nbdao.detailView(boardseq); //상세 보기
+				NoticeBoardDTO nbdto = nbdao.detailView(boardseq);
 				System.out.println("게시글 번호 :"+boardseq);
 				request.setAttribute("view", nbdto);
 				 
 
-				List<NoticeFilesDTO>fileList = nfdao.selectAll(boardseq); //첨부파일 목록 출력	
-				System.out.println("파일이 비어 있나요? "+fileList.isEmpty());//파일이 있나요?
-				request.setAttribute("filelist", fileList);//파일리스트를 request애 담는다.
+				List<NoticeFilesDTO>fileList = nfdao.selectAll(boardseq); 	
+				System.out.println("파일이 비워있나요? "+fileList.isEmpty());
+				request.setAttribute("filelist", fileList);
 
-				request.setAttribute("count", ncdao); //댓글 수 출력 
-				List<NoticeCommentsDTO> list =ncdao.CommentsList(boardseq);//댓글리스트				
-				request.setAttribute("reply", list); //댓글리스트를 request를 담는다.
+				request.setAttribute("count", ncdao); //댓글 dao
+				List<NoticeCommentsDTO> list =ncdao.CommentsList(boardseq);//댓글 리스트			
+				request.setAttribute("reply", list); 
 				
 				request.getRequestDispatcher("kh/notice/NBdetailView.jsp").forward(request, response);			
 

@@ -97,7 +97,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"><strong>내용</strong></label> <label id ="content">( <label id ="content_length">0</label>/ 200) </label>
-                <textarea class="form-control" id="inquire_contents" name ="inquire_contents"  rows="6"></textarea>
+                <textarea class="form-control" id="inquire_contents" name ="inquire_contents"  rows="6" required></textarea>
                 </div>
                 <div class ="btn_container">
                 <button type="submit" class="btn btn-light" id="submit_btn" >Submit</button>

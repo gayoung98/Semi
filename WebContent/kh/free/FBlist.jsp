@@ -181,10 +181,10 @@ $(function(){
 			<div class="col-12 col-md-2 d-none d-md-block">조회수</div>
 		</div>
 
-		<c:forEach var="i" items="${boardlist}">
+		<c:forEach var="i" items="${boardlist}"  varStatus="s">
 			<div class="row second list_contents">
 
-				<div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
+				<div class="col-1 col-md-1 d-none d-md-block">${s.count}</div>
 				<div class="col-12 col-md-1">${i.branch}</div>
 				<div class="col-12 col-md-4 title">
 					<a href="detailView.fboard?seq=${i.seq}">${i.title}</a>

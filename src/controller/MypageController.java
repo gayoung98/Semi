@@ -102,7 +102,7 @@ public class MypageController extends HttpServlet{
 				request.getRequestDispatcher("kh/Mypage/mypage.jsp").forward(request, response);
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				response.sendRedirect("error.jsp");
 				e.printStackTrace();
 			}
 			break;
@@ -113,7 +113,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("profile_img",pfd.getFile(mpd.getID(session)));
 				request.getRequestDispatcher("kh/Mypage/modify.jsp").forward(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				response.sendRedirect("error.jsp");
 				e.printStackTrace();
 			}
 			break;
@@ -141,7 +141,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("update_result", result);
 				request.getRequestDispatcher("/mypage.mp").forward(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				response.sendRedirect("error.jsp");
 				e.printStackTrace();
 			}
 			break;	
@@ -175,7 +175,7 @@ public class MypageController extends HttpServlet{
 					response.sendRedirect("picture_change.mp?origin="+ctxPath+"/profile/"+session+"/"+temp+"&change_result=false");
 				} 
 			}catch (Exception e) {
-				e.printStackTrace();
+				response.sendRedirect("error.jsp");
 			}
 			 break;
 			 
@@ -184,7 +184,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("inquired",  idao.getDTO(Integer.parseInt(request.getParameter("seq"))));
 				request.getRequestDispatcher("kh/inquired/inquiredPopup.jsp").forward(request, response);
 			} catch (Exception e) {
-				e.printStackTrace();
+				response.sendRedirect("error.jsp");
 			} 
 			break;
 			
@@ -193,7 +193,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("inquiredList", idao.getList((String)request.getSession().getAttribute("login")));
 				request.getRequestDispatcher("kh/inquired/inquiredList.jsp").forward(request, response);
 			} catch (Exception e) {
-				// TODO: handle exception
+				response.sendRedirect("error.jsp");
 			}
 			
 			break;
@@ -204,7 +204,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("calander",cd.getCoursePeriod(md.getAllInfo((String)request.getSession().getAttribute("login"))));
 				request.getRequestDispatcher("kh/inquired/studentList.jsp").forward(request, response);
 			} catch (Exception e) {
-				e.getStackTrace();
+				response.sendRedirect("error.jsp");
 				System.out.println(e.getMessage());
 			}
 			break;
@@ -223,7 +223,7 @@ public class MypageController extends HttpServlet{
 				}
 				request.getRequestDispatcher("kh/inquired/detailviewst.jsp").forward(request, response);
 			} catch (Exception e2) {
-				// TODO Auto-generated catch block
+				response.sendRedirect("error.jsp");
 				e2.printStackTrace();
 			}
 			break;
@@ -233,7 +233,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("inquired", idao.getDTO(seq));
 				request.getRequestDispatcher("kh/inquired/updateInquired.jsp").forward(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				response.sendRedirect("error.jsp");
 				e.printStackTrace();
 			}
 			break;
@@ -254,7 +254,7 @@ public class MypageController extends HttpServlet{
 			request.setAttribute("seq",temp_id.getSeq());
 			request.getRequestDispatcher("kh/inquired/updateResult.jsp").forward(request, response);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
+				response.sendRedirect("error.jsp");
 				e1.printStackTrace();
 			}
 			break;	
@@ -267,6 +267,7 @@ public class MypageController extends HttpServlet{
 				request.setAttribute("seq",Integer.parseInt(request.getParameter("seq")));
 				request.getRequestDispatcher("kh/inquired/updateResult.jsp").forward(request, response);
 			} catch (Exception e) {
+				e.printStackTrace();
 				response.sendRedirect("error.jsp");				
 			}
 			break;
