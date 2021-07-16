@@ -22,7 +22,7 @@
     $(function(){
     
     	$("#inquired_btn").on("click",function(){
-    		let popup = window.open('${pageContext.request.contextPath}/inquired/popup.jsp', 'inquire', 'width=550px,height=600px,scrollbars=no,resizable=no');
+    		let popup = window.open('${pageContext.request.contextPath}/kh/inquired/popup.jsp', 'inquire', 'width=550px,height=600px,scrollbars=no,resizable=no');
     	})
     	
     	 $("#close_popup").on("click", function(){
