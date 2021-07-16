@@ -84,7 +84,6 @@
 					padding:0;
 					margin-left:20px;
 					mid-height: 100%;
-					height: 500px;
 					width: 95%;
 					border: 1px solid #ddd;
 					border-radius: 10px;
