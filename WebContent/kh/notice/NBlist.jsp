@@ -142,10 +142,10 @@ $(document).on('click', '#navbarDropdownMenuLink', function() {
             <div class="col-12 col-md-2 d-none d-md-block">조회수</div>
         </div>
 
-   <c:forEach var="i" items="${boardlist}">
+   <c:forEach var="i" items="${boardlist}" varStatus="s">
             <div class="row second">
             
-                <div class="col-1 col-md-1 d-none d-md-block">${i.seq}</div>
+                <div class="col-1 col-md-1 d-none d-md-block">${s.count}</div>
                 <div class="col-12 col-md-2">${i.branch}/ ${i.khClass} </div>
                 <div class="col-12 col-md-3 title" ><a href="${pageContext.request.contextPath}/detailView.nboard?seq=${i.seq}">${i.title}</a> [${count.replyCount(i.seq)}]</div>
                 <div class="col-3 col-md-2  d-md-block">${i.writer} </div>
