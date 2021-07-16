@@ -138,9 +138,9 @@ a{
 			<div class="col-1"></div>
 		</div>
 
-		<c:forEach var="item" items="${assList}">
+		<c:forEach var="item" items="${assList}" varStatus="s">
 			<div class="row list" style="overflow: hidden">
-				<div class="col-1 seq">${item.seq }</div>
+				<div class="col-1 seq">${s.count}</div>
 				<div class="col-4">
 					<a href="view.ass?ass_seq=${item.seq}"><b>${item.title }</b></a>
 				</div>
