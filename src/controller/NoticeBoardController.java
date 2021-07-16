@@ -33,9 +33,9 @@ import config.FileConfig;
 
 @WebServlet("*.nboard")
 public class NoticeBoardController extends HttpServlet {
-	private String XSSFilter(String target) { //XSS 怨듦꺽 諛⑹뼱�븯�뒗 諛⑸쾿
+	private String XSSFilter(String target) { 
 	if(target!=null) {
-		target =target.replaceAll("<", "&lt;"); //<瑜� %lt(less than)�쑝濡� 諛붽씀寃좊떎.<script> 湲곕뒫�쓣 �옉�룞�쓣 �븞�븳�떎.=> %ltscript>�씠�젃寃� �굹���깂!!
+		target =target.replaceAll("<", "&lt;"); 
 		target =target.replaceAll(">", "&gt;");
 		target =target.replaceAll("&", "&amp;");
 		}
@@ -50,7 +50,7 @@ public class NoticeBoardController extends HttpServlet {
 		String ctxPath = request.getContextPath();
 
 		String url = requestURI.substring(ctxPath.length());
-		System.out.println("�슂泥� 紐낅졊 :" + url);
+		System.out.println("요청 명령 :" + url);
 
 		try {
 			NoticeBoardDAO nbdao = NoticeBoardDAO.getInstance();
@@ -61,16 +61,16 @@ public class NoticeBoardController extends HttpServlet {
 			MemberDTO dto = mdao.getMainInfo(email);
 			
 
-			if(url.contentEquals("/list.nboard")) { //怨듭�寃뚯떆�뙋 由ъ뒪�듃 異쒕젰
-				//寃��깋湲곕뒫 異붽�
-				String category =request.getParameter("category"); //移댄뀒怨좊━ 
-				String keyWord =request.getParameter("keyword"); //寃��깋�뼱 �엯�젰
+			if(url.contentEquals("/list.nboard")) { //리스트 출력
+			
+				String category =request.getParameter("category");
+				String keyWord =request.getParameter("keyword"); 
 	            keyWord= XSSFilter(keyWord);
 
 				int cpage =Integer.parseInt(request.getParameter("cpage"));
-				System.out.println("�쁽�옱�럹�씠吏�: "+ cpage);
-				System.out.println("移댄뀒怨좊━: "+ category);
-				System.out.println("寃��깋�뼱: "+ keyWord);
+				System.out.println("현재페이지: "+ cpage);
+	            System.out.println("카테고리: "+ category);
+	            System.out.println("검색어: "+ keyWord);
 
 				int endNum= cpage* BoardConfig.Recode_Count_Per_Page;
 				int startNum =endNum-(BoardConfig.Navi_Count_Per_Page-1);
@@ -80,7 +80,7 @@ public class NoticeBoardController extends HttpServlet {
 				String myBranch = dto.getBranch();
 				
 				List<NoticeBoardDTO> boardlist;
-				List<String>pageNavi;//�럹�씠吏� �꽕鍮꾧쾶�씠�뀡 由ъ뒪�듃
+				List<String>pageNavi;
 				
 					if(((category==null)&(keyWord==null))||(category.contentEquals("") & keyWord.contentEquals(""))) {
 						System.out.println("my class/my branch");
@@ -100,33 +100,32 @@ public class NoticeBoardController extends HttpServlet {
 				pageNavi =nbdao.getPageNavi(mykhclass,myBranch,cpage,category,keyWord);//�럹�씠吏� �꽕鍮꾧쾶�씠�뀡�뿉 capge,category, keyword �씤�옄 媛믪쓣 諛쏆쓬
 				request.setAttribute("navi", pageNavi);
 
-				//移댄뀒怨좊━, �궎�썙�뱶 request�뿉 �떞�븘�씪!
 				request.setAttribute("category", category);
 				request.setAttribute("keyword", keyWord);
 				request.setAttribute("cpage", cpage);
-				request.setAttribute("count", ncdao); //�뙎湲� �닔 異쒕젰 
+				request.setAttribute("count", ncdao); 
 				RequestDispatcher rd = request.getRequestDispatcher("kh/notice/NBlist.jsp");
 				rd.forward(request, response);
 				
-			}else if(url.contentEquals("/detailView.nboard")) { //怨듭�寃뚯떆�뙋 �긽�꽭蹂닿린
+			}else if(url.contentEquals("/detailView.nboard")) { //상세보기
 			
 				request.setAttribute("dto", dto);
 				
 				int boardseq = Integer.parseInt(request.getParameter("seq"));			
-				nbdao.viewCountPlus(boardseq);//議고쉶�닔
+				nbdao.viewCountPlus(boardseq);//조회수
 
-				NoticeBoardDTO nbdto = nbdao.detailView(boardseq); //�긽�꽭 蹂닿린
-				System.out.println("寃뚯떆湲� 踰덊샇 :"+boardseq);
+				NoticeBoardDTO nbdto = nbdao.detailView(boardseq);
+				System.out.println("게시글 번호 :"+boardseq);
 				request.setAttribute("view", nbdto);
 				 
 
-				List<NoticeFilesDTO>fileList = nfdao.selectAll(boardseq); //泥⑤��뙆�씪 紐⑸줉 異쒕젰	
-				System.out.println("�뙆�씪�씠 鍮꾩뼱 �엳�굹�슂? "+fileList.isEmpty());//�뙆�씪�씠 �엳�굹�슂?
-				request.setAttribute("filelist", fileList);//�뙆�씪由ъ뒪�듃瑜� request�븷 �떞�뒗�떎.
+				List<NoticeFilesDTO>fileList = nfdao.selectAll(boardseq); 	
+				System.out.println("파일이 비워있나요? "+fileList.isEmpty());
+				request.setAttribute("filelist", fileList);
 
-				request.setAttribute("count", ncdao); //�뙎湲� �닔 異쒕젰 
-				List<NoticeCommentsDTO> list =ncdao.CommentsList(boardseq);//�뙎湲�由ъ뒪�듃				
-				request.setAttribute("reply", list); //�뙎湲�由ъ뒪�듃瑜� request瑜� �떞�뒗�떎.
+				request.setAttribute("count", ncdao); //댓글 dao
+				List<NoticeCommentsDTO> list =ncdao.CommentsList(boardseq);//댓글 리스트			
+				request.setAttribute("reply", list); 
 				
 				request.getRequestDispatcher("kh/notice/NBdetailView.jsp").forward(request, response);			
 
