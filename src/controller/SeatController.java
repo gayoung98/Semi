@@ -58,10 +58,11 @@ public class SeatController extends HttpServlet {
 							dao.insert(date, email, name, (String)request.getParameter("seatNumber"));
 							deleteSame = dao.deleteSame(dao.min(name, seat_number), name, seat_number);
 							response.getWriter().append(request.getParameter("seatNumber"));
-						}
+						
 					}else {
 						//�씠誘� �꽑�깮�뻽�뒗�뜲 �떎瑜� 醫뚯꽍 �늻瑜쇰븣
 						response.getWriter().append("already");
+					}
 					}
 				}else {
 					//14紐� �떊泥��뻽�쓣�븣
