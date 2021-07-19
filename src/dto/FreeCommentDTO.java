@@ -4,8 +4,17 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class FreeCommentDTO {
-	
-	
+//	create table freeComment( 
+//			seq number primary key,
+//			id varchar2(20) not null,
+//			writer varchar2(100) not null,
+//			comments varchar2(300) not null,
+//			write_date timestamp not null,
+//			parent number default 0,
+//			foregin key(parent) references freeboard(seq) on delete cascade
+//			);
+//			create sequence freeComment_seq start with 1 increment by 1 nocache nomaxvalue;
+//	
 	private int seq;
 	private String id;
     private String name;

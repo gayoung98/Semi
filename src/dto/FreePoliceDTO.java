@@ -3,7 +3,16 @@ package dto;
 import java.sql.Date;
 
 public class FreePoliceDTO {
-	
+//	create table freepolice(
+//			seq number primary key,
+//			id varchar2(20) not null,
+//			contents varchar2(100) not null,
+//			parent number default 0,
+//			parent references freeboard(seq) on delete cascade,
+//			reg_date date default sysdate not null,
+//			foregin key(parent) references freeboard(seq) on delete cascade
+//			);
+//			create sequence freepolice_seq start with 1 increment by 1 nocache nomaxvalue;
 	private int seq;
 	private String id;
 

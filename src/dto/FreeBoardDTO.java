@@ -4,7 +4,19 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class FreeBoardDTO {
-	
+//	create table freeBoard(   
+//			seq number primary key,
+//			branch varchar2(10) not null,
+//			writer varchar2(100),
+//			title varchar2(200) not null,
+//			contents varchar2(4000) not null,
+//			id varchar(20) not null,
+//			write_date timestamp not null,
+//			viewCount number not null,
+//			policeCount number not null,
+//			foreign key (writer) references kh_member(email) on delete cascade
+//			);
+//			create sequence freeBoard_seq start with 1 increment by 1 nocache nomaxvalue;
 	 
 	private int seq;
 

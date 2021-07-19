@@ -4,6 +4,17 @@ import java.sql.Date;
 
 public class NoticeFilesDTO {
 	
+//	create table noticeFiles(
+//			seq number primary key,
+//			oriName varchar2(400) not null,
+//			sysName varchar2(400) not null,
+//			reg_date date default sysdate not null,
+//			parent number default 0,
+//			foregin key(parent) references noticeboard(seq) on delete cascade
+//			);
+//
+//			create sequence noticeFiles_seq start with 1 increment by 1 nocache nomaxvalue;
+	
 	    private int seq;
 
 	    private String oriName;
