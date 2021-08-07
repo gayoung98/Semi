@@ -3,7 +3,14 @@ package dto;
 import java.sql.Date;
 
 public class FreeFilesDTO {
-	
+//	 create table freeFiles(
+//			 seq number primary key,
+//			 oriName varchar2(400),
+//			 sysName varchar2(400),
+//			 reg_date date default sysdate not null,
+//			 foregin key(parent) references freeboard(seq) on delete cascade
+//			 );
+//			 create sequence freeFiles_seq start with 1 increment by 1 nocache nomaxvalue;
 
 	private int seq;
 	private String oriName;

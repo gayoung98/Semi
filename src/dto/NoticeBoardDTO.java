@@ -4,7 +4,18 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class NoticeBoardDTO {
-	
+//	create table noticeBoard(
+//			seq number primary key,
+//			writer varchar2(100) not null,
+//			title varchar2(200) not null,
+//			contents varchar2(4000) not null,
+//			write_date timestmp not null,
+//			khClass varchar2(10) not null,
+//			branch varchar2(10) not null,
+//			viewCount number not null,
+//			foreign key (writer) references kh_member(email) on delete cascade
+//			);
+//	create sequence noticeBoard_seq start with 1 increment by 1 nocache nomaxvalue;
 
 		private int seq;
 	 	private String writer;
