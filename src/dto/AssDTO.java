@@ -3,6 +3,24 @@ package dto;
 import java.sql.Date;
 
 public class AssDTO {
+	
+//	create table ass(
+//		    seq number primary key,
+//		    writer constraints a_writer_fk references kh_member(email) on delete set null,
+//		    id varchar2(20),
+//		    title varchar2(200),
+//		    contents varchar2(4000),
+//		    khClass varchar2(10),
+//		    branch varchar2(10),
+//		    write_date date,
+//		    viewCount number
+//		);
+	
+//	create sequence ass_seq start with 1 increment by 1 nocache nomaxvalue;
+	
+//	create table ass_seq_table(
+//		    ass_seq number primary key
+//		);
 
 	private int seq;
 	private String writer;

@@ -111,11 +111,15 @@ body {
 
 						$(".ql-editor").on('blur', function() {
 
-							var myEditor = document.querySelector('#editor');
+							var myEditor = document.querySelector('#editor'); //getElement랑 비슷.
 							var html = myEditor.children[0].innerHTML;
+							//editor에 작성한 내용은 작성한 텍스트 뿐만아니라 태그와 스타일이 적용되어 있음. 이 html가져오기
 							$("#contents").html(html);
+							//작성한 내용을 임의로 만든 (display:none) textarea에 넣는 코드.
 
-						});
+						}); //#submit on "click"도 생각해보았으나 순서가 꼬여서 내용이 담기지 않고 넘어감.
+							//이 때, function이 실행되는 시점이 퀼에디터를 클릭했다 나가는 시점이기 때문에
+							//퀼에디터에 focus를 준 적이 없으면 그냥 내용 없이 넘어감!
 					</script>
 				</div>
 

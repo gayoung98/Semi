@@ -3,6 +3,18 @@ package dto;
 import java.sql.Date;
 
 public class AssSubmitDTO {
+	
+//	create table assSubmit(
+//		    seq number primary key,
+//		    writer constraints as_writer_fk references kh_member(email) on delete set null,
+//		    id varchar2(20),
+//		    oriName varchar2(400),
+//		    sysName varchar2(400),
+//		    reg_date Date default sysdate,
+//		    parent constraints as_parent_fk references ass(seq) on delete cascade
+//		);
+	
+//	create sequence assSubmit_seq start with 1 increment by 1 nocache nomaxvalue;	
 
 	private int seq;
 	private String writer;
