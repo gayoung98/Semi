@@ -3,6 +3,17 @@ package dto;
 import java.sql.Date;
 
 public class TypingDTO {
+	
+//	create table typing(
+//		    seq number primary key,
+//		    writer constraints typ_writer_fk references kh_member(email) on delete cascade,
+//		    id varchar2(20),
+//		    record number default 0,
+//		    accuracy number default 0,
+//		    reg_date Date default sysdate
+//		);
+	
+//	create sequence typing_seq start with 1 increment by 1 nocache nomaxvalue;
 
 	private int seq;
 	private String writer;

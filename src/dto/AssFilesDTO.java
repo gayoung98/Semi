@@ -4,6 +4,16 @@ import java.sql.Date;
 
 public class AssFilesDTO {
 	
+//	create table assFiles(
+//		    seq number primary key,
+//		    oriName varchar(400),
+//		    sysName varchar(400),
+//		    reg_date Date default sysdate,
+//		    parent constraints af_parent_fk references ass(seq) on delete cascade 
+//		);
+	
+//	create sequence assFiles_seq start with 1 increment by 1 nocache nomaxvalue;
+	
 	private int seq;
 	private String oriName;
 	private String sysName;

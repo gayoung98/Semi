@@ -69,7 +69,17 @@ body {
 </style>
 <script>
 	$(function() {
-
+		
+		//quill editor에 마우스를 올렸다가 다른 부분을 클릭했을 때 작동하는
+		//on blur를 사용한 코드는 html 내용을 가져가는 방식은
+		//modify 영역에서는 문제가 있음.
+		
+		//제목만 바꾸거나, 파일만 바꾸고 싶다든지 할 때에는 애초에 editor에 마우스를 클릭하지 않았을 수 있음.
+		//그렇게 되면 기존 내용이 담겨오는 게 아니라 그냥 담긴 내용이 없이 날라감.
+		
+		//이를 보완하기 위해 페이지 로딩 직후 기존에 넣어놨던 내용을 textarea에 넣어주는 코드를 넣어둠.
+		//이걸 넣어주면, 마우스를 에디터에 넣었다가 나오지 않아도 기존 내용이 넘어가게끔 해결!
+		
 		var myEditor = document.querySelector('#editor');
 		var html = myEditor.children[0].innerHTML;
 		$("#contents").html(html);
